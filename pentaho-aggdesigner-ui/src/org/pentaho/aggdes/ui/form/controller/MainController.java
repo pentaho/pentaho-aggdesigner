@@ -378,7 +378,7 @@ public class MainController extends AbstractXulEventHandler {
       public void run() {
         try {
           edu.stanford.ejalbert.BrowserLauncher launcher = new edu.stanford.ejalbert.BrowserLauncher(null);
-          File userGuideFile = new File("doc/aggregation_designer_user_guide.pdf"); //$NON-NLS-1$
+          File userGuideFile = new File("doc/aggregate_designer_user_guide.pdf"); //$NON-NLS-1$
           launcher.openURLinBrowser("file:" + userGuideFile.getAbsolutePath()); //$NON-NLS-1$
         }
         catch (BrowserLaunchingInitializingException ex) {
