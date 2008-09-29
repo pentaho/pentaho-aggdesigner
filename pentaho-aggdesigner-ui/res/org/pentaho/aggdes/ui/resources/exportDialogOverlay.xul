@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<overlay 
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <dialog id="export_dialog" height="500">
+    
+    <groupbox id="populate_groupbox">
+      <caption label="${populate_aggs}"/>
+      <label value="${populate_caption}"/>
+      
+      <hbox>
+        <spacer flex="1"/>
+        <button id="relationalExecuteButton" label="${execute}" onclick="exportHandler.startExecuteDml()"/>
+        <button id="relationalSaveButton" label="${export}" onclick="exportHandler.saveDml()" />
+      </hbox>
+    </groupbox>
+    
+    <groupbox id="publish_groupbox">
+      <caption label="${publish_schema}"/>
+      <label value="${publish_caption}"/>
+      
+      <hbox>
+        <spacer flex="1"/>
+        <button id="relationalExecuteButton" label="${publish}" onclick="publishController.publishSchema()"/>
+        <button id="relationalSaveButton" label="${export}" onclick="exportHandler.saveOlap()" />
+      </hbox>
+    </groupbox>
+    
+  </dialog>
+  
+  <tabpanels id="preview_tabpanels">
+
+    <tabpanel flex="1" id="dml_tabpanel">
+      <vbox flex="1">
+        <textbox id="dmlField" value="lorem ipsum" flex="1" multiline="true" readonly="true" />
+      </vbox>
+      <hbox>
+        <spacer flex="1"/>
+        <button id="save" label="${save}" onclick="exportHandler.saveDml()" />
+        
+        <button id="copyClipboard" label="${copy_to_clipboard}" onclick="exportHandler.copyDmlToClipboard()" />
+      </hbox>
+    </tabpanel>
+    
+    <tabpanel flex="1" id="olap_tabpanel">
+      <vbox flex="1">
+        <textbox id="multiDimSchemaField" value="lorem ipsum" flex="1" multiline="true" readonly="true" />
+      </vbox>
+      <hbox>
+        <spacer flex="1"/>
+        <button id="save" label="${save}" onclick="exportHandler.saveOlap()" />
+        
+        <button id="copyClipboard" label="${copy_to_clipboard}" onclick="exportHandler.copyToClipboardMultiDimPreview()" />
+      </hbox>
+    </tabpanel>
+    
+  </tabpanels>
+  
+  <tabs id="preview_tabs">
+    <tab label="${dml}" id="dmlTab" />
+    <tab label="${schema_tab}" id="schemaTab"/>
+  </tabs>
+  
+</overlay>

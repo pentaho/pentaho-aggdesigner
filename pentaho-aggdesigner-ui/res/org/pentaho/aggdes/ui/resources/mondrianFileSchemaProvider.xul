@@ -1,0 +1,13 @@
+<overlay>
+  <radiogroup id="connection_radio_group">
+    <vbox>
+      <radio id="mondrianSelector" label="${mondrian_schema_file}:"
+        accessKey="M" disabled="true"/>
+      <hbox>
+        <textbox id="mondrianSchemaFileName" value="" flex="1" disabled="true"/>
+        <button id="fileSelector" label="..."
+          onclick="mondrianFileSchemaProvider.chooseFile()" disabled="true"/>
+      </hbox>
+    </vbox>
+  </radiogroup>
+</overlay>

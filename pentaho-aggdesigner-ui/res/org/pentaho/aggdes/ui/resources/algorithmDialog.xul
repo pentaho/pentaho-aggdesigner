@@ -1,0 +1,11 @@
+<dialog id="algorithm_dialog" onload="" buttonlabelcancel="${cancel}" buttonlabelaccept="${recommend}" buttons="accept,cancel"
+  ondialogcancel="algorithmController.closeDialog()" ondialogaccept="algorithmController.startAlgo()"  width="300"
+  height="275" buttonalign="right" title="${advisor_dialog_title}">
+  
+  <vbox id="algorithmPanel" flex="1">
+    <label value="${advisor_instructions}"/>
+    <separator/>
+    <vbox id="algorithmControlsPanel" />
+  </vbox>
+  
+</dialog>

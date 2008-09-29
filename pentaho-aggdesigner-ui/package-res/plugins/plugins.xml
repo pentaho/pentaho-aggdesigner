@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+  <!--  Default Connection Plugins -->
+  <bean id="mondrianSchemaLoader" class="org.pentaho.aggdes.model.mondrian.MondrianSchemaLoader"/>
+  <bean id="defaultSchemaGenerator" class="org.pentaho.aggdes.output.impl.MondrianSchemaGenerator" />
+  <bean id="fileSchemaProvider" class="org.pentaho.aggdes.ui.ext.impl.MondrianFileSchemaProvider">
+    <property name="connectionModel" ref="connectionModel" />
+    <property name="continueOnValidationErrors" value="true" />
+    <property name="validatorList" ref="validatorList" />
+    <property name="mondrianSchemaLoader" ref="mondrianSchemaLoader" />
+  </bean>
+
+  <!--Default Algorithm Plugins -->
+  <bean id="algorithm" class="org.pentaho.aggdes.algorithm.impl.AdaptiveMonteCarloAlgorithm" />
+  <bean id="algorithmUiExtension" class="org.pentaho.aggdes.ui.ext.impl.AdaptiveMonteCarloAlgorithmUIPlugin" />
+
+  <!-- Default Output Service Plugins -->
+  <bean id="defaultOutputFactory" class="org.pentaho.aggdes.output.impl.AggregateTableOutputFactory" />
+  <bean id="defaultCreateGenerator" class="org.pentaho.aggdes.output.impl.CreateTableGenerator" />
+  <bean id="defaultPopulateGenerator" class="org.pentaho.aggdes.output.impl.PopulateTableGenerator" />
+
+  <!-- Default UI Config Plugin -->
+  <bean id="uiConfig" class="org.pentaho.aggdes.ui.UIConfiguration">
+    <property name="lookAndFeel" value="system" />
+  </bean>
+  
+</beans>

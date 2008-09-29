@@ -1,0 +1,36 @@
+<dialog id="connection_dialog" onload="" buttonlabelcancel="${close}" buttonlabelaccept="${connect}" buttons="accept,cancel"
+  ondialogcancel="connectionController.hideConnectionDialog()" ondialogaccept="connectionController.connect()"  width="400"
+  height="570" buttonalign="right" title="${connection_dialog_title}" xmlns:pen="http://www.pentaho.org/2008/xul">
+
+	<groupbox>
+		<!-- START CUBE SELECTION -->
+		<caption label="${database_connection}" />
+		<hbox>
+			<label value="${database_label}" />
+			<label id="databaseName" flex="1" />
+			<button label="${configure}"
+				onclick="connectionController.loadDatabaseDialog()" />
+		</hbox>
+	</groupbox>
+	<groupbox>
+		<caption label="${olap_label}" />
+		<radiogroup id="connection_radio_group">
+		</radiogroup>
+    <hbox>
+      <spacer flex="1" />
+      <button label="${apply}" id="applySchemaSourceButton" onclick="connectionController.apply()" disabled="true"/>
+    </hbox>
+		<vbox>
+    <separator />
+			<label value="${cube}:" />
+
+			<menulist id="cubeSelector" label="${cube}" disabled="true">
+				<menupopup>
+					<menuitem label="${select_cube}" />
+				</menupopup>
+			</menulist>
+		</vbox>
+
+	</groupbox>
+
+</dialog>

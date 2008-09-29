@@ -1,0 +1,47 @@
+<html><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">	<head>		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />				<title>Pentaho Aggregation Designer, Release 1.0 M1</title>		<style type="text/css">		h1, h2, h3, h4,h5 {font-family:"arial", "helvetica", "sans-serif"}		h1 {font-size: 18px;color: #95a22c}		h2 {font-size: 16px;color: #95a22c}		h3 {font-size: 14px;color: #95a22c}		h4 {font-size: 12px;color: #95a22c}		h5 {font-size: 12px;color: #ED752A}		p {font-family:"arial","helvetica","sans-serif";font-size: 12px}		ul, ol{font-family:"arial","helvetica","sans-serif";font-size: 12px}		td{font-family:"arial","helvetica","sans-serif";font-size: 12px}	.style1 {	color: #95a22c;	font-weight: bold;}        </style></head><body><h1>Pentaho&reg; Aggregation Designer, Release 1.0 M1</h1><h2>Introduction</h2><p>Thank you for choosing the Pentaho Aggregation Designer. The Pentaho Aggregation Designer provides you with a simple interface that allows you to create aggregate tables from the levels and dimensions you specify. Based on these selections, the Aggregation Designer generates the Data Definition Language (DDL) for creating the aggregate tables, the Data Manipulation Language (DML) for populating them, and an updated Mondrian schema which references the new aggregate tables. For users unfamiliar with aggregate table design concepts, the Aggregation Designer also includes an intelligent advisor that evaluates the structure and cardinality of their OLAP cube and recommends some initial aggregate tables to create for improving performance.</p>
+		<p></p>
+		<p><b><i>Important</i></b>: Plug-ins for Teradata&reg; AJI support are not included in the open version of the Pentaho Aggregation Designer.</p>
+		<hr align="center" noshade size="2" width="100%" color="#ED752A" /><h2>Contents</h2><UL>  <LI><A href="#Included">What is Included in this Release?</A></LI>   <LI><A href="#Requirements">System Requirements</A></LI>    <LI><A href="#Installation">Installation Instructions</A></LI>  <LI><A href="#Support">Getting Support</A></LI>  <LI><A href="#Issues">Known Issues in this Release</A></LI>   </UL><hr align="center" noshade size="2" width="100%" color="#ED752A" />		<h2><A id=Included name=Included>What is Included in this Release</A></h2>
+		<p>This release includes the Pentaho Aggregation Designer and its accompanying User Guide.</p>
+		<p><b><i>Note</i></b>: See the <a href="http://wiki.pentaho.com/display/Surfboard/Pentaho+Aggregation+Designer+Plugin+Developer%27s+Guide" target=_new>Pentaho Aggregation Designer Plugin Developer's Guide</a> for information about developing extensions for the Pentaho Aggregation Designer. <br>
+			A PDF version of the <i>Pentaho Aggregation Designer User Guide</i> is available at  <a href="(Empty Reference!)">http://wiki.pentaho.com/display/Surfboard/Pentaho+Aggregation+Designer+User+Guide</a>.</p>
+		<p></p>
+		<h2><A id=Requirements name=Requirements>System Requirements</A></h2>
+		<p>The table below contains recommended system requirements for the Pentaho Aggregation Designer:</p>
+		<table border="1" cellspacing="0" cellpadding="2">			<tr>				<td width="150"><b>Requirement</b></td>				<td width="314"><b>Pentaho Aggregation Designer</b></td>											</tr>			<tr>				<td width="150">CPU</td>				<td width="314">1.5 GHz Processor</td>							</tr>			<tr>			<td width="150">Memory</td>			<td width="314">2 GB RAM</td>					</tr>				<tr>			<td width="150">Drive Space</td>			<td width="314">30 MB</td>					</tr>		<tr>			<td width="150">Java Virtual Machine</td>			<td width="314">Sun v 1.5 (5.0)</td>					</tr>  </table>
+		
+		<h3>Special Considerations</h3>
+		<ul>                 <li>The Pentaho Aggregation Designer and all tools require JVM 1.5; JVM 1.6 is not supported at this time.</li><br>
+			<li>To connect to your specific database, you must provide a JDBC Driver for your database in the Drivers directory of the Pentaho Aggregation Designer.</li>
+			<br>
+			<li>To deploy and use Mondrian Aggregate Tables successfully, you must enable aggregate table support on your Mondrian server. <br>
+                 For more information on aggregate table concepts and how to enable them in Mondrian, see <A href="http://mondrian.pentaho.org/documentation/aggregate_tables.php#Aggregate_properties" 
+                target=_new>Properties that Affect Aggregates</A>. 
+		</ul>
+		
+		<h2><A id=Installation name=Installation>Installation Instructions</A></h2>
+		<p>The <b>pad-open-1.0-xx.zip</b> file contains all the libraries and script files necessary to run Pentaho Aggregation Designer. To install the Pentaho Aggregation Designer, unzip this file into a directory of your choice.<br>
+		</p>
+		<h4><b>To launch the Aggregation Designer on Windows...</b><br>
+		</h4>
+		<p>Run the <b>startaggregationdesigner.bat</b> script located in the root of your installation directory.<br>
+		</p>
+		<h4><b>To launch the Aggregation Designer on Linux...</b><br>
+		</h4>
+		<p>Run the <b>startaggregationdesigner.sh</b> script located in the root of your installation directory.<br>
+		</p>
+		<p><b>Important</b>: Place your JDBC driver JARs in the Drivers directory. Once in this directory, the drivers are added to the classpath automatically when the Pentaho Aggregation Designer starts.</p>
+
+<h2><a id=Support name=Support>Getting Support</a></h2>
+<p>Professional support for the Pentaho Aggregation Designer is offered as part of a Pentaho Subscription. For more information, please visit <a href="(Empty Reference!)">http://www.pentaho.com/subscriptions/</a>.</p>
+		
+<h2><a id=Issues name=Issues>Known Issues in this Release</a></h2>
+		<p>The following is a list of known issues in this release. Read it carefully before installing the product:</p>
+		<ul>
+			<li>The use of Java 1.6 can cause performance issues when launching the open dialog. This is a known issue in Java 1.6. If you are experiencing this problem, install Java 1.5 or explicitly set your PATH to use a 1.5 JRE.</li><br>
+			<li>The Aggregate Advisor does not currently consider existing aggregations when making recommendations.</li><br>
+ </ul>
+<p><b><i>Note</i></b>: For a complete listing of open defects, see the <a href="http://jira.pentaho.com/secure/BrowseProject.jspa?id=10110" target=_new>JIRA backlog</a>. </p>
+		<p></p>
+		<hr align="center" noshade size="2" width="100%" color="#ED752A" />
+<P>Pentaho Corporation <BR>Citadel International, Suite 340<BR>5950 Hazeltine National Dr.<BR>Orlando, Florida 33309 USA <BR>407 812-OPEN (6736) <A href="http://www.pentaho.com/" target=_new><BR>http://www.pentaho.com/</A> </P><P class=date><strong>Pentaho Aggregation Designer</strong> - <strong>Readme Version 1.0</strong><br>Copyright © 2008 Pentaho Corporation</P></body></html>

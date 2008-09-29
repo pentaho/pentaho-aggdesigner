@@ -1,0 +1,15 @@
+<vbox>
+  <tree id="definedAggTable" flex="1" editable="true" seltype="single" onselect="aggListController.showAgg()"
+    onedit="aggListController.saveAggChange()" enableColumnDrag="false">
+    <treecols>
+      <treecol label="  " width="20" type="checkbox" editable="true" />
+      <treecol label="${type}" flex="2" />
+      <treecol label="${name}" flex="4" />
+      <treecol label="${row_count}" flex="2" type="text" />
+      <treecol label="${space_col}" flex="2" type="text" />
+    </treecols>
+    <treechildren>
+
+    </treechildren>
+  </tree>
+</vbox>

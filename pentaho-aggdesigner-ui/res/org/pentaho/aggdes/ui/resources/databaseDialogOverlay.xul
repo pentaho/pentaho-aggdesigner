@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<overlay 
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <listitem id="pooling-item" removeelement="true"/>
+  <listitem id="cluster-item" removeelement="true"/>
+  <groupbox id="pooling-group" removeelement="true"/>
+  <groupbox id="place-holder-box-2" removeelement="true"/>
+  <dialog id="general-datasource-window" title="${db_conn_dialog_title}"/>
+</overlay>

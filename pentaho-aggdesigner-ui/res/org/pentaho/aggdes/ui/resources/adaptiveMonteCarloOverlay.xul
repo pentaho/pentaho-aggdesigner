@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<overlay>
+  <vbox id="algorithmControlsPanel">
+    <label value="${max_aggregates}:"/>
+    <textbox id="maxAggregatesTextbox" type="numeric" value="" />
+    <label value="${max_run_time_seconds}:" />
+    <textbox id="maxTimeTextbox" type="numeric" value="" />
+    <!-- label value="${max_run_time_seconds}:" />
+    <textbox id="maxDiskSpaceTextbox" type="numeric" value="" />
+    <label value="${max_load_time_seconds}:" />
+    <textbox id="maxLoadTimeTextbox" type="numeric" value="" /-->
+  </vbox>
+</overlay>

@@ -1,0 +1,36 @@
+<vbox xmlns:pen="http://www.pentaho.org/2008/xul">
+  <vbox flex="1">
+  
+    <label value="${agg_edit_header}" />
+    <separator/>
+    <label value="${name}:" />
+    <textbox id="aggregateName" disabled="true"/>
+    <label value="${description}:" />
+    <textbox id="aggregateDescription" disabled="true"/>
+    <pen:line/>
+    <tabbox id="aggregateTabs" flex="1">
+      <tabs id="aggTabs">
+        <tab label="${agg_levels_tab_label}" />
+      </tabs>
+      <tabpanels id="aggTabpanels">
+        <tabpanel flex="1">
+          <vbox flex="1">
+            <tree id="dimtable" flex="1" editable="true" seltype="cell" enableColumnDrag="false">
+              <treecols>
+                <treecol label="${dimension}" flex="1" editable="false" pen:binding="dimensionName"/>
+                <treecol label="${level}" editable="true" type="combobox" flex="1" pen:binding="value=levelNames, selectedIndex=selectedIndex" />
+              </treecols>
+              <treechildren />
+            </tree>
+          </vbox>
+        </tabpanel>
+      </tabpanels>
+    </tabbox>
+  </vbox>
+  <pen:line/>
+  <hbox>
+    <spacer flex="1" />
+    <button label="${reset}" onclick="aggController.reset()" id="reset_agg_btn" disabled="true"/>
+    <button label="${apply}" onclick="aggController.apply()" id="apply_agg_btn" disabled="true"/>
+  </hbox>
+</vbox>

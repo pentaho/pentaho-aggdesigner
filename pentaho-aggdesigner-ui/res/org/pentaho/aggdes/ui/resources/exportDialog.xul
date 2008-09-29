@@ -1,0 +1,26 @@
+<dialog id="export_dialog" onload="" buttonlabelcancel="${close}" buttons="cancel"
+  ondialogcancel="exportHandler.closeDialog()" width="450"
+  height="300" buttonalign="center" title="${export_dialog_title}">
+  
+  <groupbox>
+    <caption label="${preview}"/>
+    <label value="${preview_caption}"/>
+    <hbox>
+      <spacer flex="1"/>
+      <button label="${preview}" onclick="exportHandler.showPreview()"/>
+    </hbox>
+  </groupbox>
+  
+  <groupbox>
+    <caption label="${create_aggs}"/>
+    <label value="${create_caption}"/>
+    
+    <hbox>
+      <spacer flex="1"/>
+      <button id="relationalExecuteButton" label="${execute}" onclick="exportHandler.startExecuteDdl()"/>
+      <button id="relationalSaveButton" label="${export}" onclick="exportHandler.saveDdl()" />
+    </hbox>
+  </groupbox>
+  
+  
+</dialog>

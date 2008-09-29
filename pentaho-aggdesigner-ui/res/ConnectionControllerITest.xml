@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- Schema Loader ==================================================================================================
+		Here you define your methods of obtaining an OLAP schema from the user.  The order in which the SchemaProvider
+		beans appear is the order the UI inputs will appear in the connection dialog.
+	-->
+	<bean id="fileSchemaProvider2" class="org.pentaho.aggdes.ui.ext.impl.MondrianFileSchemaProvider">
+		<property name="connectionModel" ref="connectionModel" />
+		<property name="continueOnValidationErrors" value="true" />
+		<property name="validatorList" ref="validatorList" />
+		<property name="mondrianSchemaLoader" ref="mondrianSchemaLoader" />
+	</bean>
+</beans>

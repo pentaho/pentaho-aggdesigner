@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="file://E:/workspaces/sprint_workspace/pentaho-xul/test/resource/documents/xul.css" type="text/css"?>
+<window id="agg_des_window" title="${title}" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  height="800" width="1024"
+  onload="mainController.onLoad(), aggController.onLoad(), aggListController.onLoad(), algorithmController.onLoad(), statusController.onLoad(), exportHandler.onLoad(), connectionController.onLoad()"
+  onclose="mainController.onClose()"
+  xmlns:pen="http://www.pentaho.org/2008/xul" pen:appicon="images/window_icon.png">
+
+  <pen:include src="org/pentaho/ui/database/databasedialog.xul">
+    <overlay src="databaseDialogOverlay.xul" />
+  </pen:include>
+  
+  <pen:include src="dialogs.xul" ignoreroot="true" />
+  
+  <pen:include src="mondrianConnectionDialog.xul" />
+  <pen:include src="algorithmDialog.xul" />
+  <pen:include src="exportDialog.xul" />
+    
+  <!-- <pen:include src="aggOverlay.xul" /> -->
+
+  <menubar id="findfiles-menubar">
+    <menu id="file-menu" label="${file_menu}" accesskey="f">
+      <menupopup id="file-popup">
+        <menuitem label="${file_new}" accesskey="n" command="mainController.newWorkspace()" />
+        <menuitem label="${file_open}" accesskey="o" command="mainController.openWorkspace()" />
+        <menuitem label="${file_save}" accesskey="s" command="mainController.saveWorkspace(false)" id="save_menuitem" disabled="true"/>
+        <menuitem label="${file_saveas}" accesskey="a" command="mainController.saveWorkspace(true)" id="save_as_menuitem" disabled="true"/>    
+        <menuseparator/>
+        <menuitem label="${export_publish}" accesskey="a" command="exportHandler.openDialog()" /> 
+        <menuseparator/>
+        <menuitem label="${exit}" accesskey="c" command="mainController.close()" />
+      </menupopup>
+    </menu>
+    <menu id="help-menu" label="${help_menu}" accesskey="h">
+      <menupopup id="help-popup">
+        <menuitem label="${user_guide}" accesskey="g" command="mainController.showUserGuide()"/>
+        <menuitem label="${about_menuitem}" accesskey="a" command="mainController.helpAboutOpen()" />
+      </menupopup>
+    </menu>
+  </menubar>
+
+  <vbox flex="1">
+    <hbox>
+      <button id="new_button" dir="forward" image="images/new.png" onclick="mainController.newWorkspace()" tooltiptext="${new_tip}"/>
+      <button id="open_button" dir="forward" image="images/open.png" onclick="mainController.openWorkspace()" tooltiptext="${open_tip}"/>
+      <button id="save_button" dir="forward" image="images/save.png" onclick="mainController.saveWorkspace(false)" tooltiptext="${save_tip}" disabled="true"/>
+      <button id="save_as_button" dir="forward" image="images/saveAs.png" onclick="mainController.saveWorkspace(true)" tooltiptext="${save_as_tip}" disabled="true"/>
+      <separator/>
+      <button id="open_datasource" dir="forward" image="images/dataConnection.png" label="${datasource}" onclick="connectionController.showConnectionDialog()" tooltiptext="${connection_tip}"/>
+      <button id="open_advisor" dir="forward" image="images/Advisor2.png" label="${advisor}" disabled="true" onclick="algorithmController.openDialog()" tooltiptext="${algo_tip}"/>
+      <button id="open_export" dir="forward" image="images/export.png" label="${export}" disabled="true" onclick="exportHandler.openDialog()" tooltiptext="${export_tip}"/>
+    </hbox>
+    <hbox flex="1">
+      
+      <vbox flex="4">
+        
+        <vbox flex="1">
+          <pen:include src="aggPanel.xul" ignoreroot="true" />
+         
+        </vbox>
+        
+      </vbox>
+    
+      <splitter />
+    
+    
+      <vbox flex="6">
+        <hbox bgcolor="#ffffff">
+          <image id="chart" src="images/chart.jpg" height="168" width="309" />
+          <vbox>
+            <hbox>
+              <label value="${num_aggs_label}"/>
+              <label id="num_aggs"/>
+            </hbox>
+            <hbox>
+              <label value="${num_rows_label}"/>
+              <label id="num_rows"/>
+          </hbox>
+          <hbox>
+              <label value="${disk_space_label}"/>
+              <label id="disk_space"/>
+            </hbox>
+            <!-- not displayed at this time, no unit of measure
+          <hbox>
+              <label value="${load_time_label}"/>
+              <label id="load_time"/>
+            </hbox>
+            -->
+          </vbox>
+          <spacer flex="1" />
+        </hbox>
+        <separator />
+        <hbox>
+          <button label="" id="agg_checkall" tooltiptext="${agg_checkall_tooltip}" dir="reverse" image="images/checkall.png" disabled="true" onclick="aggListController.checkAll()"/>
+          <button label="" id="agg_uncheckall" tooltiptext="${agg_uncheckall_tooltip}" dir="reverse" image="images/uncheck.png" disabled="true" onclick="aggListController.uncheckAll()"/>
+          <button label="" id="agg_up" image="images/up.png" tooltiptext="${agg_up_tooltip}" disabled="true" onclick="aggListController.moveAggUp()"/>
+          <button label="" id="agg_down" image="images/down.png" tooltiptext="${agg_down_tooltip}" disabled="true" onclick="aggListController.moveAggDown()"/>
+          <spacer flex="1"/>
+          <button label="${add}" dir="forward" image="images/add.png" tooltiptext="${add_agg_tooltip}" onclick="aggListController.addAgg()" id="agg_add_btn" disabled="true"/>
+          <button label="${remove}" dir="forward" image="images/delete.png" tooltiptext="${remove_agg_tooltip}" onclick="aggListController.removeAgg()" id="agg_remove" disabled="true"/>
+        </hbox>
+        <vbox flex="4">
+          <pen:include src="aggListPanel.xul" ignoreroot="true" />
+        </vbox>
+        <!-- 
+        <splitter />
+        <tabbox flex="3">
+          <tabs>
+            <tab label="${info_tab}" flex="1"/>
+            <tab label="${ddl_tab}" flex="1"/>
+            <tab label="${dml_tab}" flex="1"/>
+            <tab label="${schema_tab}" flex="1"/>
+          </tabs>
+          <tabpanels>
+          
+            <tabpanel>
+            </tabpanel>
+            
+            <tabpanel>
+            </tabpanel>
+            
+            <tabpanel>
+            </tabpanel>
+            
+            <tabpanel>
+            </tabpanel>
+            
+          </tabpanels>
+        </tabbox> -->
+      </vbox>
+      
+      
+    </hbox>
+  </vbox>
+  <statusbar>
+    <statusbarpanel id="connectionImage" image="images/disconnected.png" />
+    <spacer width="10"/>
+    <label value="${disconnected}" id="statusMessage"/>
+    <spacer flex="1" />
+  </statusbar>
+</window>

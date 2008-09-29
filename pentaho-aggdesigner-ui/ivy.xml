@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0">
+  <info organisation="${ivy.artifact.group}" module="${ivy.artifact.id}" revision="${project.revision}" />
+  <configurations>
+    <conf name="default" />
+    <conf name="test" visibility="private" />
+  </configurations>
+  <dependencies defaultconf="default->default">
+
+    <!--  external dependencies -->
+     
+    <dependency org="commons-lang"             name="commons-lang"       rev="2.4" />
+    <dependency org="commons-logging"          name="commons-logging"    rev="1.1"   transitive="false" />
+    <dependency org="commons-io"               name="commons-io"         rev="1.3.1" />
+    <dependency org="commons-httpclient"       name="commons-httpclient" rev="3.0.1" />
+    <dependency org="dom4j"                    name="dom4j"              rev="1.6.1" transitive="false" />
+    <dependency org="org.springframework"      name="spring"             rev="2.5.4" />
+    <dependency org="com.thoughtworks.xstream" name="xstream"            rev="1.3" /> 
+    
+    <!--  internal dependencies -->
+    
+    <dependency org="eigenbase"        name="eigenbase-xom"                           rev="1.1" />    
+    <dependency org="pentaho"          name="mondrian"                                rev="3.0.4">
+      <exclude org="commons-lang"  name="commons-lang"/>
+      <exclude org="javax.servlet" name="jsp-api" />
+      <exclude org="javax.servlet" name="servlet-api" />
+    </dependency>
+    <dependency org="pentaho"          name="pentaho-aggdesigner-core"                rev="${project.revision}" changing="true" />
+    <dependency org="pentaho"          name="pentaho-xul-core"                        rev="2.0.1" />
+    <dependency org="pentaho"          name="pentaho-database"                        rev="1.7.0-29181" />
+    <dependency org="pentaho.kettle"   name="kettle-core"                             rev="3.1.1"/>
+    <dependency org="pentaho"          name="pentaho-mondrianschemaworkbench-plugins" rev="1.0.27023"/>
+    <dependency org="jfree"            name="jcommon"                                 rev="1.0.12" />
+    <dependency org="jfree"            name="jfreechart"                              rev="1.0.9" />
+    <dependency org="browserlauncher2" name="browserlauncher2"                        rev="1.3" />
+    
+    <!--  internal runtime dependencies -->
+    
+    <dependency org="pentaho" name="launcher" rev="1.0.0" />
+    
+    <!-- test dependencies -->
+    
+    <dependency org="junit"               name="junit"                     rev="4.4"     conf="test->default"/>
+    <dependency org="org.jmock"           name="jmock"                     rev="2.4.0"   conf="test->default"/>
+    <dependency org="org.jmock"           name="jmock-junit4"              rev="2.4.0"   conf="test->default"/>
+    <dependency org="org.jmock"           name="jmock-legacy"              rev="2.4.0"   conf="test->default"/>
+    <dependency org="hsqldb"              name="hsqldb"                    rev="1.8.0.7" conf="test->default"/>
+    <dependency org="mysql"               name="mysql-connector-java"      rev="5.1.6"   conf="test->default"/>
+    <dependency org="org.springframework" name="spring-test"               rev="2.5.4"   conf="test->default"/>
+    <dependency org="org.springmodules"   name="spring-modules-validation" rev="0.8"     conf="test->default"/>
+    
+  </dependencies>
+</ivy-module>

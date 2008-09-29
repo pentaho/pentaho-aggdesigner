@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="file://E:/workspaces/sprint_workspace/pentaho-xul/test/resource/documents/xul.css" type="text/css"?>
+<window id="label-test" title="Pentaho Aggregate Join Index Utility"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:pen="http://www.pentaho.org/2008/xul"
+  height="600" width="800">
+
+  <dialog buttonlabelcancel="${stop}" buttons="cancel" ondialogcancel="algorithmController.stopAlgo()" id="progressDialog" width="300"
+    height="150" buttonalign="center" title="${algo_progress_title}">
+
+    <dialogheader title="${recommendations}" description="${please_wait}" />
+    <spacer height="8" />
+    <progressmeter mode="undetermined" />
+    <spacer flex="1" />
+  </dialog>
+  
+  <dialog buttonlabelcancel="${OK}" buttons="cancel" ondialogcancel="mainController.helpAboutClose()" id="helpAboutDialog" width="300"
+    height="300" buttonalign="center" title="${help_about_dialog_title}" onload="mainController.helpAboutLoad()" bgcolor="#ffffff" padding="0">
+    <image src="images/About.png"/>
+    <hbox><spacer flex="1"/><label value="${title}" /><spacer flex="1"/></hbox>
+    <hbox><spacer flex="1"/><label id="aboutVersion" /><spacer flex="1"/></hbox>
+    <hbox><spacer flex="1"/><label id="aboutCopyright" /><spacer flex="1"/></hbox>
+    <spacer flex="1" />
+  </dialog>
+
+  <dialog buttonlabelcancel="${OK}" buttons="cancel" ondialogcancel="mainController.validation1Done()" id="validationDialog1" width="500"
+    height="400" buttonalign="center" title="${validation_dialog_title}">
+    <spacer height="8" />
+    <label value="${validation_results_intro}" />
+    <spacer height="8" />
+    <vbox flex="1">
+      <textbox id="validationMessages" value="" flex="1" multiline="true" readonly="true" />
+    </vbox>
+    <spacer height="8" />
+  </dialog>
+
+  <dialog id="validationProgressDialog" width="300" height="150" title="${validating}">
+    <dialogheader title="${execution}" description="${please_wait}" />
+    <spacer height="8" />
+    <progressmeter mode="undetermined" />
+    <spacer flex="1" />
+  </dialog>
+
+  <dialog ondialogcancel="algorithmController.stopAlgo()" id="anonWaitDialog" width="300" height="150" buttonalign="center"
+    title="${please_wait}">
+
+    <dialogheader title="${please_wait}" description="${operation_in_progress}" />
+    <spacer height="8" />
+    <progressmeter mode="undetermined" />
+    <spacer flex="1" />
+  </dialog>
+
+  <dialog id="executeDdlDmlProgressDialog" width="300" height="150" title="${ddl_dml_progress}">
+    <dialogheader title="${execution}" description="${please_wait}" />
+    <spacer height="8" />
+    <progressmeter mode="undetermined" />
+    <spacer flex="1" />
+  </dialog>
+
+  <dialog onload="" buttonlabelcancel="${close}" buttons="cancel"
+    ondialogcancel="exportHandler.hideRelationalPreview()" id="relationalPreviewDialog" width="500"
+    height="400" buttonalign="center" title="${preview}">
+    <tabbox id="previewTabs" flex="1">
+      <tabs id="preview_tabs">
+        <tab label="${ddl}" id="ddlTab" />
+      </tabs>
+      <tabpanels id="preview_tabpanels">
+      
+        <tabpanel flex="1">
+          <vbox flex="1">
+            <textbox id="ddlField" value="lorem ipsum" flex="1" multiline="true" readonly="true" />
+          </vbox>
+          <hbox>
+            <spacer flex="1"/>
+            <button id="save" label="${save}" onclick="exportHandler.saveDdl()" />
+            <button id="copyClipboard" label="${copy_to_clipboard}" onclick="exportHandler.copyDdlToClipboard()" />
+
+          </hbox>
+        </tabpanel>
+        
+      </tabpanels>
+    </tabbox>
+    <spacer height="8" />
+  </dialog>
+  
+  <dialog buttonlabelcancel="${OK}" buttons="cancel" ondialogcancel="connectionController.connectErrorDialogDismiss()" id="connectErrorDialog" width="500"
+    height="400" buttonalign="center" title="${connect_error_dialog_title}">
+    <spacer height="8" />
+    <vbox flex="1">
+      <textbox id="connectErrorDialogMessage" value="" flex="1" multiline="true" readonly="true" />
+    </vbox>
+    <spacer height="8" />
+  </dialog>
+  
+
+</window>

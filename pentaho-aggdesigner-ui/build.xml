@@ -1,0 +1,100 @@
+<!--===========================================================================
+  This is the build file for the Pentaho BI Platform API project.
+  
+  This build file will use the common_build.xml file as the default build
+  process and should only override the tasks that need to differ from
+  the common build file.
+  
+  See common_build.xml for more details
+============================================================================-->
+<project name="Pentaho Aggregate Designer" basedir="." default="jar">
+
+  <description>
+	  This build file is used to create the API project
+		and works with the common_build.xml file.
+	</description>
+
+  <!-- Define the default location of the common build file -->
+  <property name="common.build.file"
+            value="./common_build.xml"
+            description="This is the location of the standardized common_build.xml file" />
+
+  <!-- Import the common_build.xml file which contains all the default tasks -->
+  <import file="${common.build.file}" />
+
+  <!--
+      AS STATED ABOVE, THE ONLY TASKS THAT SHOULD EXIST IN THIS BUILD FILE ARE
+      THE TASKS THAT NEED TO DIFFER FROM THE DEFAULT IMPLEMENTATION OF THE TASKS
+      FOUND IN common_build.xml.
+    -->
+
+  <property name="stage.dir" value="${bin.dir}/stage" description="Package staging" />
+  <property name="approot.stage.dir" value="${stage.dir}/aggregate-designer" description="Stage application root dir" />
+  <property name="productId" value="pad" />
+  <property name="releaseType" value="ce" />
+  <property name="package.basename" value="${productId}-${releaseType}-${project.revision}" />
+  <property name="package.zipfile" value="${dist.dir}/${package.artifact.id}-${project.revision}.zip" />
+  <property name="package.resdir" value="${basedir}/package-res" />
+
+  <target name="dist" depends="jar,package" description="Creates distribution of Pentaho Aggregation Designer" />
+
+  <target name="clean-dist" description="Removes all dist artifacts">
+	<delete dir="${dist.dir}" />
+  	<delete dir="${stage.dir}" />
+  </target>
+	
+  <!-- override of jar target.. this definitely should be moved into common build -->
+  <target name="jar"
+          depends="compile,set-build.id,create-version-file"
+          description="Jars up the bin directory after a compile">
+    <jar destfile="${dist.dir}/${ivy.artifact.id}-${project.revision}.jar">
+      <manifest>
+        <attribute name="Implementation-Title" value="${impl.title}" />
+        <attribute name="Implementation-Version" value="${project.revision}.${build.id}" />
+        <attribute name="Implementation-Vendor" value="${impl.vendor}" />
+        <attribute name="Implementation-ProductID" value="${impl.productID}" />
+      </manifest>
+      <fileset dir="${classes.dir}" />
+    </jar>
+  </target>
+
+
+  <target name="create-version-file">
+    <propertyfile file="${classes.dir}/version.properties" comment="${impl.title} build information">
+      <entry key="version" value="${project.revision}.${build.id}" />
+      <entry key="builddate" type="date" value="now" />
+    </propertyfile>
+  </target>
+
+  <target name="assemble">
+    <mkdir dir="${approot.stage.dir}" />
+    <copy todir="${approot.stage.dir}">
+      <fileset dir="${package.resdir}" />
+    </copy>
+    <copy todir="${approot.stage.dir}/lib">
+      <fileset dir="${lib.dir}" />
+      <fileset file="${dist.dir}/${ivy.artifact.id}-${project.revision}.jar" />
+    </copy>
+    <chmod perm="a+x" dir="${stage.dir}" includes="**/*.sh" />
+  </target>
+
+  <target name="package" depends="assemble,package-zip,package-targz" />
+
+  <target name="package-zip">
+    <zip destfile="${dist.dir}/${package.basename}.zip">
+      <zipfileset dir="${stage.dir}" />
+    </zip>
+  </target>
+
+  <target name="package-targz">
+    <tar destfile="${dist.dir}/${package.basename}.tar.gz" longfile="gnu" compression="gzip">
+      <tarfileset dir="${stage.dir}" mode="755">
+        <include name="**/*.sh" />
+      </tarfileset>
+      <tarfileset dir="${stage.dir}">
+        <exclude name="**/*.sh" />
+      </tarfileset>
+    </tar>
+  </target>
+
+</project>

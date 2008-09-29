@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+  <context:annotation-config />
+
+  <!-- ========================= APPLICATION CONFIGURATION ========================= -->
+  <bean id="xulLoader" class="org.pentaho.ui.xul.swing.SwingXulLoader" />
+  <bean id="xulRunner" class="org.pentaho.ui.xul.swing.SwingXulRunner" />
+  
+  <bean id="uiMain" class="org.pentaho.aggdes.ui.UIMain" autowire="byType" />
+  
+  <bean id="uiConfig" class="org.pentaho.aggdes.ui.UIConfiguration">
+    <property name="lookAndFeel" value="metal"/>
+    <property name="resourceBundle" value="org/pentaho/aggdes/ui/resources/mainFrame"/>
+  </bean>
+  
+  <!-- ========================= VALIDATION ========================= -->
+  <bean id="validatorList" class="java.util.ArrayList">
+  <constructor-arg>
+    <list>
+      <bean class="java.lang.String">
+        <constructor-arg value="org.pentaho.aggdes.model.mondrian.validate.CubePkValidator" />
+      </bean>
+      <bean class="java.lang.String">
+        <constructor-arg value="org.pentaho.aggdes.model.mondrian.validate.DimensionFkValidator" />
+      </bean>
+      <bean class="java.lang.String"> 
+        <constructor-arg value="org.pentaho.aggdes.model.mondrian.validate.HierarchyPkValidator" />
+      </bean>
+    </list>
+  </constructor-arg>
+  </bean>
+
+  <!-- ========================= ALGORITHM ==================================== -->
+  <bean id="algorithmRunner" class="org.pentaho.aggdes.ui.AlgorithmRunner">
+    <property name="algorithm" ref="algorithm" />
+    <property name="connectionModel" ref="connectionModel"/>
+  </bean>
+
+  <!-- ========================= SERVICES & UTILITIES ========================= -->
+  <bean id="outputService" class="org.pentaho.aggdes.output.impl.OutputServiceImpl" autowire="byType" />
+  <bean id="outputUIService" class="org.pentaho.aggdes.ui.OutputUIService" autowire="byType" />
+  <bean id="serializationService" class="org.pentaho.aggdes.ui.util.SerializationService">
+    <property name="aggList" ref="aggList"/>
+    <property name="connectionModel" ref="connectionModel" />
+  </bean>
+  <bean class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
+    <property name="ignoreResourceNotFound" value="true" />
+    <property name="location">
+      <value>classpath:aggdes.properties</value>
+    </property>
+  </bean>
+
+  <bean id="aggregateNamingService" class="org.pentaho.aggdes.ui.util.AggregateNamingServiceImpl"/>
+  
+  <bean class="org.pentaho.ui.xul.binding.DefaultBindingFactory" scope="prototype"/>
+
+  <!-- ========================= FORM MODEL BEANS ========================= -->
+  <bean id="connectionModel" class="org.pentaho.aggdes.ui.form.model.ConnectionModelImpl" autowire="byType"/>
+  <bean id="aggModel" class="org.pentaho.aggdes.ui.form.model.AggModel">
+  	<property name="algorithm" ref="algorithm"/>
+    <property name="connectionModel" ref="connectionModel"/>
+  </bean>
+  <bean id="aggregateSummaryModel" class="org.pentaho.aggdes.ui.form.model.AggregateSummaryModel" />
+  <bean id="aggList" class="org.pentaho.aggdes.ui.model.impl.AggListImpl" />
+  
+  <!-- ========================= FORM CONTROLLER BEANS ========================= -->
+  
+  
+  <bean class="org.pentaho.aggdes.ui.form.controller.MainController">
+    <property name="name" value="mainController" />
+    <property name="aggListController" ref="aggListController" />
+    <property name="serializationService" ref="serializationService"/>
+    <property name="aggList" ref="aggList"/>
+    <property name="workspace" ref="workspace"/>
+    <property name="connectionModel" ref="connectionModel"/>
+    <property name="connectionController" ref="connectionController"/>
+  </bean>
+
+  <bean id="aggListController" class="org.pentaho.aggdes.ui.form.controller.AggListController">
+    <property name="name" value="aggListController" />
+    <property name="outputService" ref="outputService" />
+    <property name="aggList" ref="aggList"/>
+    <property name="connectionModel" ref="connectionModel"/>
+    <property name="aggModel" ref="aggModel" />
+    <property name="aggregateNamingService" ref="aggregateNamingService"/>
+    <property name="aggregateSummaryModel" ref="aggregateSummaryModel"/>
+    <property name="algorithm" ref="algorithm" />
+    <property name="algorithmUiExtension" ref="algorithmUiExtension" />
+    <property name="workspace" ref="workspace"/>
+  </bean>
+
+  <bean class="org.pentaho.aggdes.ui.form.controller.AggController">
+    <property name="name" value="aggController" />
+    <property name="aggModel" ref="aggModel" />
+    <property name="aggList" ref="aggList"/>
+    <property name="outputService" ref="outputService" />
+    <property name="outputUIService" ref="outputUIService" />
+  </bean>
+
+  <bean id="dataHandler" class="org.pentaho.ui.database.event.DataHandler">
+    <property name="name" value="dataHandler" />
+  </bean>
+  
+  <bean class="org.pentaho.ui.database.event.FragmentHandler">
+    <property name="name" value="fragmentHandler" />
+  </bean>
+
+  <bean id="connectionController" class="org.pentaho.aggdes.ui.form.controller.ConnectionController">
+    <property name="name" value="connectionController"/>
+    <property name="connectionModel" ref="connectionModel"/>
+    <property name="dataHandler" ref="dataHandler"/>
+    <property name="workspace" ref="workspace" />
+    <property name="outputService" ref="outputService" />
+  </bean>
+  
+  
+  <bean id="algorithmController" class="org.pentaho.aggdes.ui.form.controller.AlgorithmController">
+    <property name="name" value="algorithmController" />
+    <property name="outputService" ref="outputService" />
+    <property name="algorithmRunner" ref="algorithmRunner" />
+    <property name="algorithmUiExtension" ref="algorithmUiExtension" />
+    <property name="aggregateNamingService" ref="aggregateNamingService"/>
+    <property name="aggList" ref="aggList"/>
+    <property name="connectionModel" ref="connectionModel"/>
+  </bean>
+
+  <bean id="exportHandler" class="org.pentaho.aggdes.ui.form.controller.ExportHandler">
+    <property name="name" value="exportHandler" />
+    <property name="ddlDmlExecutor">
+      <bean class="org.pentaho.aggdes.ui.exec.impl.JdbcTemplateSqlExecutor">
+        <property name="connectionModel" ref="connectionModel"/>
+      </bean>
+    </property>
+    <property name="outputService" ref="outputService" />
+    <property name="connectionModel" ref="connectionModel"/>
+    <property name="aggList" ref="aggList"/>
+    <property name="workspace" ref="workspace" />
+  </bean>
+
+  <bean class="org.pentaho.aggdes.ui.form.controller.StatusController">
+    <property name="name" value="statusController" />
+    <property name="connectionModel" ref="connectionModel"/>
+  </bean>
+
+  <bean id="publishController" class="org.pentaho.aggdes.ui.form.controller.PublishController">
+    <property name="name" value="publishController"/>
+    <property name="connectionModel" ref="connectionModel"/>
+    <property name="exportHandler" ref="exportHandler" />
+    <property name="workspace" ref="workspace" />
+  </bean>
+  
+  <bean id="workspace" class="org.pentaho.aggdes.ui.Workspace"/>
+  
+</beans>
