@@ -1,0 +1,37 @@
+<html>
+<body>
+Defines the interface of the Aggregate Designer algorithm and supporting classes.
+
+<p>The Aggregate Designer consists of a number of components:
+<ul>
+<li>The <dfn>schema loader</dfn> component
+    ({@link org.pentaho.aggdes.algorithm.SchemaLoader}) reads a star schema and presents
+    the algorithm with a {@link org.pentaho.aggdes.algorithm.Schema} object and
+    embedded {@link org.pentaho.aggdes.algorithm.Table}
+    and {@link org.pentaho.aggdes.algorithm.Attribute} objects.</li>
+
+<li>The <dfn>algorithm</dfn> component
+    ({@link org.pentaho.aggdes.algorithm.Algorithm}) tries to find the
+    most efficient set of aggregates for a given schema. A set of aggregates
+    is efficient if it enables any expected query to evaluate quickly yet
+    has a reasonable cost in terms of disk space and load time.</li>
+
+<li>The <dfn>result handler</dfn> component
+    ({@link org.pentaho.aggdes.output.ResultHandler}) converts the result of
+    the algorithm into a useful form such as a script of CREATE TABLE
+    statements to create aggregate tables and INSERT statements to populate
+    them. A result handler is not necessary if you are invoking the algorithm
+    programmatically and your program will process the
+    ({@link org.pentaho.aggdes.algorithm.Result})object produced by the
+    algorithm itself.</li>
+</ul>
+
+<p>Each of the components is specified a particular Java interface that extends
+    {@link org.pentaho.aggdes.algorithm.Component}. There is a default
+    implementation for each component, but you can provide your own.</p>
+
+<p>There is a command-line utility {@link org.pentaho.aggdes.algorithm.Main}
+    to allow you to invoke the algorithm. You can choose which implementation
+    of each component, and provide parameters to each component.</p>
+</body>
+</html>
