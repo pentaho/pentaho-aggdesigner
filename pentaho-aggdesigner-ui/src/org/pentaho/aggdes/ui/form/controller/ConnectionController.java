@@ -130,7 +130,7 @@ public class ConnectionController extends AbstractXulEventHandler {
     BindingFactory bf = bindingFactory;
     bf.setDocument(document);
 
-    for (SchemaProviderUiExtension extension : schemaProviders) {
+    for (final SchemaProviderUiExtension extension : schemaProviders) {
       try {
         document.addOverlay(extension.getOverlayPath());
         getXulDomContainer().addEventHandler(extension);
@@ -143,6 +143,12 @@ public class ConnectionController extends AbstractXulEventHandler {
               logger.debug("*** got schemaDefined=" + evt.getNewValue()
                   + ", checking if any providers are applyable");
               for (SchemaProviderUiExtension ex : schemaProviders) {
+
+                //De-select other extensions
+                if(evt.getPropertyName().equals("selected") && extension != ex && evt.getNewValue() == Boolean.TRUE){
+                  ex.setSelected(false);
+                }
+                
                 if (ex.isSchemaDefined() && ex.isSelected()) {
                   logger.debug("provider " + ex.getName() + " is applyable");
                   schemaAppliable = true;
