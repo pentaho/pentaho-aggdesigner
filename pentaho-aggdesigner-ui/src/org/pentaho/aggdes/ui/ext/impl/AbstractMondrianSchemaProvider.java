@@ -107,7 +107,9 @@ public abstract class AbstractMondrianSchemaProvider extends AbstractUiExtension
     boolean prev = this.schemaDefined;
     this.schemaDefined = schemaDefined;
     logger.debug(getName()+".setSchemaDefined("+this.schemaDefined+"): oldVal="+prev);
-    firePropertyChange("schemaDefined", prev, schemaDefined);
+    // force a fire by setting previous value to null;
+    // force since schemaDefined can go from true to true in the case of a non-null filename to another non-null valid filename 
+    firePropertyChange("schemaDefined", null, schemaDefined);
   }
   
   public abstract String getMondrianSchemaFilename() throws AggDesignerException;

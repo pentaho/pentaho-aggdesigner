@@ -158,13 +158,9 @@ public class ConnectionController extends AbstractXulEventHandler {
                 }
               }
               connectionModel.setApplySchemaSourceEnabled(schemaAppliable);
-            }
-            
-            if (evt.getPropertyName().equals("selected")) {
               connectionModel.setCubeName(null);
               connectionModel.setCubeNames(null);
             }
-
           }
 
         });
