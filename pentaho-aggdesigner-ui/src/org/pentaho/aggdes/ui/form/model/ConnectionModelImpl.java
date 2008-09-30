@@ -53,6 +53,8 @@ public class ConnectionModelImpl extends XulEventSourceAdapter implements Connec
   
   private String databaseName;
   
+  private String cubeName;
+  
   private Schema schema;
 
   private SchemaModel schemaModel;
@@ -120,14 +122,14 @@ public class ConnectionModelImpl extends XulEventSourceAdapter implements Connec
     if (cubeName != null && cubeName.equals(Messages.getString("select_cube"))) {
       cubeName = null;
     }
-    Object oldVal = null;
+    Object oldVal = this.cubeName;
     if (schemaModel != null) {
-      oldVal = schemaModel.getCubeName();
       schemaModel.setCubeName(cubeName);
     }
     if (cubeName == null) {
       cubeName = Messages.getString("select_cube");
     }
+    this.cubeName = cubeName;
     firePropertyChange("cubeName", oldVal, cubeName);
     validate();
   }
@@ -254,5 +256,3 @@ public class ConnectionModelImpl extends XulEventSourceAdapter implements Connec
   }
 
 }
-
-       
