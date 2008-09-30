@@ -47,7 +47,9 @@
     <dependency org="hsqldb"              name="hsqldb"                    rev="1.8.0.7" conf="test->default"/>
     <dependency org="mysql"               name="mysql-connector-java"      rev="5.1.6"   conf="test->default"/>
     <dependency org="org.springframework" name="spring-test"               rev="2.5.4"   conf="test->default"/>
-    <dependency org="org.springmodules"   name="spring-modules-validation" rev="0.8"     conf="test->default"/>
+    <dependency org="org.springmodules"   name="spring-modules-validation" rev="0.8"     conf="test->default">
+              <exclude org="org.springframework" name="spring" />
+    </dependency>
     
   </dependencies>
 </ivy-module>
