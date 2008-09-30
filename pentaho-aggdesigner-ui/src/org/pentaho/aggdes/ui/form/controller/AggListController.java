@@ -544,7 +544,6 @@ public class AggListController extends AbstractXulEventHandler {
     agg.setEstimateSpace(algoAggregate.estimateSpace());
     getAggList().aggChanged(agg);
     System.out.println("Saving agg, enabled? " + row.getCell(0).getValue());
-    
   }
 
   public void displayNewOrExistingAgg() {
@@ -565,6 +564,8 @@ public class AggListController extends AbstractXulEventHandler {
     }
     int[] selectedIndexes = aggTable.getSelectedRows();
     for (int pos : selectedIndexes) {
+      //the user has chosen to delete this agg, so do not prompt to save any changes
+      aggModel.setModified(false);
       getAggList().removeAgg(pos);
     }
 
