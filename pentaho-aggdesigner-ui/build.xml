@@ -7,7 +7,7 @@
   
   See common_build.xml for more details
 ============================================================================-->
-<project name="Pentaho Aggregation Designer" basedir="." default="jar">
+<project name="Pentaho Aggregation Designer" basedir="." default="dist">
 
   <description>
 	  This build file is used to create the API project
