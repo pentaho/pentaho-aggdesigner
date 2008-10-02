@@ -48,6 +48,11 @@ import org.springframework.beans.factory.annotation.Required;
 @Controller
 public class AggController extends AbstractXulEventHandler {
 
+  /*
+   * The OutputUiExtension acts as both a controller and a model.  The controller
+   * behaviors are managed by this class while the model behaviors are encapsulated
+   * in AggModel, the corresponding FormModel of the AggController.
+   */
   private OutputUiExtension currentUiExtension = null;
 
   private OutputService outputService;
@@ -155,7 +160,7 @@ public class AggController extends AbstractXulEventHandler {
       public void listChanged(AggListEvent e) {
         if (e.getType() == Type.SELECTION_CHANGING) {
           //check for unsaved changes
-          if (aggModel.isModified() || (currentUiExtension != null && currentUiExtension.isModified())) {
+          if (aggModel.isModified()) {
             promptSaveRequired();
           }
         }
@@ -203,6 +208,8 @@ public class AggController extends AbstractXulEventHandler {
         bindingFactory.createBinding(uiExtension, "modified", "reset_agg_btn", "!disabled");
 
         currentUiExtension = uiExtension;
+        //aggModel needs a reference to the uiExtension so it can test for form modification
+        aggModel.setCurrentUiExtension(uiExtension);
       } catch (Exception e) {
         logger.error("Error adding output UI extensions", e);
       }
@@ -248,6 +255,7 @@ public class AggController extends AbstractXulEventHandler {
     }
     currentUiExtension.onUnload();
     currentUiExtension = null;
+    aggModel.setCurrentUiExtension(null);
   }
 
   @RequestHandler
@@ -270,10 +278,6 @@ public class AggController extends AbstractXulEventHandler {
 
   @RequestHandler
   public void reset() {
-    aggModel.setThinAgg(aggModel.getThinAgg());
-
-    if (currentUiExtension != null) {
-      currentUiExtension.loadOutput(aggModel.getThinAgg().getOutput());
-    }
+    aggModel.reset();
   }
 }

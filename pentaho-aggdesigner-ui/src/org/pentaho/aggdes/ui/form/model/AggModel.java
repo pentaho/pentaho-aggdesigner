@@ -30,6 +30,7 @@ import org.pentaho.aggdes.model.Attribute;
 import org.pentaho.aggdes.model.Dimension;
 import org.pentaho.aggdes.model.Level;
 import org.pentaho.aggdes.model.Measure;
+import org.pentaho.aggdes.ui.ext.OutputUiExtension;
 import org.pentaho.aggdes.ui.model.UIAggregate;
 import org.pentaho.aggdes.ui.model.impl.UIAggregateImpl;
 import org.pentaho.aggdes.ui.util.Messages;
@@ -40,6 +41,8 @@ import org.pentaho.ui.xul.stereotype.FormModel;
 public class AggModel extends XulEventSourceAdapter {
 
   private UIAggregate thinAgg = new UIAggregateImpl();
+  
+  private OutputUiExtension currentUiExtension = null;
 
   private List<DimensionRowModel> dimensionRowModels = new ArrayList<DimensionRowModel>();
 
@@ -59,8 +62,16 @@ public class AggModel extends XulEventSourceAdapter {
     this.algorithm = algorithm;
   }
 
+  public void setCurrentUiExtension(OutputUiExtension currentUiExtension) {
+    this.currentUiExtension = currentUiExtension;
+  }
+
+  /*
+   * Returns whether the aggregate editor form has been modified.  This includes default
+   * aggregate properties as well as UI extension form properties.
+   */
   public boolean isModified() {
-    return modified;
+    return modified || (currentUiExtension != null && currentUiExtension.isModified());
   }
 
   public void setModified(boolean modified) {
@@ -162,6 +173,14 @@ public class AggModel extends XulEventSourceAdapter {
     setDimensionRowModels(new ArrayList<DimensionRowModel>());
     //setThinAgg(new UIAggregateImpl());
     setModified(false);
+  }
+  
+  public void reset() {
+    setThinAgg(thinAgg);
+
+    if (currentUiExtension != null) {
+      currentUiExtension.loadOutput(thinAgg.getOutput());
+    }
   }
 
   /**

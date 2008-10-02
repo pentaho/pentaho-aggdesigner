@@ -565,7 +565,9 @@ public class AggListController extends AbstractXulEventHandler {
     int[] selectedIndexes = aggTable.getSelectedRows();
     for (int pos : selectedIndexes) {
       //the user has chosen to delete this agg, so do not prompt to save any changes
-      aggModel.setModified(false);
+      //just reset the form.
+      aggModel.reset();
+      
       getAggList().removeAgg(pos);
     }
 
