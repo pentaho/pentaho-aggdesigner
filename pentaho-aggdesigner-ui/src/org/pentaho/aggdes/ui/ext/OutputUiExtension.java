@@ -55,7 +55,7 @@ public interface OutputUiExtension extends UiExtension {
   /**
    * A flag that reflects the modified state of your form.  Once the user begins editing in your extension's UI,
    * you should fire a property change event for the "modified" property.  This will cause the Apply and Reset buttons
-   * in the aggreate editor panel to become activated.
+   * in the aggregate editor panel to become activated.
    * @see #saveOutputChanges()
    * @return flag reflecting the modified state of the form
    */
