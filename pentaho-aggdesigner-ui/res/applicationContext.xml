@@ -58,7 +58,7 @@
 
   <bean id="aggregateNamingService" class="org.pentaho.aggdes.ui.util.AggregateNamingServiceImpl"/>
   
-  <bean class="org.pentaho.ui.xul.binding.DefaultBindingFactory" scope="prototype"/>
+  <bean class="org.pentaho.ui.xul.swing.SwingBindingFactory" scope="prototype"/>
 
   <!-- ========================= FORM MODEL BEANS ========================= -->
   <bean id="connectionModel" class="org.pentaho.aggdes.ui.form.model.ConnectionModelImpl" autowire="byType"/>
