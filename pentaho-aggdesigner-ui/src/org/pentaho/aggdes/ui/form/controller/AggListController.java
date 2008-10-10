@@ -56,6 +56,7 @@ import org.pentaho.ui.xul.XulException;
 import org.pentaho.ui.xul.binding.Binding;
 import org.pentaho.ui.xul.binding.BindingConvertor;
 import org.pentaho.ui.xul.binding.BindingFactory;
+import org.pentaho.ui.xul.binding.DefaultBinding;
 import org.pentaho.ui.xul.components.XulButton;
 import org.pentaho.ui.xul.components.XulImage;
 import org.pentaho.ui.xul.components.XulTreeCell;
@@ -293,20 +294,15 @@ public class AggListController extends AbstractXulEventHandler {
         return null;
       }
     };
-    
-    Binding bind = new Binding(document, this, "aggList", "agg_checkall", "disabled");
-    bind.setConversion(convertor);
-    bind.setBindingType(Binding.Type.ONE_WAY);
-    this.xulDomContainer.addBinding(bind);
-  
-    bind = new Binding(document, this, "aggList", "agg_uncheckall", "disabled");
-    bind.setConversion(convertor);
-    bind.setBindingType(Binding.Type.ONE_WAY);
-    this.xulDomContainer.addBinding(bind);
-    
 
     bindingFactory.setDocument(document);
     bindingFactory.setBindingType(Binding.Type.ONE_WAY);
+    
+    bindingFactory.createBinding(this, "aggList", "agg_checkall", "disabled", convertor);
+    
+    bindingFactory.createBinding(this, "aggList", "agg_uncheckall", "disabled", convertor);
+    
+
     convertor = new BindingConvertor<AggList, Boolean>() {
       public Boolean sourceToTarget(AggList list) {
         return (list.getSize() > 0);
@@ -544,6 +540,7 @@ public class AggListController extends AbstractXulEventHandler {
     agg.setEstimateSpace(algoAggregate.estimateSpace());
     getAggList().aggChanged(agg);
     System.out.println("Saving agg, enabled? " + row.getCell(0).getValue());
+    
   }
 
   public void displayNewOrExistingAgg() {
@@ -564,10 +561,6 @@ public class AggListController extends AbstractXulEventHandler {
     }
     int[] selectedIndexes = aggTable.getSelectedRows();
     for (int pos : selectedIndexes) {
-      //the user has chosen to delete this agg, so do not prompt to save any changes
-      //just reset the form.
-      aggModel.reset();
-      
       getAggList().removeAgg(pos);
     }
 

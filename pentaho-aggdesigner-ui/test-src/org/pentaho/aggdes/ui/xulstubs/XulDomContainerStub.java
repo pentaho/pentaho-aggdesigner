@@ -28,6 +28,7 @@ import org.pentaho.ui.xul.XulEventSource;
 import org.pentaho.ui.xul.XulException;
 import org.pentaho.ui.xul.XulLoader;
 import org.pentaho.ui.xul.binding.Binding;
+import org.pentaho.ui.xul.binding.DefaultBinding;
 import org.pentaho.ui.xul.dom.Document;
 import org.pentaho.ui.xul.impl.XulEventHandler;
 
@@ -43,7 +44,7 @@ public class XulDomContainerStub implements XulDomContainer {
   public void addEventHandler(String id, String eventClassName) throws XulException {}
   public void close() {}
   public Binding createBinding(XulEventSource source, String sourceAttr, String targetId, String targetAttr) {
-    Binding binding = new Binding(source, sourceAttr, targetId, targetAttr);
+    Binding binding = new DefaultBinding(source, sourceAttr, targetId, targetAttr);
     bindings.add(binding);
     return null;
   }

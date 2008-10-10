@@ -26,8 +26,11 @@ import org.pentaho.aggdes.ui.util.Messages;
 import org.pentaho.ui.xul.XulEventSourceAdapter;
 import org.pentaho.ui.xul.binding.Binding;
 import org.pentaho.ui.xul.binding.BindingConvertor;
+import org.pentaho.ui.xul.binding.BindingFactory;
+import org.pentaho.ui.xul.binding.DefaultBinding;
 import org.pentaho.ui.xul.impl.AbstractXulEventHandler;
 import org.pentaho.ui.xul.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class StatusController extends AbstractXulEventHandler {
@@ -38,40 +41,37 @@ public class StatusController extends AbstractXulEventHandler {
 
   private StatusModel statusModel = new StatusModel();
 
+  private BindingFactory bindingFactory;
+
+  @Autowired
+  public void setBindingFactory(BindingFactory bindingFactory) {
+    this.bindingFactory = bindingFactory;
+  }
+  
   public void onLoad() {
 
-    Binding bind = new Binding(connectionModel, "cubeName", statusModel, "cubeName"); //$NON-NLS-1$ //$NON-NLS-2$
-    bind.setBindingType(Binding.Type.ONE_WAY);
-    getXulDomContainer().addBinding(bind);
+    bindingFactory.setDocument(document);
+    bindingFactory.setBindingType(Binding.Type.ONE_WAY);
+    
+    bindingFactory.createBinding(connectionModel, "cubeName", statusModel, "cubeName"); //$NON-NLS-1$ //$NON-NLS-2$
+    bindingFactory.createBinding(connectionModel, "schemaName", statusModel, "schemaName"); //$NON-NLS-1$ //$NON-NLS-2$
+    bindingFactory.createBinding(connectionModel, "databaseName", statusModel, "databaseName"); //$NON-NLS-1$ //$NON-NLS-2$
+    bindingFactory.createBinding(statusModel, "statusMessage", document.getElementById("statusMessage"), "value"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    bind = new Binding(connectionModel, "schemaName", statusModel, "schemaName"); //$NON-NLS-1$ //$NON-NLS-2$
-    bind.setBindingType(Binding.Type.ONE_WAY);
-    getXulDomContainer().addBinding(bind);
-
-    bind = new Binding(connectionModel, "databaseName", statusModel, "databaseName"); //$NON-NLS-1$ //$NON-NLS-2$
-    bind.setBindingType(Binding.Type.ONE_WAY);
-    getXulDomContainer().addBinding(bind);
-
-    bind = new Binding(statusModel, "statusMessage", document.getElementById("statusMessage"), "value"); //$NON-NLS-1$ //$NON-NLS-2$
-    bind.setBindingType(Binding.Type.ONE_WAY);
-    getXulDomContainer().addBinding(bind);
-
-    bind = new Binding(connectionModel, "schema", statusModel, "connected"); //$NON-NLS-1$ //$NON-NLS-2$
-    bind.setBindingType(Binding.Type.ONE_WAY);
-    bind.setConversion(new BindingConvertor<Schema, Boolean>(){
-      public Boolean sourceToTarget(Schema value) {
+    
+    
+    bindingFactory.createBinding(connectionModel, "schema", statusModel, "connected", new BindingConvertor<Schema, Boolean>(){
+        public Boolean sourceToTarget(Schema value) {
           return (value != null);
-      }
+        }
+  
+        public Schema targetToSource(Boolean value) {
+          return null; //Not impl
+        }
+    }); //$NON-NLS-1$ //$NON-NLS-2$
+    
 
-      public Schema targetToSource(Boolean value) {
-        return null; //Not impl
-      }
-    });
-    getXulDomContainer().addBinding(bind);
-
-    bind = new Binding(statusModel, "connected", document.getElementById("connectionImage"), "image"); //$NON-NLS-1$ //$NON-NLS-2$
-    bind.setBindingType(Binding.Type.ONE_WAY);
-    bind.setConversion(new BindingConvertor<Boolean, String>() {
+    bindingFactory.createBinding(statusModel, "connected", document.getElementById("connectionImage"), "image", new BindingConvertor<Boolean, String>() {
 
       @Override
       public String sourceToTarget(Boolean connected) {
@@ -82,8 +82,7 @@ public class StatusController extends AbstractXulEventHandler {
       public Boolean targetToSource(String arg0) {
         return null;    //one-way, not impl.
       }
-    });
-    getXulDomContainer().addBinding(bind);
+    }); //$NON-NLS-1$ //$NON-NLS-2$
 
   }
 

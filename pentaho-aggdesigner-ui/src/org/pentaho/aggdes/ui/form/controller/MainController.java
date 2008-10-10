@@ -37,6 +37,8 @@ import org.pentaho.aggdes.ui.util.SerializationService;
 import org.pentaho.ui.xul.XulException;
 import org.pentaho.ui.xul.XulRunner;
 import org.pentaho.ui.xul.binding.Binding;
+import org.pentaho.ui.xul.binding.BindingFactory;
+import org.pentaho.ui.xul.binding.DefaultBinding;
 import org.pentaho.ui.xul.components.XulFileDialog;
 import org.pentaho.ui.xul.components.XulLabel;
 import org.pentaho.ui.xul.components.XulMenuitem;
@@ -47,6 +49,7 @@ import org.pentaho.ui.xul.containers.XulDialog;
 import org.pentaho.ui.xul.containers.XulWindow;
 import org.pentaho.ui.xul.impl.AbstractXulEventHandler;
 import org.pentaho.ui.xul.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.stanford.ejalbert.exception.BrowserLaunchingInitializingException;
 import edu.stanford.ejalbert.exception.UnsupportedOperatingSystemException;
@@ -74,6 +77,13 @@ public class MainController extends AbstractXulEventHandler {
   
   private ConnectionController connectionController;
   
+
+  private BindingFactory bindingFactory;
+
+  @Autowired
+  public void setBindingFactory(BindingFactory bindingFactory) {
+    this.bindingFactory = bindingFactory;
+  }
   
   public void setAggListController(AggListController aggListController) {
     this.aggListController = aggListController;
@@ -92,21 +102,14 @@ public class MainController extends AbstractXulEventHandler {
   }
 
   public void onLoad() {
-    Binding bind = new Binding(document, workspace, "saveEnabled", "save_button", "!disabled");
-    bind.setBindingType(Binding.Type.ONE_WAY);
-    document.addBinding(bind);
 
-    bind = new Binding(document, workspace, "saveEnabled", "save_menuitem", "!disabled");
-    bind.setBindingType(Binding.Type.ONE_WAY);
-    document.addBinding(bind);
-        
-    bind = new Binding(document, workspace, "applicationUnlocked", "save_as_button", "!disabled");
-    bind.setBindingType(Binding.Type.ONE_WAY);
-    document.addBinding(bind);
-
-    bind = new Binding(document, workspace, "applicationUnlocked", "save_as_menuitem", "!disabled");
-    bind.setBindingType(Binding.Type.ONE_WAY);
-    document.addBinding(bind);
+    bindingFactory.setDocument(document);
+    bindingFactory.setBindingType(Binding.Type.ONE_WAY);
+    
+    bindingFactory.createBinding(workspace, "saveEnabled", "save_button", "!disabled"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    bindingFactory.createBinding(workspace, "saveEnabled", "save_menuitem", "!disabled"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    bindingFactory.createBinding(workspace, "applicationUnlocked", "save_as_button", "!disabled"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    bindingFactory.createBinding(workspace, "applicationUnlocked", "save_as_menuitem", "!disabled"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
      
   }
   
@@ -360,7 +363,7 @@ public class MainController extends AbstractXulEventHandler {
       versionProps.load(getClass().getResourceAsStream("/version.properties"));
     } catch (IOException e) {
       if (logger.isErrorEnabled()) {
-      	logger.error("an exception occurred", e);
+        logger.error("an exception occurred", e);
       }
       return;
     }
@@ -378,7 +381,7 @@ public class MainController extends AbstractXulEventHandler {
       public void run() {
         try {
           edu.stanford.ejalbert.BrowserLauncher launcher = new edu.stanford.ejalbert.BrowserLauncher(null);
-          File userGuideFile = new File("doc/Pentaho_ce_aggregation_designer_UG_v1.0.pdf"); //$NON-NLS-1$
+          File userGuideFile = new File("doc/aggregation_designer_user_guide.pdf"); //$NON-NLS-1$
           launcher.openURLinBrowser("file:" + userGuideFile.getAbsolutePath()); //$NON-NLS-1$
         }
         catch (BrowserLaunchingInitializingException ex) {

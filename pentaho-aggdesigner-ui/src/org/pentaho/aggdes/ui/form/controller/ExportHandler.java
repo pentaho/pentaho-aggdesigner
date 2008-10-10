@@ -42,6 +42,8 @@ import org.pentaho.aggdes.ui.model.UIAggregate;
 import org.pentaho.aggdes.ui.util.Messages;
 import org.pentaho.ui.xul.XulException;
 import org.pentaho.ui.xul.binding.Binding;
+import org.pentaho.ui.xul.binding.BindingFactory;
+import org.pentaho.ui.xul.binding.DefaultBinding;
 import org.pentaho.ui.xul.components.XulFileDialog;
 import org.pentaho.ui.xul.components.XulMessageBox;
 import org.pentaho.ui.xul.components.XulTextbox;
@@ -50,6 +52,7 @@ import org.pentaho.ui.xul.containers.XulDialog;
 import org.pentaho.ui.xul.containers.XulWindow;
 import org.pentaho.ui.xul.impl.AbstractXulEventHandler;
 import org.pentaho.ui.xul.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.Assert;
 
@@ -88,6 +91,13 @@ public class ExportHandler extends AbstractXulEventHandler {
 
   private Workspace workspace;
 
+  private BindingFactory bindingFactory;
+
+  @Autowired
+  public void setBindingFactory(BindingFactory bindingFactory) {
+    this.bindingFactory = bindingFactory;
+  }
+
   @Required
   public void setOutputService(OutputService outputService) {
     this.outputService = outputService;
@@ -99,9 +109,12 @@ public class ExportHandler extends AbstractXulEventHandler {
   }
 
   public void onLoad() throws XulException {
-    Binding bind = new Binding(workspace, "applicationUnlocked", this, "connected"); //$NON-NLS-1$ //$NON-NLS-2$
-    bind.setBindingType(Binding.Type.ONE_WAY);
-    getXulDomContainer().addBinding(bind);
+    
+
+    bindingFactory.setDocument(document);
+    bindingFactory.setBindingType(Binding.Type.ONE_WAY);
+    bindingFactory.createBinding(workspace, "applicationUnlocked", this, "connected"); //$NON-NLS-1$ //$NON-NLS-2$
+    
   }
 
   public void openDialog() throws Exception {

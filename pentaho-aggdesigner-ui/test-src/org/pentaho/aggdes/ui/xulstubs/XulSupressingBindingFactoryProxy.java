@@ -20,6 +20,7 @@ package org.pentaho.aggdes.ui.xulstubs;
 import org.pentaho.ui.xul.binding.Binding;
 import org.pentaho.ui.xul.binding.BindingConvertor;
 import org.pentaho.ui.xul.binding.BindingFactory;
+import org.pentaho.ui.xul.binding.DefaultBinding;
 import org.pentaho.ui.xul.binding.Binding.Type;
 import org.pentaho.ui.xul.dom.Document;
 
@@ -28,7 +29,7 @@ public class XulSupressingBindingFactoryProxy implements BindingFactory {
   
   private static BindingTestBean a = new BindingTestBean();
   private static BindingTestBean b = new BindingTestBean();
-  private static final Binding DUMMY_BINDING = new Binding(a, "property1", b, "property2");
+  private static final Binding DUMMY_BINDING = new DefaultBinding(a, "property1", b, "property2");
   
   {
     DUMMY_BINDING.initialize();
