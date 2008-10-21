@@ -17,6 +17,8 @@
 */
 package org.pentaho.aggdes.ui.form.controller;
 
+import static org.pentaho.aggdes.ui.model.AggListEvent.Type.SELECTION_CHANGED;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,11 +35,14 @@ import org.pentaho.aggdes.output.OutputValidationException;
 import org.pentaho.aggdes.output.PopulateScriptGenerator;
 import org.pentaho.aggdes.output.SchemaGenerator;
 import org.pentaho.aggdes.ui.Workspace;
+import org.pentaho.aggdes.ui.exec.DDLExecutionCallbackService;
+import org.pentaho.aggdes.ui.exec.DDLExecutionCompleteCallback;
 import org.pentaho.aggdes.ui.exec.SqlExecutor;
 import org.pentaho.aggdes.ui.exec.SqlExecutor.ExecutorCallback;
 import org.pentaho.aggdes.ui.ext.impl.MondrianFileSchemaModel;
 import org.pentaho.aggdes.ui.form.model.ConnectionModel;
 import org.pentaho.aggdes.ui.model.AggList;
+import org.pentaho.aggdes.ui.model.AggListEvent;
 import org.pentaho.aggdes.ui.model.UIAggregate;
 import org.pentaho.aggdes.ui.util.Messages;
 import org.pentaho.ui.xul.XulException;
@@ -86,12 +91,16 @@ public class ExportHandler extends AbstractXulEventHandler {
   private SqlExecutor ddlDmlExecutor;
 
   private AggList aggList;
+  
+  private AggController aggController;
 
   private ConnectionModel connectionModel;
 
   private Workspace workspace;
 
   private BindingFactory bindingFactory;
+
+  private DDLExecutionCallbackService ddlExecCallbackService;
 
   @Autowired
   public void setBindingFactory(BindingFactory bindingFactory) {
@@ -107,7 +116,12 @@ public class ExportHandler extends AbstractXulEventHandler {
   public void setDdlDmlExecutor(SqlExecutor ddlDmlExecutor) {
     this.ddlDmlExecutor = ddlDmlExecutor;
   }
-
+  
+  @Required
+  public void setDdlExecCallbackService(DDLExecutionCallbackService ddlExecCallbackService) {
+      this.ddlExecCallbackService = ddlExecCallbackService;
+  }
+  
   public void onLoad() throws XulException {
     
 
@@ -279,6 +293,11 @@ public class ExportHandler extends AbstractXulEventHandler {
     final ExecutorCallback cb = new ExecutorCallback() {
       public void executionComplete(Exception e) {
         ExportHandler.this.done(e);
+        if (ddlExecCallbackService != null && ddlExecCallbackService.getDdlCallbacks() != null) {
+            for (DDLExecutionCompleteCallback callback : ddlExecCallbackService.getDdlCallbacks()) {
+                callback.executionComplete(getEnabledAggs(), e);
+            }
+        }
       }
     };
 
@@ -294,6 +313,8 @@ public class ExportHandler extends AbstractXulEventHandler {
 
         ExportHandler.this.ddlDmlExecutor.execute(sqls.toArray(new String[0]), cb);
 
+        updateAggDetails();
+        
         if (logger.isDebugEnabled()) {
           logger.debug("exit run");
         }
@@ -305,6 +326,14 @@ public class ExportHandler extends AbstractXulEventHandler {
     dialog.show();
     if (logger.isDebugEnabled()) {
       logger.debug("exit startExecuteDdlDml");
+    }
+  }
+  
+  private void updateAggDetails() {
+    if(aggController != null && aggList != null) {
+      if(aggList.getSelectedIndex() > -1) {
+        aggController.applyUiExtensions(aggList.getAgg(aggList.getSelectedIndex()));
+      }
     }
   }
 
@@ -538,7 +567,7 @@ public class ExportHandler extends AbstractXulEventHandler {
   public AggList getAggList() {
     return aggList;
   }
-
+  
   public List<UIAggregate> getEnabledAggs() {
     List<UIAggregate> enabledAggs = new ArrayList<UIAggregate>();
     for (UIAggregate agg : getAggList()) {
@@ -552,6 +581,11 @@ public class ExportHandler extends AbstractXulEventHandler {
   public void setAggList(AggList aggList) {
     this.aggList = aggList;
   }
+  
+  @Required
+  public void setAggController(AggController aggController) {
+      this.aggController = aggController;
+    }
 
   public Workspace getWorkspace() {
     return workspace;
