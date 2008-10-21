@@ -180,7 +180,7 @@ public class AggController extends AbstractXulEventHandler {
    * @param thinAgg UIAggregate that we're working on
    * @throws XulException 
    */
-  private void applyUiExtensions(UIAggregate thinAgg) {
+  public void applyUiExtensions(UIAggregate thinAgg) {
 
     if (thinAgg == null) {
       removeUiExtensions();
