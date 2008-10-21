@@ -1,12 +1,13 @@
 <vbox xmlns:pen="http://www.pentaho.org/2008/xul">
   <vbox flex="1">
-  
-    <label value="${agg_edit_header}" />
-    <separator/>
-    <label value="${name}:" />
-    <textbox id="aggregateName" disabled="true"/>
-    <label value="${description}:" />
-    <textbox id="aggregateDescription" disabled="true"/>
+    <vbox id="aggDesc">
+	  <label value="${agg_edit_header}" />
+	  <separator/>
+	  <label value="${name}:" />
+	  <textbox id="aggregateName" disabled="true"/>
+	  <label value="${description}:" />
+	  <textbox id="aggregateDescription" disabled="true"/>
+    </vbox>
     <pen:line/>
     <tabbox id="aggregateTabs" flex="1">
       <tabs id="aggTabs">

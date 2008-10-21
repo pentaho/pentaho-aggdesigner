@@ -95,7 +95,7 @@
     <property name="workspace" ref="workspace"/>
   </bean>
 
-  <bean class="org.pentaho.aggdes.ui.form.controller.AggController">
+  <bean id="aggController" class="org.pentaho.aggdes.ui.form.controller.AggController">
     <property name="name" value="aggController" />
     <property name="aggModel" ref="aggModel" />
     <property name="aggList" ref="aggList"/>
@@ -130,6 +130,8 @@
     <property name="connectionModel" ref="connectionModel"/>
   </bean>
 
+  <bean id="ddlExecCallbackService" class="org.pentaho.aggdes.ui.exec.DDLExecutionCallbackService" autowire="byType"/>
+
   <bean id="exportHandler" class="org.pentaho.aggdes.ui.form.controller.ExportHandler">
     <property name="name" value="exportHandler" />
     <property name="ddlDmlExecutor">
@@ -141,6 +143,8 @@
     <property name="connectionModel" ref="connectionModel"/>
     <property name="aggList" ref="aggList"/>
     <property name="workspace" ref="workspace" />
+    <property name="ddlExecCallbackService" ref="ddlExecCallbackService"/>
+    <property name="aggController" ref="aggController"/>
   </bean>
 
   <bean class="org.pentaho.aggdes.ui.form.controller.StatusController">
