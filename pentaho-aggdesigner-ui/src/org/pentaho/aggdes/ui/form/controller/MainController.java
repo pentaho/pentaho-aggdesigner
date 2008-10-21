@@ -20,6 +20,7 @@ package org.pentaho.aggdes.ui.form.controller;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Properties;
 
@@ -360,7 +361,12 @@ public class MainController extends AbstractXulEventHandler {
     XulLabel helpAboutCopyrightLabel = (XulLabel) document.getElementById("aboutCopyright");
     Properties versionProps = new Properties();
     try {
-      versionProps.load(getClass().getResourceAsStream("/version.properties"));
+      InputStream is = getClass().getResourceAsStream("/version.properties");
+      if (is == null) {
+        logger.error("Failed to locate version.properties on classpath");
+      } else {
+        versionProps.load(is);
+      }
     } catch (IOException e) {
       if (logger.isErrorEnabled()) {
         logger.error("an exception occurred", e);
@@ -380,15 +386,30 @@ public class MainController extends AbstractXulEventHandler {
 
       public void run() {
         try {
-          edu.stanford.ejalbert.BrowserLauncher launcher = new edu.stanford.ejalbert.BrowserLauncher(null);
-          File userGuideFile = new File("doc/aggregation_designer_user_guide.pdf"); //$NON-NLS-1$
-          launcher.openURLinBrowser("file:" + userGuideFile.getAbsolutePath()); //$NON-NLS-1$
-        }
-        catch (BrowserLaunchingInitializingException ex) {
-          ex.printStackTrace();
-        }
-        catch (UnsupportedOperatingSystemException ex) {
-          ex.printStackTrace();
+          File docDir = new File("doc");
+          File userGuideFile = null;
+          if (docDir.exists()) {
+            for (File file : docDir.listFiles()) {
+              if (file.getName().endsWith(".pdf") && file.getName().indexOf("_UG_") >= 0) {
+                userGuideFile = file;
+              }
+            }
+          }
+          if (userGuideFile != null) {
+            edu.stanford.ejalbert.BrowserLauncher launcher = new edu.stanford.ejalbert.BrowserLauncher(null);
+            
+            launcher.openURLinBrowser("file:" + userGuideFile.getAbsolutePath()); //$NON-NLS-1$\
+          } else {
+            XulMessageBox msgBox = (XulMessageBox) document.createElement("messagebox");
+            msgBox.setMessage(Messages.getString("MainController.UserGuideMissing"));
+            msgBox.open();
+          }
+        } catch (BrowserLaunchingInitializingException ex) {
+          logger.error("an exception occurred", ex);
+        } catch (UnsupportedOperatingSystemException ex) {
+          logger.error("an exception occurred", ex);
+        } catch (XulException ex) {
+          logger.error("an exception occurred", ex);
         }
       }
     };
