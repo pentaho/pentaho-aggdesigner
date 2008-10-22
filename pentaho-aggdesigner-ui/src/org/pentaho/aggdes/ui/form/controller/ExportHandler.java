@@ -147,6 +147,7 @@ public class ExportHandler extends AbstractXulEventHandler {
   public void closeDialog() {
     XulDialog dialog = (XulDialog) document.getElementById(ELEM_ID_EXPORT_DIALOG);
     dialog.hide();
+    updateAggDetails();
   }
 
   private boolean overlayAdded = false;
@@ -313,8 +314,6 @@ public class ExportHandler extends AbstractXulEventHandler {
 
         ExportHandler.this.ddlDmlExecutor.execute(sqls.toArray(new String[0]), cb);
 
-        updateAggDetails();
-        
         if (logger.isDebugEnabled()) {
           logger.debug("exit run");
         }
