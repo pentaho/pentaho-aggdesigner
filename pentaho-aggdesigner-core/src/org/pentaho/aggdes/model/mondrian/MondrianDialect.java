@@ -91,6 +91,7 @@ public class MondrianDialect implements Dialect {
     // hsqldb v1.8 returns 'HSQL Database Engine'
     return 
       (meta.getDatabaseProductName().toUpperCase().indexOf("HSQL") < 0) &&
-      (!dialect.isPostgres() || (type.toUpperCase().indexOf("CHAR") >= 0));
+      ((!dialect.isPostgres() && !dialect.isLucidDB()) || (type.toUpperCase().indexOf("CHAR") >= 0));
+
   }
 }
