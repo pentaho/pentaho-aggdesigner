@@ -66,9 +66,18 @@ public class CubePkValidator extends AbstractMondrianSchemaValidator {
       logger.debug("processing cube \"" + cube.name + "\""); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
+    // TODO: include validation support for mondrian views
+    if (!(cube.fact instanceof Table)) {
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("cube \"" + cube.name + "\" contains unsupported fact type, " + cube.fact); //$NON-NLS-1$ //$NON-NLS-2$
+    	}
+    	return messages;
+    }
+    
+    
     // ~ Check: Primary key on cube's fact table========================================================================
 
-    // TODO mlowery this assumes a table; is that bad?
+    
     String relationName = ((Table) cube.fact).name;
     String schemaName = ((Table) cube.fact).schema;
 
