@@ -29,7 +29,7 @@
     <dependency org="pentaho"          name="pentaho-xul-core"                        rev="2.0.2-SNAPSHOT" changing="true" />
     <dependency org="pentaho"          name="pentaho-database"                        rev="1.7.0-29181" />
     <dependency org="pentaho.kettle"   name="kettle-core"                             rev="3.1.1"/>
-    <dependency org="pentaho"          name="pentaho-mondrianschemaworkbench-plugins" rev="1.0.33395"/>
+    <dependency org="pentaho"          name="pentaho-mondrianschemaworkbench-plugins" rev="1.0.34229"/>
     <dependency org="jfree"            name="jcommon"                                 rev="1.0.12" />
     <dependency org="jfree"            name="jfreechart"                              rev="1.0.9" />
     <dependency org="browserlauncher2" name="browserlauncher2"                        rev="1.3" />
