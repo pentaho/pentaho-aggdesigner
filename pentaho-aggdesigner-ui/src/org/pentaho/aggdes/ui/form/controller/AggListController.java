@@ -487,8 +487,14 @@ public class AggListController extends AbstractXulEventHandler {
             } else {
               aggTable.getRootChildren().getItem(idx).getRow().getCell(4).setLabel(format.format(space));
             }
-
-            aggTable.update();
+            
+            // wrap the update in an invokeLater to avoid null pointer exceptions occurring deep in Swing code,
+            // even though this method will normally be called within the event thread.
+            document.invokeLater(new Runnable() {
+            	public void run() {
+            		aggTable.update();
+            	}
+            });
             changeInAggregates();
             
             break;
@@ -561,6 +567,10 @@ public class AggListController extends AbstractXulEventHandler {
     }
     int[] selectedIndexes = aggTable.getSelectedRows();
     for (int pos : selectedIndexes) {
+      //the user has chosen to delete this agg, so do not prompt to save any changes
+      //just reset the form.
+      aggModel.reset();
+    	
       getAggList().removeAgg(pos);
     }
 
