@@ -202,6 +202,8 @@ public class MondrianFileSchemaProvider extends AbstractMondrianSchemaProvider {
 
   public void reset() {
     setSchemaModel(new MondrianFileSchemaModel());
+    //force an event to fire
+    this.firePropertyChange("mondrianSchemaFilename", "", null);
   }
 
   @Override

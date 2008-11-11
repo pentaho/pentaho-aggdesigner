@@ -227,6 +227,14 @@ public class ConnectionModelImpl extends XulEventSourceAdapter implements Connec
     setCubeNames(null);
     setSelectedSchemaModel(null);
     setDatabaseMeta(null);
+    setSchemaLocked(false);
+    setSchema(null);
+    setSchemaName(null);
+    firePropertyChange("schemaName", "", this.schemaName);
+    setApplySchemaSourceEnabled(false);
+    this.firePropertyChange("applySchemaSourceEnabled", null, this.applySchemaSourceEnabled);
+    setSchemaSourceSelectionEnabled(false);
+    setSchemaUpToDate(false);
   }
   
   private String getFileContents(File file) {
