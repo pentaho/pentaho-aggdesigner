@@ -83,9 +83,6 @@ public class AggListController extends AbstractXulEventHandler {
   private XulTree aggLevelTable;
 
   @Deprecated
-  private XulButton btnDeckDesigner;
-  
-  @Deprecated
   private XulTree aggTable;
 
   private OutputService outputService;
@@ -276,11 +273,13 @@ public class AggListController extends AbstractXulEventHandler {
   }
   
   public void onLoad() {
+    bindingFactory.setDocument(document);
+    bindingFactory.setBindingType(Binding.Type.BI_DIRECTIONAL);
 
     // bind summary model label details
-    bind(aggregateSummaryModel, "selectedAggregateCount", "num_aggs", "value");
-    bind(aggregateSummaryModel, "selectedAggregateRows", "num_rows", "value");
-    bind(aggregateSummaryModel, "selectedAggregateSpace", "disk_space", "value");
+    bindingFactory.createBinding(aggregateSummaryModel, "selectedAggregateCount", "num_aggs", "value");
+    bindingFactory.createBinding(aggregateSummaryModel, "selectedAggregateRows", "num_rows", "value");
+    bindingFactory.createBinding(aggregateSummaryModel, "selectedAggregateSpace", "disk_space", "value");
     
     
     //Bind check-all, un-check-all buttons to model
@@ -295,7 +294,6 @@ public class AggListController extends AbstractXulEventHandler {
       }
     };
 
-    bindingFactory.setDocument(document);
     bindingFactory.setBindingType(Binding.Type.ONE_WAY);
     
     bindingFactory.createBinding(this, "aggList", "agg_checkall", "disabled", convertor);
@@ -321,7 +319,6 @@ public class AggListController extends AbstractXulEventHandler {
     // bind(aggregateSummaryModel, "selectedAggregateLoadTime", "load_time", "value");
 
     
-    btnDeckDesigner = (XulButton) document.getElementById("btnDeckDesigner");
     aggLevelTable = (XulTree) document.getElementById("dimtable");
     aggTable = (XulTree) document.getElementById("definedAggTable");
 
