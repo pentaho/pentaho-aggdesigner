@@ -118,7 +118,7 @@ public class ConnectionController extends AbstractXulEventHandler {
     }
   }
 
-  public void reset() {
+  public void reset() throws Exception {
     connectionModel.reset();
     for (SchemaProviderUiExtension extension : schemaProviders) {
       extension.reset();
@@ -158,8 +158,6 @@ public class ConnectionController extends AbstractXulEventHandler {
                 }
               }
               connectionModel.setApplySchemaSourceEnabled(schemaAppliable);
-              connectionModel.setCubeName(null);
-              connectionModel.setCubeNames(null);
             }
           }
 
@@ -323,6 +321,11 @@ public class ConnectionController extends AbstractXulEventHandler {
 
   private List<String> cubeNames = null;
 
+  /**
+   * Applies the schema provided by the {@link SchemaProviderUiExtension} and populates
+   * the cube selector widget with a list of available cubes in the schema.
+   * @throws XulException
+   */
   @RequestHandler
   public void apply() throws XulException {
     final XulDialog waitDialog = (XulDialog) document.getElementById(ANON_WAIT_DIALOG);

@@ -382,7 +382,7 @@ public class MainControllerTest extends TestCase {
     
   }
   
-  public void testNewWorkspace() throws XulException {
+  public void testNewWorkspace() throws Exception {
     
     Workspace workspace = new Workspace();
     SchemaStub schemaStub = new SchemaStub(); 

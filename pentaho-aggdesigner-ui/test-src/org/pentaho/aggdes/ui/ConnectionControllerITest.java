@@ -19,6 +19,7 @@ package org.pentaho.aggdes.ui;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.jmock.Expectations;
@@ -28,10 +29,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.internal.runners.InitializationError;
 import org.junit.runner.RunWith;
+import org.pentaho.aggdes.ui.ext.SchemaProviderUiExtension;
 import org.pentaho.aggdes.ui.ext.impl.MondrianFileSchemaProvider;
 import org.pentaho.aggdes.ui.form.controller.ConnectionController;
 import org.pentaho.aggdes.ui.form.model.ConnectionModel;
 import org.pentaho.aggdes.ui.xulstubs.XulSupressingBindingFactoryProxy;
+import org.pentaho.di.core.database.DatabaseMeta;
 import org.pentaho.ui.xul.XulComponent;
 import org.pentaho.ui.xul.XulDomContainer;
 import org.pentaho.ui.xul.binding.Binding;
@@ -44,6 +47,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"/applicationContext.xml", "/plugins.xml", "/ConnectionControllerITest.xml"})
+/**
+ * Put tests in here that require some orchestration that is achieve in an isolated unit test
+ * on the model(s) or controller(s).  Testing bindings is a good example.
+ */
 public class ConnectionControllerITest extends JMock {
 
   public ConnectionControllerITest() throws InitializationError {
@@ -116,7 +123,7 @@ public class ConnectionControllerITest extends JMock {
     
     //In order to really make this an integration test, there needs to be a BindingFactory that is injected into the controller
     //so we can mock or stub it out and allow the object->object bindings to actually be bound while the xulcomponent bindings
-    //are consumed.  Here we are proxying the BindingFactory to acheive this.
+    //are consumed.  Here we are proxying the BindingFactory to achieve this.
     bindingFactory.setDocument(doc);
     //setup the proxy binding factory that will ignore all XUL stuff
     XulSupressingBindingFactoryProxy proxy = new XulSupressingBindingFactoryProxy();
@@ -190,5 +197,42 @@ public class ConnectionControllerITest extends JMock {
     assertTrue(model.isApplySchemaSourceEnabled());
     assertEquals(Boolean.TRUE, (Boolean)eventRecorder.getLastValue(PROPNAME));
   }
+  
+//  @Test
+  //This test was never fully implemented.. it's a half-baked approach to testing like a user would
+//  public void testFormEnablementForEditModeWhenAnAggIsDefined() throws Exception {
+//    //setup all the bindings
+//    controller.onLoad();
+//    
+//    eventRecorder.record(model);
+//    
+//    //
+//    //Connect to a cube:
+//    //
+//    
+//    //setup db connection
+//    DatabaseMeta dbMeta = new DatabaseMeta();
+//    dbMeta.setName("testDB");
+//    model.setDatabaseMeta(dbMeta);
+//    
+//    //select 1st provider and enter schema filename
+//    MondrianFileSchemaProvider prvdr1 = mondrianFileSchemaProviders.get(0);
+//    prvdr1.setMondrianSchemaFilename("test schema filename");
+//    prvdr1.setSelected(true);
+//    SchemaProviderUiExtension ext = prvdr1;
+//    
+//    controller.setSchemaProviders(Arrays.asList(ext));
+//    
+//    //apply the schema
+//    //do what apply() does without all the XUL code
+//    model.setCubeNames(prvdr1.getCubeNames());
+//    model.setSelectedSchemaModel(prvdr1.getSchemaModel());
+//    
+//    //select first cube
+//    model.setCubeName(model.getCubeNames().get(0));
+//    
+//    //connect
+//    controller.connect();
+//  }
 }
 

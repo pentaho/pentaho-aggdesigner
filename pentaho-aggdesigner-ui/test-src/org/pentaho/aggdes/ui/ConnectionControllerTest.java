@@ -115,7 +115,7 @@ public class ConnectionControllerTest {
   }
 
   @Test
-  public void testReset() throws AggDesignerException {
+  public void testReset() throws Exception {
     setupSchemaProviderDefaults();
     context.checking(new Expectations() {
       {

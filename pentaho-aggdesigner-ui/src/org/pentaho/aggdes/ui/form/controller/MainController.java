@@ -280,7 +280,7 @@ public class MainController extends AbstractXulEventHandler {
     return true;
   }
 
-  public void newWorkspace() throws XulException {
+  public void newWorkspace() throws Exception {
     
     if (!promptIfSaveRequired()) {
       return;
