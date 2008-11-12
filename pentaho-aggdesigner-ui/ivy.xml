@@ -28,7 +28,7 @@
     <dependency org="pentaho"          name="pentaho-aggdesigner-core"                rev="${project.revision}" changing="true" />
     <dependency org="pentaho"          name="pentaho-xul-core"                        rev="2.0.2" changing="true" />
     <dependency org="pentaho"          name="pentaho-database"                        rev="1.7.0-29181" />
-    <dependency org="pentaho.kettle"   name="kettle-core"                             rev="3.1.1"/>
+    <dependency org="pentaho.kettle"   name="kettle-core"                             rev="3.1.0"/>
     <dependency org="pentaho"          name="pentaho-mondrianschemaworkbench-plugins" rev="1.0.34319"/>
     <dependency org="jfree"            name="jcommon"                                 rev="1.0.12" />
     <dependency org="jfree"            name="jfreechart"                              rev="1.0.9" />
