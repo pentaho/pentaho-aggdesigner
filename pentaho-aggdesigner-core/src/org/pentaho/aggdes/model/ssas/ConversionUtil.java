@@ -114,6 +114,7 @@ public class ConversionUtil {
   private static class Table {
       String logicalName;
       String dbName;
+      String dbSchemaName;
       List<Key> uniqueKeys;
       String queryDefinition;
       boolean rootTable = false;
@@ -122,9 +123,10 @@ public class ConversionUtil {
       List<String> columns = new ArrayList<String>();
       List<Column> columnObjs = new ArrayList<Column>();
 
-      public Table(String logicalName, String dbName, List<Key> uniqueKeys, String queryDefinition) {
+      public Table(String logicalName, String dbName, String dbSchemaName, List<Key> uniqueKeys, String queryDefinition) {
           this.logicalName = logicalName;
           this.dbName = dbName;
+          this.dbSchemaName = dbSchemaName;
           this.uniqueKeys = uniqueKeys;
           this.queryDefinition = queryDefinition;
       }
@@ -195,7 +197,7 @@ public class ConversionUtil {
       }
       public Table clone() {
           List<Key> uniqueKeyClone = new ArrayList<Key>(uniqueKeys);
-          Table table = new Table(logicalName, dbName, uniqueKeyClone, queryDefinition);
+          Table table = new Table(logicalName, dbName, dbSchemaName, uniqueKeyClone, queryDefinition);
           table.columns.addAll(this.columns);
           return table;
       }
@@ -446,6 +448,7 @@ public class ConversionUtil {
           Element table = (Element)tables.get(i);
           String name = table.attributeValue("name");
           String dbname = table.attributeValue("DbTableName");
+          String dbSchemaName = table.attributeValue("DbSchemaName");
           String queryDefinition = table.attributeValue("QueryDefinition");
           List<Element> uniqueKeys = (List<Element>)ssasDataSourceView.selectNodes("xs:unique[xs:selector/@xpath='.//" + name + "']");
           List<Key> uniqueKeyObjects = new ArrayList<Key>();
@@ -461,7 +464,7 @@ public class ConversionUtil {
               uniqueKeyObjects.add(key);
           }
           
-          Table tableModel = new Table(name, dbname, uniqueKeyObjects, queryDefinition);
+          Table tableModel = new Table(name, dbname, dbSchemaName, uniqueKeyObjects, queryDefinition);
           
           // get columns
           List columns = table.selectNodes("xs:complexType/xs:sequence/xs:element");
@@ -659,6 +662,9 @@ public class ConversionUtil {
                   mondrianCube.add(fact);
               } else {
                   Element fact = DocumentFactory.getInstance().createElement("Table");
+                  if (factTable.dbSchemaName != null && factTable.dbSchemaName.trim().length() != 0) {
+                      fact.addAttribute("schema", factTable.dbSchemaName);
+                  }
                   fact.addAttribute("name", factTable.dbName);
                   mondrianCube.add(fact);
               }
@@ -884,6 +890,9 @@ public class ConversionUtil {
           currentHierarchyRelation.add(sql);
       } else {
           currentHierarchyRelation = DocumentFactory.getInstance().createElement("Table");
+          if (currentTable.dbSchemaName != null && currentTable.dbSchemaName.trim().length() != 0) {
+              currentHierarchyRelation.addAttribute("schema", currentTable.dbSchemaName);
+          }
           currentHierarchyRelation.addAttribute("name", currentTable.dbName);
       }
       
@@ -904,6 +913,9 @@ public class ConversionUtil {
               tableRelation.add(sql);
           } else {
               tableRelation = DocumentFactory.getInstance().createElement("Table");
+              if (currentTable.parentJoin.parentTable.dbSchemaName != null && currentTable.parentJoin.parentTable.dbSchemaName.trim().length() != 0) {
+                  tableRelation.addAttribute("schema", currentTable.parentJoin.parentTable.dbSchemaName);
+              }
               tableRelation.addAttribute("name", currentTable.parentJoin.parentTable.dbName);
           }
           
