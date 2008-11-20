@@ -28,6 +28,7 @@ import mondrian.rolap.RolapConnection;
 import mondrian.rolap.RolapCube;
 import mondrian.rolap.RolapMember;
 import mondrian.rolap.RolapStoredMeasure;
+import mondrian.rolap.sql.SqlQuery;
 
 import org.pentaho.aggdes.model.Attribute;
 import org.pentaho.aggdes.model.StatisticsProvider;
@@ -50,17 +51,21 @@ public class MondrianStatisticsProvider implements StatisticsProvider {
                   schema.getRolapCube().getSchema().getInternalConnection();
               RolapMember m = findCountMeasure(schema.getRolapCube());
               // if there is no count measure, get the star count the old fashioned way
-              if (m == null) {
+              if (m == null || true) {
                   java.sql.Connection conn = null;
                   java.sql.Statement stmt = null;
                   java.sql.ResultSet rs = null;
                   try {
                      conn = schema.getRolapCube().getSchema().getInternalConnection().getDataSource().getConnection();
                      stmt = conn.createStatement();
-                     StringBuilder buf = new StringBuilder();
-                     buf.append("select count(*) from ");
-                     schema.getDialect().quoteIdentifier(buf, schema.getRolapCube().getStar().getFactTable().getTableName());
-                     rs = stmt.executeQuery(buf.toString());
+                     SqlQuery query = SqlQuery.newQuery(conn, "");
+                     query.addSelect("count(*)");
+                     query.addFrom(
+                             schema.getRolapCube().getStar().getFactTable().getRelation(),
+                             null, true);
+                     String sql = query.toString();
+                     
+                     rs = stmt.executeQuery(sql);
                      if (rs.next()) {
                          factRowCount = rs.getDouble(1);
                      }
