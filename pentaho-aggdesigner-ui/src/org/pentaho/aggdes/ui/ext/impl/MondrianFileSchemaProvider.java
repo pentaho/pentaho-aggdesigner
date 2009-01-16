@@ -130,9 +130,9 @@ public class MondrianFileSchemaProvider extends AbstractMondrianSchemaProvider {
       }
 
       if (retVal == RETURN_CODE.OK) {
-        File selectedFile = fc.getFile();
+        File selectedFile = (File) fc.getFile();
         setLastFile(selectedFile);
-        setMondrianSchemaFilename(fc.getFile().getAbsolutePath());
+        setMondrianSchemaFilename(((File)fc.getFile()).getAbsolutePath());
         
       }
     } catch (Exception e) {

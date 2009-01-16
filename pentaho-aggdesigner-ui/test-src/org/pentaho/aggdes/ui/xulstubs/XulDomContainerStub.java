@@ -69,4 +69,8 @@ public class XulDomContainerStub implements XulDomContainer {
   public void setOuterContext(Object context) {}
   public void invokeLater(Runnable runnable) {}
   public boolean isRegistered(String widgetHandlerName) {return true;}
+  public XulDomContainer loadFragment(String xulLocation, Object bundle) throws XulException {
+    return null;
+  }
+  
 }

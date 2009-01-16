@@ -447,7 +447,7 @@ public class ExportHandler extends AbstractXulEventHandler {
     RETURN_CODE retVal = fc.showSaveDialog();
     File selectedFile = null;
     if (retVal == RETURN_CODE.OK) {
-      selectedFile = fc.getFile();
+      selectedFile = (File) fc.getFile();
       if (logger.isDebugEnabled()) {
         logger.debug("Selected Save file: " + selectedFile.getAbsolutePath());
       }
@@ -475,7 +475,7 @@ public class ExportHandler extends AbstractXulEventHandler {
     RETURN_CODE retVal = fc.showSaveDialog();
     File selectedFile = null;
     if (retVal == RETURN_CODE.OK) {
-      selectedFile = fc.getFile();
+      selectedFile = (File) fc.getFile();
       if (logger.isDebugEnabled()) {
         logger.debug("Selected Save file: " + selectedFile.getAbsolutePath());
       }
@@ -518,7 +518,7 @@ public class ExportHandler extends AbstractXulEventHandler {
 
     File selectedFile = null;
     if (retVal == RETURN_CODE.OK) {
-      selectedFile = fc.getFile();
+      selectedFile = (File) fc.getFile();
       if (logger.isDebugEnabled()) {
         logger.debug("Selected Save file: " + selectedFile.getAbsolutePath());
       }

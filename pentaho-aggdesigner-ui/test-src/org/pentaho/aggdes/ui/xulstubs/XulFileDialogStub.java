@@ -109,4 +109,60 @@ public class XulFileDialogStub implements XulFileDialog {
   public void setPadding(int padding) {}
   public void setModalParent(Object parent) {}
   public String getOnblur() {return null;}
+  public RETURN_CODE showOpenDialog(Object f) {
+
+    return RETURN_CODE.OK;
+      
+  }
+  public RETURN_CODE showSaveDialog(Object f) {
+    return RETURN_CODE.OK;
+  }
+  public void adoptAttributes(XulComponent component) {
+    
+        // TODO Auto-generated method stub 
+      
+  }
+  public String getInsertafter() {
+    return null;  
+  }
+  public String getInsertbefore() {
+    return null;  
+  }
+  public int getPosition() {
+    return 0;
+  }
+  public boolean getRemoveelement() {
+    return false;
+  }
+  public boolean isVisible() {
+    return true;  
+  }
+  public void setInsertafter(String id) {
+    
+        // TODO Auto-generated method stub 
+      
+  }
+  public void setInsertbefore(String id) {
+    
+        // TODO Auto-generated method stub 
+      
+  }
+  public void setPosition(int pos) {
+    
+        // TODO Auto-generated method stub 
+      
+  }
+  public void setRemoveelement(boolean flag) {
+    
+        // TODO Auto-generated method stub 
+      
+  }
+  public void setVisible(boolean visible) {
+    
+        // TODO Auto-generated method stub 
+      
+  }
+  
+  
+  
 }

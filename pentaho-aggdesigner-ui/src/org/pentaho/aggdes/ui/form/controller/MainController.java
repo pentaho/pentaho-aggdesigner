@@ -139,7 +139,7 @@ public class MainController extends AbstractXulEventHandler {
     RETURN_CODE retVal = fc.showOpenDialog(selectedFile);
     
     if (retVal == RETURN_CODE.OK) {
-      selectedFile = fc.getFile();
+      selectedFile = (File) fc.getFile();
       try {
         String xml = FileUtils.readFileToString(selectedFile);
         String connAndAgg[] = serializationService.getConnectionAndAggListElements(xml);
@@ -233,7 +233,7 @@ public class MainController extends AbstractXulEventHandler {
       // TODO: last browsed in directory?
       RETURN_CODE retVal = fc.showSaveDialog();
       if (retVal == RETURN_CODE.OK) {
-        selectedFile = fc.getFile();
+        selectedFile = (File) fc.getFile();
       } else {
         return false;
       }
