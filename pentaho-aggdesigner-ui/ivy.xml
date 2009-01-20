@@ -25,7 +25,7 @@
       <exclude org="javax.servlet" name="jsp-api" />
       <exclude org="javax.servlet" name="servlet-api" />
     </dependency>
-    <dependency org="pentaho"          name="pentaho-aggdesigner-core"                rev="${project.revision}" changing="true" />
+    <dependency org="${pentaho.group}"          name="pentaho-aggdesigner-core"                rev="${project.revision}" changing="true" />
     
     <dependency org="${pentaho.group}" name="pentaho-xul-core" rev="2.1-SNAPSHOT" transitive="true" changing="true" />
     <dependency org="${pentaho.group}" name="pentaho-xul-swing" rev="2.1-SNAPSHOT" transitive="true" changing="true" />
