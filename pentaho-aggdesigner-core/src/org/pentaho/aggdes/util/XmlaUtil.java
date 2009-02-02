@@ -27,77 +27,74 @@ import mondrian.util.Base64;
 
 /**
  * this is a utility class which makes simple XMLA discover requests
- * note: most of this code was copied from olap4j's XMLA implementation.
  * 
- * @author Will Gorman (wgorman@pentaho.org)
+ * @author Will Gorman (wgorman@pentaho.com)
  */
 public class XmlaUtil {
     
     /**
      * Generates a discover request.
-
+     * 
      * @param requestType request type
      * @return XMLA request
      */
     public static String generateXmlaDiscoverRequest(String requestType) {
-        final String encoding = "UTF-8";
-        final StringBuilder buf = new StringBuilder(
-            "<?xml version=\"1.0\" encoding=\"" + encoding + "\"?>\n" 
-                + "<SOAP-ENV:Envelope\n"
-                + "    xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"\n"
-                + "    SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n"
-                + "  <SOAP-ENV:Body>\n"
-                + "    <Discover xmlns=\"urn:schemas-microsoft-com:xml-analysis\"\n"
-                + "        SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n"
-                + "    <RequestType>");
-        buf.append(requestType);
-        buf.append("</RequestType>\n"
-                + "    <Restrictions>\n"
-                + "      <RestrictionList/>\n"
-                + "    </Restrictions>\n"
-                + "    <Properties>\n"
-                + "      <PropertyList/>\n"
-                + "    </Properties>\n"
-                + "    </Discover>\n"
-                + "</SOAP-ENV:Body>\n"
-                + "</SOAP-ENV:Envelope>");
+        final StringBuilder buf = new StringBuilder();
+        buf.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+           .append("<SOAP-ENV:Envelope\n")
+           .append(" xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"\n")
+           .append(" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n")
+           .append(" <SOAP-ENV:Body>\n")
+           .append("  <Discover xmlns=\"urn:schemas-microsoft-com:xml-analysis\"\n")
+           .append("   SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n")
+           .append("   <RequestType>").append(requestType).append("</RequestType>\n")
+           .append("   <Restrictions>\n")
+           .append("    <RestrictionList/>\n")
+           .append("   </Restrictions>\n")
+           .append("   <Properties>\n")
+           .append("    <PropertyList/>\n")
+           .append("   </Properties>\n")
+           .append("  </Discover>\n")
+           .append(" </SOAP-ENV:Body>\n")
+           .append("</SOAP-ENV:Envelope>");
         return buf.toString();
     }
 
     /**
-     * executes an xmla request.  supports basic auth
+     * Execute Xmla Request
      * 
-     * @param url url of xmla server
-     * @param request
-     * @return
+     * @param url xmla server path
+     * @param request soap request
+     * @return output
      * @throws IOException
      */
     public static byte[] executeXmlaRequest(URL url, String request) throws IOException {
-        // Open connection to manipulate the properties
-        URLConnection urlConnection = url.openConnection();
-        urlConnection.setDoOutput(true);
-        urlConnection.setRequestProperty("content-type", "text/xml");
+        // create a url connection
+        final URLConnection urlConn = url.openConnection();
+        urlConn.setDoOutput(true);
+        final String contentTypeKey = "content-type";
+        final String contentTypeValue = "text/xml";
+        urlConn.setRequestProperty(contentTypeKey, contentTypeValue);
 
-        // Encode credentials for basic authentication
+        // basic auth
         if (url.getUserInfo() != null) {
-            String encoding =
-                Base64.encodeBytes(url.getUserInfo().getBytes(), 0);
-            urlConnection.setRequestProperty(
-                "Authorization", "Basic " + encoding);
+            final byte[] userInfoBytes = url.getUserInfo().getBytes();
+            final String basicAuthKey = "Authorization";
+            final String basicAuthVal = "Basic " +  Base64.encodeBytes(userInfoBytes, 0);
+            urlConn.setRequestProperty(basicAuthKey, basicAuthVal);
         }
+        
+        final byte[] requestBytes = request.getBytes("UTF-8");
+        urlConn.getOutputStream().write(requestBytes);
 
-        // Send data (i.e. POST). Use same encoding as specified in the
-        // header.
-        final String encoding = "UTF-8";
-        urlConnection.getOutputStream().write(request.getBytes(encoding));
-
-        // Get the response, again assuming default encoding.
-        InputStream is = urlConnection.getInputStream();
+        // write the response to a byte array, and return the array
+        InputStream is = urlConn.getInputStream();
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] buf = new byte[1024];
-        int count;
-        while ((count = is.read(buf)) > 0) {
+        byte[] buf = new byte[2048];
+        int count = is.read(buf);
+        while (count > 0) {
             baos.write(buf, 0, count);
+            count = is.read(buf);
         }
         return baos.toByteArray();
     }
