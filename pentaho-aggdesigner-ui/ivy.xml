@@ -30,8 +30,8 @@
     <dependency org="${pentaho.group}" name="pentaho-xul-core" rev="2.1-SNAPSHOT" transitive="true" changing="true" />
     <dependency org="${pentaho.group}" name="pentaho-xul-swing" rev="2.1-SNAPSHOT" transitive="true" changing="true" />
     
-    <dependency org="pentaho"          name="pentaho-database"                        rev="1.7.0-29181" />
-    <dependency org="pentaho.kettle"   name="kettle-core"                             rev="3.1.0"/>
+    <dependency org="pentaho"          name="pentaho-database"                        rev="2.1-SNAPSHOT" changing="true" />
+    <dependency org="pentaho.kettle"   name="kettle-core"                             rev="${dependency.kettle.revision}"/>
     <dependency org="pentaho"          name="pentaho-mondrianschemaworkbench-plugins" rev="1.0.34319"/>
     <dependency org="jfree"            name="jcommon"                                 rev="1.0.12" />
     <dependency org="jfree"            name="jfreechart"                              rev="1.0.9" />
