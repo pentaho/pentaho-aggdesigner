@@ -141,6 +141,10 @@ public class XulMessageBoxStub implements XulMessageBox {
         // TODO Auto-generated method stub 
       
   }
+  public void onDomReady() {
+    // TODO Auto-generated method stub
+    
+  }
   
   
 }

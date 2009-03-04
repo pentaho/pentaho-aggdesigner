@@ -59,4 +59,9 @@ public class XulDialogStub extends XulDialogAdapter {
   public String getOnblur() {
     return null;
   }
+
+  public void onDomReady() {
+    // TODO Auto-generated method stub
+    
+  }
 }

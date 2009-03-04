@@ -162,6 +162,10 @@ public class XulFileDialogStub implements XulFileDialog {
         // TODO Auto-generated method stub 
       
   }
+  public void onDomReady() {
+    // TODO Auto-generated method stub
+    
+  }
   
   
   
