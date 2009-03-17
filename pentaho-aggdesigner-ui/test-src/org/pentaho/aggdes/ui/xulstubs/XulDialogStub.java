@@ -64,4 +64,12 @@ public class XulDialogStub extends XulDialogAdapter {
     // TODO Auto-generated method stub
     
   }
+
+  public Boolean getResizable() {
+    return null; 
+  }
+
+  public void setResizable(Boolean resizable) {
+
+  }
 }
