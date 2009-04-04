@@ -24,6 +24,7 @@
       <exclude org="commons-lang"  name="commons-lang"/>
       <exclude org="javax.servlet" name="jsp-api" />
       <exclude org="javax.servlet" name="servlet-api" />
+      <exclude org="org.olap4j" name="olap4j"/>
     </dependency>
     <dependency org="pentaho"          name="pentaho-aggdesigner-core"                rev="${project.revision}" changing="true" />
     
