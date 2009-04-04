@@ -28,7 +28,6 @@ import mondrian.rolap.RolapAggregator;
 import mondrian.rolap.RolapCube;
 import mondrian.rolap.RolapCubeLevel;
 import mondrian.rolap.RolapStar;
-import mondrian.rolap.sql.SqlQuery;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -156,7 +155,7 @@ public class MondrianSchema implements Schema {
       RolapStar.Measure factCount = null;
       try {
         factCount = new RolapStar.Measure("fact_count", cloneMeasure.getCubeName(),
-            RolapAggregator.Count, cloneMeasure.getTable(), expr, SqlQuery.Datatype.Integer);
+            RolapAggregator.Count, cloneMeasure.getTable(), expr, mondrian.spi.Dialect.Datatype.Integer);
       } catch (IllegalAccessError e) {
         throw new RuntimeException(Messages
             .getString("MondrianSchemaLoader.ERROR_0001_MONDRIAN_DEPENDENCY_ERROR"), e);

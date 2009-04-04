@@ -92,7 +92,7 @@ public class MondrianAttribute implements Attribute {
    * @return String representation of column's datatype
    */
   private String internalGetDatatypeString(RolapStar.Column column, Dialect dialect) {
-      SqlQuery.Dialect mondrianDialect = ((MondrianDialect) dialect).getMondrianDialect();
+      mondrian.spi.Dialect mondrianDialect = ((MondrianDialect) dialect).getMondrianDialect();
       final SqlQuery query = new SqlQuery(mondrianDialect);
       query.addFrom(column.getTable().getRelation(), column.getTable().getAlias(), false);
       query.addSelect(column.getExpression().getExpression(query));

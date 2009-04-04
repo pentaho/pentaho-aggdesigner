@@ -30,6 +30,8 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
+import mondrian.spi.Dialect.DatabaseProduct;
+
 import org.pentaho.aggdes.model.Measure;
 import org.pentaho.aggdes.model.Parameter;
 import org.pentaho.aggdes.model.Schema;
@@ -120,7 +122,7 @@ public class TableGeneratorTest extends TestCase {
         assertTrue(createGenerator.canGenerate(schema, aggTableOutput));
 
         
-        if (((MondrianDialect)schema.getDialect()).getMondrianDialect().isOracle()) {
+        if (((MondrianDialect)schema.getDialect()).getMondrianDialect().getDatabaseProduct() == DatabaseProduct.ORACLE) {
           String expectedResults = TestUtils.fold("-- Aggregate table table_01\n" +
               "-- Estimated 0 rows, 0 bytes\n" +
               "CREATE TABLE \"table_01\" (\n" + 
@@ -137,7 +139,7 @@ public class TableGeneratorTest extends TestCase {
           assertEquals(expectedResults, createGenerator.generate(schema, output));    
           assertEquals(expectedResults, createGenerator.generateFull(schema, outputs));
             
-        } else if (((MondrianDialect)schema.getDialect()).getMondrianDialect().isMySQL()) {
+        } else if (((MondrianDialect)schema.getDialect()).getMondrianDialect().getDatabaseProduct() == DatabaseProduct.MYSQL) {
           String expectedResults = TestUtils.fold("-- Aggregate table table_01\n" +
               "-- Estimated 0 rows, 0 bytes\n" +
               "CREATE TABLE `table_01` (\n" + 
@@ -163,7 +165,7 @@ public class TableGeneratorTest extends TestCase {
         
         assertTrue(popGenerator.canGenerate(schema, aggTableOutput));
 
-        if (((MondrianDialect)schema.getDialect()).getMondrianDialect().isOracle()) {
+        if (((MondrianDialect)schema.getDialect()).getMondrianDialect().getDatabaseProduct() == DatabaseProduct.ORACLE) {
             assertEquals(
                     TestUtils.fold("-- Populate aggregate table table_01\n" + 
                     "INSERT INTO \"table_01\" (\n" + 
@@ -194,7 +196,7 @@ public class TableGeneratorTest extends TestCase {
                     "    \"product_class\".\"product_family\";\n"),
                     popGenerator.generate(schema, output)
             );
-        } else if (((MondrianDialect)schema.getDialect()).getMondrianDialect().isMySQL()) {
+        } else if (((MondrianDialect)schema.getDialect()).getMondrianDialect().getDatabaseProduct() == DatabaseProduct.MYSQL) {
             assertEquals(
                     TestUtils.fold("-- Populate aggregate table table_01\n" + 
                     "INSERT INTO `table_01` (\n" + 

@@ -58,7 +58,7 @@ public class MondrianStatisticsProvider implements StatisticsProvider {
                   try {
                      conn = schema.getRolapCube().getSchema().getInternalConnection().getDataSource().getConnection();
                      stmt = conn.createStatement();
-                     SqlQuery query = SqlQuery.newQuery(conn, "");
+                     SqlQuery query = new SqlQuery(((MondrianDialect)schema.getDialect()).getMondrianDialect());
                      query.addSelect("count(*)");
                      query.addFrom(
                              schema.getRolapCube().getStar().getFactTable().getRelation(),

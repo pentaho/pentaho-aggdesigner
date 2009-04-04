@@ -20,14 +20,14 @@ package org.pentaho.aggdes.model.mondrian;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
+import mondrian.spi.Dialect.DatabaseProduct;
+
 import org.pentaho.aggdes.model.Dialect;
 
-import mondrian.rolap.sql.SqlQuery;
-
 public class MondrianDialect implements Dialect {
-  private final SqlQuery.Dialect dialect;
+  private final mondrian.spi.Dialect dialect;
 
-  public MondrianDialect(SqlQuery.Dialect dialect) {
+  public MondrianDialect(mondrian.spi.Dialect dialect) {
       this.dialect = dialect;
   }
 
@@ -39,7 +39,7 @@ public class MondrianDialect implements Dialect {
   }
 
   public String getIntegerTypeString() {
-    if (dialect.isPostgres()) {
+    if (dialect.getDatabaseProduct() == DatabaseProduct.POSTGRESQL) {
       return "INT8";
     } else {
       return "INTEGER";
@@ -47,9 +47,9 @@ public class MondrianDialect implements Dialect {
   }
 
   public String getDoubleTypeString() {
-      if (dialect.isOracle()) {
+      if (dialect.getDatabaseProduct() == DatabaseProduct.ORACLE) {
           return "NUMBER";
-      } else if (dialect.isPostgres()) {
+      } else if (dialect.getDatabaseProduct() == DatabaseProduct.POSTGRESQL) {
           return "FLOAT8";
       } else {
           return "DOUBLE";
@@ -68,7 +68,7 @@ public class MondrianDialect implements Dialect {
       return 30; // TODO: use JDBC metadata
   }
   
-  public SqlQuery.Dialect getMondrianDialect() {
+  public mondrian.spi.Dialect getMondrianDialect() {
       return dialect;
   }
   
@@ -91,7 +91,9 @@ public class MondrianDialect implements Dialect {
     // hsqldb v1.8 returns 'HSQL Database Engine'
     return 
       (meta.getDatabaseProductName().toUpperCase().indexOf("HSQL") < 0) &&
-      ((!dialect.isPostgres() && !dialect.isLucidDB()) || (type.toUpperCase().indexOf("CHAR") >= 0));
+      ((!(dialect.getDatabaseProduct() == DatabaseProduct.POSTGRESQL) && 
+        !(dialect.getDatabaseProduct() == DatabaseProduct.LUCIDDB)) || 
+       (type.toUpperCase().indexOf("CHAR") >= 0));
 
   }
 }

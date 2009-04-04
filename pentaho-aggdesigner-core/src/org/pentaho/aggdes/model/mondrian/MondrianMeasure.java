@@ -21,7 +21,6 @@ import java.util.List;
 
 import mondrian.rolap.RolapAggregator;
 import mondrian.rolap.RolapStar;
-import mondrian.rolap.sql.SqlQuery;
 
 import org.pentaho.aggdes.Main;
 import org.pentaho.aggdes.model.Attribute;
@@ -64,7 +63,7 @@ public class MondrianMeasure implements Measure {
     public String getDatatype(Dialect dialect) {
         final RolapAggregator aggregator = measure.getAggregator();
         String aggregatorName = aggregator.getName().toUpperCase();
-        final SqlQuery.Dialect mondrianDialect =
+        final mondrian.spi.Dialect mondrianDialect =
             ((MondrianDialect) dialect).getMondrianDialect();
 
         if (aggregator == RolapAggregator.Min
