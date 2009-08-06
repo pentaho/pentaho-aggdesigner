@@ -110,11 +110,14 @@ public class XulFileDialogStub implements XulFileDialog {
   public void setModalParent(Object parent) {}
   public String getOnblur() {return null;}
   public RETURN_CODE showOpenDialog(Object f) {
-
+    dialogType="open";
+    openedFileDialogs.add(this);
     return RETURN_CODE.OK;
       
   }
   public RETURN_CODE showSaveDialog(Object f) {
+    dialogType="save";
+    openedFileDialogs.add(this);
     return RETURN_CODE.OK;
   }
   public void adoptAttributes(XulComponent component) {

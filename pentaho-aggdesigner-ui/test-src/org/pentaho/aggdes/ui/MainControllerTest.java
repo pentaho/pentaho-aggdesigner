@@ -369,7 +369,8 @@ public class MainControllerTest extends TestCase {
     XulFileDialogStub.openedFileDialogs.clear();
     XulFileDialogStub.returnCode = RETURN_CODE.OK;
     aggList.clearAggs();
-    
+    connected.clear();
+    applied.clear();
     controller.openWorkspace();
     
     assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 0);
