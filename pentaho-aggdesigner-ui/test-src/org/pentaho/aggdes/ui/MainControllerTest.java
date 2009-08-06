@@ -175,7 +175,7 @@ public class MainControllerTest extends TestCase {
     XulMessageBoxStub.openedMessageBoxes.clear();
     XulFileDialogStub.openedFileDialogs.clear();
     XulFileDialogStub.returnCode = RETURN_CODE.OK;
-    XulFileDialogStub.returnFile = new File(".");
+    XulFileDialogStub.returnFile = new File("dummyWorkspaceFile");
 
     controller.saveWorkspace(false);
     
