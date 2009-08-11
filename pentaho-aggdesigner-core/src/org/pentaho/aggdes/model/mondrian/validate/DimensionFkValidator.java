@@ -83,6 +83,14 @@ public class DimensionFkValidator extends AbstractMondrianSchemaValidator {
         logger.debug("processing dimension \"" + dim.name + "\"");
       }
 
+      if (foreignKey == null) {
+          // we are dealing with a degenerate dimension
+          if (logger.isDebugEnabled()) {
+              logger.debug("dimension is degenerate, skipping");
+          }
+          continue;
+      }
+
       if (checkedRelations.containsKey(makeKey(schemaName, factTableName, foreignKey))) {
         if (logger.isDebugEnabled()) {
           logger
