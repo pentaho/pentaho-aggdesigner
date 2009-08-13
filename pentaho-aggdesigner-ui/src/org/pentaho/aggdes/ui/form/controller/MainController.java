@@ -390,7 +390,7 @@ public class MainController extends AbstractXulEventHandler {
           File userGuideFile = null;
           if (docDir.exists()) {
             for (File file : docDir.listFiles()) {
-              if (file.getName().endsWith(".pdf") && file.getName().indexOf("_UG_") >= 0) {
+              if (file.getName().endsWith(".pdf") && file.getName().indexOf("_ug") >= 0) {
                 userGuideFile = file;
               }
             }
