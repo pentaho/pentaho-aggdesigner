@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mondrian.olap.Util;
+import mondrian.util.UnionIterator;
 
 import org.pentaho.aggdes.model.Aggregate;
 import org.pentaho.aggdes.model.Attribute;
@@ -42,8 +43,7 @@ public class AggregateTableOutputFactory implements OutputFactory {
     public AggregateTableOutput createOutput(Schema schema, Aggregate aggregate) {
         return createOutput(schema, aggregate, new ArrayList<String>());
     }
-    
-    
+   
     public AggregateTableOutput createOutput(Schema schema, Aggregate aggregate, List<String> uniqueTableNames) {
         AggregateTableOutput output = new AggregateTableOutput(aggregate);
         String tableName = schema.getDialect().removeInvalidIdentifierCharacters(aggregate.getCandidateTableName());
@@ -54,7 +54,7 @@ public class AggregateTableOutputFactory implements OutputFactory {
         int maximumColumnNameLength =
             schema.getDialect().getMaximumColumnNameLength();
         for (Attribute attribute :
-            Util.union(
+            UnionIterator.over(
                 aggregate.getAttributes(), 
                 aggregate.getMeasures()))
         {

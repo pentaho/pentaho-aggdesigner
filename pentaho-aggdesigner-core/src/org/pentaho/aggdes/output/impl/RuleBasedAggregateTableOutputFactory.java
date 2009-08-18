@@ -22,6 +22,7 @@ import java.util.List;
 
 import mondrian.olap.Util;
 import mondrian.rolap.RolapCubeLevel;
+import mondrian.util.UnionIterator;
 
 import org.pentaho.aggdes.model.Aggregate;
 import org.pentaho.aggdes.model.Attribute;
@@ -62,7 +63,7 @@ public class RuleBasedAggregateTableOutputFactory implements OutputFactory {
         //        int maximumColumnNameLength =
         //            schema.getDialect().getMaximumColumnNameLength();
         for (Attribute attribute :
-            Util.union(
+            UnionIterator.over(
                 aggregate.getAttributes(), 
                 aggregate.getMeasures()))
         {
