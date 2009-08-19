@@ -14,7 +14,7 @@
     <dependency org="commons-io"               name="commons-io"         rev="1.3.1" />
     <dependency org="commons-httpclient"       name="commons-httpclient" rev="3.0.1" />
     <dependency org="dom4j"                    name="dom4j"              rev="1.6.1" transitive="false" />
-    <dependency org="org.springframework"      name="spring"             rev="2.5.4" />
+    <dependency org="org.springframework"      name="spring"             rev="2.5.6" />
     <dependency org="com.thoughtworks.xstream" name="xstream"            rev="1.3" /> 
     
     <!--  internal dependencies -->
@@ -51,7 +51,7 @@
     <dependency org="org.jmock"           name="jmock-legacy"              rev="2.4.0"   conf="test->default"/>
     <dependency org="hsqldb"              name="hsqldb"                    rev="1.8.0.7" conf="test->default"/>
     <dependency org="mysql"               name="mysql-connector-java"      rev="5.1.6"   conf="test->default"/>
-    <dependency org="org.springframework" name="spring-test"               rev="2.5.4"   conf="test->default"/>
+    <dependency org="org.springframework" name="spring-test"               rev="2.5.6"   conf="test->default"/>
     <dependency org="org.springmodules"   name="spring-modules-validation" rev="0.8"     conf="test->default">
               <exclude org="org.springframework" name="spring" />
     </dependency>
