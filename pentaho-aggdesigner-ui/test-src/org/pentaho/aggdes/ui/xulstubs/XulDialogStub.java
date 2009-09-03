@@ -62,14 +62,22 @@ public class XulDialogStub extends XulDialogAdapter {
 
   public void onDomReady() {
     // TODO Auto-generated method stub
-    
+
   }
 
   public Boolean getResizable() {
-    return null; 
+    return null;
   }
 
   public void setResizable(Boolean resizable) {
+
+  }
+
+  public void setModal(Boolean modal) {
+
+  }
+
+  public void suppressLayout(boolean suppress) {
 
   }
 }

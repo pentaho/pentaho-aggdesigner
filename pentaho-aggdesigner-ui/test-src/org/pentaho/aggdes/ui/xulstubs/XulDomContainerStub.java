@@ -72,5 +72,17 @@ public class XulDomContainerStub implements XulDomContainer {
   public XulDomContainer loadFragment(String xulLocation, Object bundle) throws XulException {
     return null;
   }
+
+  public List<Object> getResourceBundles() {
+    return null;
+  }
+  
+  public boolean isInitialized() {
+    return false;
+  }
+ 
+  public void setResourceBundles(List<Object> resourceBundles) {
+    
+  }
   
 }

@@ -169,7 +169,12 @@ public class XulFileDialogStub implements XulFileDialog {
     // TODO Auto-generated method stub
     
   }
-  
-  
-  
+
+  public String getAlign() {
+    return null;
+  }
+
+  public void setAlign(String align) {
+    
+  }
 }

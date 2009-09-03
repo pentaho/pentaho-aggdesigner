@@ -145,6 +145,14 @@ public class XulMessageBoxStub implements XulMessageBox {
     // TODO Auto-generated method stub
     
   }
-  
-  
+
+  public void setAcceptLabel(String label) {
+  }
+
+  public String getAlign() {
+    return null;
+  }
+
+  public void setAlign(String align) {
+  }
 }

@@ -17,8 +17,8 @@
     height="300" buttonalign="center" title="${help_about_dialog_title}" onload="mainController.helpAboutLoad()" bgcolor="#ffffff" padding="0">
     <image src="images/About.png"/>
     <hbox><spacer flex="1"/><label value="${title}" /><spacer flex="1"/></hbox>
-    <hbox><spacer flex="1"/><label id="aboutVersion" /><spacer flex="1"/></hbox>
-    <hbox><spacer flex="1"/><label id="aboutCopyright" /><spacer flex="1"/></hbox>
+    <hbox><spacer flex="1"/><label value="${about_version}" id="aboutVersion" /><spacer flex="1"/></hbox>
+    <hbox><spacer flex="1"/><label value="${about_copyright}" id="aboutCopyright" /><spacer flex="1"/></hbox>
     <spacer flex="1" />
   </dialog>
 

@@ -19,10 +19,7 @@ package org.pentaho.aggdes.ui.form.controller;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -39,9 +36,7 @@ import org.pentaho.ui.xul.XulException;
 import org.pentaho.ui.xul.XulRunner;
 import org.pentaho.ui.xul.binding.Binding;
 import org.pentaho.ui.xul.binding.BindingFactory;
-import org.pentaho.ui.xul.binding.DefaultBinding;
 import org.pentaho.ui.xul.components.XulFileDialog;
-import org.pentaho.ui.xul.components.XulLabel;
 import org.pentaho.ui.xul.components.XulMenuitem;
 import org.pentaho.ui.xul.components.XulMessageBox;
 import org.pentaho.ui.xul.components.XulFileDialog.RETURN_CODE;
@@ -80,7 +75,7 @@ public class MainController extends AbstractXulEventHandler {
   
 
   private BindingFactory bindingFactory;
-
+  
   @Autowired
   public void setBindingFactory(BindingFactory bindingFactory) {
     this.bindingFactory = bindingFactory;
@@ -357,24 +352,10 @@ public class MainController extends AbstractXulEventHandler {
   }
   
   public void helpAboutLoad() {
-    XulLabel helpAboutVersionLabel = (XulLabel) document.getElementById("aboutVersion");
-    XulLabel helpAboutCopyrightLabel = (XulLabel) document.getElementById("aboutCopyright");
-    Properties versionProps = new Properties();
-    try {
-      InputStream is = getClass().getResourceAsStream("/version.properties");
-      if (is == null) {
-        logger.error("Failed to locate version.properties on classpath");
-      } else {
-        versionProps.load(is);
-      }
-    } catch (IOException e) {
-      if (logger.isErrorEnabled()) {
-        logger.error("an exception occurred", e);
-      }
-      return;
-    }
-    helpAboutVersionLabel.setValue(versionProps.getProperty("version"));
-    helpAboutCopyrightLabel.setValue("Copyright (c) 2008 Pentaho Corp.");
+//    XulLabel helpAboutVersionLabel = (XulLabel) document.getElementById("aboutVersion");
+//    XulLabel helpAboutCopyrightLabel = (XulLabel) document.getElementById("aboutCopyright");
+	  // TODO - Use VersionHelper to get version information from the MANIFEST.MF file
+	  //        and display the proper version and copyright information
   }
 
   public void setWorkspace(Workspace workspace) {  
