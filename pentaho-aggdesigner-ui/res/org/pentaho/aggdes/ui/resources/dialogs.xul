@@ -25,9 +25,9 @@
   <dialog buttonlabelcancel="${OK}" buttons="cancel" ondialogcancel="mainController.validation1Done()" id="validationDialog1" width="500"
     height="400" buttonalign="center" title="${validation_dialog_title}">
     <spacer height="8" />
-    <label value="${validation_results_intro}" />
+    <label flex="1" value="${validation_results_intro}" />
     <spacer height="8" />
-    <vbox flex="1">
+    <vbox flex="10">
       <textbox id="validationMessages" value="" flex="1" multiline="true" readonly="true" />
     </vbox>
     <spacer height="8" />
