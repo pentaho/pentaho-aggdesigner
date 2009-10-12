@@ -60,6 +60,7 @@ public class XulMessageBoxStub implements XulMessageBox {
   public String getID() {return null; }
   public String getId() {return null; }
   public Object getManagedObject() {return null; }
+  public void setManagedObject(Object managed) {}
   public String getName() {return null; }
   public boolean isDisabled() {return false; }
   public void removePropertyChangeListener(PropertyChangeListener listener) {}

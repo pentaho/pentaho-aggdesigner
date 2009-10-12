@@ -70,6 +70,7 @@ public class XulFileDialogStub implements XulFileDialog {
   public String getID() { return null; }
   public String getId() { return null; }
   public Object getManagedObject() { return null; }
+  public void setManagedObject(Object managed) {}
   public String getName() { return null; }
   public int getWidth() { return 0; }
   public boolean isDisabled() { return false; }
