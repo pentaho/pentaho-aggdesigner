@@ -84,4 +84,79 @@ private Object lock = new Object();
   
   public void setManagedObject(Object managed) {}
 
+	public void setAppicon(String icon) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String getContext() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getDrageffect() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getMenu() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getOndrag() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getOndrop() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getPopup() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int getSpacing() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void setContext(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setDrageffect(String drageffect) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setMenu(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setOndrag(String ondrag) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setOndrop(String ondrop) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setPopup(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setSpacing(int spacing) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

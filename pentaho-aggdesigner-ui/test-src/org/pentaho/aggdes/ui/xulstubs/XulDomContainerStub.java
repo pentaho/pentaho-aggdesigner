@@ -27,6 +27,7 @@ import org.pentaho.ui.xul.XulDomContainer;
 import org.pentaho.ui.xul.XulEventSource;
 import org.pentaho.ui.xul.XulException;
 import org.pentaho.ui.xul.XulLoader;
+import org.pentaho.ui.xul.XulPerspective;
 import org.pentaho.ui.xul.binding.Binding;
 import org.pentaho.ui.xul.binding.DefaultBinding;
 import org.pentaho.ui.xul.dom.Document;
@@ -84,5 +85,13 @@ public class XulDomContainerStub implements XulDomContainer {
   public void setResourceBundles(List<Object> resourceBundles) {
     
   }
+	public void addPerspective(XulPerspective perspective) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void loadPerspective(String id) {
+		// TODO Auto-generated method stub
+		
+	}
   
 }
