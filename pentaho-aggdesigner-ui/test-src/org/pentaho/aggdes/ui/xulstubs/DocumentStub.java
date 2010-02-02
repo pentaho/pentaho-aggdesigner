@@ -82,7 +82,5 @@ public class DocumentStub implements Document {
   public void invokeLater(Runnable runnable) {
     runnable.run();
   }
-	public void loadPerspective(String id) {
-	}
 
 }

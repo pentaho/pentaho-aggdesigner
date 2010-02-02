@@ -70,7 +70,6 @@ public class XulFileDialogStub implements XulFileDialog {
   public String getID() { return null; }
   public String getId() { return null; }
   public Object getManagedObject() { return null; }
-  public void setManagedObject(Object managed) {}
   public String getName() { return null; }
   public int getWidth() { return 0; }
   public boolean isDisabled() { return false; }
@@ -178,60 +177,4 @@ public class XulFileDialogStub implements XulFileDialog {
   public void setAlign(String align) {
     
   }
-	public String getContext() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getDrageffect() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getMenu() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getOndrag() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getOndrop() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getPopup() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public int getSpacing() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public void setContext(String id) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setDrageffect(String drageffect) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setMenu(String id) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setOndrag(String ondrag) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setOndrop(String ondrop) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setPopup(String id) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setSpacing(int spacing) {
-		// TODO Auto-generated method stub
-		
-	}
 }
