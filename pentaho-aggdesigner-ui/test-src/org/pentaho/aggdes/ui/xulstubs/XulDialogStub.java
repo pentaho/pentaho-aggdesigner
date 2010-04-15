@@ -159,4 +159,11 @@ private Object lock = new Object();
 		
 	}
 
+  public boolean isPack() {
+    return false;
+  }
+	
+  public void setPack(boolean pack) {
+  }
+	
 }

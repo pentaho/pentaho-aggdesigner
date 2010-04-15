@@ -91,7 +91,14 @@ public class XulDomContainerStub implements XulDomContainer {
 	}
 	public void loadPerspective(String id) {
 		// TODO Auto-generated method stub
-		
 	}
-  
+
+	public void loadOverlay(String src, Object resourceBundle) throws XulException {
+	  // TODO Auto-generated method stub
+	}
+
+	public void registerClassLoader(Object loader) {
+	  // TODO Auto-generated method stub
+	}
+	
 }
