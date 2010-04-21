@@ -26,6 +26,7 @@ import javax.swing.UIManager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.ui.xul.XulDomContainer;
 import org.pentaho.ui.xul.XulException;
 import org.pentaho.ui.xul.XulLoader;
@@ -47,10 +48,11 @@ public class UIMain {
    * @param args
    */
   public static void main(String[] args) {
-    ApplicationContext context = new ClassPathXmlApplicationContext(
+    try {
+    	KettleEnvironment.init(false);
+    	ApplicationContext context = new ClassPathXmlApplicationContext(
         new String[] {"applicationContext.xml", "plugins.xml"}); //$NON-NLS-1$ //$NON-NLS-2$
     
-    try {
       UIMain uiMain = (UIMain) context.getBean("uiMain"); //$NON-NLS-1$
       uiMain.start(context);
     } catch (Throwable t) {

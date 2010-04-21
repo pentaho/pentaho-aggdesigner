@@ -22,7 +22,6 @@
       <exclude org="commons-lang"  name="commons-lang"/>
       <exclude org="javax.servlet" name="jsp-api" />
       <exclude org="javax.servlet" name="servlet-api" />
-      <exclude org="org.olap4j" name="olap4j"/>
     </dependency>
 
     <!--  testing dependencies -->
