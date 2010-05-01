@@ -18,7 +18,6 @@
 package org.pentaho.aggdes.ui;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +26,6 @@ import org.jmock.Expectations;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.pentaho.aggdes.AggDesignerException;
@@ -38,6 +36,7 @@ import org.pentaho.aggdes.ui.form.controller.ConnectionController;
 import org.pentaho.aggdes.ui.form.model.ConnectionModel;
 import org.pentaho.aggdes.ui.model.SchemaModel;
 import org.pentaho.aggdes.ui.xulstubs.XulDialogStub;
+import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.di.core.database.DatabaseMeta;
 import org.pentaho.ui.xul.XulDomContainer;
 import org.pentaho.ui.xul.XulException;
@@ -48,6 +47,14 @@ import org.pentaho.ui.xul.impl.XulEventHandler;
 @RunWith(JMock.class)
 public class ConnectionControllerTest {
 
+	static {
+    try {
+    	KettleEnvironment.init(false);
+    } catch (Exception e) {
+    	e.printStackTrace();
+    }
+	}
+	
   private ConnectionController controller;
 
   private JUnit4Mockery context;
