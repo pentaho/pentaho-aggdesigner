@@ -17,9 +17,7 @@
 */
 package org.pentaho.aggdes.ui;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JMock;
@@ -29,8 +27,8 @@ import org.junit.Test;
 import org.junit.internal.runners.InitializationError;
 import org.junit.runner.RunWith;
 import org.pentaho.aggdes.ui.ext.impl.MondrianFileSchemaProvider;
-import org.pentaho.aggdes.ui.form.model.ConnectionModel;
 import org.pentaho.aggdes.ui.xulstubs.XulSupressingBindingFactoryProxy;
+import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.ui.xul.XulComponent;
 import org.pentaho.ui.xul.XulDomContainer;
 import org.pentaho.ui.xul.binding.Binding;
@@ -47,6 +45,11 @@ public class MondrianFileSchemaProviderTest extends JMock {
 
   public MondrianFileSchemaProviderTest() throws InitializationError {
     super(MondrianFileSchemaProviderTest.class);
+    try {
+    	KettleEnvironment.init(false);
+    } catch (Exception e) {
+    	e.printStackTrace();
+    }
   }
 
   private MondrianFileSchemaProvider schemaProvider;
@@ -56,8 +59,6 @@ public class MondrianFileSchemaProviderTest extends JMock {
   private Document doc;
 
   private XulDomContainer container;
-
-  private List<MondrianFileSchemaProvider> mondrianFileSchemaProviders;
   
   private BindingFactory bindingFactory;
   

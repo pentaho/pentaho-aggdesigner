@@ -26,6 +26,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.ui.xul.XulComponent;
 import org.pentaho.ui.xul.XulDomContainer;
 import org.pentaho.ui.xul.XulException;
@@ -39,6 +40,14 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 @ContextConfiguration(locations = { "/applicationContext.xml", "/plugins.xml" })
 public class XulEventHandlerTest extends AbstractJUnit4SpringContextTests {
 
+	static {
+    try {
+    	KettleEnvironment.init(false);
+    } catch (Exception e) {
+    	e.printStackTrace();
+    }
+	}
+	
   private Map<String, XulEventHandler> handlersByName = new HashMap<String, XulEventHandler>();
 
   @SuppressWarnings("unchecked")

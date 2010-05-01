@@ -19,20 +19,14 @@ package org.pentaho.aggdes.ui;
 
 import static org.pentaho.aggdes.test.util.TestUtils.getTestProperty;
 
-import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 import junit.framework.TestCase;
 
 import org.pentaho.aggdes.test.algorithm.impl.SchemaStub;
-import org.pentaho.aggdes.ui.ext.SchemaProviderUiExtension;
 import org.pentaho.aggdes.ui.ext.impl.MondrianFileSchemaModel;
-import org.pentaho.aggdes.ui.ext.impl.MondrianFileSchemaProvider;
 import org.pentaho.aggdes.ui.form.controller.ConnectionController;
 import org.pentaho.aggdes.ui.form.controller.MainController;
 import org.pentaho.aggdes.ui.form.model.ConnectionModelImpl;
@@ -41,25 +35,22 @@ import org.pentaho.aggdes.ui.util.SerializationService;
 import org.pentaho.aggdes.ui.xulstubs.XulDomContainerStub;
 import org.pentaho.aggdes.ui.xulstubs.XulFileDialogStub;
 import org.pentaho.aggdes.ui.xulstubs.XulMessageBoxStub;
+import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.di.core.database.DatabaseMeta;
-import org.pentaho.ui.xul.XulComponent;
 import org.pentaho.ui.xul.XulDomContainer;
-import org.pentaho.ui.xul.XulDomException;
-import org.pentaho.ui.xul.XulEventSource;
 import org.pentaho.ui.xul.XulException;
-import org.pentaho.ui.xul.XulLoader;
-import org.pentaho.ui.xul.binding.Binding;
-import org.pentaho.ui.xul.components.XulFileDialog;
-import org.pentaho.ui.xul.components.XulMessageBox;
 import org.pentaho.ui.xul.components.XulFileDialog.RETURN_CODE;
-import org.pentaho.ui.xul.dom.Attribute;
-import org.pentaho.ui.xul.dom.Document;
-import org.pentaho.ui.xul.dom.Element;
-import org.pentaho.ui.xul.dom.Namespace;
-import org.pentaho.ui.xul.impl.XulEventHandler;
 
 public class MainControllerTest extends TestCase {
-  
+
+	public void setUp() {
+    try {
+    	KettleEnvironment.init(false);
+    } catch (Exception e) {
+    	e.printStackTrace();
+    }
+  }
+	
   public void testSaveWorkspace() throws Exception {
 
     // INITIAL STUB WIRING

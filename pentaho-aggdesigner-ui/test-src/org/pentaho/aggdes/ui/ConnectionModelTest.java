@@ -17,7 +17,10 @@
 */
 package org.pentaho.aggdes.ui;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -28,11 +31,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.pentaho.aggdes.ui.form.model.ConnectionModel;
 import org.pentaho.aggdes.ui.form.model.ConnectionModelImpl;
+import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.di.core.database.DatabaseMeta;
 
 
 public class ConnectionModelTest {
   
+	public ConnectionModelTest() {
+    try {
+    	KettleEnvironment.init(false);
+    } catch (Exception e) {
+    	e.printStackTrace();
+    }
+  }
+	
   private ConnectionModel connectionModel;
   
   @Before

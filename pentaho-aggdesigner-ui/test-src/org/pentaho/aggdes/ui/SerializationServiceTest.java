@@ -17,8 +17,6 @@
 */
 package org.pentaho.aggdes.ui;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import static org.pentaho.aggdes.test.util.TestUtils.getTestProperty;
 
 import java.util.ArrayList;
@@ -38,6 +36,7 @@ import org.pentaho.aggdes.ui.model.AggList;
 import org.pentaho.aggdes.ui.model.impl.AggListImpl;
 import org.pentaho.aggdes.ui.model.impl.UIAggregateImpl;
 import org.pentaho.aggdes.ui.util.SerializationService;
+import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.di.core.database.DatabaseMeta;
 
 public class SerializationServiceTest extends TestCase {
@@ -81,6 +80,12 @@ public class SerializationServiceTest extends TestCase {
   @Test
   public void test() {
     
+    try {
+    	KettleEnvironment.init(false);
+    } catch (Exception e) {
+    	e.printStackTrace();
+    }
+  	
     // serialize and deserialize to make sure things are going back and forth 
 
     ConnectionModel connectionModel = new ConnectionModelImpl();
