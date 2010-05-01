@@ -121,6 +121,14 @@ public class MondrianSchema implements Schema {
           // fact table
           continue;
         }
+        
+        if (measure.getName().equals("Fact Count")) {
+        	// skip fact count if it exists, we create it later.
+        	// Mondrian 3.2 introduced an internal Fact Count
+        	// for writeback.
+        	continue;
+        }
+        
         measures.add(createMeasure(tableImpl, measure));
 
       } else {
