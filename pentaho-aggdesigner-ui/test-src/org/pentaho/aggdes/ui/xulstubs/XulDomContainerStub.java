@@ -28,6 +28,7 @@ import org.pentaho.ui.xul.XulEventSource;
 import org.pentaho.ui.xul.XulException;
 import org.pentaho.ui.xul.XulLoader;
 import org.pentaho.ui.xul.XulPerspective;
+import org.pentaho.ui.xul.XulSettingsManager;
 import org.pentaho.ui.xul.binding.Binding;
 import org.pentaho.ui.xul.binding.DefaultBinding;
 import org.pentaho.ui.xul.dom.Document;
@@ -99,6 +100,14 @@ public class XulDomContainerStub implements XulDomContainer {
 
 	public void registerClassLoader(Object loader) {
 	  // TODO Auto-generated method stub
+	}
+	public XulSettingsManager getSettingsManager() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void setSettingsManager(XulSettingsManager arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

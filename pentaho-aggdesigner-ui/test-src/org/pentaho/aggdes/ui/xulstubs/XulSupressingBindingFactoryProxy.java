@@ -19,6 +19,7 @@ package org.pentaho.aggdes.ui.xulstubs;
 
 import org.pentaho.ui.xul.binding.Binding;
 import org.pentaho.ui.xul.binding.BindingConvertor;
+import org.pentaho.ui.xul.binding.BindingExceptionHandler;
 import org.pentaho.ui.xul.binding.BindingFactory;
 import org.pentaho.ui.xul.binding.DefaultBinding;
 import org.pentaho.ui.xul.binding.Binding.Type;
@@ -68,5 +69,10 @@ public class XulSupressingBindingFactoryProxy implements BindingFactory {
   public void setDocument(Document document) {
     //do nothing, we are ignoring all xul-specific behavior
   }
+
+	public void setExceptionHandler(BindingExceptionHandler arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }    
