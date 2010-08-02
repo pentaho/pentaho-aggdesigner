@@ -19,7 +19,6 @@
     
     <!--  internal dependencies -->
     
-    <dependency org="eigenbase" name="eigenbase-xom" rev="${dependency.eigenbase-xom.revision}" changing="true"/>    
     <dependency org="pentaho"   name="mondrian"      rev="${dependency.mondrian.revision}"      changing="true">
       <exclude org="commons-lang"  name="commons-lang"/>
       <exclude org="javax.servlet" name="jsp-api" />
