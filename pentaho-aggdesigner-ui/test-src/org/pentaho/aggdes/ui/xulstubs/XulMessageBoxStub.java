@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.pentaho.ui.xul.XulComponent;
 import org.pentaho.ui.xul.XulDomException;
+import org.pentaho.ui.xul.binding.BindingProvider;
 import org.pentaho.ui.xul.components.XulMessageBox;
 import org.pentaho.ui.xul.dom.Attribute;
 import org.pentaho.ui.xul.dom.Document;
@@ -212,4 +213,8 @@ public class XulMessageBoxStub implements XulMessageBox {
 		// TODO Auto-generated method stub
 		
 	}
+
+  public void setBindingProvider(BindingProvider bindingProvider) {
+    
+  }
 }

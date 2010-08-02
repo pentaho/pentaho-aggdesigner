@@ -17,6 +17,7 @@
 */
 package org.pentaho.aggdes.ui.xulstubs;
 
+import org.pentaho.ui.xul.binding.BindingProvider;
 import org.pentaho.ui.xul.mock.XulDialogAdapter;
 
 public class XulDialogStub extends XulDialogAdapter {
@@ -165,5 +166,7 @@ private Object lock = new Object();
 	
   public void setPack(boolean pack) {
   }
-	
+
+  public void setBindingProvider(BindingProvider bindingProvider) {
+  }
 }
