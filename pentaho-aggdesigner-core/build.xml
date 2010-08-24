@@ -14,6 +14,9 @@
 		and works with the build-res/subfloor.xml file.
 	</description>
 
+	<property name="javadoc.packagenames"
+			        value="org.pentaho.*"/>
+	
 	<!-- Define the default location of the common build file -->
 	<property name="common.build.file" value="./build-res/subfloor.xml" 
 		description="This is the location of the standardized build-res/subfloor.xml file"/>
@@ -21,8 +24,7 @@
 	<!-- Import the build-res/subfloor.xml file which contains all the default tasks -->
 	<import file="${common.build.file}"/>
 
-	 <property name="javadoc.packagenames"
-		        value="org.pentaho.*"/>
+	
 	
     <!--
       AS STATED ABOVE, THE ONLY TASKS THAT SHOULD EXIST IN THIS BUILD FILE ARE
