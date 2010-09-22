@@ -7,6 +7,6 @@ REM Classpath is built by launcher. See ..\lib\launcher.properties.
 setlocal
 
 set PENTAHO_JAVA=java
-call "%~dp0set-pentaho-java.bat"
+call "%~dp0set-pentaho-env.bat"
 
 "%_PENTAHO_JAVA%" -jar "%~dp0lib\launcher-1.0.0.jar"

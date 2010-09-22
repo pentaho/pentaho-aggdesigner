@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # ${project.name}
 # ${project.version}.${build.number}
 # Copyright © ${project.inceptionYear} ${project.organization.name}
@@ -9,7 +10,7 @@ cd $DIR_REL
 DIR=`pwd`
 cd -
 
-. "$DIR/set-pentaho-java.sh"
-setPentahoJava
+. "$DIR/set-pentaho-env.sh"
+setPentahoEnv
 
 "$_PENTAHO_JAVA" -jar "$DIR/lib/launcher-1.0.0.jar"
