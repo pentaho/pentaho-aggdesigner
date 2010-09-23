@@ -239,4 +239,9 @@ public class XulFileDialogStub implements XulFileDialog {
   public void setBindingProvider(BindingProvider bindingProvider) {
     
   }
+	public String getDropvetoer() {
+		return null;
+	}
+	public void setDropvetoer(String dropVetoMethod) {
+	}
 }

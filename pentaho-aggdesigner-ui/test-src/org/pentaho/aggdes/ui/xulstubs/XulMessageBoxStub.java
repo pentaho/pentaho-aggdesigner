@@ -217,4 +217,9 @@ public class XulMessageBoxStub implements XulMessageBox {
   public void setBindingProvider(BindingProvider bindingProvider) {
     
   }
+	public String getDropvetoer() {
+		return null;
+	}
+	public void setDropvetoer(String dropVetoMethod) {
+	}
 }
