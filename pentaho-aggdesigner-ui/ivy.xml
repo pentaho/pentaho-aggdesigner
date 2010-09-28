@@ -54,5 +54,7 @@
               <exclude org="org.springframework" name="spring" />
     </dependency>
     
+    <exclude org="xml-apis" module="xml-apis" />
+    
   </dependencies>
 </ivy-module>
