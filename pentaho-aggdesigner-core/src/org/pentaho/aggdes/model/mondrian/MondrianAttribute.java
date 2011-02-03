@@ -32,7 +32,7 @@ import org.pentaho.aggdes.model.Dialect;
 import org.pentaho.aggdes.model.Table;
 
 public class MondrianAttribute implements Attribute {
-
+  
   private final MondrianTable table;
   private final RolapStar.Column column;
   private final double distinctValueCount;
@@ -116,9 +116,31 @@ public class MondrianAttribute implements Attribute {
               !dialect.supportsPrecision(jdbcConnection.getMetaData(), type)) {
               typeString = type;
           } else if (scale == 0) {
+            if(!resultSetMetaData.isSigned(1) && type.contains("UNSIGNED")) {
+              String[] words = type.split("\\s+");
+              if(words.length > 1) {
+                String typeFirstWord = words[0];
+                String typeSignWord = words[1];
+                typeString = typeFirstWord + "(" + precision + ") " + typeSignWord;
+              } else {
+                typeString = type + "(" + precision + ")";
+              }
+            } else {
               typeString = type + "(" + precision + ")";
+            }
           } else {
+            if(!resultSetMetaData.isSigned(1) && type.contains("UNSIGNED")) {
+              String[] words = type.split("\\s+");
+              if(words.length > 1) {
+                String typeFirstWord = words[0];
+                String typeSignWord = words[1];
+                typeString = typeFirstWord + "(" + precision + ", " + scale + ")" + " " + typeSignWord;
+              } else {
+                typeString = type + "(" + precision + ", " + scale + ")";
+              }
+            } else {
               typeString = type + "(" + precision + ", " + scale + ")";
+            }
           }
           pstmt.close();
           jdbcConnection.close();
