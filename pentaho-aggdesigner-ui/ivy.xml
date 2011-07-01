@@ -29,9 +29,7 @@
     <dependency org="pentaho" name="pentaho-xul-core" rev="${dependency.pentaho-xul.revision}" transitive="true" changing="true" />
     <dependency org="pentaho" name="pentaho-xul-swing" rev="${dependency.pentaho-xul.revision}" transitive="true" changing="true" />
     
-    <dependency org="pentaho.kettle"   name="kettle-dbdialog"                         rev="${dependency.kettle.revision}" changing="true" >
-              <exclude org="org.eclipse" name="swt" />
-    </dependency>
+    <dependency org="pentaho.kettle"   name="kettle-dbdialog"                         rev="${dependency.kettle.revision}" changing="true" />
     <dependency org="pentaho.kettle"   name="kettle-core"                             rev="${dependency.kettle.revision}" changing="true" />
     <dependency org="pentaho.kettle"   name="kettle-db"                               rev="${dependency.kettle.revision}" changing="true" />
     <dependency org="pentaho"          name="pentaho-mondrianschemaworkbench-plugins" rev="${dependency.pentaho-mondrianschemaworkbench-plugins.revision}" transitive="false" />
