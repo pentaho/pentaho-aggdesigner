@@ -90,9 +90,11 @@
     <tar destfile="${dist.dir}/${package.basename}.tar.gz" longfile="gnu" compression="gzip">
       <tarfileset dir="${stage.dir}" mode="755">
         <include name="**/*.sh" />
+        <include name="**/JavaApplicationStub" />
       </tarfileset>
       <tarfileset dir="${stage.dir}">
         <exclude name="**/*.sh" />
+        <exclude name="**/JavaApplicationStub" />      	
       </tarfileset>
     </tar>
   </target>
