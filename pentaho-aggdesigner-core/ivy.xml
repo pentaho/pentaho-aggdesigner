@@ -29,7 +29,7 @@
     <dependency org="org.jmock" name="jmock-junit4"         rev="2.4.0"   conf="test->default"/>
     <dependency org="org.jmock" name="jmock-legacy"         rev="2.4.0"   conf="test->default"/>
     <dependency org="hsqldb"    name="hsqldb"               rev="1.8.0.7" conf="test->default"/>
-	<dependency org="mysql"     name="mysql-connector-java" rev="5.1.10"   conf="test->default"/>    
+	<dependency org="mysql"     name="mysql-connector-java" rev="5.1.17"   conf="test->default"/>    
 
   </dependencies>
 </ivy-module>
