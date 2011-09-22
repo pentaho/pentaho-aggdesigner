@@ -28,6 +28,8 @@ import mondrian.rolap.RolapAggregator;
 import mondrian.rolap.RolapCube;
 import mondrian.rolap.RolapCubeLevel;
 import mondrian.rolap.RolapStar;
+import mondrian.server.Execution;
+import mondrian.server.Locus;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -64,8 +66,18 @@ public class MondrianSchema implements Schema {
     RolapStar star = cube.getStar();
     dialect = new MondrianDialect(star.getSqlQueryDialect());
     final RolapStar.Table factTable = star.getFactTable();
-    doTable(null, factTable);
-    doCube(cube);
+    final Locus locus =
+        new Locus(
+            Execution.NONE,
+            "MondrianSchema.init",
+            "while loading the MondrianSchema into the Aggregation Designer.");
+    Locus.push(locus);
+    try {
+        doTable(null, factTable);
+        doCube(cube);
+    } finally {
+        Locus.pop(locus);
+    }
   }
 
   public Connection getRolapConnection() {

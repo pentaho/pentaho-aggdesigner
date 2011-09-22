@@ -28,6 +28,7 @@ import mondrian.rolap.RolapConnection;
 import mondrian.rolap.RolapCube;
 import mondrian.rolap.RolapMember;
 import mondrian.rolap.RolapStoredMeasure;
+import mondrian.rolap.SqlStatement;
 import mondrian.rolap.sql.SqlQuery;
 
 import org.pentaho.aggdes.model.Attribute;
@@ -59,7 +60,7 @@ public class MondrianStatisticsProvider implements StatisticsProvider {
                      conn = schema.getRolapCube().getSchema().getInternalConnection().getDataSource().getConnection();
                      stmt = conn.createStatement();
                      SqlQuery query = new SqlQuery(((MondrianDialect)schema.getDialect()).getMondrianDialect());
-                     query.addSelect("count(*)");
+                     query.addSelect("count(*)", SqlStatement.Type.DOUBLE);
                      query.addFrom(
                              schema.getRolapCube().getStar().getFactTable().getRelation(),
                              null, true);

@@ -95,7 +95,7 @@ public class MondrianAttribute implements Attribute {
       mondrian.spi.Dialect mondrianDialect = ((MondrianDialect) dialect).getMondrianDialect();
       final SqlQuery query = new SqlQuery(mondrianDialect);
       query.addFrom(column.getTable().getRelation(), column.getTable().getAlias(), false);
-      query.addSelect(column.getExpression().getExpression(query));
+      query.addSelect(column.getExpression().getExpression(query), null);
       final String sql = query.toString();
       java.sql.Connection jdbcConnection = null;
       try {

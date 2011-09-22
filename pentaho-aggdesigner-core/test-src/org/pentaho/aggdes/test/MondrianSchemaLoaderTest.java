@@ -71,8 +71,9 @@ public class MondrianSchemaLoaderTest extends TestCase {
       loader.createSchema(parameterValues);
       fail();
     } catch (mondrian.olap.MondrianException e) {
-      assertEquals(e.getMessage(),
-          "Mondrian Error:Internal error: Connect string 'badconnstr=' must contain either 'Jdbc' or 'DataSource'");
+      assertEquals(
+          "Mondrian Error:Internal error: Connect string 'badconnstr=; Catalog='null'' must contain either 'Jdbc' or 'DataSource'",
+          e.getMessage());
     }
   }
 
