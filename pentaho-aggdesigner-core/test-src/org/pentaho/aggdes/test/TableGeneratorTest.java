@@ -209,27 +209,29 @@ public class TableGeneratorTest extends TestCase {
                     "    `measure_05`,\n" +
                     "    `measure_06`,\n" +
                     "    `measure_07`)\n" + 
-                    "select \n" + 
-                    "    `store`.`store_name` as `column_01`, \n" + 
-                    "    `product_class`.`product_department` as `column_02`, \n" + 
-                    "    sum(`sales_fact_1997`.`unit_sales`) as `measure_01`, \n" +
-                    "    sum(`sales_fact_1997`.`store_cost`) as `measure_02`, \n" + 
-                    "    sum(`sales_fact_1997`.`store_sales`) as `measure_03`, \n" +
-                    "    count(`sales_fact_1997`.`product_id`) as `measure_04`, \n" +
-                    "    count(distinct `sales_fact_1997`.`customer_id`) as `measure_05`, \n" +
-                    "    sum((case when `sales_fact_1997`.`promotion_id` = 0 then 0 else `sales_fact_1997`.`store_sales` end)) as `measure_06`, \n" +
+                    "select\n" + 
+                    "    `store`.`store_name` as `column_01`,\n" + 
+                    "    `product_class`.`product_department` as `column_02`,\n" + 
+                    "    sum(`sales_fact_1997`.`unit_sales`) as `measure_01`,\n" +
+                    "    sum(`sales_fact_1997`.`store_cost`) as `measure_02`,\n" + 
+                    "    sum(`sales_fact_1997`.`store_sales`) as `measure_03`,\n" +
+                    "    count(`sales_fact_1997`.`product_id`) as `measure_04`,\n" +
+                    "    count(distinct `sales_fact_1997`.`customer_id`) as `measure_05`,\n" +
+                    "    sum((case when `sales_fact_1997`.`promotion_id` = 0 then 0 else `sales_fact_1997`.`store_sales` end)) as `measure_06`,\n" +
                     "    count(*) as `measure_07`\n" +
-                    "from \n" + 
-                    "    `sales_fact_1997` as `sales_fact_1997`, \n" + 
-                    "    `store` as `store`, \n" + 
-                    "    `product_class` as `product_class`, \n" +                    
+                    "from\n" + 
+                    "    `sales_fact_1997` as `sales_fact_1997`,\n" + 
+                    "    `store` as `store`,\n" + 
+                    "    `product_class` as `product_class`,\n" +
                     "    `product` as `product`\n" + 
-                    "where \n" + 
-                    "    `sales_fact_1997`.`store_id` = `store`.`store_id` and \n" + 
-                    "    `sales_fact_1997`.`product_id` = `product`.`product_id` and \n" + 
+                    "where\n" + 
+                    "    `sales_fact_1997`.`store_id` = `store`.`store_id`\n" +
+                    "and\n" + 
+                    "    `sales_fact_1997`.`product_id` = `product`.`product_id`\n" +
+                    "and\n" +
                     "    `product`.`product_class_id` = `product_class`.`product_class_id`\n" + 
-                    "group by \n" + 
-                    "    `store`.`store_name`, \n" + 
+                    "group by\n" + 
+                    "    `store`.`store_name`,\n" + 
                     "    `product_class`.`product_department`;\n"),
                     popGenerator.generate(schema, output)
             );                
