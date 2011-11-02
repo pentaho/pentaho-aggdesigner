@@ -25,6 +25,7 @@ import java.util.List;
 import mondrian.olap.Connection;
 import mondrian.olap.MondrianDef;
 import mondrian.rolap.RolapAggregator;
+import mondrian.rolap.RolapConnection;
 import mondrian.rolap.RolapCube;
 import mondrian.rolap.RolapCubeLevel;
 import mondrian.rolap.RolapStar;
@@ -60,7 +61,7 @@ public class MondrianSchema implements Schema {
 
   private final Dialect dialect;
 
-  public MondrianSchema(Connection conn, RolapCube cube) {
+  public MondrianSchema(RolapConnection conn, RolapCube cube) {
     this.connection = conn;
     this.cube = cube;
     RolapStar star = cube.getStar();
@@ -68,7 +69,7 @@ public class MondrianSchema implements Schema {
     final RolapStar.Table factTable = star.getFactTable();
     final Locus locus =
         new Locus(
-            Execution.NONE,
+            new Execution(conn.getInternalStatement(),0),
             "MondrianSchema.init",
             "while loading the MondrianSchema into the Aggregation Designer.");
     Locus.push(locus);

@@ -23,10 +23,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import mondrian.olap.Connection;
 import mondrian.olap.DriverManager;
 import mondrian.olap.Util;
 import mondrian.olap.Util.PropertyList;
+import mondrian.rolap.RolapConnection;
 import mondrian.rolap.RolapCube;
 import mondrian.rolap.RolapStar;
 
@@ -59,9 +59,10 @@ public class MondrianSchemaLoader implements SchemaLoader {
         String cubeName =
             (String) parameterValues.get(
                 MondrianSchemaLoaderParameter.cube);
-        final Connection connection =
-            DriverManager.getConnection(connectString, null);
+        final RolapConnection connection =
+            (RolapConnection)DriverManager.getConnection(connectString, null);
         final mondrian.olap.Schema schema = connection.getSchema();
+        
         final RolapCube cube = (RolapCube) schema.lookupCube(cubeName, true);
         return new MondrianSchema(connection, cube);
     }
