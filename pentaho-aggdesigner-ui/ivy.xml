@@ -15,7 +15,7 @@
     <dependency org="commons-httpclient"       name="commons-httpclient" rev="3.0.1" />
     <dependency org="dom4j"                    name="dom4j"              rev="1.6.1" transitive="false" />
     <dependency org="org.springframework"      name="spring"             rev="2.5.6" />
-    <dependency org="com.thoughtworks.xstream" name="xstream"            rev="1.4.2" /> 
+    <dependency org="com.thoughtworks.xstream" name="xstream"            rev="${dependency.xstream.revision}" /> 
     
     <!--  internal dependencies -->
     
