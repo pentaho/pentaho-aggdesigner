@@ -72,10 +72,7 @@
       <fileset dir="${package.resdir}" />
     </copy>
     <copy todir="${approot.stage.dir}/lib">
-      <fileset dir="${lib.dir}">
-        <exclude name="mysql-connector-java-*"/>
-        <exclude name="hsqldb-*"/>
-      </fileset>
+      <fileset dir="${lib.dir}"/>
       <fileset file="${dist.dir}/${ivy.artifact.id}-${project.revision}.jar" />
     </copy>
     <chmod perm="a+x" dir="${stage.dir}" includes="**/*.sh" />
