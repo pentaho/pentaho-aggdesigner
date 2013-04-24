@@ -16,7 +16,7 @@
 
   <!-- Define the default location of the common build file -->
   <property name="common.build.file"
-            value="./build-res/subfloor.xml"
+            value="./build-res/subfloor-pkg.xml"
             description="This is the location of the standardized build-res/subfloor.xml file" />
 
   <!-- Import the build-res/subfloor.xml file which contains all the default tasks -->
@@ -35,68 +35,4 @@
   <property name="package.basename" value="${productId}-${releaseType}-${project.revision}" />
   <property name="package.zipfile" value="${dist.dir}/${package.artifact.id}-${project.revision}.zip" />
   <property name="package.resdir" value="${basedir}/package-res" />
-
-  <target name="dist" depends="jar,package" description="Creates distribution of Pentaho Aggregation Designer" />
-
-  <target name="clean-dist" description="Removes all dist artifacts">
-	<delete dir="${dist.dir}" />
-  	<delete dir="${stage.dir}" />
-  </target>
-	
-  <!-- override of jar target.. this definitely should be moved into common build -->
-  <target name="jar"
-          depends="compile,set-build.id,create-version-file"
-          description="Jars up the bin directory after a compile">
-    <jar destfile="${dist.dir}/${ivy.artifact.id}-${project.revision}.jar">
-      <manifest>
-        <attribute name="Implementation-Title" value="${impl.title}" />
-        <attribute name="Implementation-Version" value="${project.revision}.${build.id}" />
-        <attribute name="Implementation-Vendor" value="${impl.vendor}" />
-        <attribute name="Implementation-ProductID" value="${impl.productID}" />
-      </manifest>
-      <fileset dir="${classes.dir}" />
-    </jar>
-  </target>
-
-
-  <target name="create-version-file">
-    <propertyfile file="${classes.dir}/version.properties" comment="${impl.title} build information">
-      <entry key="version" value="${project.revision}.${build.id}" />
-      <entry key="builddate" type="date" value="now" />
-    </propertyfile>
-  </target>
-
-  <target name="assemble">
-    <mkdir dir="${approot.stage.dir}" />
-    <copy todir="${approot.stage.dir}">
-      <fileset dir="${package.resdir}" />
-    </copy>
-    <copy todir="${approot.stage.dir}/lib">
-      <fileset dir="${lib.dir}"/>
-      <fileset file="${dist.dir}/${ivy.artifact.id}-${project.revision}.jar" />
-    </copy>
-    <chmod perm="a+x" dir="${stage.dir}" includes="**/*.sh" />
-  </target>
-
-  <target name="package" depends="assemble,package-zip,package-targz" />
-
-  <target name="package-zip">
-    <zip destfile="${dist.dir}/${package.basename}.zip">
-      <zipfileset dir="${stage.dir}" />
-    </zip>
-  </target>
-
-  <target name="package-targz">
-    <tar destfile="${dist.dir}/${package.basename}.tar.gz" longfile="gnu" compression="gzip">
-      <tarfileset dir="${stage.dir}" mode="755">
-        <include name="**/*.sh" />
-        <include name="**/JavaApplicationStub" />
-      </tarfileset>
-      <tarfileset dir="${stage.dir}">
-        <exclude name="**/*.sh" />
-        <exclude name="**/JavaApplicationStub" />      	
-      </tarfileset>
-    </tar>
-  </target>
-
 </project>
