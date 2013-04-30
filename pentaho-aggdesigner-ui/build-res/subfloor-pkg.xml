@@ -50,7 +50,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <property name="approot.stage.dir"
             value="${stage.dir}/${package.root.dir}"
             description="Stage application root dir" />
-  <property name="package.id" value="${ivy.artifact.id}" />
+  <property name="package.id" value="pad-ce" />
   <property name="package.basename" value="${package.id}-${project.revision}" />
   <property name="package.resdir" value="${basedir}/package-res" />
   <property name="package.artifact.ivyfile"
