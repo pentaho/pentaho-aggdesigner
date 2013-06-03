@@ -26,10 +26,12 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.DriverPropertyInfo;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import mondrian.olap.Util;
 
@@ -125,6 +127,10 @@ public class TestUtils {
 
     public boolean jdbcCompliant() {
       return this.driver.jdbcCompliant();
+    }
+
+    public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+      return null;
     }
   }
   
