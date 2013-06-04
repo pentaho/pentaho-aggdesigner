@@ -155,7 +155,7 @@ public class MondrianFileSchemaProviderTest extends JMock {
     schemaProvider.setMondrianSchemaFilename("");
   }
   private boolean getDefaultDefinedState() {
-    return (schemaProvider.getMondrianSchemaFilename() == null)?false:schemaProvider.getMondrianSchemaFilename().length() < 1;
+    return (schemaProvider.getMondrianSchemaFilename() == null)?false:schemaProvider.getMondrianSchemaFilename().length() > 0;
   }
 
 }
