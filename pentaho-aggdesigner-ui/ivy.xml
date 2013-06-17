@@ -38,7 +38,7 @@
       <exclude org="mysql" name="mysql-connector-java"/>
     </dependency>
     <dependency org="pentaho-kettle"   name="kettle-core"                             rev="${dependency.kettle.revision}" transitive="true" changing="true" />
-    <dependency org="pentaho-kettle"   name="kettle-engine"                           rev="${dependency.kettle.revision}" transitive="false" changing="true" />
+    <dependency org="pentaho-kettle"   name="kettle-engine"                           rev="${dependency.kettle.revision}" transitive="true" changing="true" />
     <dependency org="org.scannotation" name="scannotation"                            rev="1.0.2" transitive="false"/>
     <dependency org="javassist"        name="javassist"                               rev="3.12.1.GA" transitive="false"/>
     <dependency org="pentaho"          name="pentaho-mondrianschemaworkbench-plugins" rev="${dependency.pentaho-mondrianschemaworkbench-plugins.revision}" transitive="false" />
