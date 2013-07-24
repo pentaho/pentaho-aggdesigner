@@ -1,19 +1,19 @@
 /*
- * This program is free software; you can redistribute it and/or modify it under the 
- * terms of the GNU General Public License, version 2 as published by the Free Software 
+ * This program is free software; you can redistribute it and/or modify it under the
+ * terms of the GNU General Public License, version 2 as published by the Free Software
  * Foundation.
  *
- * You should have received a copy of the GNU General Public License along with this 
- * program; if not, you can obtain a copy at http://www.gnu.org/licenses/gpl-2.0.html 
- * or from the Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License along with this
+ * program; if not, you can obtain a copy at http://www.gnu.org/licenses/gpl-2.0.html
+ * or from the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
  *
- * Copyright 2008 Pentaho Corporation.  All rights reserved. 
+ * Copyright 2008 Pentaho Corporation.  All rights reserved.
 */
 package org.pentaho.aggdes.ui;
 
@@ -28,7 +28,7 @@ import org.junit.internal.runners.InitializationError;
 import org.junit.runner.RunWith;
 import org.pentaho.aggdes.ui.ext.impl.MondrianFileSchemaProvider;
 import org.pentaho.aggdes.ui.xulstubs.XulSupressingBindingFactoryProxy;
-import org.pentaho.di.core.KettleEnvironment;
+import org.pentaho.di.core.KettleClientEnvironment;
 import org.pentaho.ui.xul.XulComponent;
 import org.pentaho.ui.xul.XulDomContainer;
 import org.pentaho.ui.xul.binding.Binding;
@@ -46,7 +46,7 @@ public class MondrianFileSchemaProviderTest extends JMock {
   public MondrianFileSchemaProviderTest() throws InitializationError {
     super(MondrianFileSchemaProviderTest.class);
     try {
-    	KettleEnvironment.init(false);
+    	KettleClientEnvironment.init();
     } catch (Exception e) {
     	e.printStackTrace();
     }
@@ -59,11 +59,11 @@ public class MondrianFileSchemaProviderTest extends JMock {
   private Document doc;
 
   private XulDomContainer container;
-  
+
   private BindingFactory bindingFactory;
-  
+
   private EventRecorder eventRecorder;
-  
+
   @Autowired
   public void setSchemaProvider(MondrianFileSchemaProvider schemaProvider) {
     this.schemaProvider = schemaProvider;
@@ -93,16 +93,16 @@ public class MondrianFileSchemaProviderTest extends JMock {
         allowing(container).addEventHandler(with(any(XulEventHandler.class)));
         allowing(doc).addOverlay(with(any(String.class)));
         ignoring(container);
-        allowing(doc).getElementById(with(aNonNull(String.class))); 
+        allowing(doc).getElementById(with(aNonNull(String.class)));
         will(returnValue(context.mock(XulComponent.class, Long.toString(System.currentTimeMillis()))));
         allowing(doc).addInitializedBinding(with(any(Binding.class)));
         allowing(doc).invokeLater(with(any(Runnable.class))); //don't care if the controller uses invokeLater or not, this is UI stuff
       }
     });
-    
+
     schemaProvider.setXulDomContainer(container);
-    
-    
+
+
     //In order to really make this an integration test, there needs to be a BindingFactory that is injected into the controller
     //so we can mock or stub it out and allow the object->object bindings to actually be bound while the xulcomponent bindings
     //are consumed.  Here we are proxying the BindingFactory to acheive this.
@@ -111,40 +111,40 @@ public class MondrianFileSchemaProviderTest extends JMock {
     XulSupressingBindingFactoryProxy proxy = new XulSupressingBindingFactoryProxy();
     proxy.setProxiedBindingFactory(bindingFactory);
     schemaProvider.setBindingFactory(proxy);
-    
+
     schemaProvider.onLoad();
-    
+
     eventRecorder = new EventRecorder();
     eventRecorder.setLogging(true);
     eventRecorder.record(schemaProvider);
   }
-  
+
   @Test
   public void testSchemaDefined_DefaultState() {
     schemaProvider.setSelected(true);
-    
+
     assertEquals(getDefaultDefinedState(), schemaProvider.isSchemaDefined());
   }
   @Test
   public void testSchemaDefined_Defined() {
     undefineSchema();
     eventRecorder.reset();
-    
+
     defineSchema();
-    
-    assertEquals(Boolean.TRUE, (Boolean)eventRecorder.getLastValue("schemaDefined"));
+
+    assertEquals(Boolean.TRUE, eventRecorder.getLastValue("schemaDefined"));
   }
   @Test
   public void testSchemaDefined_UnDefined() {
     defineSchema();
     eventRecorder.reset();
-    
+
     undefineSchema();
-    
-    assertEquals(Boolean.FALSE, (Boolean)eventRecorder.getLastValue("schemaDefined"));
+
+    assertEquals(Boolean.FALSE, eventRecorder.getLastValue("schemaDefined"));
   }
-  
-  
+
+
   /**
    * change the state of your schema provider so it is considered to have a defined schema
    */

@@ -1,19 +1,19 @@
 /*
- * This program is free software; you can redistribute it and/or modify it under the 
- * terms of the GNU General Public License, version 2 as published by the Free Software 
+ * This program is free software; you can redistribute it and/or modify it under the
+ * terms of the GNU General Public License, version 2 as published by the Free Software
  * Foundation.
  *
- * You should have received a copy of the GNU General Public License along with this 
- * program; if not, you can obtain a copy at http://www.gnu.org/licenses/gpl-2.0.html 
- * or from the Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License along with this
+ * program; if not, you can obtain a copy at http://www.gnu.org/licenses/gpl-2.0.html
+ * or from the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
  *
- * Copyright 2008 Pentaho Corporation.  All rights reserved. 
+ * Copyright 2008 Pentaho Corporation.  All rights reserved.
 */
 package org.pentaho.aggdes.ui;
 
@@ -33,31 +33,28 @@ import org.pentaho.aggdes.ui.form.model.AggModel;
 import org.pentaho.aggdes.ui.form.model.ConnectionModelImpl;
 import org.pentaho.aggdes.ui.model.UIAggregate;
 import org.pentaho.aggdes.ui.model.impl.AggListImpl;
-import org.pentaho.aggdes.ui.xulstubs.DocumentStub;
 import org.pentaho.aggdes.ui.xulstubs.XulDomContainerStub;
-import org.pentaho.aggdes.ui.xulstubs.XulSupressingBindingFactoryProxy;
-import org.pentaho.ui.xul.binding.DefaultBindingFactory;
 
 import junit.framework.TestCase;
 
 public class AggControllerTest extends TestCase {
-  
+
   public int syncToAggCalled;
   public int aggChangedCalled;
   public int generateDefaultOutputCalled;
   public int setThinAggCalled;
-  
+
   public void testAggController() {
     // onload
     // apply
     // aggChanged(int)
     // resetAgg
-    
+
     AggModel aggModel = new AggModel() {
       public void synchToAgg() {
         syncToAggCalled++;
       }
-      
+
       public void setThinAgg(UIAggregate thinAgg) {
         super.setThinAgg(thinAgg);
         setThinAggCalled++;
@@ -83,49 +80,49 @@ public class AggControllerTest extends TestCase {
     List<OutputFactory> outputFactories = new ArrayList<OutputFactory>();
     outputFactories.add(new AggregateTableOutputFactory());
     outputService.setOutputFactories(outputFactories);
-    
+
     aggModel.setConnectionModel(connectionModel);
-    
+
     // setup controller
     controller.setAggModel(aggModel);
     controller.setAggList(aggList);
     controller.setOutputService(outputService);
-    
+
     XulDomContainerStub xulDomContainer = new XulDomContainerStub();
     controller.setXulDomContainer(xulDomContainer);
     aggModel.getThinAgg().setName("temp_name");
-    
+
     // test onLoad
     //FIXME: fix this test
 //    DefaultBindingFactory bindingFactory = new DefaultBindingFactory();
 //    bindingFactory.setDocument(xulDomContainer.getDocumentRoot());
 //    XulSupressingBindingFactoryProxy proxyFac = new XulSupressingBindingFactoryProxy();
 //    proxyFac.setProxiedBindingFactory(bindingFactory);
-//    
+//
 //    controller.setBindingFactory(proxyFac);
 //    controller.onLoad();
-//    
+//
 //    // verify bindings exist
 //    assertEquals(xulDomContainer.bindings.size(), 3);
 //    assertEquals(((DocumentStub)xulDomContainer.getDocumentRoot()).bindings.size(), 9);
-//    
+//
 //    // verify thinagg has been initialized to a new UI Agg
 //    assertNotNull(aggModel.getThinAgg());
 //    assertFalse(aggModel.getThinAgg().getName().equals("temp_name"));
-    
+
     // tpdo: verify listener exists by triggering event and seeing it's effects
-    
+
     // test apply
-    
+
     controller.apply();
     assertEquals(syncToAggCalled, 1);
     assertEquals(aggChangedCalled, 1);
     assertEquals(generateDefaultOutputCalled, 1);
-    
+
     // test resetAgg
     setThinAggCalled = 0;
     controller.reset();
     assertEquals(setThinAggCalled, 1);
-    
+
   }
 }

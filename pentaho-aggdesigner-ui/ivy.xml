@@ -21,8 +21,6 @@
     
     <dependency org="pentaho"   name="mondrian"      rev="${dependency.mondrian.revision}"      changing="true">
       <exclude org="commons-lang"  name="commons-lang"/>
-      <exclude org="javax.servlet" name="jsp-api" />
-      <exclude org="javax.servlet" name="servlet-api" />
     </dependency>
     <dependency org="pentaho"          name="pentaho-aggdesigner-core"                rev="${project.revision}" changing="true" />
     
@@ -36,9 +34,9 @@
 
     <dependency org="pentaho-kettle"   name="kettle-dbdialog"                         rev="${dependency.kettle.revision}" changing="true" transitive="false">
       <exclude org="mysql" name="mysql-connector-java"/>
+      <exclude org="pentaho-kettle" module="kettle-engine"/>
     </dependency>
     <dependency org="pentaho-kettle"   name="kettle-core"                             rev="${dependency.kettle.revision}" transitive="true" changing="true" />
-    <dependency org="pentaho-kettle"   name="kettle-engine"                           rev="${dependency.kettle.revision}" transitive="true" changing="true" />
     <dependency org="org.scannotation" name="scannotation"                            rev="1.0.2" transitive="false"/>
     <dependency org="javassist"        name="javassist"                               rev="3.12.1.GA" transitive="false"/>
     <dependency org="pentaho"          name="pentaho-mondrianschemaworkbench-plugins" rev="${dependency.pentaho-mondrianschemaworkbench-plugins.revision}" transitive="false" changing="true" />
@@ -58,7 +56,7 @@
     <dependency org="org.jmock"           name="jmock-junit4"              rev="2.4.0"   conf="test->default"/>
     <dependency org="org.jmock"           name="jmock-legacy"              rev="2.4.0"   conf="test->default"/>
     <dependency org="hsqldb"              name="hsqldb"                    rev="1.8.0.7" conf="test->default"/>
-    <dependency org="mysql"               name="mysql-connector-java"      rev="5.1.17"   conf="test->default"/>
+    <dependency org="mysql"               name="mysql-connector-java"      rev="5.1.25"   conf="test->default"/>
     <dependency org="org.springframework" name="spring-test"               rev="2.5.6"   conf="test->default"/>
     <dependency org="org.springmodules"   name="spring-modules-validation" rev="0.8"     conf="test->default">
               <exclude org="org.springframework" name="spring" />
@@ -80,6 +78,8 @@
     
     
     <exclude org="xml-apis" module="xml-apis" />
+    <exclude org="javax.servlet" module="jsp-api" />
+    <exclude org="javax.servlet" module="servlet-api" />
     
   </dependencies>
 </ivy-module>

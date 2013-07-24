@@ -1,19 +1,19 @@
 /*
- * This program is free software; you can redistribute it and/or modify it under the 
- * terms of the GNU General Public License, version 2 as published by the Free Software 
+ * This program is free software; you can redistribute it and/or modify it under the
+ * terms of the GNU General Public License, version 2 as published by the Free Software
  * Foundation.
  *
- * You should have received a copy of the GNU General Public License along with this 
- * program; if not, you can obtain a copy at http://www.gnu.org/licenses/gpl-2.0.html 
- * or from the Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License along with this
+ * program; if not, you can obtain a copy at http://www.gnu.org/licenses/gpl-2.0.html
+ * or from the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
  *
- * Copyright 2008 Pentaho Corporation.  All rights reserved. 
+ * Copyright 2008 Pentaho Corporation.  All rights reserved.
 */
 package org.pentaho.aggdes.ui;
 
@@ -34,7 +34,7 @@ import org.pentaho.aggdes.ui.ext.impl.MondrianFileSchemaProvider;
 import org.pentaho.aggdes.ui.form.controller.ConnectionController;
 import org.pentaho.aggdes.ui.form.model.ConnectionModel;
 import org.pentaho.aggdes.ui.xulstubs.XulSupressingBindingFactoryProxy;
-import org.pentaho.di.core.KettleEnvironment;
+import org.pentaho.di.core.KettleClientEnvironment;
 import org.pentaho.ui.xul.XulComponent;
 import org.pentaho.ui.xul.XulDomContainer;
 import org.pentaho.ui.xul.binding.Binding;
@@ -56,7 +56,7 @@ public class ConnectionControllerITest extends JMock {
   public ConnectionControllerITest() throws InitializationError {
     super(ConnectionControllerITest.class);
     try {
-    	KettleEnvironment.init(false);
+    	KettleClientEnvironment.init();
     } catch (Exception e) {
     	e.printStackTrace();
     }
@@ -73,11 +73,11 @@ public class ConnectionControllerITest extends JMock {
   private ConnectionModel model;
 
   private List<MondrianFileSchemaProvider> mondrianFileSchemaProviders;
-  
+
   private BindingFactory bindingFactory;
-  
+
   private EventRecorder eventRecorder; //for verifying property change events
-  
+
 
   @Autowired
   public void setController(ConnectionController controller) {
@@ -116,16 +116,16 @@ public class ConnectionControllerITest extends JMock {
         allowing(container).addEventHandler(with(any(XulEventHandler.class)));
         allowing(doc).addOverlay(with(any(String.class)));
         ignoring(container);
-        allowing(doc).getElementById(with(aNonNull(String.class))); 
+        allowing(doc).getElementById(with(aNonNull(String.class)));
         will(returnValue(context.mock(XulComponent.class, Long.toString(System.currentTimeMillis()))));
         allowing(doc).addInitializedBinding(with(any(Binding.class)));
         allowing(doc).invokeLater(with(any(Runnable.class))); //don't care if the controller uses invokeLater or not, this is UI stuff
       }
     });
-    
+
     controller.setXulDomContainer(container);
-    
-    
+
+
     //In order to really make this an integration test, there needs to be a BindingFactory that is injected into the controller
     //so we can mock or stub it out and allow the object->object bindings to actually be bound while the xulcomponent bindings
     //are consumed.  Here we are proxying the BindingFactory to achieve this.
@@ -134,7 +134,7 @@ public class ConnectionControllerITest extends JMock {
     XulSupressingBindingFactoryProxy proxy = new XulSupressingBindingFactoryProxy();
     proxy.setProxiedBindingFactory(bindingFactory);
     controller.setBindingFactory(proxy);
-    
+
     for(MondrianFileSchemaProvider provider : mondrianFileSchemaProviders) {
       provider.setXulDomContainer(container);
       provider.setBindingFactory(proxy);
@@ -144,98 +144,98 @@ public class ConnectionControllerITest extends JMock {
   @Test
   public void testApplyEnablementForMondrianFileSchemaProvider() throws Exception {
     final String PROPNAME = "applySchemaSourceEnabled";
-    
+
     //setup all the bindings
     controller.onLoad();
-    
+
     eventRecorder.record(model);
-    
+
     //by default apply should be disabled
     assertFalse(model.isApplySchemaSourceEnabled());
-    
+
     //text input should enable apply
     mondrianFileSchemaProviders.get(0).setSelected(true);
     mondrianFileSchemaProviders.get(0).setMondrianSchemaFilename("text here should enable apply button");
 
     assertTrue(model.isApplySchemaSourceEnabled());
-    assertEquals(Boolean.TRUE, (Boolean)eventRecorder.getLastValue(PROPNAME));
-    
+    assertEquals(Boolean.TRUE, eventRecorder.getLastValue(PROPNAME));
+
 //  clearing the text should disable it again
     mondrianFileSchemaProviders.get(0).setMondrianSchemaFilename("");
-    
+
     assertFalse(model.isApplySchemaSourceEnabled());
-    assertEquals(Boolean.FALSE, (Boolean)eventRecorder.getLastValue(PROPNAME));
+    assertEquals(Boolean.FALSE, eventRecorder.getLastValue(PROPNAME));
   }
-  
+
   @Test
   public void testApplyEnablementOnProviderSelection() throws Exception {
     final String PROPNAME = "applySchemaSourceEnabled";
-    
+
     MondrianFileSchemaProvider prvdr1 = mondrianFileSchemaProviders.get(0);
     MondrianFileSchemaProvider prvdr2 = mondrianFileSchemaProviders.get(1);
-    
+
     //setup all the bindings
     controller.onLoad();
-    
+
     eventRecorder.record(model);
-    
+
     //select 1st provider and enter data
     prvdr1.setMondrianSchemaFilename("abc");
     prvdr1.setSelected(true);
-    
+
     assertTrue(model.isApplySchemaSourceEnabled());
-    assertEquals(Boolean.TRUE, (Boolean)eventRecorder.getLastValue(PROPNAME));
-    
+    assertEquals(Boolean.TRUE, eventRecorder.getLastValue(PROPNAME));
+
     //select 2nd provider
     eventRecorder.reset();
     prvdr1.setSelected(false);
     prvdr2.setSelected(true);
-    
+
     assertFalse(model.isApplySchemaSourceEnabled());
-    assertEquals(Boolean.FALSE, (Boolean)eventRecorder.getLastValue(PROPNAME));
-    
+    assertEquals(Boolean.FALSE, eventRecorder.getLastValue(PROPNAME));
+
     //reselect 1st provider
     eventRecorder.reset();
     prvdr2.setSelected(false);
     prvdr1.setSelected(true);
-    
+
     assertTrue(model.isApplySchemaSourceEnabled());
-    assertEquals(Boolean.TRUE, (Boolean)eventRecorder.getLastValue(PROPNAME));
+    assertEquals(Boolean.TRUE, eventRecorder.getLastValue(PROPNAME));
   }
-  
+
 //  @Test
   //This test was never fully implemented.. it's a half-baked approach to testing like a user would
 //  public void testFormEnablementForEditModeWhenAnAggIsDefined() throws Exception {
 //    //setup all the bindings
 //    controller.onLoad();
-//    
+//
 //    eventRecorder.record(model);
-//    
+//
 //    //
 //    //Connect to a cube:
 //    //
-//    
+//
 //    //setup db connection
 //    DatabaseMeta dbMeta = new DatabaseMeta();
 //    dbMeta.setName("testDB");
 //    model.setDatabaseMeta(dbMeta);
-//    
+//
 //    //select 1st provider and enter schema filename
 //    MondrianFileSchemaProvider prvdr1 = mondrianFileSchemaProviders.get(0);
 //    prvdr1.setMondrianSchemaFilename("test schema filename");
 //    prvdr1.setSelected(true);
 //    SchemaProviderUiExtension ext = prvdr1;
-//    
+//
 //    controller.setSchemaProviders(Arrays.asList(ext));
-//    
+//
 //    //apply the schema
 //    //do what apply() does without all the XUL code
 //    model.setCubeNames(prvdr1.getCubeNames());
 //    model.setSelectedSchemaModel(prvdr1.getSchemaModel());
-//    
+//
 //    //select first cube
 //    model.setCubeName(model.getCubeNames().get(0));
-//    
+//
 //    //connect
 //    controller.connect();
 //  }

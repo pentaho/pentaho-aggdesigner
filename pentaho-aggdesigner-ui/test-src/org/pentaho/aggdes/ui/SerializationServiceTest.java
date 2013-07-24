@@ -1,19 +1,19 @@
 /*
- * This program is free software; you can redistribute it and/or modify it under the 
- * terms of the GNU General Public License, version 2 as published by the Free Software 
+ * This program is free software; you can redistribute it and/or modify it under the
+ * terms of the GNU General Public License, version 2 as published by the Free Software
  * Foundation.
  *
- * You should have received a copy of the GNU General Public License along with this 
- * program; if not, you can obtain a copy at http://www.gnu.org/licenses/gpl-2.0.html 
- * or from the Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License along with this
+ * program; if not, you can obtain a copy at http://www.gnu.org/licenses/gpl-2.0.html
+ * or from the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
  *
- * Copyright 2008 Pentaho Corporation.  All rights reserved. 
+ * Copyright 2008 Pentaho Corporation.  All rights reserved.
 */
 package org.pentaho.aggdes.ui;
 
@@ -36,11 +36,11 @@ import org.pentaho.aggdes.ui.model.AggList;
 import org.pentaho.aggdes.ui.model.impl.AggListImpl;
 import org.pentaho.aggdes.ui.model.impl.UIAggregateImpl;
 import org.pentaho.aggdes.ui.util.SerializationService;
-import org.pentaho.di.core.KettleEnvironment;
+import org.pentaho.di.core.KettleClientEnvironment;
 import org.pentaho.di.core.database.DatabaseMeta;
 
 public class SerializationServiceTest extends TestCase {
-  
+
   public static AggList getAggList(SchemaStub schemaStub) {
     AggList aggList = new AggListImpl();
 
@@ -72,24 +72,24 @@ public class SerializationServiceTest extends TestCase {
     aggImpl4.getAttributes().add(schemaStub.getAttributes().get(1));
     aggImpl4.setOutput(null);
     aggList.addAgg(aggImpl4);
-    
+
     return aggList;
 
   }
-  
+
   @Test
   public void test() {
-    
+
     try {
-    	KettleEnvironment.init(false);
+    	KettleClientEnvironment.init();
     } catch (Exception e) {
     	e.printStackTrace();
     }
-  	
-    // serialize and deserialize to make sure things are going back and forth 
+
+    // serialize and deserialize to make sure things are going back and forth
 
     ConnectionModel connectionModel = new ConnectionModelImpl();
-    
+
     List<SchemaProviderUiExtension> providerList = new ArrayList<SchemaProviderUiExtension>();
     MondrianFileSchemaProvider mondrianProvider = new MondrianFileSchemaProvider();
     providerList.add(mondrianProvider);
@@ -99,21 +99,21 @@ public class SerializationServiceTest extends TestCase {
     connectionModel.setSelectedSchemaModel(schemaModel);
     schemaModel.setMondrianSchemaFilename(getTestProperty("test.mondrian.foodmart.connectString.catalog"));
     connectionModel.setCubeName("Sales");
-    
-    
-    
 
-    SchemaStub schemaStub = new SchemaStub(); 
+
+
+
+    SchemaStub schemaStub = new SchemaStub();
     AggList aggList = getAggList(schemaStub);
-    
+
     SerializationService service = new SerializationService();
     service.setConnectionModel(connectionModel);
     service.setAggList(aggList);
     String output = service.serializeWorkspace(schemaStub);
-    
+
     connectionModel.setSelectedSchemaModel(null);
     aggList.clearAggs();
-    
+
     assertEquals(aggList.getSize(), 0);
     assertEquals(connectionModel.getCubeName(), null);
     String items[] = null;
@@ -123,31 +123,31 @@ public class SerializationServiceTest extends TestCase {
       e.printStackTrace();
       fail();
     }
-    
+
     service.deserializeConnection(schemaStub, items[0], items[1]);
-    
+
     assertEquals(connectionModel.getCubeName(), "Sales");
     assertEquals(
         ((MondrianFileSchemaModel)connectionModel.getSelectedSchemaModel()).getMondrianSchemaFilename(),
         getTestProperty("test.mondrian.foodmart.connectString.catalog")
     );
-    
+
     service.deserializeAggList(schemaStub, items[2]);
-    
+
     assertEquals(4, aggList.getSize());
-    
-    assertEquals("testAgg1", aggList.getAgg(0).getName());    
+
+    assertEquals("testAgg1", aggList.getAgg(0).getName());
     assertEquals("testAgg2", aggList.getAgg(1).getName());
     assertEquals("testAgg3", aggList.getAgg(2).getName());
     assertEquals("testAgg4", aggList.getAgg(3).getName());
-    
+
     assertEquals(aggList.getAgg(0).getAttributes().get(0),
         schemaStub.getAttributes().get(0)
     );
-    
+
     assertEquals(aggList.getAgg(3).getAttributes().get(1),
         schemaStub.getAttributes().get(1)
     );
   }
-  
+
 }
