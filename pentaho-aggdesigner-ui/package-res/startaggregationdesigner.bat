@@ -1,7 +1,7 @@
 @echo off
-REM ${project.name}
-REM ${project.version}.${build.number}
-REM Copyright © ${project.inceptionYear} ${project.organization.name}
+REM @project.name@
+REM @project.version@.@build.number@
+REM Copyright © 2013 @project.organization.name@
 REM Classpath is built by launcher. See ..\lib\launcher.properties.
 
 setlocal
