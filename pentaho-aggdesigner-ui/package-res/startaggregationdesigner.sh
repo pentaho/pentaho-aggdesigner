@@ -13,4 +13,4 @@ cd -
 . "$DIR/set-pentaho-env.sh"
 setPentahoEnv
 
-"$_PENTAHO_JAVA" -jar "$DIR/lib/launcher-1.0.0.jar"
+"$_PENTAHO_JAVA" -jar "$DIR/lib/pentaho-application-launcher-1.0.2.jar"

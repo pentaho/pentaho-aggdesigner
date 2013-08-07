@@ -47,7 +47,7 @@
     
     <!--  internal runtime dependencies -->
     
-    <dependency org="pentaho" name="launcher" rev="${dependency.pentaho-launcher.revision}" />
+    <dependency org="pentaho" name="pentaho-application-launcher" rev="${dependency.pentaho-launcher.revision}" />
     
     <!-- test dependencies -->
     
