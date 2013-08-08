@@ -5,9 +5,9 @@
 
   <dialog id="export_dialog" height="500">
     
-    <groupbox id="populate_groupbox">
+    <groupbox id="populate_groupbox" flex="1">
       <caption label="${populate_aggs}"/>
-      <label value="${populate_caption}"/>
+      <label value="${populate_caption}" flex="1"/>
       
       <hbox>
         <spacer flex="1"/>
@@ -16,9 +16,9 @@
       </hbox>
     </groupbox>
     
-    <groupbox id="publish_groupbox">
+    <groupbox id="publish_groupbox" flex="1">
       <caption label="${publish_schema}"/>
-      <label value="${publish_caption}"/>
+      <label value="${publish_caption}" flex="1"/>
       
       <hbox>
         <spacer flex="1"/>

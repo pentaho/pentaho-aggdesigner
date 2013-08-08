@@ -2,18 +2,18 @@
   ondialogcancel="exportHandler.closeDialog()" width="450"
   height="300" buttonalign="center" title="${export_dialog_title}">
   
-  <groupbox>
+  <groupbox flex="1">
     <caption label="${preview}"/>
-    <label value="${preview_caption}"/>
+    <label value="${preview_caption}" flex="1"/>
     <hbox>
       <spacer flex="1"/>
       <button label="${preview}" onclick="exportHandler.showPreview()"/>
     </hbox>
   </groupbox>
   
-  <groupbox>
+  <groupbox flex="1">
     <caption label="${create_aggs}"/>
-    <label value="${create_caption}"/>
+    <label value="${create_caption}" flex="1"/>
     
     <hbox>
       <spacer flex="1"/>

@@ -8,7 +8,7 @@
 	  <label value="${description}:" />
 	  <textbox id="aggregateDescription" disabled="true"/>
     </vbox>
-    <pen:line/>
+   
     <tabbox id="aggregateTabs" flex="1">
       <tabs id="aggTabs">
         <tab label="${agg_levels_tab_label}" />
@@ -28,7 +28,7 @@
       </tabpanels>
     </tabbox>
   </vbox>
-  <pen:line/>
+
   <hbox>
     <spacer flex="1" />
     <button label="${reset}" onclick="aggController.reset()" id="reset_agg_btn" disabled="true"/>
