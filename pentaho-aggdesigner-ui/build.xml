@@ -44,7 +44,7 @@
 	      		<filter token="dependency.pentaho-launcher.revision" value="${dependency.pentaho-launcher.revision}"/>
 	      	</filterset>
 	    </copy>
-	    <chmod perm="a+x" dir="${stage.dir}" includes="**/*.sh" />
+	    <chmod perm="a+x" dir="${stage.dir}" includes="**/*.sh, **/*.command" />
 	</target>
 	
 	
