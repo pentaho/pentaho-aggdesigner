@@ -38,22 +38,20 @@
 	
 	
 	<target name="assemble" depends="assemble.init,assemble.copy-libs">
-	    <copy todir="${approot.stage.dir}" overwrite="true">
-			<fileset dir="${package.resdir}">
-				<include name="**/startaggregationdesigner.*" />
-				<include name="**/Info.plist" />
-			</fileset>
-			<filterset>
-				<filter token="dependency.pentaho-launcher.revision" value="${dependency.pentaho-launcher.revision}"/>
-			</filterset>
-	    </copy>
 		<copy todir="${approot.stage.dir}" overwrite="true">
 			<fileset dir="${package.resdir}">
 				<exclude name="**/startaggregationdesigner.*" />
 			</fileset>
-	    </copy>
-	    <chmod perm="a+x" dir="${stage.dir}" includes="**/*.sh, **/*.command" />
+	  </copy>
+	  <copy todir="${approot.stage.dir}" overwrite="true">
+  		<fileset dir="${package.resdir}">
+	  		<include name="**/startaggregationdesigner.*" />
+	  		<include name="**/Info.plist" />
+		  </fileset>
+  		<filterset>
+	  		<filter token="dependency.pentaho-launcher.revision" value="${dependency.pentaho-launcher.revision}"/>
+	  	</filterset>
+    </copy>
+    <chmod perm="a+x" dir="${stage.dir}" includes="**/*.sh, **/*.command" />
 	</target>
-	
-	
 </project>
