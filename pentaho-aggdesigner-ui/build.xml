@@ -41,6 +41,7 @@
 	    <copy todir="${approot.stage.dir}" overwrite="true">
 			<fileset dir="${package.resdir}">
 				<include name="**/startaggregationdesigner.*" />
+				<include name="**/Info.plist" />
 			</fileset>
 			<filterset>
 				<filter token="dependency.pentaho-launcher.revision" value="${dependency.pentaho-launcher.revision}"/>
