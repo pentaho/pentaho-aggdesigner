@@ -55,7 +55,7 @@
   </category>
 
   <category name="org.pentaho.aggdes">
-    <priority value="INFO" />
+    <priority value="DEBUG" />
   </category>
 
   <root>
