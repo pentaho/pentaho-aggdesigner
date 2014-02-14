@@ -52,6 +52,7 @@ public class MainControllerTest extends TestCase {
     }
     XulMessageBoxStub.openedMessageBoxes.clear();
     XulMessageBoxStub.returnCode = 0;
+    XulFileDialogStub.returnFile = null;
   }
 
   public void testSaveWorkspace() throws Exception {
