@@ -50,6 +50,8 @@ public class MainControllerTest extends TestCase {
     } catch (Exception e) {
     	e.printStackTrace();
     }
+    XulMessageBoxStub.openedMessageBoxes.clear();
+    XulMessageBoxStub.returnCode = 0;
   }
 
   public void testSaveWorkspace() throws Exception {

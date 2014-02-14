@@ -140,6 +140,8 @@ public class ConnectionControllerITest extends JMock {
       provider.setXulDomContainer(container);
       provider.setBindingFactory(proxy);
     }
+    // this model gets reused across tests.  Revert to default value.
+    model.setApplySchemaSourceEnabled( false );
   }
 
   @Test
