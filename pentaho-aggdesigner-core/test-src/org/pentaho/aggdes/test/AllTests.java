@@ -35,7 +35,6 @@ public class AllTests {
     suite.addTestSuite(MondrianSchemaOutputTest.class);
     suite.addTestSuite(TableGeneratorTest.class);
     suite.addTestSuite(SsasToMondrianTest.class);
-    suite.addTestSuite(SsasXmlaTest.class);
     suite.addTestSuite(ValidationMondrianSchemaLoaderTest.class);
     //$JUnit-END$
     return suite;
