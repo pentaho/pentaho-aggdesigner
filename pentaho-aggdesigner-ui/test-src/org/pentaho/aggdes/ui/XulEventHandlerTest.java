@@ -63,17 +63,13 @@ public class XulEventHandlerTest extends AbstractJUnit4SpringContextTests {
 
   @Test
   public void reconcileEventHandlers() throws IllegalArgumentException, XulException {
-    try {
-      XulLoader xulLoader = (XulLoader) applicationContext.getBean("xulLoader");
-      XulDomContainer container = xulLoader.loadXul("org/pentaho/aggdes/ui/resources/mainFrame.xul");
+    XulLoader xulLoader = (XulLoader) applicationContext.getBean("xulLoader");
+    XulDomContainer container = xulLoader.loadXul("org/pentaho/aggdes/ui/resources/mainFrame.xul");
 
-      //traverse element tree and do getCommand and test that this method signature exists
-      Document xulDoc = container.getDocumentRoot();
+    //traverse element tree and do getCommand and test that this method signature exists
+    Document xulDoc = container.getDocumentRoot();
 
-      testXulComponentsDeep(xulDoc.getRootElement());
-    } catch (java.awt.HeadlessException e) {
-      //ignore for now...    	
-    }
+    testXulComponentsDeep(xulDoc.getRootElement());
   }
 
   private void testXulComponentsDeep(XulComponent comp) {
