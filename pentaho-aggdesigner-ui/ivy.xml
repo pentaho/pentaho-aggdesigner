@@ -28,8 +28,9 @@
     <dependency org="pentaho" name="pentaho-xul-core" rev="${dependency.pentaho-xul.revision}" transitive="true" changing="true" />
 
     <dependency org="pentaho" name="pentaho-xul-swing" rev="${dependency.pentaho-xul.revision}" transitive="true" changing="true" />
+
     <!-- PAD-114 add ESAPI JAR and Properties file to /lib-->
-    <dependency org="org.owasp.esapi" name="esapi" rev="2.0.1" />
+    <dependency org="org.owasp.esapi" name="esapi" rev="2.0.1" transitive="false" />
 
 
     <dependency org="pentaho-kettle"   name="kettle-dbdialog"                         rev="${dependency.kettle.revision}" changing="true" transitive="false">
@@ -61,8 +62,6 @@
     <dependency org="org.springmodules"   name="spring-modules-validation" rev="0.8"     conf="test->default">
               <exclude org="org.springframework" name="spring" />
     </dependency>
-    <dependency org="org.owasp.esapi" name="esapi" rev="2.0.1"  conf="test->default"/>
-
 
       <!-- jersey -->
     <dependency org="com.sun.jersey.contribs" name="jersey-multipart" 		rev="1.16"/>
