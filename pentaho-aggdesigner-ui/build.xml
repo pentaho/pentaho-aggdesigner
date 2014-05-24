@@ -7,7 +7,7 @@
   
   See build-res/subfloor.xml for more details
 ============================================================================-->
-<project name="Pentaho Aggregation Designer" basedir="." default="dist">
+<project name="Pentaho Aggregation Designer" basedir="." default="dist" xmlns:ivy="antlib:org.apache.ivy.ant">
 
   <description>
 	  This build file is used to create the API project
@@ -21,6 +21,21 @@
 
   <!-- Import the build-res/subfloor.xml file which contains all the default tasks -->
   <import file="${common.build.file}" />
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+	          Macro for making resolving ivy a 1 liner.  Tasks using this must depend on install-ivy.                      
+	         - - - - - - - - - - - - - - - - - -->
+  <macrodef name="ivy-resolve">
+  	<attribute name="ivyfile" default="${ivyfile}" />
+  	<attribute name="conf" default="default" />
+  	<attribute name="directory"/>
+  	<sequential>
+  		<mkdir dir="@{directory}" />
+  		<ivy:resolve file="@{ivyfile}" conf="@{conf}" />
+        <ivy:retrieve conf="@{conf}" pattern="@{directory}/[module]-[revision](-[classifier]).[ext]" />
+  	</sequential>
+  </macrodef>
+	
 
   <!--
       AS STATED ABOVE, THE ONLY TASKS THAT SHOULD EXIST IN THIS BUILD FILE ARE
@@ -35,9 +50,10 @@
   <property name="package.basename" value="${productId}-${releaseType}-${project.revision}" />
   <property name="package.zipfile" value="${dist.dir}/${package.artifact.id}-${project.revision}.zip" />
   <property name="package.resdir" value="${basedir}/package-res" />
+  <property name="pdf.docs.dir" value="${approot.stage.dir}/doc" />
 	
 	
-	<target name="assemble" depends="assemble.init,assemble.copy-libs">
+	<target name="assemble" depends="assemble.init,resolve-pdf-docs,assemble.copy-libs">
 		<copy todir="${approot.stage.dir}" overwrite="true">
 			<fileset dir="${package.resdir}">
 				<exclude name="**/startaggregationdesigner.*" />
@@ -54,4 +70,13 @@
     </copy>
     <chmod perm="a+x" dir="${stage.dir}" includes="**/*.sh, **/*.command" />
 	</target>
+	
+	
+	  <!-- - - - - - - - - - - - - - - - - - 
+	    target: resolve-pdf-docs
+	  - - - - - - - - - - - - - - - - - -->
+	  <target name="resolve-pdf-docs" depends="install-ivy">
+	    <ivy-resolve conf="pdf-docs" directory="${pdf.docs.dir}" />
+	  </target>
+	
 </project>

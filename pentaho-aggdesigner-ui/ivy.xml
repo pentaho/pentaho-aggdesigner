@@ -3,6 +3,7 @@
   <info organisation="${ivy.artifact.group}" module="${ivy.artifact.id}" revision="${project.revision}" />
   <configurations>
     <conf name="default" />
+    <conf name="pdf-docs" />
     <conf name="test" visibility="private" />
   </configurations>
   <dependencies defaultconf="default->default">
@@ -49,6 +50,14 @@
     <!--  internal runtime dependencies -->
     
     <dependency org="pentaho" name="pentaho-application-launcher" rev="${dependency.pentaho-launcher.revision}" />
+    
+    
+	<!-- PDF Documentation for bundling -->
+	<dependency org="pentaho-doc" name="aggregation_designer_guide" rev="${dependency.documentation.revision}" conf="pdf-docs->default">
+		<artifact name="aggregation_designer_guide" type="pdf" />
+	</dependency>
+
+    
     
     <!-- test dependencies -->
     
