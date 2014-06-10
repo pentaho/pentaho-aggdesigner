@@ -39,7 +39,7 @@
   <property name="pdf.docs.dir" value="${approot.stage.dir}/doc" />
 	
 	
-	<target name="assemble" depends="assemble.init,resolve-pdf-docs,assemble.copy-libs">
+	<target name="assemble" depends="assemble.init,resolve-pdf-docs,resolve-oss-licenses,assemble.copy-libs">
 		<copy todir="${approot.stage.dir}" overwrite="true">
 			<fileset dir="${package.resdir}">
 				<exclude name="**/startaggregationdesigner.*" />
@@ -53,17 +53,26 @@
   		<filterset>
 	  		<filter token="dependency.pentaho-launcher.revision" value="${dependency.pentaho-launcher.revision}"/>
 	  	</filterset>
-    </copy>
-    <chmod perm="a+x" dir="${stage.dir}" includes="**/*.sh, **/*.command" />
+      </copy>
+	  <unzip src="${bin.dir}/oss-licenses.zip" dest="${approot.stage.dir}/doc">
+	    <patternset>
+	      <include name="PentahoAggDesigner_OSS_Licenses.html"/>
+	    </patternset>
+	  </unzip>
+      <chmod perm="a+x" dir="${stage.dir}" includes="**/*.sh, **/*.command" />
+	</target>
+	
+
+	<target name="resolve-pdf-docs" depends="install-ivy">
+	    <ivy:resolve file="${ivyfile}" conf="pdf-docs" />
+	    <ivy:retrieve conf="pdf-docs" pattern="${pdf.docs.dir}/[module].[ext]" />
 	</target>
 	
 	
-	  <!-- - - - - - - - - - - - - - - - - - 
-	    target: resolve-pdf-docs
-	  - - - - - - - - - - - - - - - - - -->
-	  <target name="resolve-pdf-docs" depends="install-ivy">
-	    <ivy:resolve file="${ivyfile}" conf="pdf-docs" />
-	    <ivy:retrieve conf="pdf-docs" pattern="${pdf.docs.dir}/[module].[ext]" />
-	  </target>
+	<target name="resolve-oss-licenses" depends="install-ivy">
+		<ivy:resolve file="${ivyfile}" conf="oss-licenses" />
+	    <ivy:retrieve conf="oss-licenses" pattern="${bin.dir}/[module].[ext]" />
+	</target>
+		
 	
 </project>
