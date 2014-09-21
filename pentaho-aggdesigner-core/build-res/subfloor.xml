@@ -254,6 +254,9 @@ TYPICAL TARGET SEQUENCE
   <property name="res.dir"
             value="${basedir}/src/main/resources"
             description="Directory that holds resources not included in the source tree" />
+  <property name="test-res.dir"
+            value="${basedir}/src/test/resources"
+            description="Directory that holds test resources not included in the source tree" />
   <property name="source.zip.filename" value="${ivy.artifact.id}-${project.revision}-sources.zip" />
   <property name="source.tar.filename" value="${ivy.artifact.id}-${project.revision}-sources.tar.gz" />
   <property name="source.publish" value="true" />
@@ -1241,6 +1244,15 @@ TYPICAL TARGET SEQUENCE
       <then>
         <copy todir="${classes.dir}">
           <fileset dir="${res.dir}" />
+        </copy>
+      </then>
+    </if>
+
+    <if>
+      <available file="${test-res.dir}" />
+      <then>
+        <copy todir="${classes.dir}">
+          <fileset dir="${test-res.dir}" />
         </copy>
       </then>
     </if>
