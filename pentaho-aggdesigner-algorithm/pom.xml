@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.pentaho</groupId>
+    <artifactId>pentaho-aggdesigner</artifactId>
+    <version>5.1.4-jhyde-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>pentaho-aggdesigner-algorithm</artifactId>
+  <version>5.1.4-jhyde-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>Pentaho Aggregate Designer Algorithm</name>
+  <description>Algorithm that designs aggregate tables</description>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <top.dir>${project.basedir}/..</top.dir>
+    <build.timestamp>${maven.build.timestamp}</build.timestamp>
+  </properties>
+
+  <dependencies>
+    <!-- Sorted by groupId, artifactId. Put versions
+         in dependencyManagement in the root POM, not here. -->
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+    </dependency>
+
+    <!-- Test dependencies. -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
