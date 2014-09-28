@@ -65,6 +65,10 @@ class ExhaustiveLatticeImpl extends LatticeImpl {
         return bestAggregate;
     }
 
+    @Override public Lattice copy() {
+        return new ExhaustiveLatticeImpl(schema);
+    }
+
     /**
      * Materializes an aggregate, and propagates the cost improvements to
      * children.

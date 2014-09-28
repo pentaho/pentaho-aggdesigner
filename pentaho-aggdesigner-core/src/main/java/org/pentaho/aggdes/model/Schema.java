@@ -53,7 +53,7 @@ public interface Schema {
      *
      * @return list of all attributes in all tables
      */
-    List<Attribute> getAttributes();
+    List<? extends Attribute> getAttributes();
 
     /**
      * Returns the statistics provider for this Schema.

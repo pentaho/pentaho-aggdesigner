@@ -60,6 +60,7 @@ public class ResultImpl implements Result {
         this.costLimit = costLimit;
         aggregates.addAll(materializedAggregates);
         this.costBenefitList.addAll(costBenefitList);
+        assert aggregates.size() == costBenefitList.size();
         this.cost = cost;
         this.benefit = benefit;
     }

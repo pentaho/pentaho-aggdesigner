@@ -25,6 +25,7 @@ import junit.framework.TestCase;
 import org.pentaho.aggdes.algorithm.Algorithm.CostBenefit;
 import org.pentaho.aggdes.algorithm.impl.AggregateImpl;
 import org.pentaho.aggdes.algorithm.impl.Cost;
+import org.pentaho.aggdes.algorithm.impl.Lattice;
 import org.pentaho.aggdes.algorithm.impl.LatticeImpl;
 import org.pentaho.aggdes.model.Attribute;
 import org.pentaho.aggdes.model.Schema;
@@ -68,6 +69,10 @@ public class LatticeImplTest extends TestCase {
   static class LatticeImplMock extends LatticeImpl {
       LatticeImplMock(Schema schema) {
         super(schema);
+      }
+
+      @Override public Lattice copy() {
+          return new LatticeImplMock(schema);
       }
 
       public AggregateImpl chooseAggregate(double maxCost, double minCostBenefitRatio, Cost cost) {

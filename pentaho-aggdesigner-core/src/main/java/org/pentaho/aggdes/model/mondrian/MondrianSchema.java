@@ -108,16 +108,13 @@ public class MondrianSchema implements Schema {
   }
 
   /**
-   * createMeasure is protected so that extenders of MondrianSchema may modify
+   * Creates a measure.
+   *
+   * <p>This method is protected so that extenders of MondrianSchema may modify
    * certain characteristics of the measure class, such as getDataType(), etc
-   * 
+   *
    * @param table
    *          mondrian table parent
-   * @param column
-   *          mondrian column
-   * @param distinctValueCount
-   *          number of values in the attribute
-   * @return
    */
   protected MondrianMeasure createMeasure(MondrianTable table, RolapStar.Measure measure) {
     return new MondrianMeasure(table, measure);
@@ -274,9 +271,8 @@ public class MondrianSchema implements Schema {
     return dimensions;
   }
 
-  @SuppressWarnings( { "RedundantCast", "unchecked" })
-  public List<Attribute> getAttributes() {
-    return (List) attributes;
+  public List<? extends Attribute> getAttributes() {
+    return attributes;
   }
 
   public Dialect getDialect() {

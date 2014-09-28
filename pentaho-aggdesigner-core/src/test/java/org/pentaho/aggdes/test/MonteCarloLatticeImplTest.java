@@ -42,10 +42,10 @@ public class MonteCarloLatticeImplTest extends TestCase {
       AggregateImpl aggImpl = lattice.chooseAggregate(300000.0, 1.0, cost);
 
       //
-      // The first aggregate should be a single attribute aggregation
+      // The first aggregate should be a two attribute aggregation
       //
 
-      assertEquals(aggImpl.getAttributes().size(), 1);
+      assertEquals(2, aggImpl.getAttributes().size());
 
       lattice.materialize(aggImpl);
 
@@ -55,7 +55,7 @@ public class MonteCarloLatticeImplTest extends TestCase {
       // The second aggregate should be a two attribute aggregation
       //
 
-      assertEquals(aggImpl.getAttributes().size(), 2);
+      assertEquals(2, aggImpl.getAttributes().size());
 
       lattice.materialize(aggImpl);
 
@@ -65,7 +65,7 @@ public class MonteCarloLatticeImplTest extends TestCase {
       // The third aggregate should be a two attribute aggregation
       //
 
-      assertEquals(aggImpl.getAttributes().size(), 2);
+      assertEquals(2, aggImpl.getAttributes().size());
 
       // TEST Algorithm.CostBenefit costBenefitOf(AggregateImpl aggregate)
 
