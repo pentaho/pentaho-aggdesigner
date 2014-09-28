@@ -201,7 +201,7 @@ public class MonteCarloLatticeImpl extends LatticeImpl {
         // aggregate which directly matches the query.
         // Ignores materialized aggregates or their parents.
         AggregateImpl queryAgg = getAggregate(queryBitSet);
-        Queue<AggregateImpl> aggQueue = new LinkedList<AggregateImpl>();
+        Queue<AggregateImpl> aggQueue = new ArrayDeque<AggregateImpl>();
         Set<AggregateImpl> seen = new HashSet<AggregateImpl>();
         seen.addAll(materializedAggregates);
         List<AggregateImpl> parents = getParents(queryAgg);
