@@ -101,7 +101,8 @@ public class MondrianAttribute implements Attribute {
       try {
           jdbcConnection = column.getStar().getDataSource().getConnection();
           final PreparedStatement pstmt = jdbcConnection.prepareStatement(sql);
-          pstmt.setMaxRows(1);
+          // Fails on some versions of MySQL:
+          //pstmt.setMaxRows(1);
           pstmt.executeQuery();
           final ResultSetMetaData resultSetMetaData = pstmt.getMetaData();
           assert resultSetMetaData.getColumnCount() == 1;
@@ -149,7 +150,8 @@ public class MondrianAttribute implements Attribute {
       } catch (SQLException e) {
           throw Util.newError(
               e,
-              "Error while deriving type of column " + toString());
+              "Error while deriving type of column " + toString() + ", sql: "
+              + sql);
       } finally {
           if (jdbcConnection != null) {
               try {
