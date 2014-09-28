@@ -20,9 +20,7 @@ package org.pentaho.aggdes.ui.model;
 import java.util.List;
 
 /**
- * List of aggregates in play during a session of the agg designer. 
- * 
- * @author mlowery
+ * List of aggregates in play during a session of the agg designer.
  */
 public interface AggList extends Iterable<UIAggregate> {
 
@@ -35,27 +33,27 @@ public interface AggList extends Iterable<UIAggregate> {
   void removeAgg(int index);
 
   void setSelectedIndex(int index);
-  
+
   int getSelectedIndex();
-  
+
   UIAggregate getSelectedValue();
-  
+
   int getSize();
 
   void addAgg(UIAggregate agg);
-  
+
   void aggChanged(UIAggregate agg);
-  
+
   void addAggs(List<UIAggregate> aggs);
-  
+
   void clearAggs();
-  
+
   void moveAggUp(UIAggregate agg);
-  
+
   void moveAggDown(UIAggregate agg);
-  
+
   void checkAll();
-  
+
   void uncheckAll();
-  
+
 }

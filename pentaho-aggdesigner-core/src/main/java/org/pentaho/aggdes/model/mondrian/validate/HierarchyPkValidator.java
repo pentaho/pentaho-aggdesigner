@@ -63,13 +63,13 @@ public class HierarchyPkValidator extends AbstractMondrianSchemaValidator {
     if (logger.isDebugEnabled()) {
       logger.debug("processing cube \"" + cube.name + "\""); //$NON-NLS-1$ //$NON-NLS-2$
     }
-    
+
     // TODO: include validation support for mondrian views
     if (!(cube.fact instanceof Table)) {
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("cube \"" + cube.name + "\" contains unsupported fact type, " + cube.fact); //$NON-NLS-1$ //$NON-NLS-2$
-    	}
-    	return messages;
+        if (logger.isDebugEnabled()) {
+            logger.debug("cube \"" + cube.name + "\" contains unsupported fact type, " + cube.fact); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+        return messages;
     }
 
     String schemaName = ((Table) cube.fact).schema;

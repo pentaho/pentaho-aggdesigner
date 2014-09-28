@@ -27,10 +27,6 @@ import java.io.PrintWriter;
 
 /**
  * Implementation of {@link org.pentaho.aggdes.algorithm.Result}.
- *
- * @author jhyde
- * @version $Id: ResultImpl.java 931 2008-09-24 21:28:47Z mbatchelor $
- * @since Mar 13, 2008
  */
 public class ResultImpl implements Result {
     final List<Aggregate> aggregates = new ArrayList<Aggregate>();

@@ -24,12 +24,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * A generic version of <code>PropertyChangeSupport</code>. Encourages thread-safe listener management and event
- * firing. Use <code>getListeners</code> in your "notify listeners" methods.
+ * A generic version of <code>PropertyChangeSupport</code>.
  *
- * TODO move this class into pentaho commons
+ * <p>Encourages thread-safe listener management and event firing. Use
+ * <code>getListeners</code> in your "notify listeners" methods.
  *
- * @author mlowery
+ * <p>TODO move this class into pentaho commons
  */
 public class EventSupport<T> {
   // ~ Static fields/initializers ======================================================================================

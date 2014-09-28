@@ -22,11 +22,7 @@ import java.util.List;
 import java.util.BitSet;
 
 /**
- * <code>BitSetPlus</code> is an extension to {@link java.util.BitSet}.
- *
- * @author jhyde
- * @version $Id: BitSetPlus.java 931 2008-09-24 21:28:47Z mbatchelor $
- * @since Aug 14, 2006
+ * Extension to {@link java.util.BitSet}.
  */
 public class BitSetPlus extends BitSet {
     private final int bitCount;

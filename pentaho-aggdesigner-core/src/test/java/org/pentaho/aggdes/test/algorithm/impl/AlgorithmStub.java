@@ -34,9 +34,8 @@ import org.pentaho.aggdes.model.Schema;
 import org.pentaho.aggdes.model.Table;
 
 /**
- * Stub implementation for <code>Algorithm</code>. Provides canned answers and some methods are not implemented.
- * 
- * @author mlowery
+ * Stub implementation for <code>Algorithm</code>. Provides canned
+ * answers and some methods are not implemented.
  */
 public class AlgorithmStub implements Algorithm {
 
@@ -78,7 +77,7 @@ public class AlgorithmStub implements Algorithm {
       System.out.println("algorithm ended normally");
       return new ResultStub();
     }
-    
+
   }
 
   public String getName() {
@@ -103,7 +102,7 @@ public class AlgorithmStub implements Algorithm {
       public boolean isRequired() {
         return false;
       }
-      
+
     };
     List<Parameter> list = new ArrayList<Parameter>();
     list.add(param);

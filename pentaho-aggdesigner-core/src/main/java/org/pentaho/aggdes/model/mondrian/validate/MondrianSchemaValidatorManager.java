@@ -30,8 +30,6 @@ import org.pentaho.aggdes.model.mondrian.validate.MondrianSchemaValidator;
 
 /**
  * Delegates to a list of <code>MondrianSchemaValidator</code>s.
- * 
- * @author mlowery
  */
 public class MondrianSchemaValidatorManager implements MondrianSchemaValidator {
 

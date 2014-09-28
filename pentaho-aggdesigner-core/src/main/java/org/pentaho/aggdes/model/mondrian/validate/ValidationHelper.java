@@ -35,7 +35,7 @@ import org.eigenbase.xom.XOMUtil;
 import org.pentaho.aggdes.model.ValidationMessage;
 
 /**
- * @author mlowery
+ * Utilities for validation.
  */
 public class ValidationHelper {
 

@@ -20,8 +20,6 @@ package org.pentaho.aggdes.output;
 /**
  * Marker Interface, noting that this is a generator that can generate
  * Mondrian Schema output
- *   
- * @author Will Gorman (wgorman@pentaho.com)
  */
 public interface SchemaGenerator extends ArtifactGenerator {
 

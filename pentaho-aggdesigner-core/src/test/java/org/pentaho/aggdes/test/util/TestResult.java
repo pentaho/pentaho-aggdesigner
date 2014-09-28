@@ -27,14 +27,14 @@ import org.pentaho.aggdes.model.Aggregate;
 
 public class TestResult implements Result {
     List<Aggregate> agglist = new ArrayList<Aggregate>();
-    
+
     public TestResult() {
     }
-    
+
     public void addAggregate(Aggregate aggregate) {
         agglist.add(aggregate);
     }
-    
+
     public void describe(PrintWriter pw) {
         // TODO Auto-generated method stub
     }

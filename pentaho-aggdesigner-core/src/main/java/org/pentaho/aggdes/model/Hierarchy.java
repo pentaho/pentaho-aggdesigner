@@ -22,23 +22,21 @@ import java.util.List;
 
 /**
  * OLAP Cube Hierarchy, Child of Dimension
- * 
- * @author Will Gorman (wgorman@pentaho.com)
  */
 public interface Hierarchy {
-    
+
     /**
      * Name of the Hierarchy
-     * 
+     *
      * @return name
      */
     public String getName();
-    
+
     /**
      * List of Levels
-     * 
+     *
      * @return levels
      */
     public List<? extends Level> getLevels();
-    
+
 }

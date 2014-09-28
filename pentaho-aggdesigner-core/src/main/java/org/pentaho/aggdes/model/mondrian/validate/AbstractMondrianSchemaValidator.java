@@ -36,7 +36,7 @@ public abstract class AbstractMondrianSchemaValidator implements MondrianSchemaV
   }
 
   /**
-   * Adds message to list and does any other list-related activities in preparation for an immediate exit of the 
+   * Adds message to list and does any other list-related activities in preparation for an immediate exit of the
    * validation process.
    */
   protected List<ValidationMessage> fatal(ValidationMessage message, List<ValidationMessage> messages) {

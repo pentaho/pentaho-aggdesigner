@@ -40,8 +40,6 @@ import junit.framework.TestCase;
 /**
  * Test the Main command line version
  * of the Agg Designer.
- * 
- * @author Will Gorman (wgorman@pentaho.com)
  */
 public class AggDesignerMainTest extends TestCase {
 
@@ -49,7 +47,7 @@ public class AggDesignerMainTest extends TestCase {
 
     public void handle(Map<Parameter, Object> parameterValues, Schema schema, Result result) {
       System.out.println("ResultHandlerStub handle called");
-      
+
     }
 
     public String getName() {
@@ -60,32 +58,32 @@ public class AggDesignerMainTest extends TestCase {
     public List<Parameter> getParameters() {
       return Collections.EMPTY_LIST;
     }
-    
+
   }
-  
+
   public void testUsage() {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     PrintStream pw = new PrintStream(baos);
     PrintStream orig = System.out;
     System.setOut(pw);
     Main.main(new String[]{});
-    
+
     String results = baos.toString();
     assertTrue(results.indexOf("Usage: java") >= 0);
     System.setOut(orig);
   }
-  
+
   public void testInvalidParam() {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     PrintStream pw = new PrintStream(baos);
     PrintStream orig = System.out;
     System.setOut(pw);
     Main.main(new String[]{
-        "--loaderClass", 
+        "--loaderClass",
         "org.pentaho.aggdes.test.algorithm.impl.SchemaLoaderStub",
         "--loaderParam",
         "cube", "Sales",
-        "--algorithmClass", 
+        "--algorithmClass",
         "org.pentaho.aggdes.test.algorithm.impl.AlgorithmStub",
         "--algorithmParam",
         "notValidParam1", "not_yet_validated",
@@ -95,20 +93,20 @@ public class AggDesignerMainTest extends TestCase {
         "notValidParam2", "not_yet_validated",
 
     });
-    
+
     String results = baos.toString();
     assertTrue(results.indexOf("Unknown parameter 'notValidParam1'") >= 0);
     assertTrue(results.indexOf("execTime (INTEGER) Description") >= 0);
     System.setOut(orig);
   }
-  
+
   public void testMissingLoaderComponent() {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     PrintStream pw = new PrintStream(baos);
     PrintStream orig = System.out;
     System.setOut(pw);
     Main.main(new String[]{
-        "--algorithmClass", 
+        "--algorithmClass",
         "org.pentaho.aggdes.test.algorithm.impl.AlgorithmStub",
         "--algorithmParam",
         "notValidParam1", "not_yet_validated",
@@ -118,19 +116,19 @@ public class AggDesignerMainTest extends TestCase {
         "notValidParam2", "not_yet_validated",
 
     });
-    
+
     String results = baos.toString();
     assertTrue(results.indexOf("Missing required component. Please specify '--loaderClass' argument") >= 0);
     System.setOut(orig);
   }
-  
+
   public void testMissingAlgorithmComponent() {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     PrintStream pw = new PrintStream(baos);
     PrintStream orig = System.out;
     System.setOut(pw);
     Main.main(new String[]{
-        "--loaderClass", 
+        "--loaderClass",
         "org.pentaho.aggdes.test.algorithm.impl.SchemaLoaderStub",
         "--loaderParam",
         "cube", "Sales",
@@ -139,52 +137,52 @@ public class AggDesignerMainTest extends TestCase {
         "--resultParam",
         "notValidParam2", "not_yet_validated",
     });
-    
+
     String results = baos.toString();
     assertTrue(results.indexOf("Missing required component. Please specify '--algorithmClass' argument") >= 0);
     System.setOut(orig);
   }
-  
+
   public void testMissingResultComponent() {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     PrintStream pw = new PrintStream(baos);
     PrintStream orig = System.out;
     System.setOut(pw);
     Main.main(new String[]{
-        "--loaderClass", 
+        "--loaderClass",
         "org.pentaho.aggdes.test.algorithm.impl.SchemaLoaderStub",
         "--loaderParam",
         "cube", "Sales",
-        "--algorithmClass", 
+        "--algorithmClass",
         "org.pentaho.aggdes.test.algorithm.impl.AlgorithmStub",
     });
-    
+
     String results = baos.toString();
     assertTrue(results.indexOf("Missing required component. Please specify '--resultClass' argument") >= 0);
     System.setOut(orig);
   }
-  
+
   public void testRunAlgo() {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     PrintStream pw = new PrintStream(baos);
     PrintStream orig = System.out;
     System.setOut(pw);
     Main.main(new String[]{
-        "--loaderClass", 
+        "--loaderClass",
         "org.pentaho.aggdes.test.algorithm.impl.SchemaLoaderStub",
         "--loaderParam",
         "cube", "Sales",
-        "--algorithmClass", 
+        "--algorithmClass",
         "org.pentaho.aggdes.test.algorithm.impl.AlgorithmStub",
         "--resultClass",
         "org.pentaho.aggdes.test.AggDesignerMainTest$ResultHandlerStub",
     });
-    
+
     String results = baos.toString();
     assertTrue(results.indexOf("ResultHandlerStub handle called") >= 0);
     System.setOut(orig);
   }
-  
+
   static class ComponentStub implements Component {
     List<Parameter> parameters;
     public ComponentStub() {
@@ -251,38 +249,38 @@ public class AggDesignerMainTest extends TestCase {
       list.add(bool);
       parameters = list;
     }
-    
+
     public String getName() {
       return "ComponentStub";
     }
-    
+
     public List<Parameter> getParameters() {
       return parameters;
     }
-    
+
   }
-  
+
   public void testArgumentUtils() {
     ComponentStub component = new ComponentStub();
     Map<String, String> rawParams = new HashMap<String, String>();
-    
-    // test no params 
-    
+
+    // test no params
+
     Map<Parameter, Object> params = ArgumentUtils.validateParameters(component, rawParams);
     assertEquals(params.size(), 0);
-    
+
     // test param types
-    
+
     // integer
-    
+
     rawParams.clear();
     rawParams.put("integer", "2");
-    
+
     params = ArgumentUtils.validateParameters(component, rawParams);
-    
+
     assertEquals(params.size(), 1);
     assertEquals(params.get(component.getParameters().get(1)), 2);
-    
+
     try {
       rawParams.clear();
       rawParams.put("integer", "x");
@@ -291,16 +289,16 @@ public class AggDesignerMainTest extends TestCase {
     } catch (ValidationException e) {
       assertEquals(e.getMessage(), "Cannot convert parameter 'integer' to integer");
     }
-    
+
     // double
     rawParams.clear();
     rawParams.put("double", "2.1");
-    
+
     params = ArgumentUtils.validateParameters(component, rawParams);
-    
+
     assertEquals(params.size(), 1);
     assertEquals(params.get(component.getParameters().get(2)), 2.1);
-    
+
     try {
       rawParams.clear();
       rawParams.put("double", "x");
@@ -309,26 +307,26 @@ public class AggDesignerMainTest extends TestCase {
     } catch (ValidationException e) {
       assertEquals(e.getMessage(), "Cannot convert parameter 'double' to double");
     }
-    
+
     // boolean
     rawParams.clear();
     rawParams.put("boolean", "true");
-    
+
     params = ArgumentUtils.validateParameters(component, rawParams);
-    
+
     assertEquals(params.size(), 1);
     assertEquals(params.get(component.getParameters().get(3)), true);
-    
+
     rawParams.clear();
     rawParams.put("boolean", "x");
-    
+
     params = ArgumentUtils.validateParameters(component, rawParams);
-    
+
     assertEquals(params.size(), 1);
     assertEquals(params.get(component.getParameters().get(3)), false);
-    
+
     // test required params
-    
+
     Parameter required =new Parameter() {
       public String getDescription() {
         return "Description";
@@ -343,14 +341,14 @@ public class AggDesignerMainTest extends TestCase {
         return true;
       }
     };
-    
+
     component.getParameters().add(required);
-    
+
     rawParams.clear();
     rawParams.put("required", "true");
-    
+
     params = ArgumentUtils.validateParameters(component, rawParams);
-    
+
     assertEquals(params.size(), 1);
     assertEquals(params.get(required), Boolean.TRUE);
 
@@ -361,7 +359,7 @@ public class AggDesignerMainTest extends TestCase {
     } catch (ValidationException e) {
       assertEquals(e.getMessage(), "Missing value for required parameter 'required' of component ComponentStub");
     }
-    
-    
+
+
   }
 }

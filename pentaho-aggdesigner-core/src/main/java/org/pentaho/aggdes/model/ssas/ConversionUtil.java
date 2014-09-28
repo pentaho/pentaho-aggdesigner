@@ -39,17 +39,19 @@ import org.pentaho.aggdes.AggDesignerException;
 
 /**
  * Converts SQL Server Analysis Services (SSAS) dump to model expected by Pentaho Aggregation Designer.
- * 
- * Note: ASSL is Analysis Services Scripting Language which makes up the bulk of a SSAS dump.
- * 
- * TODO: Support Composite Keys (Not supported in Mondrian)
- * TODO: Investigate Attribute Datatype value
- * TODO: Support All Level enabled feature
- * TODO: Support Shared Dimensions?
- * TODO: Investigate Cube Internet Sales, Dimension Internet Sales Order Details, for degenerate status
- * TODO: Investigate unique names between attributes and hierarchies
- * 
- * @author mlowery
+ *
+ * <p>Note: ASSL is Analysis Services Scripting Language which makes
+ * up the bulk of a SSAS dump.
+ *
+ * <ul>
+ * <li>TODO: Support Composite Keys (Not supported in Mondrian)
+ * <li>TODO: Investigate Attribute Datatype value
+ * <li>TODO: Support All Level enabled feature
+ * <li>TODO: Support Shared Dimensions?
+ * <li>TODO: Investigate Cube Internet Sales, Dimension Internet Sales
+ *     Order Details, for degenerate status
+ * <li>TODO: Investigate unique names between attributes and hierarchies
+ * </ul>
  */
 public class ConversionUtil {
 
@@ -60,17 +62,17 @@ public class ConversionUtil {
         String logicalName;
         String dbName;
         String expression;
-        
+
         public Column(String logicalName, String dbName, String expression) {
             this.logicalName = logicalName;
             this.dbName = dbName;
             this.expression = expression;
         }
-        
+
         public String toString() {
             return "[Column: logical="+ logicalName + "; dbName=" + dbName + "; expression=" + expression + "]";
         }
-        
+
         public void addToMondrian(Element parentElement, String attributeName, String expressionName) {
             if (expression == null) {
                 parentElement.addAttribute(attributeName, dbName);
@@ -84,10 +86,10 @@ public class ConversionUtil {
             }
         }
     }
-  
+
     private static class Key {
         List<String> columns = new ArrayList<String>();
-        
+
         public Key() {}
         public Key(String column) {
             columns.add(column);
@@ -106,7 +108,7 @@ public class ConversionUtil {
             return str;
         }
   }
-  
+
   /**
    * This object is used to represent the ROLAP Star Schema Tables within
    * Analysis Services
@@ -130,7 +132,7 @@ public class ConversionUtil {
           this.uniqueKeys = uniqueKeys;
           this.queryDefinition = queryDefinition;
       }
-      
+
       public Column findColumn(String colName) {
           for (Column col : columnObjs) {
               if (col.logicalName.equals(colName)) {
@@ -140,19 +142,19 @@ public class ConversionUtil {
           logger.error("COLUMN " + colName + " NOT FOUND IN TABLE " + logicalName);
           return null;
       }
-      
+
       public String toString() {
-          String str = "[Table: logical="+ logicalName + "; dbName=" + dbName + "; uniqueKeys="; 
+          String str = "[Table: logical="+ logicalName + "; dbName=" + dbName + "; uniqueKeys=";
           for (int i = 0; i < uniqueKeys.size(); i++) {
-              if (i > 0) { 
+              if (i > 0) {
                   str += ", ";
               }
-              str += uniqueKeys.get(i); 
+              str += uniqueKeys.get(i);
           }
           str += "; queryDefinition=" + queryDefinition+ "]";
           return str;
       }
-      
+
       public Table getJoinToFactTable(String factTable) {
           Table t = this;
           while (true) {
@@ -165,7 +167,7 @@ public class ConversionUtil {
               t = t.parentJoin.parentTable;
           }
       }
-      
+
       public boolean ancestorsHaveColumn(String column) {
         if (columns.contains(column)) {
             return true;
@@ -187,7 +189,7 @@ public class ConversionUtil {
         }
         return null;
       }
-      
+
       public Table getRoot() {
           Table t = this;
           while (t.parentJoin != null) {
@@ -210,7 +212,7 @@ public class ConversionUtil {
           }
           return clonetable;
       }
-      
+
       public List<Table> findTable(String name) {
           // traverse all child joins, return all contexts
           List<Join> joins = new ArrayList<Join>(childJoins);
@@ -225,7 +227,7 @@ public class ConversionUtil {
           }
           return found;
       }
-      
+
       public Table findBranchWithTables(List<String> tableNames, String factTableName, String factForeignKey) {
           // return the deepest table in the list
           // for each table, find uses and see if they are the deepest
@@ -269,7 +271,7 @@ public class ConversionUtil {
           return null;
       }
   }
-  
+
   /**
    * This object is used to represent the ROLAP Star Schema Joins within
    * Analysis Services
@@ -288,7 +290,7 @@ public class ConversionUtil {
           this.childTable = childTable;
           this.childKeyObject = childKeyObject;
       }
-      
+
       public String toString() {
           return "[Join: parent=" + parentTable.logicalName + ";pkey="+parentKeyObject+"; child=" + childTable.logicalName+"; ckey="+childKeyObject+"]";
       }
@@ -297,8 +299,8 @@ public class ConversionUtil {
   /**
    * This is a utility function that locates the closest table to root table
    * in the table names list.
-   * 
-   * @param table the leaf to start from 
+   *
+   * @param table the leaf to start from
    * @param tableNames the list of tables to find
    * @return the closest to the root table
    */
@@ -314,7 +316,7 @@ public class ConversionUtil {
           table = table.parentJoin.parentTable;
       }
   }
-  
+
   private static boolean containsIgnoreCase(List<String> list, String val) {
     for (String str : list) {
       if (str.equalsIgnoreCase(val)) {
@@ -323,10 +325,10 @@ public class ConversionUtil {
     }
     return false;
   }
-  
+
   /**
    * this finds and clones a tree of related tables for use with implicit stars
-   * 
+   *
    * @param tableNames the list of tables to find
    * @param allTables the list of all known tables
    * @param factForeignKey the fact foreign key to join on
@@ -343,7 +345,7 @@ public class ConversionUtil {
               // march towards star, see if we found all the other tables
               boolean matchFound = true;
               for (String addlName : tableNames) {
-                  Table start = table.parentJoin.parentTable;                  
+                  Table start = table.parentJoin.parentTable;
                   if (!addlName.equals(name)) {
                       boolean found = false;
                       while (start.parentJoin != null) {
@@ -398,7 +400,7 @@ public class ConversionUtil {
 
   /**
    * this is a utility function that finds all the tables with a logical name
-   * 
+   *
    * @param allTables the list of all known tables
    * @param logicalTableName the name of the table to find
    * @return a list of tables that match the logical name
@@ -412,10 +414,10 @@ public class ConversionUtil {
       }
       return list;
   }
-  
+
   /**
    * finds a single table with the logical table name
-   * 
+   *
    * @param allTables the list of all known tables
    * @param logicalTableName the name of the table to find
    * @return a single found table
@@ -429,16 +431,16 @@ public class ConversionUtil {
       return null;
   }
 
-  
+
   /**
    * TODO: review this method for correctness. it may be spitting out duplicate tables
-   * 
-   * this method parses SSAS's DataSourceView and generates a set of star schemas and 
+   *
+   * this method parses SSAS's DataSourceView and generates a set of star schemas and
    * join fragments
-   *  
+   *
    * @param ssasDataSourceView dom4j model of SSAS's DataSourceView
-   * @return 
-   */ 
+   * @return
+   */
   @SuppressWarnings("unchecked")
   private static List<Table> generateStarModels(Element ssasDataSourceView) {
       // find all fact tables, then go from there to generate stars
@@ -463,9 +465,9 @@ public class ConversionUtil {
               }
               uniqueKeyObjects.add(key);
           }
-          
+
           Table tableModel = new Table(name, dbname, dbSchemaName, uniqueKeyObjects, queryDefinition);
-          
+
           // get columns
           List columns = table.selectNodes("xs:complexType/xs:sequence/xs:element");
           for (int j = 0; j < columns.size(); j++) {
@@ -479,10 +481,10 @@ public class ConversionUtil {
               tableModel.columnObjs.add(new Column(colname, dbColumnName, computedColumnExpression));
               tableModel.columns.add(column.attributeValue("name"));
           }
-          
+
           starTables.add(tableModel);
       }
-      
+
       List keyrefs = ssasDataSourceView.selectNodes("xs:keyref");
       for (int i = 0; i < keyrefs.size(); i++) {
           Element keyref = (Element)keyrefs.get(i);
@@ -494,7 +496,7 @@ public class ConversionUtil {
           for (Element parentKey : parentKeys) {
               parentKeyObject.columns.add(parentKey.attributeValue("xpath"));
           }
-          
+
           Element unique = (Element)ssasDataSourceView.selectSingleNode("xs:unique[@name='" + refer + "']");
           String childTable = ((Element)unique.selectSingleNode("xs:selector")).attributeValue("xpath").substring(3);
           Key childKeyObject = new Key();
@@ -506,7 +508,7 @@ public class ConversionUtil {
           // keyref contains parent table
           // unique contains child table
           // bind the two.  If child table already has a parent table, make a duplicate table and update both as future parents
-          
+
           //for (Table childTableModel : starTables) {
           List<Table> origTables = new ArrayList<Table>(starTables);
           boolean found = false;
@@ -520,7 +522,7 @@ public class ConversionUtil {
                               !parentTableModel.logicalName.equals(childTableModel.logicalName) // skip parent / child hierarchies
                       ) {
                           logger.debug("Adding Join: " + parentTable + "("+parentKeyObject+") to " + childTable +"("+childKeyObject+")");
-                          
+
                           // clone the child and its tree if it already has a parent
                           if (childTableModel.parentJoin != null) {
                               childTableModel = childTableModel.cloneTree();
@@ -536,9 +538,9 @@ public class ConversionUtil {
               }
           }
       }
-      
+
       List relationships = ssasDataSourceView.selectNodes("../xs:annotation/xs:appinfo/msdata:Relationship");
-      // <msdata:Relationship name="FK_FactSalesQuota_DimEmployee" msdata:parent="dbo_DimEmployee" 
+      // <msdata:Relationship name="FK_FactSalesQuota_DimEmployee" msdata:parent="dbo_DimEmployee"
       // msdata:child="FactSalesQuota" msdata:parentkey="EmployeeKey" msdata:childkey="EmployeeKey"/>
 
       for (int i = 0; i < relationships.size(); i++) {
@@ -558,7 +560,7 @@ public class ConversionUtil {
           for (String str : parentKeyStrs) {
               parentKeyObject.columns.add(str);
           }
-          
+
           boolean found = false;
           List<Table> origTables = new ArrayList<Table>(starTables);
           for (int j = 0; j < origTables.size() && !found; j++) {
@@ -571,7 +573,7 @@ public class ConversionUtil {
                               !parentTableModel.logicalName.equals(childTableModel.logicalName) // skip parent / child hierarchies
                       ) {
                           logger.debug("Adding Join: " + parentTable + "("+parentKey+") to " + childTable +"("+childKey+")");
-                          
+
                           // clone the child and its tree if it already has a parent
                           if (childTableModel.parentJoin != null) {
                               childTableModel = childTableModel.cloneTree();
@@ -589,11 +591,11 @@ public class ConversionUtil {
       }
       return starTables;
   }
-  
+
   public static List<Document> generateMondrianDocsFromSSASSchema(final InputStream input) throws DocumentException, IOException, AggDesignerException {
 
       Document ssasDocument = parseAssl(input);
-      
+
       // issue: if we have multi-line text, there is a problem with identing names / etc
       // solution: clean up the dom before traversal
       List allElements = ssasDocument.selectNodes("//*");
@@ -603,7 +605,7 @@ public class ConversionUtil {
       }
 
       List ssasDatabases = ssasDocument.selectNodes("//assl:Database");
-      List<Document> mondrianDocs = new ArrayList<Document>(ssasDatabases.size()); 
+      List<Document> mondrianDocs = new ArrayList<Document>(ssasDatabases.size());
       for (int i = 0; i < ssasDatabases.size(); i++) {
           Document mondrianDoc = DocumentFactory.getInstance().createDocument();
           Element mondrianSchema = DocumentFactory.getInstance().createElement("Schema");
@@ -611,17 +613,17 @@ public class ConversionUtil {
           Element ssasDatabase = (Element)ssasDatabases.get(i);
           mondrianSchema.add(DocumentFactory.getInstance().createAttribute(mondrianSchema, "name", getXPathNodeText(ssasDatabase, "assl:Name")));
           populateCubes(mondrianSchema, ssasDatabase);
-          
+
           mondrianDocs.add(mondrianDoc);
       }
-      
+
       return mondrianDocs;
   }
 
   private static boolean isVirtualMeasureGroup(Element measureGroup) {
       return measureGroup.selectSingleNode("assl:Source[@xsi:type='MeasureGroupBinding']") != null;
   }
-  
+
   private static void populateCubes(Element mondrianSchema, Element ssasDatabase) throws AggDesignerException {
       List allMeasureGroups = ssasDatabase.selectNodes("assl:Cubes/assl:Cube/assl:MeasureGroups/assl:MeasureGroup");
       Map<String, List<Table>> dataSourceViews = new HashMap<String, List<Table>>();
@@ -634,7 +636,7 @@ public class ConversionUtil {
           } else {
               Element mondrianCube = DocumentFactory.getInstance().createElement("Cube");
               mondrianCube.addAttribute("name", measureGroupName);
-              
+
               String dataSourceViewID = getXPathNodeText(ssasMeasureGroup, "../../assl:Source/assl:DataSourceViewID").toLowerCase();
               List<Table> allTables = dataSourceViews.get(dataSourceViewID);
               if (allTables == null) {
@@ -642,7 +644,7 @@ public class ConversionUtil {
                   allTables = generateStarModels(ssasDataSourceView);
                   dataSourceViews.put(dataSourceViewID, allTables);
               }
-              
+
               // add fact table
               String factTableName = getXPathNodeText(ssasMeasureGroup, "assl:Measures/assl:Measure/assl:Source/assl:Source/assl:TableID");
 
@@ -650,7 +652,7 @@ public class ConversionUtil {
               if (factTable == null) {
                   logger.error("Failed to locate fact table: " + factTableName);
               }
-              
+
               // view or table
               if (factTable.queryDefinition != null) {
                   Element fact = DocumentFactory.getInstance().createElement("View");
@@ -668,34 +670,34 @@ public class ConversionUtil {
                   fact.addAttribute("name", factTable.dbName);
                   mondrianCube.add(fact);
               }
-              
+
               // add dimensions
               populateDimensions(mondrianCube, ssasDatabase, ssasMeasureGroup, factTable, allTables);
-              
+
               // add measures
               populateCubeMeasures(mondrianCube, ssasMeasureGroup, factTable, measureGroupName);
-              
+
               // add cube
               mondrianSchema.add(mondrianCube);
           }
       }
   }
   private static void populateDimensions(
-          Element mondrianCube, 
-          Element ssasDatabase, 
-          Element ssasMeasureGroup, 
-          Table factTable, 
+          Element mondrianCube,
+          Element ssasDatabase,
+          Element ssasMeasureGroup,
+          Table factTable,
           List<Table> allTables) throws AggDesignerException {
       // add dimensions
       List measureDimensions = ssasMeasureGroup.selectNodes("assl:Dimensions/assl:Dimension");
       for (int j = 0; j < measureDimensions.size(); j++) {
-          
+
           Element measureDimension = (Element)measureDimensions.get(j);
           String cubeDimensionId = getXPathNodeText(measureDimension, "assl:CubeDimensionID");
           Element cubeDimension = (Element)ssasMeasureGroup.selectSingleNode("../../assl:Dimensions/assl:Dimension[assl:ID='"+cubeDimensionId + "']");
           String databaseDimensionId = getXPathNodeText(cubeDimension, "assl:DimensionID");
           Element databaseDimension = (Element)ssasDatabase.selectSingleNode("assl:Dimensions/assl:Dimension[assl:ID='" + databaseDimensionId + "']");
-          
+
           Element mondrianDimension = DocumentFactory.getInstance().createElement("Dimension");
           String dimensionName = getXPathNodeText(cubeDimension, "assl:Name");
           mondrianDimension.addAttribute("name", dimensionName);
@@ -703,9 +705,9 @@ public class ConversionUtil {
           // locate the key attribute
           Element keyAttribute = (Element)databaseDimension.selectSingleNode("assl:Attributes/assl:Attribute[assl:Usage='Key']");
           String keyAttributeID = getXPathNodeText(keyAttribute, "assl:ID");
-          
+
           String foreignKey = null;
-          
+
           // first look in the dimension object within the measures
           List nodes = measureDimension.selectNodes("assl:Attributes/assl:Attribute[assl:AttributeID='"+keyAttributeID+"']/assl:KeyColumns/assl:KeyColumn/assl:Source/assl:TableID");
           if (nodes.size() > 1) {
@@ -730,7 +732,7 @@ public class ConversionUtil {
                       if (keyColumnObject == null) {
                           keyColumnObject = (Element)keyAttribute.selectSingleNode("assl:KeyColumns/assl:KeyColumn/assl:Source/assl:ColumnID");
                       }
-                      foreignKey = keyColumnObject.getTextTrim(); 
+                      foreignKey = keyColumnObject.getTextTrim();
                       break;
                   }
                   Key foreignKeyObject = table.getFactForeignKey(factTable);
@@ -758,24 +760,24 @@ public class ConversionUtil {
 
           mondrianDimension.addAttribute("foreignKey", foreignKeyObject.dbName);
 
-          
+
           // get hierarchies
           populateHierarchies(mondrianDimension, cubeDimension, databaseDimension, keyAttribute, factTable, allTables, foreignKey);
-          
+
           mondrianCube.add(mondrianDimension);
       }
   }
-  
+
   private static void populateHierarchies(
-          Element mondrianDimension, 
-          Element ssasCubeDimension, 
-          Element ssasDatabaseDimension, 
-          Element ssasDimensionKeyAttribute, 
-          Table factTable, 
+          Element mondrianDimension,
+          Element ssasCubeDimension,
+          Element ssasDatabaseDimension,
+          Element ssasDimensionKeyAttribute,
+          Table factTable,
           List<Table> allTables,
           String factForeignKey
       ) throws AggDesignerException {
-      
+
       // first do parent child hierarchies
       // for each attribute in cube dimension, see if it's database dimension attribute is USAGE PARENT
       // SSAS 2005 only supports one parent child hierarchy per dimension
@@ -791,19 +793,19 @@ public class ConversionUtil {
               populateParentChildHierarchy(mondrianDimension, databaseAttribute, ssasDimensionKeyAttribute, ssasDatabaseDimension, factTable, factForeignKey, allTables, attribID);
           }
       }
-      
+
       // handle the traditional hierarchies
-      
+
       List hierarchies = ssasCubeDimension.selectNodes("assl:Hierarchies/assl:Hierarchy");
       for (int k = 0; k < hierarchies.size(); k++) {
           Element hierarchy = (Element)hierarchies.get(k);
           String databaseHierarchyID = getXPathNodeText(hierarchy, "assl:HierarchyID");
           Element databaseHierarchy = (Element)ssasDatabaseDimension.selectSingleNode("assl:Hierarchies/assl:Hierarchy[assl:ID='" + databaseHierarchyID + "']");
-          
+
           if (databaseHierarchy == null) {
               throw new AggDesignerException("Failed to locate hierarchy " + databaseHierarchyID);
           }
-          
+
           Element mondrianHierarchy = DocumentFactory.getInstance().createElement("Hierarchy");
 
           mondrianHierarchy.addAttribute("name", getXPathNodeText(databaseHierarchy, "assl:Name"));
@@ -811,7 +813,7 @@ public class ConversionUtil {
           Table primaryKeyTable = findTable(allTables, tableID);
           String primaryKey = getXPathNodeText(ssasDimensionKeyAttribute,"assl:KeyColumns/assl:KeyColumn/assl:Source/assl:ColumnID");
           Column primaryKeyColumn = primaryKeyTable.findColumn(primaryKey);
-          
+
           mondrianHierarchy.addAttribute("primaryKey", primaryKeyColumn.dbName);
 
           Element allMemberName = (Element)databaseHierarchy.selectSingleNode("assl:AllMemberName");
@@ -823,10 +825,10 @@ public class ConversionUtil {
           }
           // determine if this hierarchy is a snow flake
           // we can tell this by looking at the levels
-          
+
           // preprocess levels to determine snowflake-ness
           List ssasLevels = databaseHierarchy.selectNodes("assl:Levels/assl:Level");
-          
+
           List<String> tables = new ArrayList<String>();
           for (int l = 0; l < ssasLevels.size(); l++) {
               Element level = (Element)ssasLevels.get(l);
@@ -838,30 +840,30 @@ public class ConversionUtil {
                   tables.add(0, levelTableID);
               }
           }
-          
+
           // skip if degenerate dimension
           if (tables.size() != 1 || !tables.get(0).equals(factTable.logicalName)) {
               populateHierarchyRelation(mondrianHierarchy, tables, ssasDatabaseDimension, factTable, allTables, databaseHierarchyID, factForeignKey);
           } else {
               mondrianHierarchy.add(DocumentFactory.getInstance().createComment("Degenerate Hierarchy"));
           }
-          
+
           // render levels
           populateHierarchyLevels(mondrianHierarchy, ssasLevels, ssasDatabaseDimension, allTables, tables.size() > 1);
-          
+
           mondrianDimension.add(mondrianHierarchy);
       }
-      
+
       // finally, do attribute hierarchies
       populateAttributeHierarchies(mondrianDimension, cubeAttributes, ssasDatabaseDimension, ssasDimensionKeyAttribute, factTable, factForeignKey, allTables);
 
   }
-  
+
   /**
-   * generates <Hierarchy> mondrian tags 
+   * generates <Hierarchy> mondrian tags
    */
   private static void populateHierarchyRelation(
-          Element mondrianHierarchy, 
+          Element mondrianHierarchy,
           List<String> tables,
           Element ssasDatabaseDimension,
           Table factTable,
@@ -877,7 +879,7 @@ public class ConversionUtil {
               throw new AggDesignerException("Error: " + ssasHierarchyID + " star schema branch not found.  " + factTable.logicalName + "." + factForeignKey);
           }
           currentTable.getRoot().parentJoin = new Join(factTable, new Key(factForeignKey), currentTable, new Key(factForeignKey));
-          logger.debug("IMPLICIT STAR JOIN FOR " + currentTable.logicalName + "." + factForeignKey + " to " + factTable.logicalName + "." + factForeignKey);          
+          logger.debug("IMPLICIT STAR JOIN FOR " + currentTable.logicalName + "." + factForeignKey + " to " + factTable.logicalName + "." + factForeignKey);
       }
 
       Element currentHierarchyRelation =  null;
@@ -895,7 +897,7 @@ public class ConversionUtil {
           }
           currentHierarchyRelation.addAttribute("name", currentTable.dbName);
       }
-      
+
       // expand tables so that explicit naming of tables when rendering levels is known
       if (!tables.contains(currentTable.logicalName)) {
           tables.add(currentTable.logicalName);
@@ -918,53 +920,53 @@ public class ConversionUtil {
               }
               tableRelation.addAttribute("name", currentTable.parentJoin.parentTable.dbName);
           }
-          
+
           if (!tables.contains(currentTable.parentJoin.parentTable.logicalName)) {
               tables.add(currentTable.parentJoin.parentTable.logicalName);
           }
-          
+
           hierarchyRelation.addAttribute("leftKey", currentTable.parentJoin.parentKeyObject.columns.get(0));
           hierarchyRelation.addAttribute("rightKey", currentTable.parentJoin.childKeyObject.columns.get(0));
-          
+
           hierarchyRelation.add(tableRelation);
           hierarchyRelation.add(currentHierarchyRelation);
-          
+
           currentHierarchyRelation = hierarchyRelation;
           currentTable = currentTable.parentJoin.parentTable;
       }
-      
+
       if (currentHierarchyRelation.getName().equals("Join")) {
           mondrianHierarchy.addAttribute("primaryKeyTable", currentTable.dbName);
       }
       mondrianHierarchy.add(currentHierarchyRelation);
   }
-  
+
   /**
-   * generates <Level> mondrian tags 
+   * generates <Level> mondrian tags
    */
   private static void populateHierarchyLevels(
-          Element mondrianHierarchy, 
-          List ssasLevels, 
-          Element ssasDatabaseDimension, 
+          Element mondrianHierarchy,
+          List ssasLevels,
+          Element ssasDatabaseDimension,
           List<Table> allTables,
           boolean includeTableName
       ) throws AggDesignerException {
-      
+
       for (int l = 0; l < ssasLevels.size(); l++) {
           Element level = (Element)ssasLevels.get(l);
           Element mondrianLevel = DocumentFactory.getInstance().createElement("Level");
           mondrianLevel.addAttribute("name", getXPathNodeText(level, "assl:Name"));
-          
+
           String sourceAttribID = getXPathNodeText(level, "assl:SourceAttributeID");
           Element sourceAttribute = (Element)ssasDatabaseDimension.selectSingleNode("assl:Attributes/assl:Attribute[assl:ID='"+sourceAttribID + "']");
-          
+
           Element keyUniquenessGuarantee = (Element)sourceAttribute.selectSingleNode("assl:KeyUniquenessGuarantee");
           boolean keyUniqueness = false;
           if (keyUniquenessGuarantee != null) {
               keyUniqueness = "true".equals(keyUniquenessGuarantee.getTextTrim());
           }
           mondrianLevel.addAttribute("uniqueMembers", "" + keyUniqueness);
-          
+
           String levelTableID = getXPathNodeText(sourceAttribute, "assl:NameColumn/assl:Source/assl:TableID");
           Table levelTable = findTable(allTables, levelTableID);
           if (includeTableName) {
@@ -988,8 +990,8 @@ public class ConversionUtil {
               nameColumnObj.addToMondrian(mondrianLevel, "nameColumn", "NameExpression");
           }
           String datatype = getXPathNodeText(sourceAttribute, "assl:NameColumn/assl:DataType");
-          
-          // TODO: create example with numeric column, 
+
+          // TODO: create example with numeric column,
           // this code is more stubbed then tested
           if (datatype.equals("Numeric")) {
               mondrianLevel.addAttribute("type", "Numeric");
@@ -997,7 +999,7 @@ public class ConversionUtil {
           mondrianHierarchy.add(mondrianLevel);
       }
   }
-  
+
   /**
    * generates parent child hierarchy
    */
@@ -1022,9 +1024,9 @@ public class ConversionUtil {
       if (keyColumnObject.expression != null) {
           logger.warn("Mondrian does not support primary key expressions");
       }
-      
+
       mondrianHierarchy.addAttribute("primaryKey", keyColumnObject.dbName);
-      
+
       // not certain on where to get the all member name for parent / child rels
       // ssas seems to use "All" for the default name
       // Element allMemberName = (Element)databaseHierarchy.selectSingleNode("assl:AllMemberName");
@@ -1035,11 +1037,11 @@ public class ConversionUtil {
 
       List<String> tables = new ArrayList<String>();
       tables.add(tableID);
-      
+
       populateHierarchyRelation(mondrianHierarchy, tables, ssasDatabaseDimension, factTable, allTables, attributeID, factForeignKey);
-      
+
       Element mondrianLevel = DocumentFactory.getInstance().createElement("Level");
-      // <Level name="Employee Id" type="Numeric" uniqueMembers="true" column="employee_id" 
+      // <Level name="Employee Id" type="Numeric" uniqueMembers="true" column="employee_id"
       //        parentColumn="supervisor_id" nameColumn="full_name" nullParentValue="0">
 
       // for now, use the hierarchy name for the level name
@@ -1052,26 +1054,26 @@ public class ConversionUtil {
       String columnID = getXPathNodeText(databaseAttribute, "assl:NameColumn/assl:Source/assl:ColumnID");
 
       keyColumnObject.addToMondrian(mondrianLevel, "column", "KeyExpression");
-      
+
       Column parentColumnObject = table.findColumn(parentID);
       parentColumnObject.addToMondrian(mondrianLevel, "parentColumn", "ParentExpression");
 
       Column nameColumnObject = table.findColumn(columnID);
       nameColumnObject.addToMondrian(mondrianLevel, "nameColumn", "NameExpression");
-      
+
       // do we need ordinal col?
-      
+
       // from http://msdn2.microsoft.com/en-us/library/ms174935.aspx
       // User Defined Hierarchies
-      // By default, any member whose parent key equals its own member key, null, 0 (zero), 
-      // or a value absent from the column for member keys is assumed to be a member of the 
+      // By default, any member whose parent key equals its own member key, null, 0 (zero),
+      // or a value absent from the column for member keys is assumed to be a member of the
       // top level (excluding the (All) level).
-      
+
       mondrianLevel.addAttribute("nullParentValue", "0");
       mondrianHierarchy.add(mondrianLevel);
       mondrianDimension.add(mondrianHierarchy);
   }
-  
+
   /**
    * generates ssas attribute hierarchies
    */
@@ -1085,14 +1087,14 @@ public class ConversionUtil {
           List<Table> allTables
   ) throws AggDesignerException {
       mondrianDimension.add(DocumentFactory.getInstance().createComment("Attribute Hierarchies"));
-      
+
       for (int i = 0; i < cubeAttributes.size(); i++) {
           Element cubeAttribute = (Element)cubeAttributes.get(i);
           // retrieve database attribute
           String attribID = getXPathNodeText(cubeAttribute, "assl:AttributeID");
           Element databaseAttribute = (Element)ssasDatabaseDimension.selectSingleNode("assl:Attributes/assl:Attribute[assl:ID='"+attribID+"']");
           // note: databaseAttribute also has an AttributeHierarchyEnabled flag
-          
+
           // should we also check "visible"?
           if (cubeAttribute.selectSingleNode("assl:AttributeHierarchyEnabled") != null &&
                   "true".equals(getXPathNodeText(cubeAttribute, "assl:AttributeHierarchyEnabled"))
@@ -1102,7 +1104,7 @@ public class ConversionUtil {
                   // skip parent hierarchies
                   continue;
               }
-              
+
               Element mondrianHierarchy = DocumentFactory.getInstance().createElement("Hierarchy");
               String attribName = getXPathNodeText(databaseAttribute, "assl:Name");
               mondrianHierarchy.addAttribute("name", attribName);
@@ -1116,9 +1118,9 @@ public class ConversionUtil {
                   logger.warn("SKIPPING ATTRIBUTE HIERARCHY " + attribName + ", MORE THAN ONE FOREIGN KEY");
                   continue;
               }
-              
+
               mondrianHierarchy.addAttribute("primaryKey", primaryKeyColumn.dbName);
-              
+
               // AttributeAllMemberName
               Element allMemberName = (Element)ssasDatabaseDimension.selectSingleNode("assl:AttributeAllMemberName");
               if (allMemberName != null && allMemberName.getTextTrim().length() != 0) {
@@ -1127,7 +1129,7 @@ public class ConversionUtil {
               } else {
                   mondrianHierarchy.addAttribute("hasAll", "false");
               }
-              
+
               String levelTableID = getXPathNodeText(databaseAttribute, "assl:NameColumn/assl:Source/assl:TableID");
 
               List<String> tables = new ArrayList<String>();
@@ -1136,15 +1138,15 @@ public class ConversionUtil {
                   tables.add(levelTableID);
                   table = findTable(allTables, levelTableID);
               }
-              
+
               // skip if degenerate dimension
               if (tables.size() != 1 || !tables.get(0).equals(factTable.logicalName)) {
                   populateHierarchyRelation(mondrianHierarchy, tables, ssasDatabaseDimension, factTable, allTables, attribID, factForeignKey);
               }
-              
+
               Element mondrianLevel = DocumentFactory.getInstance().createElement("Level");
               mondrianLevel.addAttribute("name", attribName);
-                            
+
               Element keyUniquenessGuarantee = (Element)databaseAttribute.selectSingleNode("assl:KeyUniquenessGuarantee");
               boolean keyUniqueness = false;
               if (keyUniquenessGuarantee != null) {
@@ -1154,7 +1156,7 @@ public class ConversionUtil {
               if (tables.size() > 1) {
                   mondrianLevel.addAttribute("table", table.dbName); // tableName);
               }
-              
+
               nodes = (List<Element>)databaseAttribute.selectNodes("assl:KeyColumns/assl:KeyColumn/assl:Source/assl:ColumnID");
               String keyColumn = nodes.get(nodes.size() - 1).getTextTrim();
 
@@ -1166,13 +1168,13 @@ public class ConversionUtil {
               } else {
                   Column keyColumnObject = table.findColumn(keyColumn);
                   keyColumnObject.addToMondrian(mondrianLevel, "column", "KeyExpression");
-                      
+
                   Column nameColumnObject = table.findColumn(nameColumn);
                   nameColumnObject.addToMondrian(mondrianLevel, "nameColumn", "NameExpression");
               }
               String datatype = getXPathNodeText(databaseAttribute, "assl:NameColumn/assl:DataType");
-              
-              // TODO: create example with numeric column, 
+
+              // TODO: create example with numeric column,
               // this code is more stubbed then tested
               if (datatype.equals("Numeric")) {
                   mondrianLevel.addAttribute("type", "Numeric");
@@ -1184,27 +1186,27 @@ public class ConversionUtil {
       }
   }
   /**
-   * generates <Measure> mondrian tags 
+   * generates <Measure> mondrian tags
    */
   private static void populateCubeMeasures(
-          Element mondrianCube, 
-          Element ssasMeasureGroup, 
-          Table factTable, 
+          Element mondrianCube,
+          Element ssasMeasureGroup,
+          Table factTable,
           String cubeName
       ) throws AggDesignerException {
-      
+
       List allMeasures = ssasMeasureGroup.selectNodes("assl:Measures/assl:Measure");
       for (int j = 0; j < allMeasures.size(); j++) {
           Element measure = (Element)allMeasures.get(j);
 
           // assert Source/Source xsi:type="ColumnBinding"
           if (measure.selectSingleNode("assl:Source/assl:Source[@xsi:type='ColumnBinding']") == null &&
-              measure.selectSingleNode("assl:Source/assl:Source[@xsi:type='RowBinding']") == null)                          
+              measure.selectSingleNode("assl:Source/assl:Source[@xsi:type='RowBinding']") == null)
           {
               logger.warn("SKIPPING MEASURE, INVALID MEASURE IN CUBE " + cubeName + " : " + measure.asXML());
               continue;
           }
-          
+
           Element mondrianMeasure = DocumentFactory.getInstance().createElement("Measure");
           String measureName = getXPathNodeText(measure, "assl:Name");
           mondrianMeasure.addAttribute("name", measureName);
@@ -1229,8 +1231,8 @@ public class ConversionUtil {
           mondrianCube.add(mondrianMeasure);
       }
   }
-  
-  
+
+
   /**
    * Returns document from file.
    * @param url path to SSAS dump
@@ -1240,7 +1242,7 @@ public class ConversionUtil {
   public static Document parseAssl(final URL url) throws DocumentException, IOException {
       return parseAssl(url.openStream());
   }
-  
+
   public static Document parseAssl(final InputStream input) throws DocumentException, IOException {
       Map<String, String> uris = new HashMap<String, String>();
       uris.put("assl", "http://schemas.microsoft.com/analysisservices/2003/engine");
@@ -1255,9 +1257,9 @@ public class ConversionUtil {
 
       // get bytes from InputStream and cache them so they can be read multiple times
       byte[] bytes = IOUtils.toByteArray(input);
-      
+
       ByteArrayInputStream byteInput = new ByteArrayInputStream(bytes);
-      
+
       // try default encoding first, then fall back on iso-8859-1
       Document document = null;
       try {
@@ -1274,7 +1276,7 @@ public class ConversionUtil {
       }
       return document;
   }
-  
+
   public static String getXPathNodeText(Node parent, String xpath) throws AggDesignerException {
       Element element = (Element)parent.selectSingleNode(xpath);
       if (element == null) {

@@ -27,17 +27,17 @@ import org.pentaho.ui.xul.dom.Document;
 
 
 public class XulSupressingBindingFactoryProxy implements BindingFactory {
-  
+
   private static BindingTestBean a = new BindingTestBean();
   private static BindingTestBean b = new BindingTestBean();
   private static final Binding DUMMY_BINDING = new DefaultBinding(a, "property1", b, "property2");
-  
+
   {
     DUMMY_BINDING.initialize();
   }
-  
+
   private BindingFactory proxiedBindingFactory;
-  
+
   public void setProxiedBindingFactory(BindingFactory proxiedBindingFactory) {
     this.proxiedBindingFactory = proxiedBindingFactory;
   }
@@ -61,7 +61,7 @@ public class XulSupressingBindingFactoryProxy implements BindingFactory {
       BindingConvertor... converters) {
     return proxiedBindingFactory.createBinding(source, sourceAttr, target, targetAttr, converters);
   }
-  
+
   public void setBindingType(Type type) {
     proxiedBindingFactory.setBindingType(type);
   }
@@ -70,9 +70,9 @@ public class XulSupressingBindingFactoryProxy implements BindingFactory {
     //do nothing, we are ignoring all xul-specific behavior
   }
 
-	public void setExceptionHandler(BindingExceptionHandler arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void setExceptionHandler(BindingExceptionHandler arg0) {
+        // TODO Auto-generated method stub
 
-}    
+    }
+
+}

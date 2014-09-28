@@ -28,9 +28,8 @@ import org.pentaho.aggdes.model.SchemaLoader;
 import org.pentaho.aggdes.model.ValidationMessage;
 
 /**
- * Stub implementation for <code>SchemaLoader</code>. Provides canned answers and some methods are not implemented.
- * 
- * @author mlowery
+ * Stub implementation for <code>SchemaLoader</code>. Provides canned
+ * answers and some methods are not implemented.
  */
 public class SchemaLoaderStub implements SchemaLoader {
 
@@ -64,7 +63,7 @@ public class SchemaLoaderStub implements SchemaLoader {
       public boolean isRequired() {
         return false;
       }
-      
+
     };
     List<Parameter> list = new ArrayList<Parameter>();
     list.add(param);

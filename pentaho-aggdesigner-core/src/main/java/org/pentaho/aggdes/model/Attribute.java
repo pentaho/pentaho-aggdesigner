@@ -32,10 +32,6 @@ import java.util.List;
  *
  * @see Schema
  * @see Table
- *
- * @author jhyde
- * @version $Id: Attribute.java 85 2008-04-28 22:20:13Z jhyde $
- * @since Mar 13, 2008
  */
 public interface Attribute {
     /**
@@ -81,12 +77,12 @@ public interface Attribute {
      * @return SQL data type
      */
     String getDatatype(Dialect dialect);
-    
-    
+
+
     /**
      * Returns a list of Ancestor Attributes that make this attribute unique
-     * 
-     * @return ancestor attributes  
+     *
+     * @return ancestor attributes
      */
     List<Attribute> getAncestorAttributes();
 }

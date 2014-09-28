@@ -86,7 +86,7 @@ public class SsasToMondrianTest extends TestCase {
     pw.close();
   }
 
-  
+
   @Test
   public void loadConvertedSchemaInMondrian() throws Exception {
     // temp file to hold conversion output
@@ -109,7 +109,7 @@ public class SsasToMondrianTest extends TestCase {
 
     DriverManager.getConnection(connectString, null).getSchema();
   }
-  
+
   @Test
   public void checkConvertedSchema() throws Exception {
     // do conversion on SSAS dump of foodmart
@@ -117,9 +117,9 @@ public class SsasToMondrianTest extends TestCase {
         "/ssas-dump-via-mgmt-studio-click.xml")); //$NON-NLS-1$
 
     Document schemaDoc = docs.get(0);
-    
+
     System.out.println(docs.get(0).asXML());
-    
+
     assertNotNull(schemaDoc.selectSingleNode("/Schema"));
     assertTrue(schemaDoc.selectNodes("/Schema/Cube").size() > 0);
     assertNotNull(schemaDoc.selectSingleNode("/Schema/Cube[@name='Internet Sales']"));

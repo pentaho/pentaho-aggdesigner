@@ -36,11 +36,11 @@ public class ConnectionModelStub extends XulEventSourceAdapter implements Connec
   private List<String> cubeNames = new ArrayList<String>();
   private DatabaseMeta databaseMeta;
   private Schema schema;
-  
+
   public ConnectionModelStub(Schema schema){
     this.schema = schema;
   }
-  
+
   public BeanValidator getBeanValidator() {
     return beanValidator;
   }
@@ -64,7 +64,7 @@ public class ConnectionModelStub extends XulEventSourceAdapter implements Connec
   public void setSchema(Schema schema) {
     this.schema = schema;
   }
-  
+
   public Schema getSchema() {
     return schema;
   }
@@ -86,55 +86,55 @@ public class ConnectionModelStub extends XulEventSourceAdapter implements Connec
   }
 
   public void loadSchema() throws AggDesignerException {
-      
+
   }
 
   public void setBeanValidator(BeanValidator beanValidator) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
 
   public void setConnectEnabled(boolean b) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
 
   public void setCubeName(String cubeName) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
 
   public void setCubeNames(List<String> cubeNames) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
 
   public void setSchemaSourceSelectionEnabled(boolean b) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
 
   public void setDatabaseMeta(DatabaseMeta databaseMeta) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
 
   public void setSchemaProviders(List<SchemaProviderUiExtension> schemaProviders) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
 
   public void setSelectedSchemaProvider(SchemaProviderUiExtension schemaProvider) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
 
   public String getSchemaName() {
@@ -142,23 +142,23 @@ public class ConnectionModelStub extends XulEventSourceAdapter implements Connec
   }
 
   public boolean getSchemaUpToDate() {
-    return false;  
+    return false;
   }
 
   public void setSchemaName(String schemaName) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
 
   public void setSchemaUpToDate(boolean upToDate) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
 
   public void apply() throws AggDesignerException {
-    
+
   }
 
   public boolean isCubeSelectionEnabled() {
@@ -172,12 +172,12 @@ public class ConnectionModelStub extends XulEventSourceAdapter implements Connec
 
   public void setSelectedSchemaModel(SchemaModel schemaModel) {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void reset() {
     // TODO Auto-generated method stub
-    
+
   }
 
   public boolean isApplySchemaSourceEnabled() {
@@ -187,23 +187,23 @@ public class ConnectionModelStub extends XulEventSourceAdapter implements Connec
 
   public void setApplySchemaSourceEnabled(boolean b) {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void lockDownSchema() {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
 
   public boolean isSchemaLocked() {
-    return false;  
+    return false;
   }
 
   public void setSchemaLocked(boolean locked) {
-      
+
   }
 
 }
 
-  
+

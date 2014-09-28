@@ -28,10 +28,6 @@ import java.util.*;
 /**
  * Implementation of the {@link Lattice} data structure for use by
  * the {@link MonteCarloAlgorithm}.
- *
- * @author jhyde
- * @version $Id: MonteCarloLatticeImpl.java 931 2008-09-24 21:28:47Z mbatchelor $
- * @since Mar 13, 2008
  */
 public class MonteCarloLatticeImpl extends LatticeImpl {
     private final int queryCount = 10;
@@ -130,7 +126,7 @@ public class MonteCarloLatticeImpl extends LatticeImpl {
             // and allow it.
             if (b && ++retry < maxRetryCount) {
                 --i;
-            }            
+            }
         }
 
         // Find the aggregate with the greatest benefit.
@@ -150,9 +146,9 @@ public class MonteCarloLatticeImpl extends LatticeImpl {
             if (aggCost.benefit <= 0d) {
                 continue;
             }
-            if (best == null || 
+            if (best == null ||
                 (aggCost.benefit > bestCost.benefit) ||
-                ((aggCost.benefit == bestCost.benefit) && 
+                ((aggCost.benefit == bestCost.benefit) &&
                  (aggCost.cost < bestCost.cost))
                ) {
                 bestCost = aggCost;

@@ -27,7 +27,7 @@ import java.util.List;
 public interface Aggregate {
 
     /**
-     * Returns a suggestion for the name of a table in which to store this 
+     * Returns a suggestion for the name of a table in which to store this
      * aggregate.
      *
      * <p>The suggestion does not need to be unique within the db schema or
@@ -38,14 +38,14 @@ public interface Aggregate {
      * @return candidate table name
      */
     String getCandidateTableName();
-    
+
     /**
      * Returns a text description of this aggregate
-     * 
+     *
      * @return description of aggregate
      */
     public String getDescription();
-    
+
     /**
      * Returns a list of attributes in this aggregate table.
      *

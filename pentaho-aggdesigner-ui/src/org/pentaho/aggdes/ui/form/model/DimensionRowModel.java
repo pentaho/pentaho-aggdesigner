@@ -38,7 +38,7 @@ public class DimensionRowModel extends XulEventSourceAdapter {
   private Vector<String> levelNames;
 
   private int selectedIndex = 0;
-  
+
   List<Attribute> allLevelAttributes = new ArrayList<Attribute>();
   List<Level> allLevels = new ArrayList<Level>();
 
@@ -69,7 +69,7 @@ public class DimensionRowModel extends XulEventSourceAdapter {
     this.selectedIndex = selectedIndex;
     firePropertyChange("selectedIndex", null, selectedIndex);
   }
-  
+
   public Level getSelectedItem() {
     return allLevels.get(selectedIndex);
   }
@@ -77,7 +77,7 @@ public class DimensionRowModel extends XulEventSourceAdapter {
   public String getDimensionName() {
     return dimension.getName();
   }
-  
+
   public void setDimensionName(String dimensionName) {
     ;
   }

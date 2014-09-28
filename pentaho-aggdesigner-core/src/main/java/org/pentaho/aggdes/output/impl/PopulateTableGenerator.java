@@ -30,7 +30,7 @@ public class PopulateTableGenerator extends AbstractGenerator implements Populat
     public Class[] getSupportedOutputClasses() {
         return new Class[] {AggregateTableOutput.class};
     }
-    
+
     public boolean canGenerate(Schema schema, Output output) {
         return (output instanceof AggregateTableOutput);
     }
@@ -62,7 +62,7 @@ public class PopulateTableGenerator extends AbstractGenerator implements Populat
         buf.append(sql);
         dialect.terminateCommand(buf);
         return buf.toString();
-        
+
     }
 
 }

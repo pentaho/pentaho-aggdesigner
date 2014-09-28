@@ -23,10 +23,6 @@ import java.math.BigInteger;
 
 /**
  * Unit tests for {@link org.pentaho.aggdes.util.AggDesUtil}.
- *
- * @author jhyde
- * @version $Id: BitSetPlus.java 61 2008-03-17 05:34:55Z jhyde $
- * @since Aug 14, 2006
  */
 public class AggDesUtilTest extends TestCase {
     /**

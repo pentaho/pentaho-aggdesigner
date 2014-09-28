@@ -36,7 +36,7 @@ public class Messages {
       return '!' + key + '!';
     }
   }
-  
+
   public static String getString(String key, Object... params) {
     try {
       return MessageFormat.format(getString(key), params);

@@ -24,10 +24,6 @@ import java.util.List;
  * Component of an algorithm.
  *
  * <p>Components include: schema loader, algorithm.
- *
- * @author jhyde
- * @version $Id: Component.java 63 2008-03-17 08:37:39Z jhyde $
- * @since Mar 14, 2008
  */
 public interface Component {
     /**

@@ -46,7 +46,7 @@ public class MondrianStatisticsProvider implements StatisticsProvider {
 
       public double getFactRowCount() {
           // this assumes that there will be a count measure, if not, we need a work around
-          
+
           if (factRowCount == null) {
               final RolapConnection connection =
                   schema.getRolapCube().getSchema().getInternalConnection();
@@ -65,7 +65,7 @@ public class MondrianStatisticsProvider implements StatisticsProvider {
                              schema.getRolapCube().getStar().getFactTable().getRelation(),
                              null, true);
                      String sql = query.toString();
-                     
+
                      rs = stmt.executeQuery(sql);
                      if (rs.next()) {
                          factRowCount = rs.getDouble(1);
@@ -77,7 +77,7 @@ public class MondrianStatisticsProvider implements StatisticsProvider {
                       if (stmt != null) try { stmt.close(); } catch (Exception e) {}
                       if (conn != null) try { conn.close(); } catch (Exception e) {}
                   }
-                  
+
               } else {
                   final Query query = connection.parseQuery(
                       "select from "

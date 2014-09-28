@@ -30,10 +30,6 @@ import java.util.*;
  *
  * <p>Expensive in terms of memory and CPU, this algorithm is practical only
  * for small schemas (less than say 15 attributes).
- *
- * @author jhyde
- * @version $Id: ExhaustiveLatticeAlgorithm.java 931 2008-09-24 21:28:47Z mbatchelor $
- * @since Mar 13, 2008
  */
 public class ExhaustiveLatticeAlgorithm extends AlgorithmImpl {
     public ExhaustiveLatticeAlgorithm()

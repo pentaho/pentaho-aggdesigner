@@ -37,22 +37,19 @@ import org.pentaho.ui.xul.stereotype.Controller;
 
 /**
  * This class handles the publishing of a Mondrian Schema
- * 
- * TODO:
- *  - investigate Schema distribution across components, consider adding it to workspace?
- *  
- * @author Will Gorman (wgorman@pentaho.com)
  *
+ * <p>TODO: investigate Schema distribution across components,
+ * consider adding it to workspace?
  */
 @Controller
 public class PublishController extends AbstractXulEventHandler implements PublishSchemaPluginParent {
 
   private static final Log logger = LogFactory.getLog(PublishController.class);
-  
+
   ExportHandler exportHandler;
-  
+
   private Workspace workspace;
-  
+
   private ConnectionModel connectionModel;
 
   public void setWorkspace(Workspace workspace) {
@@ -65,8 +62,8 @@ public class PublishController extends AbstractXulEventHandler implements Publis
 
   public void publishSchema() throws XulException {
     // first, determine if new schema has been written
-    
-    // If we're not dealing with a MondrianFileSchemaModel object, something 
+
+    // If we're not dealing with a MondrianFileSchemaModel object, something
     // has gone wrong with the UI application state.
     if (!(connectionModel.getSelectedSchemaModel() instanceof MondrianFileSchemaModel)) {
       XulMessageBox msgBox = (XulMessageBox) document.createElement("messagebox");
@@ -75,7 +72,7 @@ public class PublishController extends AbstractXulEventHandler implements Publis
       logger.error("Inconsistent application state: Only MondrianFileSchemaModel should call into this method");
       return;
     }
-    
+
     File schemaFile = new File(((MondrianFileSchemaModel)connectionModel.getSelectedSchemaModel()).getMondrianSchemaFilename());
 
     // if not, display save options
@@ -86,7 +83,7 @@ public class PublishController extends AbstractXulEventHandler implements Publis
       msgBox.setMessage(Messages.getString("SchemaModifiedWarning.Message"));
       msgBox.setButtons(new String[] {"Yes", "No", "Cancel"});
       int option = msgBox.open();
-      
+
       if (option == 0) {
         schemaFile = exportHandler.saveOlap();
       } else if (option == 2) {
@@ -95,7 +92,7 @@ public class PublishController extends AbstractXulEventHandler implements Publis
     }
 
     if (schemaFile != null) {
-      // second, publish schema 
+      // second, publish schema
       PublishToServerCommand command = new PublishToServerCommand();
       command.execute(this);
     }

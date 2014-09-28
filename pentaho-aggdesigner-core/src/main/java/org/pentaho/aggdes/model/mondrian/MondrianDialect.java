@@ -59,19 +59,19 @@ public class MondrianDialect implements Dialect {
   public String removeInvalidIdentifierCharacters(String str) {
       return str.replaceAll("\\s", "_").replaceAll("[^\\w_]", "");
   }
-  
+
   public int getMaximumTableNameLength() {
       return 30; // TODO: use JDBC metadata
   }
-  
+
   public int getMaximumColumnNameLength() {
       return 30; // TODO: use JDBC metadata
   }
-  
+
   public mondrian.spi.Dialect getMondrianDialect() {
       return dialect;
   }
-  
+
   public void comment(
           StringBuilder buf, String s)
   {
@@ -87,12 +87,12 @@ public class MondrianDialect implements Dialect {
     // return false if hypersonic
     // return false if postgres and not varchar or char
     // return true otherwise
-    
+
     // hsqldb v1.8 returns 'HSQL Database Engine'
-    return 
+    return
       (meta.getDatabaseProductName().toUpperCase().indexOf("HSQL") < 0) &&
-      ((!(dialect.getDatabaseProduct() == DatabaseProduct.POSTGRESQL) && 
-        !(dialect.getDatabaseProduct() == DatabaseProduct.LUCIDDB)) || 
+      ((!(dialect.getDatabaseProduct() == DatabaseProduct.POSTGRESQL) &&
+        !(dialect.getDatabaseProduct() == DatabaseProduct.LUCIDDB)) ||
        (type.toUpperCase().indexOf("CHAR") >= 0));
 
   }

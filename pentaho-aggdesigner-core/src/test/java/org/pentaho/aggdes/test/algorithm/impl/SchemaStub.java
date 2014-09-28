@@ -36,12 +36,12 @@ public class SchemaStub implements Schema {
     public static class TableStub implements Table {
       String label;
       Table parent;
-      
+
       public TableStub(String label, Table parent) {
         this.label = label;
         this.parent = parent;
       }
-      
+
       public String getLabel() {
         return label;
       }
@@ -49,7 +49,7 @@ public class SchemaStub implements Schema {
       public Table getParent() {
         return parent;
       }
-      
+
     }
 
     public static class MeasureStub extends AttributeStub implements Measure {
@@ -57,14 +57,14 @@ public class SchemaStub implements Schema {
       public MeasureStub(double space, String colName, String datatype, String label, TableStub table) {
         super(space, colName, datatype, label, table);
       }
-      
+
       public boolean isDistinct() {
         // TODO Auto-generated method stub
         return false;
       }
-      
+
     }
-    
+
     public static class AttributeStub implements Attribute {
       double space;
       String colName;
@@ -80,7 +80,7 @@ public class SchemaStub implements Schema {
         this.label = label;
         this.table = table;
       }
-      
+
       public double estimateSpace() {
         // TODO Auto-generated method stub
         return space;
@@ -105,16 +105,16 @@ public class SchemaStub implements Schema {
       public List<Attribute> getAncestorAttributes() {
         return ancestors;
       }
-      
+
     }
-  
+
 
     public static class LevelStub implements Level {
-      
+
       Attribute attribute;
       String name;
       Level parent;
-      
+
       public Attribute getAttribute() {
         return attribute;
       }
@@ -127,7 +127,7 @@ public class SchemaStub implements Schema {
         return parent;
       }
     }
-    
+
     public static class HierarchyStub implements Hierarchy {
       List<Level> levels = new ArrayList<Level>();
       String name;
@@ -138,9 +138,9 @@ public class SchemaStub implements Schema {
       public String getName() {
         return name;
       }
-      
+
     }
-    
+
     public static class DimensionStub implements Dimension {
       List<Hierarchy> hierarchies = new ArrayList<Hierarchy>();
       String name;
@@ -153,7 +153,7 @@ public class SchemaStub implements Schema {
       }
     }
 
-    
+
     public static class StatisticsProviderStub implements StatisticsProvider {
 
       public double getFactRowCount() {
@@ -179,47 +179,47 @@ public class SchemaStub implements Schema {
       public double getSpace(List<Attribute> attributes) {
         return 1000;
       }
-      
+
     }
-  
+
     List<Attribute> attribs = new ArrayList<Attribute>();
     StatisticsProvider provider = null;
     List<Measure> measures = new ArrayList<Measure>();
     List<Dimension> dimensions = new ArrayList<Dimension>();
     Dialect dialect;
-    
+
     public SchemaStub() {
       TableStub fact = new TableStub("fact", null);
       attribs.add(new AttributeStub(0, "col1", "int", "col1", fact));
       attribs.add(new AttributeStub(0, "col2", "int", "col2", fact));
       attribs.add(new AttributeStub(0, "col3", "int", "col3", fact));
-      
+
       measures.add(new MeasureStub(0, "mes1", "int", "mcol1", fact));
-      
+
       LevelStub level1 = new LevelStub();
       level1.name = "Level 1";
       level1.attribute = attribs.get(0);
-      
+
       LevelStub level2 = new LevelStub();
       level2.name = "Level 2";
       level2.attribute = attribs.get(1);
-      
+
       HierarchyStub hierarchy = new HierarchyStub();
       hierarchy.name = "Hierarchy 1";
       hierarchy.levels.add(level1);
       hierarchy.levels.add(level2);
-      
+
       DimensionStub dimension = new DimensionStub();
       dimension.name = "Dimension 1";
       dimension.hierarchies.add(hierarchy);
-      
+
       dimensions.add(dimension);
-     
-      
+
+
       provider = new StatisticsProviderStub();
     }
-    
-    
+
+
     public String generateAggregateSql(Aggregate aggregate, List<String> columnNameList) {
       return null;
     }
@@ -227,7 +227,7 @@ public class SchemaStub implements Schema {
     public List<Attribute> getAttributes() {
       return attribs;
     }
-    
+
     public void setDialect(Dialect dialect) {
       this.dialect = dialect;
     }

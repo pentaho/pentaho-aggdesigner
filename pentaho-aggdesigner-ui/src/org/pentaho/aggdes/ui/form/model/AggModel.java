@@ -41,7 +41,7 @@ import org.pentaho.ui.xul.stereotype.FormModel;
 public class AggModel extends XulEventSourceAdapter {
 
   private UIAggregate thinAgg = new UIAggregateImpl();
-  
+
   private OutputUiExtension currentUiExtension = null;
 
   private List<DimensionRowModel> dimensionRowModels = new ArrayList<DimensionRowModel>();
@@ -118,7 +118,7 @@ public class AggModel extends XulEventSourceAdapter {
         DimensionRowModel rowModel = new DimensionRowModel();
         rowModel.setDimension(dim);
         newDimensionRowModels.add(rowModel);
-        
+
         //setup listener to mark model dirty when a user changes the level selection
         rowModel.addPropertyChangeListener("selectedIndex", new PropertyChangeListener() {
           public void propertyChange(PropertyChangeEvent evt) {
@@ -174,7 +174,7 @@ public class AggModel extends XulEventSourceAdapter {
     //setThinAgg(new UIAggregateImpl());
     setModified(false);
   }
-  
+
   public void reset() {
     setThinAgg(thinAgg);
 
@@ -184,7 +184,7 @@ public class AggModel extends XulEventSourceAdapter {
   }
 
   /**
-   * Synchronizes selections in DimensionRowModels to the backing UIAggregate.  
+   * Synchronizes selections in DimensionRowModels to the backing UIAggregate.
    * This typically happens when the user clicks "Save" or "Apply".
    */
   public void synchToAgg() {

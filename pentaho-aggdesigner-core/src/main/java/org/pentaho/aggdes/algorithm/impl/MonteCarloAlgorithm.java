@@ -33,10 +33,6 @@ import java.util.List;
  * <p>Using a random set of queries is much cheaper than generating the whole
  * set, as done by {@link ExhaustiveLatticeAlgorithm}, but is not much less
  * accurate.</p>
- *
- * @author jhyde
- * @version $Id: MonteCarloAlgorithm.java 931 2008-09-24 21:28:47Z mbatchelor $
- * @since Mar 13, 2008
  */
 public class MonteCarloAlgorithm extends AlgorithmImpl {
     public MonteCarloAlgorithm()

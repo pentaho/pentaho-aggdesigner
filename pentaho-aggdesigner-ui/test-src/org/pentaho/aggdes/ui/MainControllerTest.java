@@ -43,11 +43,11 @@ import org.pentaho.ui.xul.components.XulFileDialog.RETURN_CODE;
 
 public class MainControllerTest extends TestCase {
 
-	public void setUp() {
+    public void setUp() {
     try {
-    	KettleClientEnvironment.init();
+        KettleClientEnvironment.init();
     } catch (Exception e) {
-    	e.printStackTrace();
+        e.printStackTrace();
     }
     XulMessageBoxStub.openedMessageBoxes.clear();
     XulMessageBoxStub.returnCode = 0;

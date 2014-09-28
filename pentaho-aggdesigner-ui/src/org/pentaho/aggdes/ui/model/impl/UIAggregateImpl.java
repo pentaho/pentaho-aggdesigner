@@ -27,9 +27,6 @@ import org.pentaho.aggdes.ui.model.UIAggregate;
 
 /**
  * This class defines a custom Aggregate
- * 
- * @author Will Gorman (wgorman@pentaho.com)
- *
  */
 public class UIAggregateImpl implements UIAggregate {
 
@@ -42,22 +39,22 @@ public class UIAggregateImpl implements UIAggregate {
     private boolean enabled = true;
     double estimateRowCount = 0;
     double estimateSpace = 0;
-    
+
     public UIAggregateImpl() {
       this("", "", new ArrayList<Attribute>(), new ArrayList<Measure>());
     }
-    
+
     public UIAggregateImpl(String name, String description, List<Attribute> attributes) {
         this(name, description, attributes, new ArrayList<Measure>());
     }
-    
+
     public UIAggregateImpl(String name, String description, List<Attribute> attributes, List<Measure> measures) {
       this.name =  name;
       this.description = description;
       this.attributes = attributes;
       this.measures = measures;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -77,7 +74,7 @@ public class UIAggregateImpl implements UIAggregate {
     public void setEstimateRowCount(double estimateRowCount) {
       this.estimateRowCount = estimateRowCount;
     }
-    
+
     public double estimateRowCount() {
         return estimateRowCount;
     }
@@ -85,7 +82,7 @@ public class UIAggregateImpl implements UIAggregate {
     public void setEstimateSpace(double estimateSpace) {
       this.estimateSpace = estimateSpace;
     }
-    
+
     public double estimateSpace() {
         return estimateSpace;
     }
@@ -97,7 +94,7 @@ public class UIAggregateImpl implements UIAggregate {
     public List<Measure> getMeasures() {
         return measures;
     }
-    
+
     public void setMeasures(List<Measure> measures) {
       this.measures = measures;
   }

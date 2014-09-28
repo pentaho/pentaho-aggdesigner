@@ -51,7 +51,7 @@ public class MondrianSchemaValidatorManagerTest extends AbstractMondrianSchemaVa
     list.add(v3);
     list.add(v4);
     list.add(v5);
-    
+
     context.checking(new Expectations() {
       {
         one(v1).validateCube(with(equal(schema)), with(equal(getCubeByName("Sales"))), with(equal(conn)));
@@ -61,7 +61,7 @@ public class MondrianSchemaValidatorManagerTest extends AbstractMondrianSchemaVa
         one(v5).validateCube(with(equal(schema)), with(equal(getCubeByName("Sales"))), with(equal(conn)));
       }
     });
-    
+
     bean.setValidators(list);
     bean.validateCube(schema, getCubeByName("Sales"), conn);
 

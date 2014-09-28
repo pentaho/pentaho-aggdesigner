@@ -27,18 +27,16 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 /**
- * This class handles the Serialization of Measures
- * 
- * @author Will Gorman (wgorman@pentaho.com)
+ * Handles the serialization of Measures.
  */
 public class MeasureConverter implements Converter {
 
   Schema schema;
-  
+
   public MeasureConverter(Schema schema) {
     this.schema = schema;
   }
-  
+
   public void marshal(Object object, HierarchicalStreamWriter writer, MarshallingContext context) {
     Measure measure = (Measure)object;
     writer.startNode("label");
@@ -50,7 +48,7 @@ public class MeasureConverter implements Converter {
   }
 
   public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
-    
+
     reader.moveDown();
     String label = reader.getValue();
     reader.moveUp();
@@ -60,13 +58,13 @@ public class MeasureConverter implements Converter {
     Measure foundMeasure = null;
     for (Measure measure : schema.getMeasures()) {
       if (measure.getLabel().equals(label) &&
-          measure.getTable().getLabel().equals(tableLabel)) 
+          measure.getTable().getLabel().equals(tableLabel))
       {
             foundMeasure = measure;
             break;
       }
     }
-    
+
     if (foundMeasure == null) {
       throw new RuntimeException("Error: Unable to find measure");
     }

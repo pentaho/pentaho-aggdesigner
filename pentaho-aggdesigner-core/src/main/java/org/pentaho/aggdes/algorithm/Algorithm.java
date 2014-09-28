@@ -28,10 +28,6 @@ import org.pentaho.aggdes.model.Schema;
 
 /**
  * Algorithm that takes a star schema and recommends a set of aggregate tables.
- *
- * @author jhyde
- * @version $Id: Algorithm.java 931 2008-09-24 21:28:47Z mbatchelor $
- * @since Apr 25, 2006
  */
 public interface Algorithm extends Component {
 
@@ -50,7 +46,7 @@ public interface Algorithm extends Component {
      * @param parameterValues Parameter values
      *
      * @param progress Progress callback
-     * 
+     *
      * @return Set of recommended aggregate tables, or null if another thread
      * called {@link #cancel()} and there is no useful result
      */

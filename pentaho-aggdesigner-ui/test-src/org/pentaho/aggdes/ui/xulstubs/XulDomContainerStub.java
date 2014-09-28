@@ -35,10 +35,10 @@ import org.pentaho.ui.xul.dom.Document;
 import org.pentaho.ui.xul.impl.XulEventHandler;
 
 public class XulDomContainerStub implements XulDomContainer {
-  
+
   public List<Binding> bindings = new ArrayList<Binding>();
   public DocumentStub document = new DocumentStub();
-  
+
   public void addBinding(Binding binding) {}
   public void addInitializedBinding(Binding b) {}
   public void addDocument(Document document) {}
@@ -78,37 +78,37 @@ public class XulDomContainerStub implements XulDomContainer {
   public List<Object> getResourceBundles() {
     return null;
   }
-  
+
   public boolean isInitialized() {
     return false;
   }
- 
+
   public void setResourceBundles(List<Object> resourceBundles) {
-    
+
   }
-	public void addPerspective(XulPerspective perspective) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void loadPerspective(String id) {
-		// TODO Auto-generated method stub
-	}
+    public void addPerspective(XulPerspective perspective) {
+        // TODO Auto-generated method stub
 
-	public void loadOverlay(String src, Object resourceBundle) throws XulException {
-	  // TODO Auto-generated method stub
-	}
+    }
+    public void loadPerspective(String id) {
+        // TODO Auto-generated method stub
+    }
 
-	public void registerClassLoader(Object loader) {
-	  // TODO Auto-generated method stub
-	}
-	
-	public XulSettingsManager getSettingsManager() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public void setSettingsManager(XulSettingsManager arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+    public void loadOverlay(String src, Object resourceBundle) throws XulException {
+        // TODO Auto-generated method stub
+    }
+
+    public void registerClassLoader(Object loader) {
+        // TODO Auto-generated method stub
+    }
+
+    public XulSettingsManager getSettingsManager() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    public void setSettingsManager(XulSettingsManager arg0) {
+        // TODO Auto-generated method stub
+
+    }
+
 }

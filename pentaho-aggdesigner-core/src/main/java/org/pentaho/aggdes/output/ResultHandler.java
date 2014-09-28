@@ -38,10 +38,6 @@ import java.util.List;
  * {@link org.pentaho.aggdes.model.Component} so that it has the same
  * understanding of parameters as other components used by the command-line
  * tool.
- *
- * @author jhyde
- * @version $Id: ResultHandler.java 931 2008-09-24 21:28:47Z mbatchelor $
- * @since Mar 15, 2008
  */
 public interface ResultHandler extends Component {
     /**

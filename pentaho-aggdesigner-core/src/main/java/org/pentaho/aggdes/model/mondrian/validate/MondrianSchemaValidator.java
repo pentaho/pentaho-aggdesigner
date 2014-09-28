@@ -25,11 +25,9 @@ import org.pentaho.aggdes.model.ValidationMessage;
 
 /**
  * Validates the database schema using the Mondrian schema.
- * 
- * @author mlowery
  */
 public interface MondrianSchemaValidator {
-  
+
   /**
    * Validates a cube.
    * @param schema schema containing cube

@@ -20,12 +20,16 @@ package org.pentaho.aggdes.ui.ext;
 import java.util.Map;
 
 /**
- * This interface provides and extension point for eliciting inputs to your aggregate-generation algorithm from
- * a user.  A XUL overlay file is used to provide the form elements (textboxes, etc) and the Pentaho Aggregation
- * Designer will extract these parameters via the {@link #getAlgorithmParameters()} method.
- * 
- * @author APhillips
- * @see <a href="http://wiki.pentaho.com/display/Surfboard/03.+Aggregation+Designer+Plugin+Development">Aggregation Designer Plugin Development</a>
+ * Extension point for eliciting inputs to your aggregate-generation
+ * algorithm from a user.
+ *
+ * <p>A XUL overlay file is used to provide the form elements
+ * (textboxes, etc) and the Pentaho Aggregation Designer will extract
+ * these parameters via the {@link #getAlgorithmParameters()} method.
+ *
+ * <p>See <a
+ * href="http://wiki.pentaho.com/display/Surfboard/03.+Aggregation+Designer+Plugin+Development">Aggregation
+ * Designer Plugin Development</a>
  */
 public interface AlgorithmUiExtension extends UiExtension {
   /**

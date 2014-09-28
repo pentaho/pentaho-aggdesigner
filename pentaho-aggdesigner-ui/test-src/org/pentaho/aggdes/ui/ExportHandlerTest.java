@@ -243,7 +243,7 @@ public class ExportHandlerTest {
     });
     controller.startExecuteDdl();
 
-    // WG: The reason this test case was failing has to do with the Thread in startExecuteDdl.  
+    // WG: The reason this test case was failing has to do with the Thread in startExecuteDdl.
     // This test passes if given enough time to call execute() within the thread. as a temporary
     // solution, I added a one second sleep at the end of this test to give the thread time to run.
 
@@ -274,7 +274,7 @@ public class ExportHandlerTest {
     });
     controller.startExecuteDml();
 
-    // WG: The reason this test case was failing has to do with the Thread in startExecuteDml.  
+    // WG: The reason this test case was failing has to do with the Thread in startExecuteDml.
     // This test passes if given enough time to call execute() within the thread. as a temporary
     // solution, I added a one second sleep at the end of this test to give the thread time to run.
 

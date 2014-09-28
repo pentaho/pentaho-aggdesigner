@@ -28,12 +28,12 @@ import org.pentaho.aggdes.model.Attribute;
 import org.pentaho.aggdes.model.Component;
 import org.pentaho.aggdes.model.Parameter;
 import org.pentaho.aggdes.model.Schema;
-import org.pentaho.aggdes.model.mondrian.MondrianSchemaLoader;
 import org.pentaho.aggdes.util.BitSetPlus;
 import org.pentaho.aggdes.util.AggDesUtil;
 
 /**
- * Implementation of the {@link org.pentaho.aggdes.algorithm.Algorithm} which uses an exhaustive
+ * Implementation of the {@link org.pentaho.aggdes.algorithm.Algorithm}
+ * that uses an exhaustive
  * algorithm. The algorithm constructs the full lattice in memory, and uses a
  * greedy algorithm which, at each step, chooses the aggregate which offers
  * the greatest benefit over the current set of aggregates.
@@ -50,16 +50,12 @@ import org.pentaho.aggdes.util.AggDesUtil;
  * for a schema with 20 levels and 40 aggregate tables, this requires
  * memory for a lattice of 1 million potential aggregates, and 40 million
  * steps to evaluate choose the actual set of aggregate tables.
- *
- * @author jhyde
- * @version $Id: AlgorithmImpl.java 931 2008-09-24 21:28:47Z mbatchelor $
- * @since Jun 9, 2006
  */
 public abstract class AlgorithmImpl
     implements Algorithm
 {
     private static final Log logger = LogFactory.getLog(AlgorithmImpl.class);
-  
+
     protected final List<Parameter> parameterList = new ArrayList<Parameter>();
     private boolean cancelRequested;
     private boolean canceled;

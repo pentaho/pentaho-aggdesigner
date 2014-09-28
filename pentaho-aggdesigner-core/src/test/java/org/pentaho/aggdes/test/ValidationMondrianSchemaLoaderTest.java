@@ -109,7 +109,7 @@ public class ValidationMondrianSchemaLoaderTest extends TestCase {
   @Test
   public void testValidateSchemaTwoValidators() {
     parameterValues.put(MondrianSchemaLoaderParameter.validators, "org.pentaho.aggdes.test.ValidationMondrianSchemaLoaderTest$MyValidator,org.pentaho.aggdes.test.ValidationMondrianSchemaLoaderTest$MyValidator2");
-    
+
     List<ValidationMessage> messages = bean.validateSchema(parameterValues);
     logger.debug("got messages: " + messages);
     assertTrue(ValidationMondrianSchemaLoaderTest.myValidatorCalled);
@@ -140,21 +140,21 @@ public class ValidationMondrianSchemaLoaderTest extends TestCase {
     ValidationMessage warning1 = new ValidationMessage(ValidationMessage.Type.WARNING, "warning");
     ValidationMessage warning2 = new ValidationMessage(ValidationMessage.Type.WARNING, "warning2");
     ValidationMessage warning3 = new ValidationMessage(ValidationMessage.Type.WARNING, "warning");
-    
+
     assertEquals(ok.getMessage(), "ok");
     assertEquals(ok.getType(), ValidationMessage.Type.OK);
     assertEquals(ok.toString(), "ValidationMessage[type=OK,message=\"ok\"]");
-    
+
     // test compareTo
-    
+
     assertEquals(ok.compareTo(error), 1);
     assertEquals(ok.compareTo(warning1), 1);
     assertEquals(warning1.compareTo(error), 1);
     assertEquals(warning1.compareTo(ok), -1);
-    
+
     assertEquals(error.compareTo(ok), -1);
     assertEquals(error.compareTo(warning1), -1);
-    
+
     assertEquals(warning1.compareTo(warning2), -1);
     assertEquals(warning2.compareTo(warning1), 1);
     assertEquals(warning1.compareTo(warning3), 0);

@@ -51,7 +51,7 @@ import org.pentaho.aggdes.model.mondrian.validate.ValidationHelper;
 public class MondrianSchemaLoader implements SchemaLoader {
 
     private static final Log logger = LogFactory.getLog(MondrianSchemaLoader.class);
- 
+
     public Schema createSchema(Map<Parameter, Object> parameterValues) {
         String connectString =
             (String) parameterValues.get(
@@ -62,7 +62,7 @@ public class MondrianSchemaLoader implements SchemaLoader {
         final RolapConnection connection =
             (RolapConnection)DriverManager.getConnection(connectString, null);
         final mondrian.olap.Schema schema = connection.getSchema();
-        
+
         final RolapCube cube = (RolapCube) schema.lookupCube(cubeName, true);
         return new MondrianSchema(connection, cube);
     }
@@ -74,40 +74,40 @@ public class MondrianSchemaLoader implements SchemaLoader {
       String cubeName =
         (String) parameterValues.get(
             MondrianSchemaLoaderParameter.cube);
-      
+
       PropertyList propertyList = Util.parseConnectString(connectString);
-      
+
       String jdbcDrivers = propertyList.get("JdbcDrivers");
       if (StringUtils.isBlank(jdbcDrivers)) {
         throw new RuntimeException("missing 'JdbcDrivers' in connect string");
-      }      
-      
+      }
+
       String jdbc = propertyList.get("Jdbc");
       if (StringUtils.isBlank(jdbcDrivers)) {
         throw new RuntimeException("missing 'Jdbc' in connect string");
       }
-      
+
       String catalog = propertyList.get("Catalog");
       if (StringUtils.isBlank(jdbcDrivers)) {
         throw new RuntimeException("missing 'Catalog' in connect string");
       }
 
       String jdbcUser = propertyList.get("JdbcUser");
-      
+
       String jdbcPassword = propertyList.get("JdbcPassword");
-      
+
       List<ValidationMessage> messages = new ArrayList<ValidationMessage>();
-      
+
       try {
         List<MondrianSchemaValidator> validators = loadValidators(parameterValues);
-        
+
         Class.forName(jdbcDrivers); //$NON-NLS-1$
-  
+
         java.sql.Connection conn = java.sql.DriverManager.getConnection(jdbc,  //$NON-NLS-1$
             jdbcUser, jdbcPassword); //$NON-NLS-1$ //$NON-NLS-2$
-        
+
         messages = ValidationHelper.validateCube(catalog, cubeName, conn, validators); //$NON-NLS-1$
-        
+
         conn.close();
       } catch (Exception e) {
         if (logger.isErrorEnabled()) {
@@ -118,20 +118,20 @@ public class MondrianSchemaLoader implements SchemaLoader {
       }
       return messages;
     }
-    
-    protected List<MondrianSchemaValidator> loadValidators(Map<Parameter, Object> parameterValues) throws 
+
+    protected List<MondrianSchemaValidator> loadValidators(Map<Parameter, Object> parameterValues) throws
       ClassNotFoundException, InstantiationException, IllegalAccessException {
       String validatorClassString = (String) parameterValues.get(
           MondrianSchemaLoaderParameter.validators);
-      
+
       if (null == validatorClassString || "".equals(validatorClassString)) { //$NON-NLS-1$
         return Collections.emptyList();
       }
-      
+
       String[] validatorClassNames = validatorClassString.split(","); //$NON-NLS-1$
-      
+
       List<MondrianSchemaValidator> validators = new ArrayList<MondrianSchemaValidator>();
-      
+
       for (String className : validatorClassNames) {
         Class<?> clazz = Class.forName(className);
         if (!MondrianSchemaValidator.class.isAssignableFrom(clazz)) {
@@ -161,7 +161,7 @@ public class MondrianSchemaLoader implements SchemaLoader {
         connectString("Mondrian connect string", true, Type.STRING),
         cube("Name of cube", true, Type.STRING),
         validators("Comma-separated list of validators", false, Type.STRING);
-        
+
         private final String description;
         private final boolean required;
         private final Type type;

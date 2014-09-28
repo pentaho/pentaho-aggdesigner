@@ -23,16 +23,13 @@ import org.pentaho.aggdes.model.Aggregate;
  * An output object is the UI layer's view into Commands.  Outputs should be
  * serializable and store any necessary attributes required for customization
  * of a Command.  Output Attributes will appear in the UI and may be editable
- * by DBAs. 
- * 
- * @author Will Gorman (wgorman@pentaho.com)
- *
+ * by DBAs.
  */
 public interface Output {
 
     /**
      * the parent aggregate of this output
-     * 
+     *
      * @return aggregate
      */
     public Aggregate getAggregate();

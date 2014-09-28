@@ -18,11 +18,13 @@
 package org.pentaho.aggdes.ui.ext;
 
 /**
- * This interface captures the root contract that all user interface extensions must follow.  User interface
- * extensions in Pentaho Aggregation Designer work by providing a XUL Overlay file via {@link #getOverlayPath()}.
- * The XUL framework merges the form elements you have defined in your overlay file into the application.
- * 
- * @author APhillips
+ * The root contract that all user interface extensions must follow.
+ *
+ * <p>User interface extensions in Pentaho Aggregation Designer work
+ * by providing a XUL Overlay file via {@link #getOverlayPath()}.  The
+ * XUL framework merges the form elements you have defined in your
+ * overlay file into the application.
+ *
  * @see <a href="http://wiki.pentaho.com/display/PLATFORM/07.+Includes+and+Overlays">XUL Overlays</a>
  * @see <a href="http://wiki.pentaho.com/display/PLATFORM/The+Pentaho+XUL+Framework+Developer%27s+Guide">Pentaho XUL Framework</a>
  * @see <a href="http://wiki.pentaho.com/display/Surfboard/03.+Aggregation+Designer+Plugin+Development">Aggregation Designer Plugin Development</a>
@@ -35,17 +37,17 @@ public interface UiExtension {
    * when your extension is first required.
    */
   public void onLoad();
-  
+
   /**
-   * Optional method called when the UIExtension is unloaded from the current context. This is where 
+   * Optional method called when the UIExtension is unloaded from the current context. This is where
    * an implementation should destroy any bindings created and release and resources.
    */
   void onUnload();
 
   /**
-   * Your UiExtension must provide a path to a xul overlay source file (from classpath root).  This file should 
-   * include an <overlay> tag that includes all XulElements to be overlayed.  The overlay is applied 
-   * only once, when your extension is first required.  Following the application of the overlay to 
+   * Your UiExtension must provide a path to a xul overlay source file (from classpath root).  This file should
+   * include an <overlay> tag that includes all XulElements to be overlayed.  The overlay is applied
+   * only once, when your extension is first required.  Following the application of the overlay to
    * the XulDomContainer, the {@link #onLoad()} will be invoked.
    * @return path to a XUL overlay source file.
    */

@@ -29,17 +29,15 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 /**
  * This class handles the Serialization of Attributes
- * 
- * @author Will Gorman (wgorman@pentaho.com)
  */
 public class AttributeConverter implements Converter {
 
   Schema schema;
-  
+
   public AttributeConverter(Schema schema) {
     this.schema = schema;
   }
-  
+
   public void marshal(Object object, HierarchicalStreamWriter writer, MarshallingContext context) {
     Attribute attribute = (Attribute)object;
     writer.startNode("label");
@@ -51,7 +49,7 @@ public class AttributeConverter implements Converter {
   }
 
   public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
-    
+
     reader.moveDown();
     String label = reader.getValue();
     reader.moveUp();
@@ -61,13 +59,13 @@ public class AttributeConverter implements Converter {
     Attribute foundAttrib = null;
     for (Attribute attribute : schema.getAttributes()) {
       if (attribute.getLabel().equals(label) &&
-          attribute.getTable().getLabel().equals(tableLabel)) 
+          attribute.getTable().getLabel().equals(tableLabel))
       {
             foundAttrib = attribute;
             break;
       }
     }
-    
+
     if (foundAttrib == null) {
       throw new RuntimeException("Error: Unable to find attribute");
     }
@@ -75,7 +73,7 @@ public class AttributeConverter implements Converter {
   }
 
   public boolean canConvert(Class clazz) {
-    return Attribute.class.isAssignableFrom(clazz) && 
+    return Attribute.class.isAssignableFrom(clazz) &&
            !Measure.class.isAssignableFrom(clazz);
   }
 

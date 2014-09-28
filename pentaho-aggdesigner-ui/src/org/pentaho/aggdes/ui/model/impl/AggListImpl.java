@@ -34,8 +34,6 @@ import org.pentaho.aggdes.ui.util.EventSupport;
 
 /**
  * Thin wrapper around a list adding the ability to fire change events.
- * 
- * @author mlowery
  */
 public class AggListImpl implements AggList {
 
@@ -46,7 +44,7 @@ public class AggListImpl implements AggList {
   private EventSupport<AggListListener> eventSupport = new EventSupport<AggListListener>();
 
   private int selectedIndex = -1;
-  
+
   public AggListImpl() {
     this(new ArrayList<UIAggregate>());
   }
@@ -126,10 +124,10 @@ public class AggListImpl implements AggList {
     if( ! list.contains(agg)){
       throw new IllegalArgumentException("Aggregate not in list");
     }
-    
+
     fireEvent(new AggListEvent(this, AGG_CHANGED, list.indexOf(agg)));
   }
-  
+
   public Iterator<UIAggregate> iterator() {
     return Collections.unmodifiableList(list).iterator();
   }
@@ -156,7 +154,7 @@ public class AggListImpl implements AggList {
 
     //remove current selection
     //setSelectedIndex(-1);
-    
+
     list.remove(agg);
     list.add(curpos+1, agg);
     fireEvent(new AggListEvent(this, AGG_CHANGED, list.indexOf(agg)));
@@ -170,10 +168,10 @@ public class AggListImpl implements AggList {
       //already at start.
       return;
     }
-    
+
     //remove current selection
     //setSelectedIndex(-1);
-    
+
     list.remove(agg);
     list.add(curpos-1, agg);
     fireEvent(new AggListEvent(this, AGG_CHANGED, list.indexOf(agg)));
@@ -187,12 +185,12 @@ public class AggListImpl implements AggList {
       fireEvent(new AggListEvent(this, AGG_CHANGED, list.indexOf(agg)));
     }
   }
-  
+
   public void checkAll() {
     for(UIAggregate agg : list){
       agg.setEnabled(true);
       fireEvent(new AggListEvent(this, AGG_CHANGED, list.indexOf(agg)));
     }
-    
+
   }
 }

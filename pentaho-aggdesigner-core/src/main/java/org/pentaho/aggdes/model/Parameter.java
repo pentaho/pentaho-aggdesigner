@@ -23,10 +23,6 @@ package org.pentaho.aggdes.model;
  *
  * <p>Implementations of components typically declare the parameters that they
  * accept using an <code>enum</code> that also implements this interface.
- *
- * @author jhyde
- * @version $Id: Parameter.java 61 2008-03-17 05:34:55Z jhyde $
- * @since Mar 14, 2008
  */
 public interface Parameter {
     /**

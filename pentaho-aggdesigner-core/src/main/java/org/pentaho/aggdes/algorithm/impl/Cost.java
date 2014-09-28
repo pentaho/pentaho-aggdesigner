@@ -20,10 +20,6 @@ package org.pentaho.aggdes.algorithm.impl;
 /**
  * Represents the cost of materializing an
  * {@link org.pentaho.aggdes.model.Aggregate}.
- *
- * @author jhyde
- * @version $Id: Cost.java 931 2008-09-24 21:28:47Z mbatchelor $
- * @since Mar 13, 2008
  */
 public class Cost {
     public double cost;

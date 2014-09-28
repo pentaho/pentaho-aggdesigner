@@ -23,40 +23,36 @@ import org.pentaho.aggdes.model.Aggregate;
 import org.pentaho.aggdes.model.Schema;
 
 /**
- * The output service API defines how a client tool interacts with the output 
+ * The output service API defines how a client tool interacts with the output
  * service layer.  This includes creating outputs, and also generating
  * full artifacts.
- * 
+ *
  * An example of an output is the create table script.  This script is created
- * by the service layer and returned to the UI layer for rendering.  When the 
+ * by the service layer and returned to the UI layer for rendering.  When the
  * DBA is ready to generate the full create table script, a call into getFullArtifact()
  * is done.
- * 
- * @author Will Gorman(wgorman@pentaho.com)
- *
  */
 public interface OutputService {
-    
+
     /**
-     * returns an output of a specific type for an aggregate
-     * 
-     * note that in the future this call may require additional
-     * parameters, to override the default behavior
-     * 
+     * Returns an output of a specific type for an aggregate.
+     *
+     * <p>Note that in the future this call may require additional
+     * parameters, to override the default behavior.
+     *
      * @param aggregate aggregate object
-     * @param outputType 
-     * @return
+     * @param outputType
      */
     public Output generateDefaultOutput(Aggregate aggregate) throws OutputValidationException;
-    
+
     /**
      * returns a list of supported artifact generator classes
      * that the output service supports.
-     * 
+     *
      * @return list of artifact generator classes supported.
      */
     public Class[] getSupportedArtifactGeneratorClasses();
-    
+
     /**
      * returns the artifact of an output.  This should be called if output attributes
      * have changed.
@@ -65,10 +61,10 @@ public interface OutputService {
      * @return artifact string
      */
     public String getArtifact(Output output, Class<? extends ArtifactGenerator> artifactGenerator) throws OutputValidationException;
-    
+
     /**
-     * returns the full artifact of a list of outputs of a single output type. 
-     * 
+     * returns the full artifact of a list of outputs of a single output type.
+     *
      * @param outputs a list of outputs
      * @return artifact string
      */

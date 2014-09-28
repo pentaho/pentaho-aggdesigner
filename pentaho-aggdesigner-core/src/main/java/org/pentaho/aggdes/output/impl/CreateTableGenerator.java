@@ -27,7 +27,7 @@ public class CreateTableGenerator extends AbstractGenerator implements CreateScr
     public Class[] getSupportedOutputClasses() {
         return new Class[] {AggregateTableOutput.class};
     }
-    
+
     public boolean canGenerate(Schema schema, Output output) {
         // this is the default generation implementation
         return (output instanceof AggregateTableOutput);
@@ -40,9 +40,9 @@ public class CreateTableGenerator extends AbstractGenerator implements CreateScr
      * @return
      */
     public String generate(Schema schema, Output output) {
-        
+
         AggregateTableOutput tableOutput = (AggregateTableOutput)output;
-        
+
         final Dialect dialect = schema.getDialect();
         final StringBuilder buf = new StringBuilder();
         dialect.comment(
@@ -56,7 +56,7 @@ public class CreateTableGenerator extends AbstractGenerator implements CreateScr
                 + new Double(output.getAggregate().estimateSpace()).intValue()
                 + " bytes");
         buf.append("CREATE TABLE ");
-        
+
         dialect.quoteIdentifier(buf, tableOutput.getCatalogName(), tableOutput.getSchemaName(), tableOutput.getTableName());
         buf.append(" (").append(ResultHandlerImpl.NL);
         int i = -1;
@@ -76,5 +76,5 @@ public class CreateTableGenerator extends AbstractGenerator implements CreateScr
         dialect.terminateCommand(buf);
         return buf.toString();
     }
-    
+
 }

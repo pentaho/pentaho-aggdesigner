@@ -176,9 +176,9 @@ public class AggController extends AbstractXulEventHandler {
 
   /**
    * generate optional UI as required by Aggregate's output method
-   * 
+   *
    * @param thinAgg UIAggregate that we're working on
-   * @throws XulException 
+   * @throws XulException
    */
   public void applyUiExtensions(UIAggregate thinAgg) {
 

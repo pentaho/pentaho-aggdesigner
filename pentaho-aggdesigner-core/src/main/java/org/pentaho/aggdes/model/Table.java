@@ -23,10 +23,6 @@ package org.pentaho.aggdes.model;
  *
  * @see Schema
  * @see Attribute
- *
- * @author jhyde
- * @version $Id$
- * @since Mar 13, 2008
  */
 public interface Table {
     /**

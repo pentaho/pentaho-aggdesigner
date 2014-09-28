@@ -34,8 +34,6 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 /**
  * This class handles the Serialization of AggList
- * 
- * @author Will Gorman (wgorman@pentaho.com)
  */
 public class AggListConverter implements Converter {
 
@@ -43,7 +41,7 @@ public class AggListConverter implements Converter {
   public AggListConverter(AggList aggList){
     this.aggList = aggList;
   }
-  
+
   public void marshal(Object arg0, HierarchicalStreamWriter writer, MarshallingContext context) {
     AggList impl = (AggList)arg0;
     for (int i = 0; i < impl.getSize(); i++) {
@@ -65,7 +63,7 @@ public class AggListConverter implements Converter {
     }
     aggList.clearAggs();
     aggList.addAggs(list);
-    return aggList; 
+    return aggList;
   }
 
   public boolean canConvert(Class clazz) {

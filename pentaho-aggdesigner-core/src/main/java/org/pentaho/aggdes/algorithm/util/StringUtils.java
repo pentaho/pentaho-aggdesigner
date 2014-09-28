@@ -19,10 +19,8 @@ package org.pentaho.aggdes.algorithm.util;
 
 /**
  * Utility methods for string manipulation.
- * 
- * TODO mlowery Remove depuntify from Main.
- * 
- * @author mlowery
+ *
+ * <p>TODO mlowery Remove depuntify from Main.
  */
 public class StringUtils {
 
@@ -38,5 +36,5 @@ public class StringUtils {
       s = s.replaceAll("_$", "");
       return s;
   }
-  
+
 }

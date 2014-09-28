@@ -39,8 +39,6 @@ import org.pentaho.aggdes.model.ValidationMessage;
 
 /**
  * Checks primary keys on cubes.
- * 
- * @author mlowery
  */
 public class CubePkValidator extends AbstractMondrianSchemaValidator {
 
@@ -68,16 +66,16 @@ public class CubePkValidator extends AbstractMondrianSchemaValidator {
 
     // TODO: include validation support for mondrian views
     if (!(cube.fact instanceof Table)) {
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("cube \"" + cube.name + "\" contains unsupported fact type, " + cube.fact); //$NON-NLS-1$ //$NON-NLS-2$
-    	}
-    	return messages;
+        if (logger.isDebugEnabled()) {
+            logger.debug("cube \"" + cube.name + "\" contains unsupported fact type, " + cube.fact); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+        return messages;
     }
-    
-    
+
+
     // ~ Check: Primary key on cube's fact table========================================================================
 
-    
+
     String relationName = ((Table) cube.fact).name;
     String schemaName = ((Table) cube.fact).schema;
 

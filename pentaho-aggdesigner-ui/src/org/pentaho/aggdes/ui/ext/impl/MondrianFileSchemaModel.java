@@ -31,9 +31,9 @@ public class MondrianFileSchemaModel implements SchemaModel {
   private long schemaChecksum;
 
   private String mondrianSchemaFilename;
-  
+
   private String cubeName;
-  
+
   public String getMondrianSchemaFilename() {
     return mondrianSchemaFilename;
   }
@@ -41,7 +41,7 @@ public class MondrianFileSchemaModel implements SchemaModel {
   public void setMondrianSchemaFilename(String mondrianSchemaFilename) {
     this.mondrianSchemaFilename = mondrianSchemaFilename;
   }
-  
+
   public long recalculateSchemaChecksum() {
     if (getMondrianSchemaFilename() != null) {
       try {
@@ -56,11 +56,11 @@ public class MondrianFileSchemaModel implements SchemaModel {
     }
     return -1;
   }
-  
+
   public void setSchemaChecksum(long schemaChecksum) {
     this.schemaChecksum = schemaChecksum;
   }
-  
+
   public long getSchemaChecksum() {
     return schemaChecksum;
   }
@@ -82,4 +82,4 @@ public class MondrianFileSchemaModel implements SchemaModel {
   }
 }
 
-  
+
