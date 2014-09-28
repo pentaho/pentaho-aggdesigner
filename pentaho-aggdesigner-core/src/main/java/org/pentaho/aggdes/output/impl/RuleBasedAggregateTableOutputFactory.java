@@ -41,53 +41,53 @@ public class RuleBasedAggregateTableOutputFactory implements OutputFactory {
     public Class getOutputClass() {
         return AggregateTableOutput.class;
     }
-    
+
     // default implementation, always return true for all schemas
     public boolean canCreateOutput(Schema schema) {
         return true;
     }
-    
+
     public AggregateTableOutput createOutput(Schema schema, Aggregate aggregate) {
         return createOutput(schema, aggregate, new ArrayList<String>());
     }
-    
-    
+
+
     public AggregateTableOutput createOutput(Schema schema, Aggregate aggregate, List<String> uniqueTableNames) {
         AggregateTableOutput output = new AggregateTableOutput(aggregate);
         String tableName = schema.getDialect().removeInvalidIdentifierCharacters(aggregate.getCandidateTableName());
         tableName = Util.uniquify(tableName, schema.getDialect().getMaximumTableNameLength(), uniqueTableNames);
         output.setTableName(tableName);
-        
+
         final List<String> columnNameList = new ArrayList<String>();
         // TODO: throw an exception here if name is too large?
         //        int maximumColumnNameLength =
         //            schema.getDialect().getMaximumColumnNameLength();
         for (Attribute attribute :
             UnionIterator.over(
-                aggregate.getAttributes(), 
+                aggregate.getAttributes(),
                 aggregate.getMeasures()))
         {
             if (attribute instanceof Measure) {
                 String name = cleanse(((MondrianMeasure)attribute).getRolapStarMeasure().getName());
-                
+
                 output.getColumnOutputs().add(new AggregateTableOutput.ColumnOutput(name, attribute));
             } else {
                 Level level = findLevel(schema, attribute);
                 RolapCubeLevel rolapLevel = ((MondrianLevel)level).getRolapCubeLevel();
                 output.getColumnOutputs().add(new AggregateTableOutput.ColumnOutput(
-                        cleanse(rolapLevel.getHierarchy().getName()) + "_" + 
+                        cleanse(rolapLevel.getHierarchy().getName()) + "_" +
                         cleanse(rolapLevel.getName()), attribute));
-                                
+
             }
         }
-        
+
         return output;
     }
 
     public String cleanse(String str) {
         return str.replaceAll("\\.", "_").replaceAll(" ", "_").toLowerCase();
     }
-    
+
     public List<Output> createOutputs(Schema schema, List<Aggregate> aggregates) {
         List<Output> outputs = new ArrayList<Output>();
         List<String> uniqueTableNames = new ArrayList<String>();
@@ -96,7 +96,7 @@ public class RuleBasedAggregateTableOutputFactory implements OutputFactory {
         }
         return outputs;
     }
-    
+
     private Level findLevel(Schema schema, Attribute attribute) {
         for (Dimension dimension : schema.getDimensions()) {
             for (Hierarchy hierarchy : dimension.getHierarchies()) {

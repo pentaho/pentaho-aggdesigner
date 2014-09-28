@@ -42,9 +42,9 @@ import org.pentaho.aggdes.model.Schema;
 import org.pentaho.aggdes.model.StatisticsProvider;
 
 public class MondrianSchema implements Schema {
-  
+
   private static final Log logger = LogFactory.getLog(MondrianSchema.class);
-  
+
   private final Connection connection;
 
   private final RolapCube cube;
@@ -93,7 +93,7 @@ public class MondrianSchema implements Schema {
   /**
    * createAttribute is protected so that extenders of MondrianSchema may modify
    * certain characteristics of the attribute class, such as getDataType(), etc
-   * 
+   *
    * @param table
    *          mondrian table parent
    * @param column
@@ -106,7 +106,7 @@ public class MondrianSchema implements Schema {
       double distinctValueCount) {
     return new MondrianAttribute(table, ancestors, column, distinctValueCount);
   }
-  
+
   /**
    * createMeasure is protected so that extenders of MondrianSchema may modify
    * certain characteristics of the measure class, such as getDataType(), etc
@@ -134,23 +134,23 @@ public class MondrianSchema implements Schema {
           // fact table
           continue;
         }
-        
+
         if (measure.getName().equals("Fact Count")) {
-        	// skip fact count if it exists, we create it later.
-        	// Mondrian 3.2 introduced an internal Fact Count
-        	// for writeback.
-        	continue;
+            // skip fact count if it exists, we create it later.
+            // Mondrian 3.2 introduced an internal Fact Count
+            // for writeback.
+            continue;
         }
-        
+
         measures.add(createMeasure(tableImpl, measure));
 
       } else {
         // Generate and execute a query to find the number of
         // distinct values in the attribute.
         double valueCount = column.getCardinality();
-        
+
         List<Attribute> ancestors = new ArrayList<Attribute>();
-        
+
         attributes.add(createAttribute(tableImpl, ancestors, column, valueCount));
       }
     }
@@ -217,15 +217,15 @@ public class MondrianSchema implements Schema {
             throw new RuntimeException("attribute not found for level: " + level.getName()
                 + ", star column: " + col);
           }
-          
+
           // populate attribute ancestors.  This is necessary because some attributes
           // are not unique within a mondrian schema.  For now, we include all level
           // parent attributes, but in the future, this may only include the attributes
-          // necessary to make the attribute unique.  There will need to be 
-          // verification that Mondrian Aggregations support that concept, and the 
+          // necessary to make the attribute unique.  There will need to be
+          // verification that Mondrian Aggregations support that concept, and the
           // Aggregation UI will need to support selecting Attributes in that manner before
           // this can utilize that approach.
-          
+
           MondrianLevel ancestor = parent;
           while (ancestor != null) {
             if (ancestor.getAttribute() != null) {
@@ -234,7 +234,7 @@ public class MondrianSchema implements Schema {
             }
             ancestor = ancestor.getParent();
           }
-          
+
           MondrianLevel levelImpl = new MondrianLevel(parent, cubeLevel, level.getName(),
               attribImpl);
           hierarchyImpl.addLevel(levelImpl);
@@ -248,7 +248,7 @@ public class MondrianSchema implements Schema {
     // we only care about the attributes that are bound to levels
     attributes.clear();
     attributes.addAll(newAttributes);
-    
+
     if (logger.isDebugEnabled()) {
       logger.debug("Schema Attributes: ");
       for (Attribute attribute : attributes) {

@@ -34,10 +34,6 @@ import java.util.*;
  * Default implementation of the {@link ResultHandler} interface that prints
  * "CREATE TABLE", "CREATE INDEX" and "INSERT INTO ... SELECT" statements
  * for each aggregate discovered by the algorithm.
- *
- * @author jhyde
- * @version $Id: ResultHandlerImpl.java 931 2008-09-24 21:28:47Z mbatchelor $
- * @since Mar 15, 2008
  */
 public class ResultHandlerImpl implements ResultHandler {
     public static final String NL = System.getProperty("line.separator");
@@ -59,7 +55,7 @@ public class ResultHandlerImpl implements ResultHandler {
         return AlgorithmImpl.getBaseName(getClass());
     }
 
-    
+
     private PrintWriter getPrintWriter(String outputFileName) {
         PrintWriter pw;
         if (outputFileName != null) {
@@ -81,19 +77,19 @@ public class ResultHandlerImpl implements ResultHandler {
         }
         return pw;
     }
-    
+
     private void closePrintWriter(String outputFileName, PrintWriter pw) {
       if (outputFileName != null) {
           pw.close();
       }
   }
-        
+
     public void handle(
         Map<Parameter, Object> parameterValues,
-        Schema schema, 
+        Schema schema,
         Result result)
     {
-       
+
         final boolean doTables =
             parameterValues.get(ParameterEnum.tables) != null
                 && (Boolean) parameterValues.get(ParameterEnum.tables);
@@ -106,11 +102,11 @@ public class ResultHandlerImpl implements ResultHandler {
         final boolean doMondrianSchema =
             parameterValues.get(ParameterEnum.mondrianSchema) != null
                 && (Boolean) parameterValues.get(ParameterEnum.mondrianSchema);
-        
+
         AggregateTableOutputFactory outputFactory = new AggregateTableOutputFactory();
-        
+
         List<Output> outputs = outputFactory.createOutputs(schema, result.getAggregates());
-        
+
         if (doTables) {
             final String tableOutput = (String)parameterValues.get(ParameterEnum.tableOutput);
             final CreateTableGenerator generator = new CreateTableGenerator();
@@ -128,7 +124,7 @@ public class ResultHandlerImpl implements ResultHandler {
             pw.flush();
             closePrintWriter(populateOutput, pw);
         }
-        
+
         if (doMondrianSchema) {
             final String mondrianOutput = (String)parameterValues.get(ParameterEnum.mondrianOutput);
             final MondrianSchemaGenerator generator = new MondrianSchemaGenerator();
@@ -148,28 +144,28 @@ public class ResultHandlerImpl implements ResultHandler {
 
         tableOutput(
             "File to write table output, defaults to system output",false, Type.STRING),
-            
+
         indexes(
             "Whether to output CREATE INDEX statements.", false, Type.BOOLEAN),
 
         indexOutput(
             "File to write table output, defaults to system output",false, Type.STRING),
-            
+
         populate(
             "Whether to output INSERT INTO ... SELECT statements.", false,
             Type.BOOLEAN),
-        
+
         populateOutput(
             "File to write dml output, defaults to system output",false, Type.STRING),
-            
+
         mondrianSchema(
             "Whether to output AggName elements within the Mondrian Schema", false, Type.BOOLEAN),
 
         mondrianOutput(
             "File to write dml output, defaults to mondrian.xml",false, Type.STRING);
-        
 
-        
+
+
         private final String description;
         private final boolean required;
         private final Type type;

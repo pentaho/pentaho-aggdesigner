@@ -26,10 +26,6 @@ import java.util.List;
  * Statistics include the number of rows in the fact table,
  * the number of distinct values of an attribute,
  * and the number of distinct values of a set of attributes.
- *
- * @author jhyde
- * @version $Id: $
- * @since Mar 16, 2008
  */
 public interface StatisticsProvider {
     /**

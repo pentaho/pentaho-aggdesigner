@@ -26,39 +26,38 @@ import org.pentaho.aggdes.ui.model.SchemaModel;
 import org.pentaho.ui.xul.impl.XulEventHandler;
 
 /**
- * This interface defines the behavior of the Aggregate Designer's Schema providers.
- * Implementations of this class provide the user interface definition via XUL
- * overlays and supporting methods for obtaining a {@link org.pentaho.aggdes.model.Schema} 
- * definition.
- * 
- * @author NBaker
+ * Defines the behavior of the Aggregate Designer's Schema providers.
+ *
+ * <p>Implementations of this class provide the user interface
+ * definition via XUL overlays and supporting methods for obtaining a
+ * {@link org.pentaho.aggdes.model.Schema} definition.
  */
 public interface SchemaProviderUiExtension extends UiExtension, XulEventHandler {
 
   /**
    * Returns whether or not this instance is the current selected provider
-   * 
+   *
    * @return flag indicating selected status
    */
   public boolean isSelected();
 
   /**
    * Sets the selected state of the provider.
-   * 
+   *
    * @param selected flag indicating selected state
    */
   public void setSelected(boolean selected);
-  
+
   /**
    * Returns a {@link org.pentaho.aggdes.model.Schema}  object based on the passed in cube name.
-   * 
+   *
    * @param cubeName String name of the cube definition to load
    * @return Schema object.
    * @throws AggDesignerException
    */
   public Schema loadSchema(String cubeName) throws AggDesignerException;
-  
-  
+
+
   /**
    * Your schema provider ui extension must notify the application when the user has entered a complete
    * set of input.  The application will enable an Apply button in the OLAP connections field set when
@@ -76,41 +75,41 @@ public interface SchemaProviderUiExtension extends UiExtension, XulEventHandler 
 
   /**
    * Returns a list of cubes in the current Schema
-   * 
+   *
    * @return a list of cube names
    * @throws AggDesignerException
    */
   public List<String> getCubeNames() throws AggDesignerException;
-  
+
   /**
-   * Returns the backing {@link org.pentaho.aggdes.model.SchemaModel} object for this 
+   * Returns the backing {@link org.pentaho.aggdes.model.SchemaModel} object for this
    * SchemaProvider.
-   * 
+   *
    * @return the backing {@link org.pentaho.aggdes.model.SchemaModel}
-   * 
+   *
    */
   public SchemaModel getSchemaModel();
-  
+
   /**
    * Sets the backing {@link org.pentaho.aggdes.model.SchemaModel} object for this SchemaProvider.
    * This is called by the serialization service when loading saved workspaces.
-   * 
+   *
    * @param model SchemaModel object to load.
    */
   public void setSchemaModel(SchemaModel model);
-  
+
   /**
    * Used by the deserialization service to locate an approprite SchemaProvider for a SchemaModel.
    * Implementors need to return true if the supplied SchemaModel is theirs.
-   * 
+   *
    * @param schemaModel
    * @return flag indicating whether this SchemaProvider supports the supplied SchemaModel
    */
   public boolean supportsSchemaModel(SchemaModel schemaModel);
-  
+
   /**
    * Resets the state of the SchemaProvider including it's user interface.
-   * 
+   *
    */
   public void reset();
 }

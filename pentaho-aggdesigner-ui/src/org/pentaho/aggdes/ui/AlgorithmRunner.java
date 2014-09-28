@@ -33,18 +33,15 @@ import org.pentaho.aggdes.ui.form.model.ConnectionModel;
 /**
  * Holder for the command-line arguments. Validates command-line arguments. Starts new thread for running algorithm.
  * Provides callback mechanism to notify UI of done-ness.
- * 
- * @author mlowery
- * 
  */
 public class AlgorithmRunner {
-  
+
   private static final Log logger = LogFactory.getLog(AlgorithmRunner.class);
 
   private static final PrintWriter pw = new PrintWriter(System.out);
 
   private Result result;
-  
+
   private ConnectionModel connectionModel;
 
   private Algorithm algorithm;
@@ -84,8 +81,6 @@ public class AlgorithmRunner {
 
   /**
    * Contains the method to call when algorithm is done.
-   * 
-   * @author mlowery
    */
   public static interface Callback {
 
@@ -97,7 +92,7 @@ public class AlgorithmRunner {
   }
 
   public void setConnectionModel(ConnectionModel connectionModel) {
-  
+
     this.connectionModel = connectionModel;
   }
 

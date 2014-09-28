@@ -41,9 +41,9 @@ import org.pentaho.ui.xul.stereotype.Controller;
 public class MondrianFileSchemaProvider extends AbstractMondrianSchemaProvider {
 
   private static final Log logger = LogFactory.getLog(MondrianFileSchemaProvider.class);
-  
+
   private MondrianFileSchemaModel model = new MondrianFileSchemaModel();
-  
+
   @Override
   public String getOverlayPath() {
     return "org/pentaho/aggdes/ui/resources/mondrianFileSchemaProvider.xul";
@@ -52,22 +52,22 @@ public class MondrianFileSchemaProvider extends AbstractMondrianSchemaProvider {
   @Override
   public void onLoad() {
     super.onLoad();
-    
+
     bindingFactory.createBinding("mondrianSelector", "selected", this, "selected");
-    
+
     bindingFactory.createBinding(this, "selectedEnabled", "mondrianSchemaFileName", "!disabled");
     bindingFactory.createBinding(this, "selectedEnabled", "fileSelector", "!disabled");
     bindingFactory.createBinding(this, "mondrianSchemaFilename", "mondrianSchemaFileName", "value");
     bindingFactory.setBindingType(Binding.Type.ONE_WAY);
     bindingFactory.createBinding(this, "enabled", "mondrianSelector", "!disabled");
-    
+
     addPropertyChangeListener("mondrianSchemaFilename", new PropertyChangeListener() {
       public void propertyChange(PropertyChangeEvent evt) {
         String val = (String)evt.getNewValue();
         setSchemaDefined(!StringUtils.isEmpty(val));
       }
     });
-    
+
     BindingConvertor<Boolean, Boolean> isDefinedConverter = new BindingConvertor<Boolean, Boolean>(){
 
       @Override
@@ -83,17 +83,17 @@ public class MondrianFileSchemaProvider extends AbstractMondrianSchemaProvider {
         return null;
       }
     };
-    
+
     bindingFactory.setBindingType(Binding.Type.ONE_WAY);
     bindingFactory.createBinding(this, "selected", this, "schemaDefined", isDefinedConverter);
-    
+
     // special binding based on type of database meta
     BindingConvertor<Boolean, Boolean> converter = new BindingConvertor<Boolean, Boolean>() {
       @Override
       public Boolean sourceToTarget(Boolean value) {
         DatabaseMeta databaseMeta = connectionModel.getDatabaseMeta();
         boolean disabled = connectionModel.isSchemaLocked();
-        
+
         if (disabled && isSelected()) {
           setSelected(false);
         }
@@ -106,7 +106,7 @@ public class MondrianFileSchemaProvider extends AbstractMondrianSchemaProvider {
       }
     };
     bindingFactory.createBinding(connectionModel, "schemaSourceSelectionEnabled", "mondrianSelector", "disabled", converter);
-    
+
   }
 
   public String getMondrianSchemaFilename() {
@@ -133,14 +133,14 @@ public class MondrianFileSchemaProvider extends AbstractMondrianSchemaProvider {
         File selectedFile = (File) fc.getFile();
         setLastFile(selectedFile);
         setMondrianSchemaFilename(((File)fc.getFile()).getAbsolutePath());
-        
+
       }
     } catch (Exception e) {
       logger.error("Error showing file chooser", e);
       throw new AggDesignerException(e);
     }
   }
-  
+
   private String getFileContents(File file) {
     try {
       BufferedReader br = new BufferedReader(new FileReader(file));
@@ -155,7 +155,7 @@ public class MondrianFileSchemaProvider extends AbstractMondrianSchemaProvider {
     }
     return null;
   }
-  
+
   /**
    * Returns the last opened location in the file chooser.
    */
@@ -183,7 +183,7 @@ public class MondrianFileSchemaProvider extends AbstractMondrianSchemaProvider {
   public boolean supportsSchemaModel(SchemaModel schemaModel) {
     return (schemaModel instanceof MondrianFileSchemaModel);
   }
-  
+
   public MondrianFileSchemaModel getSchemaModel() {
     return model;
   }
@@ -208,13 +208,13 @@ public class MondrianFileSchemaProvider extends AbstractMondrianSchemaProvider {
 
   @Override
   public void onUnload() {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
-  
- 
+
+
 
 }
 
-  
+

@@ -25,12 +25,12 @@ public abstract class AbstractUiExtension extends AbstractXulEventHandler implem
    * @see org.pentaho.aggdes.ui.ext.ExtendedUserInterfaceP#onLoad()
    */
   public abstract void onLoad();
-  
+
   /* (non-Javadoc)
    * @see org.pentaho.aggdes.ui.ext.ExtendedUserInterfaceP#onLoad()
    */
   public abstract void onUnload();
-  
+
   /* (non-Javadoc)
    * @see org.pentaho.aggdes.ui.ext.ExtendedUserInterfaceP#getOverlayPath()
    */

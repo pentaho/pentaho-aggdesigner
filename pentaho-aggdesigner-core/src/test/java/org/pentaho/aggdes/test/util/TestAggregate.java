@@ -32,15 +32,15 @@ public class TestAggregate implements Aggregate {
 
     public TestAggregate() {
     }
-    
+
     public void addAttribute(Attribute attrib) {
         attributeList.add(attrib);
     }
-    
+
     public void addMeasure(Measure measure) {
         measureList.add(measure);
     }
-    
+
     public double estimateRowCount() {
         // TODO Auto-generated method stub
         return 0;
@@ -69,7 +69,7 @@ public class TestAggregate implements Aggregate {
     public String getCandidateTableName() {
         return candidateTableName;
     }
-    
+
     public void setCandidateTableName(String candidateTableName) {
         this.candidateTableName = candidateTableName;
     }

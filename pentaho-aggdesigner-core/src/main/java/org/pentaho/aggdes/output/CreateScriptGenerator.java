@@ -20,8 +20,6 @@ package org.pentaho.aggdes.output;
 /**
  * Marker Interface, noting that this is a generator that can generate
  * DDL scripts
- *   
- * @author Will Gorman (wgorman@pentaho.com)
  */
 public interface CreateScriptGenerator extends ArtifactGenerator {
     // this is a marker interface

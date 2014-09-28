@@ -26,8 +26,6 @@ import org.pentaho.aggdes.ui.model.UIAggregate;
  * This interface defines an Aggregate Naming Service, which
  * renames algorithm and new aggregates when they are created
  * to a standard naming convention.
- * 
- * @author Will Gorman (wgorman@pentaho.com)
  */
 public interface AggregateNamingService {
 
@@ -39,10 +37,10 @@ public interface AggregateNamingService {
    * @param schema current schema
    */
   public void nameAggregate(UIAggregate newAggregate, Iterable<UIAggregate> existingAggregates, Schema schema);
-  
+
   /**
    * rename a list of aggregates to a preferred name, with access to all existing
-   * 
+   *
    * @param newAggregates list of new aggregates to rename
    * @param existingAggregates existing aggregates
    * @param schema current schema

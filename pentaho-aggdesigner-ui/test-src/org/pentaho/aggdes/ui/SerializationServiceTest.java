@@ -81,9 +81,9 @@ public class SerializationServiceTest extends TestCase {
   public void test() {
 
     try {
-    	KettleClientEnvironment.init();
+        KettleClientEnvironment.init();
     } catch (Exception e) {
-    	e.printStackTrace();
+        e.printStackTrace();
     }
 
     // serialize and deserialize to make sure things are going back and forth

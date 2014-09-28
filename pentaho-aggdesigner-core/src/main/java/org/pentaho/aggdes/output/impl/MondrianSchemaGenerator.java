@@ -46,11 +46,11 @@ import org.pentaho.aggdes.output.SchemaGenerator;
 public class MondrianSchemaGenerator extends AbstractGenerator implements SchemaGenerator {
 
     public static final String NL = System.getProperty("line.separator");
-    
+
     public Class[] getSupportedOutputClasses() {
         return new Class[] {AggregateTableOutput.class};
     }
-    
+
     public boolean canGenerate(Schema schema, Output output) {
         return (output instanceof AggregateTableOutput);
     }
@@ -61,17 +61,17 @@ public class MondrianSchemaGenerator extends AbstractGenerator implements Schema
 
 
     private MondrianDef.AggName generateMondrianDef(Schema schema, Output output) {
-        
+
         AggregateTableOutput tableOutput = (AggregateTableOutput)output;
 
         MondrianDef.AggName aggName = new MondrianDef.AggName();
         aggName.name = tableOutput.getTableName();
-                
+
         List<MondrianDef.AggMeasure> measures = new ArrayList<MondrianDef.AggMeasure>();
         List<MondrianDef.AggLevel> levels = new ArrayList<MondrianDef.AggLevel>();
-        
+
         int i = -1;
-        
+
         for (AggregateTableOutput.ColumnOutput column : tableOutput.getColumnOutputs()) {
             ++i;
             String columnName = column.getName();
@@ -93,25 +93,25 @@ public class MondrianSchemaGenerator extends AbstractGenerator implements Schema
                     measureDef.column = columnName;
                     measures.add(measureDef);
                 }
-                
+
             } else {
                 Level level = findLevel(schema, attribute);
                 RolapCubeLevel rolapLevel = ((MondrianLevel)level).getRolapCubeLevel();
-                
+
                 MondrianDef.AggLevel levelDef = new MondrianDef.AggLevel();
                 levelDef.name = rolapLevel.getUniqueName();
                 levelDef.column = columnName;
                 levels.add(levelDef);
             }
         }
-        
+
         aggName.levels = (MondrianDef.AggLevel[])levels.toArray(new MondrianDef.AggLevel[0]);
         aggName.measures = (MondrianDef.AggMeasure[])measures.toArray(new MondrianDef.AggMeasure[0]);
-        
+
         return aggName;
     }
 
-    
+
     private Level findLevel(Schema schema, Attribute attribute) {
         for (Dimension dimension : schema.getDimensions()) {
             for (Hierarchy hierarchy : dimension.getHierarchies()) {
@@ -125,7 +125,7 @@ public class MondrianSchemaGenerator extends AbstractGenerator implements Schema
         System.out.println("failed to locate level for attribute " + attribute.getLabel());
         return null;
     }
-    
+
     private RolapBaseCubeMeasure findRolapMeasure(Schema schema, Measure measure) {
         RolapCube cube = ((MondrianSchema)schema).getRolapCube();
         for (RolapMember member : cube.getMeasuresMembers()) {
@@ -143,7 +143,7 @@ public class MondrianSchemaGenerator extends AbstractGenerator implements Schema
     public String generateFull(Schema schema, List<? extends Output> outputs) {
         try {
             MondrianDef.Schema schemaDef = (MondrianDef.Schema)((RolapSchema)((MondrianSchema)schema).getRolapConnection().getSchema()).getXMLSchema().deepCopy();
-            
+
             // locate the cube
             MondrianDef.Cube currentCube = null;
             for (MondrianDef.Cube cube : schemaDef.cubes) {
@@ -152,7 +152,7 @@ public class MondrianSchemaGenerator extends AbstractGenerator implements Schema
                     break;
                 }
             }
-            
+
             if (!(currentCube.fact instanceof MondrianDef.Table)) {
                 throw new RuntimeException("Fact Table must be of type TABLE");
             }
@@ -165,18 +165,18 @@ public class MondrianSchemaGenerator extends AbstractGenerator implements Schema
                     aggTables.add(aggTable);
                 }
             }
-            
+
             for (Output output : outputs) {
                 aggTables.add(generateMondrianDef(schema, output));
             }
-            
+
             factTable.aggTables = (MondrianDef.AggTable[])aggTables.toArray(new MondrianDef.AggTable[0]);
             return schemaDef.toXML();
         } catch (XOMException e) {
             e.printStackTrace();
         }
         return null;
-        
+
     }
 
 }

@@ -26,7 +26,7 @@ public class AggListEvent extends EventObject {
   private Type type;
 
   private int index;
-  
+
   public AggListEvent(AggList src, Type type, int index) {
     super(src);
     this.type = type;
@@ -40,7 +40,7 @@ public class AggListEvent extends EventObject {
   public Type getType() {
     return type;
   }
-  
+
   public int getIndex() {
     return index;
   }

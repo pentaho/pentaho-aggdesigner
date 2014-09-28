@@ -20,9 +20,6 @@ package org.pentaho.aggdes.output;
 /**
  * Marker Interface, noting that this is a generator that can generate
  * DML scripts
- *   
- * @author Will Gorman (wgorman@pentaho.com)
  */
 public interface PopulateScriptGenerator extends ArtifactGenerator {
-
 }

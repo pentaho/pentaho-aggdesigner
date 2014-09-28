@@ -26,26 +26,26 @@ public class MondrianLevel implements Level {
   MondrianAttribute attribute;
   RolapCubeLevel level;
   MondrianLevel parent;
-  
+
   public MondrianLevel(MondrianLevel parent, RolapCubeLevel level, String name, MondrianAttribute attribute) {
       this.parent = parent;
       this.level = level;
       this.name = name;
       this.attribute = attribute;
   }
-  
+
   public RolapCubeLevel getRolapCubeLevel() {
       return level;
   }
-  
+
   public String getName() {
       return name;
   }
-  
+
   public MondrianAttribute getAttribute() {
       return attribute;
   }
-  
+
   public MondrianLevel getParent() {
       return parent;
   }

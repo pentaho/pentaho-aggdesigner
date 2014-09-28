@@ -34,28 +34,28 @@ public class AggregateTableOutputFactory implements OutputFactory {
     public Class getOutputClass() {
         return AggregateTableOutput.class;
     }
-    
+
     // default implementation, always return true for all schemas
     public boolean canCreateOutput(Schema schema) {
         return true;
     }
-    
+
     public AggregateTableOutput createOutput(Schema schema, Aggregate aggregate) {
         return createOutput(schema, aggregate, new ArrayList<String>());
     }
-   
+
     public AggregateTableOutput createOutput(Schema schema, Aggregate aggregate, List<String> uniqueTableNames) {
         AggregateTableOutput output = new AggregateTableOutput(aggregate);
         String tableName = schema.getDialect().removeInvalidIdentifierCharacters(aggregate.getCandidateTableName());
         tableName = Util.uniquify(tableName, schema.getDialect().getMaximumTableNameLength(), uniqueTableNames);
         output.setTableName(tableName);
-        
+
         final List<String> columnNameList = new ArrayList<String>();
         int maximumColumnNameLength =
             schema.getDialect().getMaximumColumnNameLength();
         for (Attribute attribute :
             UnionIterator.over(
-                aggregate.getAttributes(), 
+                aggregate.getAttributes(),
                 aggregate.getMeasures()))
         {
             String name = Util.uniquify(
@@ -64,7 +64,7 @@ public class AggregateTableOutputFactory implements OutputFactory {
                 columnNameList);
             output.getColumnOutputs().add(new AggregateTableOutput.ColumnOutput(name, attribute));
         }
-        
+
         return output;
     }
 

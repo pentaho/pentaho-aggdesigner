@@ -66,12 +66,12 @@ public class DimensionFkValidator extends AbstractMondrianSchemaValidator {
 
     // TODO: include validation support for mondrian views
     if (!(cube.fact instanceof Table)) {
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("cube \"" + cube.name + "\" contains unsupported fact type, " + cube.fact); //$NON-NLS-1$ //$NON-NLS-2$
-    	}
-    	return messages;
+        if (logger.isDebugEnabled()) {
+            logger.debug("cube \"" + cube.name + "\" contains unsupported fact type, " + cube.fact); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+        return messages;
     }
-    
+
     // ~ Check: Foreign key on dimension table==========================================================================
 
     String factTableName = ((Table) cube.fact).name;

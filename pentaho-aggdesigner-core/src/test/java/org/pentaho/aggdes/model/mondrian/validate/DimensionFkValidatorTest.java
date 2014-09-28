@@ -71,12 +71,12 @@ public class DimensionFkValidatorTest extends AbstractMondrianSchemaValidatorTes
     if (logger.isDebugEnabled()) {
       logger.debug("got " + messages.size() + " message(s): " + messages);
     }
-    
+
     // asserts
     assertTrue(isMessagePresent(messages, OK, "Sales", "sales_fact_1997", "store_id"));
 
   }
-  
+
   @Test
   public void testNullableTrueCheckUsingMetaData() throws Exception {
     // expectations
@@ -92,7 +92,7 @@ public class DimensionFkValidatorTest extends AbstractMondrianSchemaValidatorTes
         allowing(stmt).executeQuery(with(any(String.class)));
         will(returnValue(rsCount));
         allowing(stmt).close();
-        
+
         // rsCount
         allowing(rsCount).next();
         will(returnValue(true));
@@ -116,12 +116,12 @@ public class DimensionFkValidatorTest extends AbstractMondrianSchemaValidatorTes
     if (logger.isDebugEnabled()) {
       logger.debug("got " + messages.size() + " message(s): " + messages);
     }
-    
+
     // asserts
     assertTrue(isMessagePresent(messages, OK, "Sales", "sales_fact_1997", "store_id"));
 
   }
-  
+
   @Test
   public void testNullableTrueCheckUsingResultSet() throws Exception {
     // expectations
@@ -137,7 +137,7 @@ public class DimensionFkValidatorTest extends AbstractMondrianSchemaValidatorTes
         allowing(stmt).executeQuery(with(any(String.class)));
         will(returnValue(rsCount));
         allowing(stmt).close();
-        
+
         // rsCount
         allowing(rsCount).next();
         will(returnValue(true));
@@ -161,7 +161,7 @@ public class DimensionFkValidatorTest extends AbstractMondrianSchemaValidatorTes
     if (logger.isDebugEnabled()) {
       logger.debug("got " + messages.size() + " message(s): " + messages);
     }
-    
+
     // asserts
     assertTrue(isMessagePresent(messages, ERROR, "Sales", "sales_fact_1997", "store_id"));
 

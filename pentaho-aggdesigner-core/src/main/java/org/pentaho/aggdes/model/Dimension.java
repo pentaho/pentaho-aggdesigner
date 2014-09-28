@@ -22,22 +22,20 @@ import java.util.List;
 
 /**
  * OLAP Cube Dimension
- * 
- * @author Will Gorman (wgorman@pentaho.com)
  *
  */
 public interface Dimension {
-    
+
     /**
      * Name of the Dimension
-     * 
+     *
      * @return name
      */
     public String getName();
-    
+
     /**
      * List of Hierarchies
-     * 
+     *
      * @return hierarchies
      */
     public List<? extends Hierarchy> getHierarchies();

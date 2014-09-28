@@ -28,15 +28,15 @@ public class MondrianDimension implements Dimension {
   MondrianDimension(String name) {
       this.name = name;
   }
-  
+
   void addHierarchy(MondrianHierarchy hierarchy) {
       hierarchies.add(hierarchy);
   }
-  
+
   public List<MondrianHierarchy> getHierarchies() {
       return hierarchies;
   }
-  
+
   public String getName() {
       return name;
   }

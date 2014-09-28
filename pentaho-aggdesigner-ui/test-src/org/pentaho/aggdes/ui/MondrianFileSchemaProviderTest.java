@@ -46,9 +46,9 @@ public class MondrianFileSchemaProviderTest extends JMock {
   public MondrianFileSchemaProviderTest() throws InitializationError {
     super(MondrianFileSchemaProviderTest.class);
     try {
-    	KettleClientEnvironment.init();
+        KettleClientEnvironment.init();
     } catch (Exception e) {
-    	e.printStackTrace();
+        e.printStackTrace();
     }
   }
 

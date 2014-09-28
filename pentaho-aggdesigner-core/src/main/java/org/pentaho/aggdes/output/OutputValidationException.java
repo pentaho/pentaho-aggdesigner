@@ -20,11 +20,8 @@ package org.pentaho.aggdes.output;
 import org.pentaho.aggdes.AggDesignerException;
 
 /**
- * this exception is thrown if any output attribute is invalid when calling
- * into the OutputService
- *  
- * @author Will Gorman (wgorman@pentaho.com)
- *
+ * Exception that is thrown if any output attribute is invalid when calling
+ * into the {@link OutputService}.
  */
 public class OutputValidationException extends AggDesignerException {
 
@@ -35,13 +32,13 @@ public class OutputValidationException extends AggDesignerException {
      * cause is not initialized, and may subsequently be initialized by
      * a call to {@link #initCause}.
      *
-     * @param   message   the detail message. The detail message is saved for 
+     * @param   message   the detail message. The detail message is saved for
      *          later retrieval by the {@link #getMessage()} method.
      */
     public OutputValidationException(String message) {
         super(message);
     }
-    
+
     /**
      * Constructs a new exception with the specified detail message and
      * cause.  <p>Note that the detail message associated with

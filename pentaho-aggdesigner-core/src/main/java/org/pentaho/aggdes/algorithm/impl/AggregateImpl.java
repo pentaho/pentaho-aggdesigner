@@ -27,13 +27,9 @@ import org.pentaho.aggdes.util.BitSetPlus;
 
 /**
  * Implementation of {@link org.pentaho.aggdes.model.Aggregate}.
- *
- * @author jhyde
- * @version $Id: AggregateImpl.java 931 2008-09-24 21:28:47Z mbatchelor $
- * @since Mar 13, 2008
  */
 public class AggregateImpl implements Aggregate {
-   
+
     private final Schema schema;
     final BitSetPlus bits;
     double rowCount;
@@ -76,7 +72,7 @@ public class AggregateImpl implements Aggregate {
         return estimateRowCount() *
             schema.getStatisticsProvider().getSpace(getAttributes());
     }
-    
+
     public String getDescription() {
         StringBuilder buf = new StringBuilder("{");
         int i = 0;
@@ -95,7 +91,7 @@ public class AggregateImpl implements Aggregate {
         for (Attribute attribute : getAttributes()) {
             buf.append(attribute.getCandidateColumnName().charAt(0));
         }
-        
+
         for (Attribute attribute : getMeasures()) {
             buf.append(attribute.getCandidateColumnName().charAt(0));
         }

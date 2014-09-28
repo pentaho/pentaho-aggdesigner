@@ -49,8 +49,8 @@ public class UIMain {
    */
   public static void main(String[] args) {
     try {
-    	KettleClientEnvironment.init();
-    	ApplicationContext context = new ClassPathXmlApplicationContext(
+        KettleClientEnvironment.init();
+        ApplicationContext context = new ClassPathXmlApplicationContext(
         new String[] {"applicationContext.xml", "plugins.xml"}); //$NON-NLS-1$ //$NON-NLS-2$
 
       UIMain uiMain = (UIMain) context.getBean("uiMain"); //$NON-NLS-1$

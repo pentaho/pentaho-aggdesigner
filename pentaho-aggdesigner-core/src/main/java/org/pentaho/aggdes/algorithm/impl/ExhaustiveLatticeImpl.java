@@ -30,10 +30,6 @@ import org.pentaho.aggdes.algorithm.Algorithm;
  * uses a lot of memory and is only feasible for small schemas.
  *
  * @see ExhaustiveLatticeAlgorithm
- *
- * @author jhyde
- * @version $Id: ExhaustiveLatticeImpl.java 931 2008-09-24 21:28:47Z mbatchelor $
- * @since Mar 13, 2008
  */
 class ExhaustiveLatticeImpl extends LatticeImpl {
     ExhaustiveLatticeImpl(Schema schema) {

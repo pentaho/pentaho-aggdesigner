@@ -66,14 +66,14 @@ public class AggregatePanelTest extends TestCase {
         parameterValues.put(loader.getParameters().get(0), connectString);
         parameterValues.put(loader.getParameters().get(1), "Sales");
         Schema schema = loader.createSchema(parameterValues);
-        
+
         try{
-            
+
             UIAggregateImpl impl = new UIAggregateImpl();
             impl.setName("my name");
             impl.setDescription("my description");
-            
-            
+
+
            XulDomContainer container = new SwingXulLoader().loadXul(
                 "org/pentaho/aggdes/ui/customDesignerPanel.xul"
            );
@@ -82,14 +82,14 @@ public class AggregatePanelTest extends TestCase {
         runner.addContainer(container);
         container.getEventHandler("eventHandler").setData(impl);
         container.getEventHandler("eventHandler").setData(schema);
-        
+
         runner.initialize();
         runner.start();
-        
+
        } catch(Exception e){
          System.out.println(e.getMessage());
          e.printStackTrace(System.out);
        }
     }
-    
+
 }

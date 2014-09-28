@@ -39,7 +39,7 @@ public class MondrianMeasure implements Measure {
     public RolapStar.Measure getRolapStarMeasure() {
         return measure;
     }
-    
+
     public boolean isDistinct() {
         return measure.getAggregator().isDistinct();
     }
@@ -85,5 +85,5 @@ public class MondrianMeasure implements Measure {
       // measures contain no ancestor attributes
       return null;
     }
-    
+
 }

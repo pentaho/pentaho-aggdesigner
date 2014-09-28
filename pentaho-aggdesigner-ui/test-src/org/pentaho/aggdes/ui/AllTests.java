@@ -40,7 +40,7 @@ public class AllTests {
     suite.addTestSuite(OutputUIServiceTest.class);
     // incompatible with JUnit 3
     // suite.addTestSuite(XulEventHandlerTest.class);
-    
+
     //$JUnit-END$
     return suite;
   }

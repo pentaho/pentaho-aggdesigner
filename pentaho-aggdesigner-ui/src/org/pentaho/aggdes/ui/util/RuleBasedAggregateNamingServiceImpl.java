@@ -33,10 +33,10 @@ public class RuleBasedAggregateNamingServiceImpl implements AggregateNamingServi
   }
 
   public void nameAggregates(List<UIAggregate> newAggregates, Iterable<UIAggregate> existingAggregates, Schema schema) {
-    
+
     // get the fact table name
     String factName =  ((MondrianSchema)schema).getMeasures().get(0).getTable().getLabel();
-    
+
     String aggNamePre = "agg_";
     int max = 0;
 
@@ -56,7 +56,7 @@ public class RuleBasedAggregateNamingServiceImpl implements AggregateNamingServi
         }
       }
     }
-    
+
     // rename all aggs
     for (UIAggregate agg : newAggregates) {
       agg.setName(aggNamePre + (++max) + "_" + factName);

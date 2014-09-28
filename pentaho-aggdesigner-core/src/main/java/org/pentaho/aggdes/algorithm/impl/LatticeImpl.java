@@ -378,7 +378,7 @@ public abstract class LatticeImpl implements Lattice {
             new ArrayList<Algorithm.CostBenefit>(aggregateList.size());
         for (AggregateImpl aggregate : aggregateList) {
             aggregate.materialized = false;
-            // note: it's the responsibility of costBenefitOf to 
+            // note: it's the responsibility of costBenefitOf to
             // materialize the aggregate
             list.add(costBenefitOf(aggregate));
         }

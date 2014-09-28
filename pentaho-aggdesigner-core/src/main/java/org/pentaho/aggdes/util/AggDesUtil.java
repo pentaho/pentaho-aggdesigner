@@ -23,10 +23,6 @@ import java.util.BitSet;
 
 /**
  * Miscellaneous utility functions for the Aggregate Designer.
- *
- * @author jhyde
- * @version $Id: BitSetPlus.java 61 2008-03-17 05:34:55Z jhyde $
- * @since Aug 14, 2006
  */
 public class AggDesUtil extends BitSet {
     private AggDesUtil() {

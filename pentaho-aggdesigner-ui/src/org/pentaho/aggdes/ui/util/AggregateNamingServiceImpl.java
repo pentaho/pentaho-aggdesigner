@@ -34,7 +34,7 @@ public class AggregateNamingServiceImpl implements AggregateNamingService {
   }
 
   public void nameAggregates(List<UIAggregate> newAggregates, Iterable<UIAggregate> existingAggregates, Schema schema) {
-    
+
     // get schema name, cleanse it to 10 chars and no special chars
     String schemaName = ((MondrianSchema)schema).getRolapConnection().getSchema().getName();
     schemaName = Main.depunctify(schemaName);
@@ -48,7 +48,7 @@ public class AggregateNamingServiceImpl implements AggregateNamingService {
     if (cubeName.length() > 10) {
       cubeName = cubeName.substring(0, 10);
     }
-    
+
     String aggNamePre = schemaName + "_" + cubeName + "_";
     int max = 0;
 
@@ -68,7 +68,7 @@ public class AggregateNamingServiceImpl implements AggregateNamingService {
         }
       }
     }
-    
+
     // rename all aggs
     for (UIAggregate agg : newAggregates) {
       agg.setName(aggNamePre + (++max));

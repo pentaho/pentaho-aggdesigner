@@ -24,10 +24,6 @@ import java.util.*;
 
 /**
  * Unit test for {@link BitSetPlus}.
- *
- * @author jhyde
- * @version $Id: BitSetPlusTest.java 931 2008-09-24 21:28:47Z mbatchelor $
- * @since Aug 14, 2006
  */
 public class BitSetPlusTest extends TestCase {
     public void testSupersetCardinality() {

@@ -27,7 +27,7 @@ import org.pentaho.ui.xul.XulEventSource;
 public class EventRecorder {
 
   private Map<String, Object> eventValues = new HashMap<String, Object>();
-  
+
   private boolean logging;
 
   public boolean isLogging() {

@@ -19,9 +19,6 @@ package org.pentaho.aggdes;
 
 /**
  * The main agg designer exception class
- * 
- * @author Will Gorman (wgorman@pentaho.org)
- *
  */
 public class AggDesignerException extends Exception {
 
@@ -32,13 +29,13 @@ public class AggDesignerException extends Exception {
      * cause is not initialized, and may subsequently be initialized by
      * a call to {@link #initCause}.
      *
-     * @param   message   the detail message. The detail message is saved for 
+     * @param   message   the detail message. The detail message is saved for
      *          later retrieval by the {@link #getMessage()} method.
      */
     public AggDesignerException(String message) {
         super(message);
     }
-    
+
     /**
      * Constructs a new exception with the specified detail message and
      * cause.  <p>Note that the detail message associated with
@@ -56,14 +53,14 @@ public class AggDesignerException extends Exception {
         super(message, cause);
     }
 
-    
+
     /**
      * Constructs a new exception by wrapping another Throwable object
-     * 
+     *
      * @param e Throwable objec to wrap
      */
     public AggDesignerException(Throwable e) {
       super(e);
     }
-    
+
 }

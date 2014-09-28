@@ -91,7 +91,7 @@ public class ExportHandler extends AbstractXulEventHandler {
   private SqlExecutor ddlDmlExecutor;
 
   private AggList aggList;
-  
+
   private AggController aggController;
 
   private ConnectionModel connectionModel;
@@ -116,19 +116,19 @@ public class ExportHandler extends AbstractXulEventHandler {
   public void setDdlDmlExecutor(SqlExecutor ddlDmlExecutor) {
     this.ddlDmlExecutor = ddlDmlExecutor;
   }
-  
+
   @Required
   public void setDdlExecCallbackService(DDLExecutionCallbackService ddlExecCallbackService) {
       this.ddlExecCallbackService = ddlExecCallbackService;
   }
-  
+
   public void onLoad() throws XulException {
-    
+
 
     bindingFactory.setDocument(document);
     bindingFactory.setBindingType(Binding.Type.ONE_WAY);
     bindingFactory.createBinding(workspace, "applicationUnlocked", this, "connected"); //$NON-NLS-1$ //$NON-NLS-2$
-    
+
   }
 
   public void openDialog() throws Exception {
@@ -327,7 +327,7 @@ public class ExportHandler extends AbstractXulEventHandler {
       logger.debug("exit startExecuteDdlDml");
     }
   }
-  
+
   private void updateAggDetails() {
     if(aggController != null && aggList != null) {
       if(aggList.getSelectedIndex() > -1) {
@@ -443,7 +443,7 @@ public class ExportHandler extends AbstractXulEventHandler {
   public void saveDdl() throws XulException {
     XulFileDialog fc = (XulFileDialog) document.createElement(ELEM_ID_FILEDIALOG);
     fc.setModalParent(((XulDialog)document.getElementById(ELEM_ID_EXPORT_DIALOG)).getRootObject());
-    
+
     RETURN_CODE retVal = fc.showSaveDialog();
     File selectedFile = null;
     if (retVal == RETURN_CODE.OK) {
@@ -498,7 +498,7 @@ public class ExportHandler extends AbstractXulEventHandler {
 
   public File saveOlap() throws XulException {
 
-    // If we're not dealing with a MondrianFileSchemaModel object, something 
+    // If we're not dealing with a MondrianFileSchemaModel object, something
     // has gone wrong with the UI application state.
     if (!(connectionModel.getSelectedSchemaModel() instanceof MondrianFileSchemaModel)) {
       XulMessageBox msgBox = (XulMessageBox) document.createElement(ELEM_ID_MESSAGEBOX);
@@ -507,7 +507,7 @@ public class ExportHandler extends AbstractXulEventHandler {
       logger.error("Inconsistent application state: Only MondrianFileSchemaModel should call into this method");
       return null;
     }
-    
+
     XulFileDialog fc = (XulFileDialog) document.createElement(ELEM_ID_FILEDIALOG);
     fc.setModalParent(((XulDialog)document.getElementById(ELEM_ID_EXPORT_DIALOG)).getRootObject());
 
@@ -566,7 +566,7 @@ public class ExportHandler extends AbstractXulEventHandler {
   public AggList getAggList() {
     return aggList;
   }
-  
+
   public List<UIAggregate> getEnabledAggs() {
     List<UIAggregate> enabledAggs = new ArrayList<UIAggregate>();
     for (UIAggregate agg : getAggList()) {
@@ -580,7 +580,7 @@ public class ExportHandler extends AbstractXulEventHandler {
   public void setAggList(AggList aggList) {
     this.aggList = aggList;
   }
-  
+
   @Required
   public void setAggController(AggController aggController) {
       this.aggController = aggController;

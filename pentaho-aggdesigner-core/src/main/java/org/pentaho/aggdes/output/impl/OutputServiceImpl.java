@@ -31,39 +31,39 @@ import org.pentaho.aggdes.output.OutputValidationException;
 public class OutputServiceImpl implements OutputService {
 
     private Schema schema;
-    
+
     private List<ArtifactGenerator> artifactGenerators = new ArrayList<ArtifactGenerator>();
     private List<OutputFactory> outputFactories = new ArrayList<OutputFactory>();
-    
+
     public OutputServiceImpl() {
     }
-    
+
     public void setOutputFactories(List<OutputFactory> outputFactories) {
         this.outputFactories = outputFactories;
     }
-    
+
     public void setArtifactGenerators(List<ArtifactGenerator> artifactGenerators) {
         this.artifactGenerators = artifactGenerators;
     }
-    
+
     public List<OutputFactory> getOutputFactories() {
         return outputFactories;
     }
-    
+
     public List<ArtifactGenerator> getArtifactGenerators() {
         return artifactGenerators;
     }
 
-    
+
     public OutputServiceImpl(Schema schema) {
         this();
         this.schema = schema;
     }
-        
+
     public void setSchema(Schema schema) {
         this.schema = schema;
     }
-    
+
     private boolean containsSupportedOutputClass(Class<? extends Object> objectClass, Class<? extends Object>[] objectClasses) {
         for (Class clazz : objectClasses) {
             if (objectClass.isAssignableFrom(clazz)) {
@@ -72,7 +72,7 @@ public class OutputServiceImpl implements OutputService {
         }
         return false;
     }
-    
+
     public Class<? extends ArtifactGenerator>[] getSupportedArtifactGeneratorClasses() {
         List<Class> list = new ArrayList<Class>();
         for (OutputFactory factory : outputFactories) {
@@ -89,7 +89,7 @@ public class OutputServiceImpl implements OutputService {
         }
         return list.toArray(new Class[0]);
     }
-    
+
     private boolean isOutputCompatible(Output output, Class<? extends Output>[] clazzes) {
         for (Class<?> clazz : clazzes) {
             if (clazz.isAssignableFrom(output.getClass())) {
@@ -98,7 +98,7 @@ public class OutputServiceImpl implements OutputService {
         }
         return false;
     }
-    
+
     private ArtifactGenerator getArtifactGenerator(Class<? extends ArtifactGenerator> artifactGenerator, Output output) {
         // for each artifact generator
         for (int i = 0; i < artifactGenerators.size(); i++) {
@@ -112,7 +112,7 @@ public class OutputServiceImpl implements OutputService {
         }
         return null;
     }
-    
+
     public String getArtifact(Output output, Class<? extends ArtifactGenerator> artifactGenerator) throws OutputValidationException {
         if (output == null) {
             throw new OutputValidationException("No Output Provided");
@@ -136,36 +136,36 @@ public class OutputServiceImpl implements OutputService {
         if (artifactGenerator == null) {
             throw new OutputValidationException("No Generator Provided");
         }
-        
+
         ArtifactGenerator generator = getArtifactGenerator(artifactGenerator, outputs.get(0));
-        
+
         if (generator == null) {
             throw new OutputValidationException("Failed to locate generator of type " + artifactGenerator);
         }
-        
+
         for (Output output : outputs) {
             if (!generator.canGenerate(schema, output)) {
                 throw new OutputValidationException("Generator " + generator.getClass().getName() + " cannot generate output " + output.toString() + " .  Unable to generate full artifact.");
             }
         }
-        
+
         return generator.generateFull(schema, outputs);
     }
-   
+
     static int k = 0;
-    
+
     public Output generateDefaultOutput(Aggregate aggregate) throws OutputValidationException {
-        
+
         if (aggregate == null) {
             throw new OutputValidationException("No Aggregate Provided.");
         }
-        
+
         for (OutputFactory factory : outputFactories) {
             if (factory.canCreateOutput(schema)) {
                 return factory.createOutput(schema, aggregate);
             }
         }
-        
+
         throw new OutputValidationException("Failed to locate Output Factory.");
     }
 

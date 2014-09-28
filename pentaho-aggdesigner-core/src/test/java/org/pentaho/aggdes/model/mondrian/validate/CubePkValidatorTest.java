@@ -39,12 +39,12 @@ public class CubePkValidatorTest extends AbstractMondrianSchemaValidatorTestBase
   private static final Log logger = LogFactory.getLog(CubePkValidatorTest.class);
 
   CubePkValidator bean = new CubePkValidator();
-  
+
   @Before
   public void setUp() throws Exception {
     super.setUp();
   }
-  
+
   @After
   public void tearDown() throws Exception {
   }
@@ -108,7 +108,7 @@ public class CubePkValidatorTest extends AbstractMondrianSchemaValidatorTestBase
       logger.debug("got " + messages.size() + " message(s): " + messages);
     }
   }
-  
+
 
 
 

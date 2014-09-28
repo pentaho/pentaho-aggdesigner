@@ -23,10 +23,6 @@ import java.util.Map;
 
 /**
  * Aggregate designer component that loads a schema.
- *
- * @author jhyde
- * @version $Id: SchemaLoader.java 61 2008-03-17 05:34:55Z jhyde $
- * @since Mar 14, 2008
  */
 public interface SchemaLoader extends Component {
     /**
@@ -36,10 +32,10 @@ public interface SchemaLoader extends Component {
      * @return Schema
      */
     Schema createSchema(Map<Parameter, Object> parameterValues);
-    
+
     /**
      * Validates a Schema.
-     * 
+     *
      * @param parameterValues Map of parameter values
      * @return list of validation messages
      */

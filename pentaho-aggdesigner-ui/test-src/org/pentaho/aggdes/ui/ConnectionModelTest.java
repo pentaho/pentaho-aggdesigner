@@ -37,11 +37,11 @@ import org.pentaho.di.core.database.DatabaseMeta;
 
 public class ConnectionModelTest {
 
-	public ConnectionModelTest() {
+    public ConnectionModelTest() {
     try {
-    	KettleClientEnvironment.init();
+        KettleClientEnvironment.init();
     } catch (Exception e) {
-    	e.printStackTrace();
+        e.printStackTrace();
     }
   }
 

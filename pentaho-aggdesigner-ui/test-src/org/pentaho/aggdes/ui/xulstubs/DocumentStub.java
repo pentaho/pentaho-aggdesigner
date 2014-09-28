@@ -42,7 +42,7 @@ public class DocumentStub implements Document {
     bindings.add(b);
   }
   public void addOverlay(String src) throws XulException {}
-  public XulComponent createElement(String elementName) throws XulException { 
+  public XulComponent createElement(String elementName) throws XulException {
     if (elementName.equals("messagebox")) {
       return new XulMessageBoxStub();
     } else if (elementName.equals("filedialog")) {
@@ -82,7 +82,7 @@ public class DocumentStub implements Document {
   public void invokeLater(Runnable runnable) {
     runnable.run();
   }
-	public void loadPerspective(String id) {
-	}
+    public void loadPerspective(String id) {
+    }
 
 }

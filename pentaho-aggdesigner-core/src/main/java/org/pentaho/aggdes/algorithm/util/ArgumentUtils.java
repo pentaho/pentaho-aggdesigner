@@ -28,10 +28,8 @@ import org.pentaho.aggdes.model.Parameter;
 
 /**
  * Utility methods for retrieving and validating the algorithm's command-line arguments.
- * 
- * TODO mlowery Remove these method definitions from Main.
- * 
- * @author mlowery
+ *
+ * <p>TODO mlowery Remove these method definitions from Main.
  */
 public class ArgumentUtils {
 
@@ -118,16 +116,16 @@ public class ArgumentUtils {
    * about the parameters expected by that component.</p>
    */
   public static class ValidationException extends RuntimeException {
-    
+
       private static final long serialVersionUID = 5181014746393411408L;
-    
+
       private final Component component;
 
       public ValidationException(Component component, String message) {
           super(message);
           this.component = component;
       }
-      
+
       public Component getComponent() {
         return component;
       }

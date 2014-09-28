@@ -39,13 +39,13 @@ public class JdbcTemplateSqlExecutor implements SqlExecutor {
 
   private static final Log logger = LogFactory.getLog(JdbcTemplateSqlExecutor.class);
   private static final String NL = System.getProperty("line.separator");
-  
+
   private ConnectionModel connectionModel;
 
   public void setConnectionModel(ConnectionModel connectionModel) {
     this.connectionModel = connectionModel;
   }
-  
+
   public String[] removeCommentsAndSemicolons(Schema schema, String[] sql) {
     String[] newsql = new String[sql.length];
     for (int i = 0; i < sql.length; i++) {
@@ -53,7 +53,7 @@ public class JdbcTemplateSqlExecutor implements SqlExecutor {
     }
     return newsql;
   }
-  
+
   public String removeCommentsAndSemicolons(Schema schema, String sql) {
     if (sql == null) return null;
     String trimmed = sql.trim();
@@ -71,7 +71,7 @@ public class JdbcTemplateSqlExecutor implements SqlExecutor {
     for (int i = 0; i < lines.length; i++) {
       if (!lines[i].startsWith(commentStart)) {
         if (newLineNeeded) {
-          newSql.append(NL);  
+          newSql.append(NL);
         }
         newSql.append(lines[i]);
         newLineNeeded = true;
@@ -84,7 +84,7 @@ public class JdbcTemplateSqlExecutor implements SqlExecutor {
     logger.debug("clean sql: --[" + noCommentSql + "]--");
     return noCommentSql;
   }
-  
+
   public void execute(final String[] sql, final ExecutorCallback callback) throws DataAccessException {
     Exception exceptionDuringExecute = null;
     DatabaseMeta dbMeta = connectionModel.getDatabaseMeta();

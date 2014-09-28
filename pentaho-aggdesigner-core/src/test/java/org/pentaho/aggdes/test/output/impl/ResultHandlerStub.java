@@ -27,9 +27,8 @@ import org.pentaho.aggdes.model.Schema;
 import org.pentaho.aggdes.output.ResultHandler;
 
 /**
- * Stub implementation for <code>ResultHandler</code>. Provides canned answers and some methods are not implemented.
- * 
- * @author mlowery
+ * Stub implementation for <code>ResultHandler</code>. Provides canned
+ * answers and some methods are not implemented.
  */
 public class ResultHandlerStub implements ResultHandler {
 

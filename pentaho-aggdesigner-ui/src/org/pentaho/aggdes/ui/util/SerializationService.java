@@ -48,18 +48,15 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 /**
  * This class handles the Marshalling and Unmarshalling
  * of the current Workspace
- * 
- * @author Will Gorman (wgorman@pentaho.com)
- *
  */
 public class SerializationService {
-  
+
   private final String SERIALIZATION_VERSION = "1.0";
-  
+
   private ConnectionModel connectionModel;
 
   private AggList aggList;
-  
+
   public String[] getConnectionAndAggListElements(String xml) throws AggDesignerException {
     try {
       String xmlElements[] = new String[3];
@@ -84,7 +81,7 @@ public class SerializationService {
             String serializationVersion = (String)xstream.fromXML(versionInfo);
             if (!serializationVersion.equals(SERIALIZATION_VERSION)) {
               throw new AggDesignerException(Messages.getString("SerializationService.UnrecognizedVersion", SERIALIZATION_VERSION, serializationVersion));
-            } 
+            }
             c++;
           } else {
             xmlElements[c++] = writer.toString();
@@ -99,14 +96,14 @@ public class SerializationService {
     } catch (Exception e) {
       if (e instanceof AggDesignerException) {
         AggDesignerException ex = (AggDesignerException)e;
-        throw ex; 
+        throw ex;
       } else {
         e.printStackTrace();
         throw new RuntimeException("Failed to parse Workspace");
       }
     }
   }
-  
+
   private XStream getXStream(Schema schema) {
     XStream xstream = new XStream(new DomDriver());
     xstream.registerConverter(new DatabaseMetaConverter());
@@ -115,14 +112,14 @@ public class SerializationService {
     xstream.registerConverter(new MeasureConverter(schema));
     return xstream;
   }
-  
-  public String serializeWorkspace(Schema schema) {   
+
+  public String serializeWorkspace(Schema schema) {
     // update the checksum
     connectionModel.getSelectedSchemaModel().setSchemaChecksum(
         connectionModel.getSelectedSchemaModel().recalculateSchemaChecksum());
-    
+
     List<Object> systemObjects = new ArrayList<Object>();
-    AggList aggList = getAggList(); 
+    AggList aggList = getAggList();
     XStream xstream = getXStream(schema);
     systemObjects.add(SERIALIZATION_VERSION);
     systemObjects.add(connectionModel.getDatabaseMeta());
@@ -130,38 +127,38 @@ public class SerializationService {
     systemObjects.add(aggList);
     return xstream.toXML(systemObjects);
   }
-  
+
   public void deserializeConnection(Schema schema, String rdbmsXml, String schemaXml) {
     XStream xstream = getXStream(schema);
     DatabaseMeta databaseMeta = (DatabaseMeta)xstream.fromXML(rdbmsXml);
     SchemaModel schemaModel = (SchemaModel)xstream.fromXML(schemaXml);
-    
+
     //save off cubeName since setSelectedSchemaModel will clear it out
     String cubeName = schemaModel.getCubeName();
-    
+
     connectionModel.setDatabaseMeta(databaseMeta);
     connectionModel.setSelectedSchemaModel(schemaModel);
-    
+
     connectionModel.setCubeName(cubeName);
   }
-  
+
   public void deserializeAggList(Schema schema, String xml) {
     XStream xstream = getXStream(schema);
     xstream.fromXML(xml);
   }
 
   public void setConnectionModel(ConnectionModel connectionModel) {
-  
+
     this.connectionModel = connectionModel;
   }
 
   public AggList getAggList() {
-  
+
     return aggList;
   }
 
   public void setAggList(AggList aggList) {
-  
+
     this.aggList = aggList;
   }
 }

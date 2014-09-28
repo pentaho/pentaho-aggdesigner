@@ -24,41 +24,41 @@ import org.pentaho.aggdes.ui.form.model.AggregateSummaryModel;
 public class AggregateSummaryModelTest extends TestCase {
   public void test() {
     AggregateSummaryModel model = new AggregateSummaryModel();
-    
+
     assertEquals("", model.getSelectedAggregateCount());
     assertEquals("", model.getSelectedAggregateLoadTime());
     assertEquals("", model.getSelectedAggregateRows());
     assertEquals("", model.getSelectedAggregateSpace());
 
     model.setSelectedAggregateCount("count");
-    
+
     assertEquals("count", model.getSelectedAggregateCount());
     assertEquals("", model.getSelectedAggregateLoadTime());
     assertEquals("", model.getSelectedAggregateRows());
     assertEquals("", model.getSelectedAggregateSpace());
 
     model.setSelectedAggregateLoadTime("loadtime");
-    
+
     assertEquals("count", model.getSelectedAggregateCount());
     assertEquals("loadtime", model.getSelectedAggregateLoadTime());
     assertEquals("", model.getSelectedAggregateRows());
     assertEquals("", model.getSelectedAggregateSpace());
 
     model.setSelectedAggregateRows("rows");
-    
+
     assertEquals("count", model.getSelectedAggregateCount());
     assertEquals("loadtime", model.getSelectedAggregateLoadTime());
     assertEquals("rows", model.getSelectedAggregateRows());
     assertEquals("", model.getSelectedAggregateSpace());
-    
+
     model.setSelectedAggregateSpace("space");
-    
+
     assertEquals("count", model.getSelectedAggregateCount());
     assertEquals("loadtime", model.getSelectedAggregateLoadTime());
     assertEquals("rows", model.getSelectedAggregateRows());
     assertEquals("space", model.getSelectedAggregateSpace());
-    
-    
-    
+
+
+
   }
 }

@@ -32,10 +32,6 @@ import java.io.PrintWriter;
  * <p>The Monte Carlo algorithm tends to be most effective when the target
  * cost is close to the actual cost. By running the algorithm repeatedly,
  * we can determine a realistic cost.
- *
- * @author jhyde
- * @version $Id: AdaptiveMonteCarloAlgorithm.java 931 2008-09-24 21:28:47Z mbatchelor $
- * @since Mar 13, 2008
  */
 public class AdaptiveMonteCarloAlgorithm extends AlgorithmImpl {
     private double costLimit;

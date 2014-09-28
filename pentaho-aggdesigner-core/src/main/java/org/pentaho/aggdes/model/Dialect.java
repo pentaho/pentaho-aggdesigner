@@ -22,15 +22,11 @@ import java.sql.SQLException;
 
 /**
  * Description of the capabilities of a database, its SQL dialect, and driver.
- *
- * @author jhyde
- * @version $Id: $
- * @since Apr 26, 2008
  */
 public interface Dialect {
-    
+
     final String NL = System.getProperty("line.separator");
-    
+
     /**
      * Appends to a buffer one or more identifiers, quoted appropriately for
      * this Dialect.
@@ -67,23 +63,23 @@ public interface Dialect {
     String getDoubleTypeString();
 
     String removeInvalidIdentifierCharacters(String str);
-    
+
     /**
      * Returns the maximum length of a table name.
      *
      * @return maximum length of a table name
      */
     int getMaximumTableNameLength();
-    
+
     /**
      * Returns the maximum length of a column name.
      *
      * @return maximum length of a column name
      */
     int getMaximumColumnNameLength();
-    
+
     // DDL Generation Section of the Dialect
-    
+
     /**
      * Appends a single-line comment to a string builder.
      *
@@ -102,10 +98,10 @@ public interface Dialect {
      * @param buf String builder
      */
     void terminateCommand(StringBuilder buf);
-    
+
     /**
      * Returns true if database column ddl supports precision , ie INT(10) vs. INT
-     * 
+     *
      * @param meta database metadata object
      * @param type the type of the column
      * @return true if supports precision

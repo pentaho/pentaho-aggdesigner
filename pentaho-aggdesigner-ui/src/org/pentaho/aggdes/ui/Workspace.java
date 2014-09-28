@@ -33,29 +33,29 @@ import org.pentaho.ui.xul.XulEventSourceAdapter;
 public class Workspace extends XulEventSourceAdapter{
 
   private static final Log logger = LogFactory.getLog(Workspace.class);
-    
+
   private static final String CONFIG_DIR = System.getProperty("user.home") + File.separator + ".aggdesigner";
   private static final String CONFIG_FILE = CONFIG_DIR + File.separator + "aggdesigner.properties";
-    
+
   private Properties workspaceProperties;
-  
+
   private File workspaceLocation;
-  
+
   private Schema schema;
-  
+
   private boolean workspaceUpToDate = true;
-  
+
   private boolean applicationUnlocked = false;
 
   private boolean saveEnabled = false;
-  
+
   public Workspace() {
     loadWorkspaceProperties();
   }
 
   // properties management
-  
-  
+
+
   /**
    * load properties
    */
@@ -72,10 +72,10 @@ public class Workspace extends XulEventSourceAdapter{
       logger.error(Messages.getString("Workspace.ERROR_0001_LOAD_PROPS_EXCEPTION"), e);
     }
   }
-  
+
   /**
    * returns the value of a workspace property
-   * 
+   *
    * @param key
    *          key to lookup
    * @return the value
@@ -87,7 +87,7 @@ public class Workspace extends XulEventSourceAdapter{
   /**
    * set a workspace property. Note that this does not save the property, a call
    * to storeWorkspaceProperties is required.
-   * 
+   *
    * @param key
    *          property key
    * @param value
@@ -96,20 +96,20 @@ public class Workspace extends XulEventSourceAdapter{
   public void setWorkspaceProperty(String key, String value) {
     workspaceProperties.setProperty(key, value);
   }
-  
+
   /**
    * returns the current workspace file location
-   * 
+   *
    * @return workspace file location
    */
   public File getWorkspaceLocation() {
     return workspaceLocation;
   }
-  
+
   /**
-   * set the flag to maintain whether the saved state of the 
-   * workspace is in sync with the serialized model 
-   * 
+   * set the flag to maintain whether the saved state of the
+   * workspace is in sync with the serialized model
+   *
    * @param workspaceUpToDate boolean value
    */
   public void setWorkspaceUpToDate(boolean workspaceUpToDate) {
@@ -120,42 +120,42 @@ public class Workspace extends XulEventSourceAdapter{
   }
 
   /**
-   * flag to maintain whether the saved state of the 
-   * workspace is in sync with the serialized model 
-   * 
+   * flag to maintain whether the saved state of the
+   * workspace is in sync with the serialized model
+   *
    * @return true if workspace is up to date.
    */
   public boolean getWorkspaceUpToDate() {
     return workspaceUpToDate;
   }
-  
+
   /**
    * sets the current workspace file location
-   * 
+   *
    * @param workspaceLocation location of serialized workspace file
    */
   public void setWorkspaceLocation(File workspaceLocation) {
     this.workspaceLocation = workspaceLocation;
   }
-  
+
   /**
    * sets the current schema object
-   * 
+   *
    * @param schema overall schema object
    */
   public void setSchema(Schema schema) {
     this.schema = schema;
   }
-  
+
   /**
    * returns the current schema object
-   * 
+   *
    * @return overall schema object
    */
   public Schema getSchema() {
     return schema;
   }
-  
+
   /**
    * save workspace properties
    */
@@ -192,12 +192,12 @@ public class Workspace extends XulEventSourceAdapter{
   }
 
   public boolean isApplicationUnlocked() {
-  
+
     return applicationUnlocked;
   }
 
   public void setApplicationUnlocked(boolean applicationUnlocked) {
-  
+
     boolean prevVal = this.applicationUnlocked;
     this.applicationUnlocked = applicationUnlocked;
     this.firePropertyChange("applicationUnlocked", prevVal, applicationUnlocked);
@@ -207,11 +207,11 @@ public class Workspace extends XulEventSourceAdapter{
   public boolean isSaveEnabled(){
     return saveEnabled;
   }
-  
+
   public void setSaveEnabled(boolean enabled){
     boolean oldVal = saveEnabled;
     saveEnabled = enabled;
     this.firePropertyChange("saveEnabled", oldVal, saveEnabled);
   }
-  
+
 }

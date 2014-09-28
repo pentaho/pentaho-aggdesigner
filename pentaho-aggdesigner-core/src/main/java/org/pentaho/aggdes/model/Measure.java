@@ -20,10 +20,6 @@ package org.pentaho.aggdes.model;
 
 /**
  * A quantity of interest in a star schema.
- *
- * @author jhyde
- * @version $Id: Measure.java 61 2008-03-17 05:34:55Z jhyde $
- * @since Mar 13, 2008
  */
 public interface Measure extends Attribute {
     /**

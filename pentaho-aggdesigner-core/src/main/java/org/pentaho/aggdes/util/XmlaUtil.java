@@ -26,15 +26,13 @@ import java.net.URLConnection;
 import mondrian.util.Base64;
 
 /**
- * this is a utility class which makes simple XMLA discover requests
- * 
- * @author Will Gorman (wgorman@pentaho.com)
+ * Utility class which makes simple XMLA discover requests.
  */
 public class XmlaUtil {
-    
+
     /**
      * Generates a discover request.
-     * 
+     *
      * @param requestType request type
      * @return XMLA request
      */
@@ -62,7 +60,7 @@ public class XmlaUtil {
 
     /**
      * Execute Xmla Request
-     * 
+     *
      * @param url xmla server path
      * @param request soap request
      * @return output
@@ -83,7 +81,7 @@ public class XmlaUtil {
             final String basicAuthVal = "Basic " +  Base64.encodeBytes(userInfoBytes, 0);
             urlConn.setRequestProperty(basicAuthKey, basicAuthVal);
         }
-        
+
         final byte[] requestBytes = request.getBytes("UTF-8");
         urlConn.getOutputStream().write(requestBytes);
 

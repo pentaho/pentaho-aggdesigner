@@ -63,10 +63,6 @@ import org.pentaho.aggdes.output.ResultHandler;
  * interface. Examples: AdaptiveMonteCarloAlgorithm, MonteCarloAlgorithm,
  * ExhaustiveLatticeAlgorithm
  * </ul>
- *
- * @author jhyde
- * @version $Id: Main.java 85 2008-04-28 22:20:13Z jhyde $
- * @since Mar 13, 2008
  */
 public class Main {
     private final PrintWriter pw = new PrintWriter(System.out);

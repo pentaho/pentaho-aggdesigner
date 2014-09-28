@@ -32,12 +32,12 @@ import org.pentaho.aggdes.model.Dialect;
 import org.pentaho.aggdes.model.Table;
 
 public class MondrianAttribute implements Attribute {
-  
+
   private final MondrianTable table;
   private final RolapStar.Column column;
   private final double distinctValueCount;
   private final List<Attribute> ancestors;
-  
+
   public MondrianAttribute(
       MondrianTable table,
       List<Attribute> ancestors,
@@ -53,7 +53,7 @@ public class MondrianAttribute implements Attribute {
   public RolapStar.Column getRolapStarColumn() {
       return column;
   }
-  
+
   public String getLabel() {
       return "[" + table.getLabel() + "].[" + column.getName() + "]";
   }
@@ -61,7 +61,7 @@ public class MondrianAttribute implements Attribute {
   public Table getTable() {
       return table;
   }
-  
+
   public double getDistinctValueCount() {
     return distinctValueCount;
   }
@@ -82,7 +82,7 @@ public class MondrianAttribute implements Attribute {
       return internalGetDatatypeString(
             column, dialect);
   }
-  
+
   /**
    * Returns a string representation of the datatype of this column, in
    * the dialect specified. For example, 'DECIMAL(10, 2) NOT NULL'.
@@ -112,7 +112,7 @@ public class MondrianAttribute implements Attribute {
               precision = 0;
           }
           String typeString;
-          if (precision == 0 || precision == Integer.MAX_VALUE || 
+          if (precision == 0 || precision == Integer.MAX_VALUE ||
               !dialect.supportsPrecision(jdbcConnection.getMetaData(), type)) {
               typeString = type;
           } else if (scale == 0) {
