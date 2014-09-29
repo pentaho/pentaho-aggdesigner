@@ -23,6 +23,7 @@ import org.pentaho.aggdes.model.Aggregate;
 import org.pentaho.aggdes.model.Attribute;
 import org.pentaho.aggdes.model.Measure;
 import org.pentaho.aggdes.model.Schema;
+import org.pentaho.aggdes.model.StatisticsProvider;
 import org.pentaho.aggdes.util.BitSetPlus;
 
 /**
@@ -44,8 +45,13 @@ public class AggregateImpl implements Aggregate {
     public AggregateImpl(Schema schema, BitSetPlus bits) {
         this.schema = schema;
         this.bits = bits;
-        this.rowCount =
-            schema.getStatisticsProvider().getRowCount(getAttributes());
+        final StatisticsProvider provider = schema.getStatisticsProvider();
+        this.rowCount = provider.getRowCount(getAttributes());
+        assert this.rowCount <= provider.getFactRowCount() : getAttributes();
+      if (this.rowCount <= 0d) {
+        provider.getRowCount(getAttributes());
+        throw new AssertionError(getAttributes());
+      }
         if (false) {
             System.out.println(
                 "AggregateImpl: " + getDescription() + " bits=" + bits);

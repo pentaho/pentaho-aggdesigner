@@ -68,6 +68,11 @@ public interface Lattice {
      * @return Incremental cost/benefit of the aggregate
      */
     Algorithm.CostBenefit costBenefitOf(AggregateImpl aggregate);
+
+    /**
+     * Returns a copy of this lattice.
+     */
+    Lattice copy();
 }
 
 // End Lattice.java

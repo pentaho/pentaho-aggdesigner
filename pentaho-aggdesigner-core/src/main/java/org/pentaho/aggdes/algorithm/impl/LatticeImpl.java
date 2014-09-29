@@ -374,13 +374,20 @@ public abstract class LatticeImpl implements Lattice {
     {
         // When called, only the fact table is materialized.
         assert materializedAggregates.size() == 1;
+        return computeAggregateCosts(this, aggregateList);
+    }
+
+    public static List<Algorithm.CostBenefit> computeAggregateCosts(
+        Lattice lattice,
+        List<AggregateImpl> aggregateList)
+    {
         final List<Algorithm.CostBenefit> list =
             new ArrayList<Algorithm.CostBenefit>(aggregateList.size());
         for (AggregateImpl aggregate : aggregateList) {
             aggregate.materialized = false;
             // note: it's the responsibility of costBenefitOf to
             // materialize the aggregate
-            list.add(costBenefitOf(aggregate));
+            list.add(lattice.costBenefitOf(aggregate));
         }
         return list;
     }

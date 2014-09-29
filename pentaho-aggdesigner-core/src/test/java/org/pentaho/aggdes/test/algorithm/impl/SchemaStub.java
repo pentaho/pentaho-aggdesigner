@@ -18,6 +18,7 @@
 package org.pentaho.aggdes.test.algorithm.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.pentaho.aggdes.model.Aggregate;
@@ -31,11 +32,12 @@ import org.pentaho.aggdes.model.Schema;
 import org.pentaho.aggdes.model.StatisticsProvider;
 import org.pentaho.aggdes.model.Table;
 
+/** Mock implementation of {@link Schema} for testing. */
 public class SchemaStub implements Schema {
 
     public static class TableStub implements Table {
-      String label;
-      Table parent;
+      final String label;
+      final Table parent;
 
       public TableStub(String label, Table parent) {
         this.label = label;
@@ -66,12 +68,12 @@ public class SchemaStub implements Schema {
     }
 
     public static class AttributeStub implements Attribute {
-      double space;
-      String colName;
-      String datatype;
-      String label;
-      TableStub table;
-      List<Attribute> ancestors = new ArrayList<Attribute>();
+      final double space;
+      final String colName;
+      final String datatype;
+      final String label;
+      final TableStub table;
+      final List<Attribute> ancestors = Collections.emptyList();
 
       public AttributeStub(double space, String colName, String datatype, String label, TableStub table) {
         this.space = space;
@@ -79,6 +81,10 @@ public class SchemaStub implements Schema {
         this.datatype = datatype;
         this.label = label;
         this.table = table;
+      }
+
+      @Override public String toString() {
+        return label;
       }
 
       public double estimateSpace() {
@@ -110,10 +116,15 @@ public class SchemaStub implements Schema {
 
 
     public static class LevelStub implements Level {
+      final Attribute attribute;
+      final String name;
+      final Level parent;
 
-      Attribute attribute;
-      String name;
-      Level parent;
+      public LevelStub(String name, Attribute attribute) {
+        this.name = name;
+        this.attribute = attribute;
+        this.parent = null;
+      }
 
       public Attribute getAttribute() {
         return attribute;
@@ -129,8 +140,13 @@ public class SchemaStub implements Schema {
     }
 
     public static class HierarchyStub implements Hierarchy {
-      List<Level> levels = new ArrayList<Level>();
-      String name;
+      final List<Level> levels = new ArrayList<Level>();
+      final String name;
+
+      public HierarchyStub(String name) {
+        this.name = name;
+      }
+
       public List<Level> getLevels() {
         return levels;
       }
@@ -142,8 +158,13 @@ public class SchemaStub implements Schema {
     }
 
     public static class DimensionStub implements Dimension {
-      List<Hierarchy> hierarchies = new ArrayList<Hierarchy>();
-      String name;
+      final List<Hierarchy> hierarchies = new ArrayList<Hierarchy>();
+      final String name;
+
+      public DimensionStub(String name) {
+        this.name = name;
+      }
+
       public List<Hierarchy> getHierarchies() {
           return hierarchies;
       }
@@ -189,34 +210,30 @@ public class SchemaStub implements Schema {
     Dialect dialect;
 
     public SchemaStub() {
-      TableStub fact = new TableStub("fact", null);
-      attribs.add(new AttributeStub(0, "col1", "int", "col1", fact));
-      attribs.add(new AttributeStub(0, "col2", "int", "col2", fact));
-      attribs.add(new AttributeStub(0, "col3", "int", "col3", fact));
+        this.provider = init(attribs, measures, dimensions);
+    }
 
-      measures.add(new MeasureStub(0, "mes1", "int", "mcol1", fact));
+    protected StatisticsProvider init(List<Attribute> attributes, List<Measure> measures, List<Dimension> dimensions) {
+        TableStub fact = new TableStub("fact", null);
+        attributes.add(new AttributeStub(0, "col1", "int", "col1", fact));
+        attributes.add(new AttributeStub(0, "col2", "int", "col2", fact));
+        attributes.add(new AttributeStub(0, "col3", "int", "col3", fact));
 
-      LevelStub level1 = new LevelStub();
-      level1.name = "Level 1";
-      level1.attribute = attribs.get(0);
+        measures.add(new MeasureStub(0, "mes1", "int", "mcol1", fact));
 
-      LevelStub level2 = new LevelStub();
-      level2.name = "Level 2";
-      level2.attribute = attribs.get(1);
+        LevelStub level1 = new LevelStub("Level 1", this.attribs.get(0));
+        LevelStub level2 = new LevelStub("Level 2", this.attribs.get(1));
 
-      HierarchyStub hierarchy = new HierarchyStub();
-      hierarchy.name = "Hierarchy 1";
-      hierarchy.levels.add(level1);
-      hierarchy.levels.add(level2);
+        HierarchyStub hierarchy = new HierarchyStub("Hierarchy 1");
+        hierarchy.levels.add(level1);
+        hierarchy.levels.add(level2);
 
-      DimensionStub dimension = new DimensionStub();
-      dimension.name = "Dimension 1";
-      dimension.hierarchies.add(hierarchy);
+        DimensionStub dimension = new DimensionStub("Dimension 1");
+        dimension.hierarchies.add(hierarchy);
 
-      dimensions.add(dimension);
+        dimensions.add(dimension);
 
-
-      provider = new StatisticsProviderStub();
+        return new StatisticsProviderStub();
     }
 
 

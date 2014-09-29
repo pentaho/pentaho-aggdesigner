@@ -30,7 +30,7 @@ import java.util.*;
  * the {@link MonteCarloAlgorithm}.
  */
 public class MonteCarloLatticeImpl extends LatticeImpl {
-    private final int queryCount = 10;
+    private final int queryCount = 1000;
     private final Random random = new Random(12345);
 
     /**
@@ -90,6 +90,10 @@ public class MonteCarloLatticeImpl extends LatticeImpl {
                         + ancestorClosure.get(ordinal));
             }
         }
+    }
+
+    @Override public Lattice copy() {
+        return new MonteCarloLatticeImpl(schema);
     }
 
     public AggregateImpl chooseAggregate(
@@ -272,7 +276,7 @@ public class MonteCarloLatticeImpl extends LatticeImpl {
     public void materialize(AggregateImpl aggregate) {
         super.materialize(aggregate);
         aggregate.queryLoad = computeQueryLoad(aggregate);
-        assert aggregate.queryLoad > 0d : aggregate.queryLoad;
+        assert aggregate.queryLoad >= 0d : aggregate.queryLoad;
         assert aggregate.queryLoad <= 1d : aggregate.queryLoad;
     }
 
@@ -380,7 +384,7 @@ public class MonteCarloLatticeImpl extends LatticeImpl {
                 : "queryLoad should be been initialized on materialize";
 //            todo: descendant.queryLoad -= something
         }
-        return load;
+        return Math.max(load, 0d);
     }
 }
 
