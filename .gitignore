@@ -1,3 +1,5 @@
+*~
+target/
 bin/
 dist/
 js-lib/
@@ -10,6 +12,7 @@ testdata.properties
 testdata.script
 .classpath
 .project
+.idea/
 .DS_Store
 projects/
 plugins/

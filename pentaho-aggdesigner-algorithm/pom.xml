@@ -3,11 +3,11 @@
   <parent>
     <groupId>org.pentaho</groupId>
     <artifactId>pentaho-aggdesigner</artifactId>
-    <version>5.1.4-jhyde-SNAPSHOT</version>
+    <version>TRUNK-SNAPSHOT</version>
   </parent>
 
   <artifactId>pentaho-aggdesigner-algorithm</artifactId>
-  <version>5.1.4-jhyde-SNAPSHOT</version>
+  <version>TRUNK-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Pentaho Aggregate Designer Algorithm</name>
   <description>Algorithm that designs aggregate tables</description>

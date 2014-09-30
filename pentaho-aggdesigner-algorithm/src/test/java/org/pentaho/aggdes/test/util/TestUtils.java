@@ -33,8 +33,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-import mondrian.olap.Util;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -139,7 +137,7 @@ public class TestUtils {
    */
   public static String fold(String string) {
       if (!nl.equals("\n")) {
-          string = Util.replace(string, "\n", nl);
+          string = string.replace("\n", nl);
       }
       return string;
   }
