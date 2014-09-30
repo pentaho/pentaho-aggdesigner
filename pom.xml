@@ -52,9 +52,9 @@
 
   <distributionManagement>
     <repository>
-      <id>pentaho</id>
-      <name>Pentaho repository</name>
-      <url>http://repository.pentaho.org/artifactory/repo</url>
+      <id>conjars</id>
+      <name>Conjars</name>
+      <url>http://conjars.org/repo</url>
       <layout>default</layout>
     </repository>
   </distributionManagement>
