@@ -316,18 +316,22 @@ public class AlgorithmImplTest extends TestCase {
             BigInteger n = BigInteger.ONE;
             for (Attribute attribute : attributes) {
               final int cardinality = ((MyAttribute) attribute).cardinality;
-              n = n.multiply(BigInteger.valueOf(cardinality));
+              if (cardinality > 1) {
+                n = n.multiply(BigInteger.valueOf(cardinality));
+              }
             }
             final double nn = n.doubleValue();
             final double f = getFactRowCount();
             final double a = (nn - 1d) / nn;
             if (a == 1d) {
-              // A under-flows if nn is large.
+              // If nn is large, a under-flows, but we know the answer is the
+              // number of rows in the fact table.
               return f;
             }
+            // TODO: Investigate using Math.expm1.
             final double v = nn * (1d - Math.pow(a, f));
             // Cap at fact-row-count, because numerical artifacts can cause it
-            // to go a few % over.
+            // to go a few percent over.
             return Math.min(v, f);
           }
 

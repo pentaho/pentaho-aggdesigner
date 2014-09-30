@@ -48,14 +48,18 @@ public class AggregateImpl implements Aggregate {
         final StatisticsProvider provider = schema.getStatisticsProvider();
         this.rowCount = provider.getRowCount(getAttributes());
         assert this.rowCount <= provider.getFactRowCount() : getAttributes();
-      if (this.rowCount <= 0d) {
-        provider.getRowCount(getAttributes());
-        throw new AssertionError(getAttributes());
-      }
+        if (this.rowCount <= 0d) {
+          provider.getRowCount(getAttributes());
+          throw new AssertionError(getAttributes());
+        }
         if (false) {
             System.out.println(
                 "AggregateImpl: " + getDescription() + " bits=" + bits);
         }
+    }
+
+    @Override public String toString() {
+        return getAttributes().toString();
     }
 
     public List<Attribute> getAttributes() {
