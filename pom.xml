@@ -70,6 +70,17 @@
       <url>http://repo.pentaho.org/artifactory/repo</url>
       <layout>default</layout>
     </repository>
+    <repository>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+      <id>conjars</id>
+      <name>Conjars</name>
+      <url>http://conjars.org/repo</url>
+      <layout>default</layout>
+    </repository>
   </repositories>
 
   <issueManagement />
@@ -152,9 +163,9 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>hsqldb</groupId>
+        <groupId>org.hsqldb</groupId>
         <artifactId>hsqldb</artifactId>
-        <version>1.8.0.7</version>
+        <version>2.3.1</version>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -162,6 +173,11 @@
         <artifactId>mysql-connector-java</artifactId>
         <version>5.1.17</version>
         <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>pentaho</groupId>
+        <artifactId>mondrian-data-foodmart-hsqldb</artifactId>
+        <version>0.2</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

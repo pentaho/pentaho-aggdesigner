@@ -51,36 +51,26 @@ import junit.framework.TestCase;
 public class AlgorithmImplTest extends TestCase {
 
   static class CostBenefitMock implements CostBenefit {
-
-    public void describe(PrintWriter pw) {
-      // TODO Auto-generated method stub
-
-    }
+    public void describe(PrintWriter pw) {}
 
     public double getLoadTime() {
-      // TODO Auto-generated method stub
       return 0;
     }
 
     public double getRowCount() {
-      // TODO Auto-generated method stub
       return 0;
     }
 
     public double getSavedQueryRowCount() {
-      // TODO Auto-generated method stub
       return 0;
     }
 
     public double getSpace() {
-      // TODO Auto-generated method stub
       return 0;
     }
-
   }
 
   static class ProgressStub implements Progress {
-
     public int messageCount;
 
     public void report(String message, double complete) {
@@ -120,9 +110,7 @@ public class AlgorithmImplTest extends TestCase {
 
     public void materialize(AggregateImpl aggregate) {
       materialized.add(aggregate);
-
     }
-
   }
 
   static class AlgorithmImplStub extends AlgorithmImpl {
@@ -162,6 +150,31 @@ public class AlgorithmImplTest extends TestCase {
     {
       super.onStart(parameterValues, progress);
     }
+  }
+
+  /**
+   * From <a href="http://math.stackexchange.com/questions/72223/finding-expected-number-of-distinct-values-selected-from-a-set-of-integers">stack exchange</a>,
+   * the expected number of distinct values when choosing p values
+   * with replacement from n integers is n . (1 - ((n - 1) / n) ^ p).
+   *
+   * <p>If we have several uniformly distributed attributes A1 ... Am
+   * with N1 ... Nm distinct values, they behave as one uniformly
+   * distributed attribute with N1 * ... * Nm distinct values.
+   */
+  private static double cardinality(BigInteger n,
+      double factCount) {
+    final double nn = n.doubleValue();
+    final double a = (nn - 1d) / nn;
+    if (a == 1d) {
+      // If nn is large, a under-flows, but we know the answer is the
+      // number of rows in the fact table.
+      return factCount;
+    }
+    // TODO: Investigate using Math.expm1.
+    final double v = nn * (1d - Math.pow(a, factCount));
+    // Cap at fact-row-count, because numerical artifacts can cause it
+    // to go a few percent over.
+    return Math.min(v, factCount);
   }
 
   public void test() {
@@ -306,13 +319,7 @@ public class AlgorithmImplTest extends TestCase {
 
           @Override
           public double getRowCount(List<Attribute> attributes) {
-            // From http://math.stackexchange.com/questions/72223/finding-expected-number-of-distinct-values-selected-from-a-set-of-integers
-            // the expected number of distinct values when choosing p values
-            // with replacement from n integers is n . (1 - ((n - 1) / n) ^ p).
-            //
-            // If we have several uniformly distributed attributes A1 ... Am
-            // with N1 ... Nm distinct values, they behave as one uniformly
-            // distributed attribute with N1 * ... * Nm distinct values.
+            // All attributes are independent
             BigInteger n = BigInteger.ONE;
             for (Attribute attribute : attributes) {
               final int cardinality = ((MyAttribute) attribute).cardinality;
@@ -320,20 +327,9 @@ public class AlgorithmImplTest extends TestCase {
                 n = n.multiply(BigInteger.valueOf(cardinality));
               }
             }
-            final double nn = n.doubleValue();
-            final double f = getFactRowCount();
-            final double a = (nn - 1d) / nn;
-            if (a == 1d) {
-              // If nn is large, a under-flows, but we know the answer is the
-              // number of rows in the fact table.
-              return f;
-            }
-            // TODO: Investigate using Math.expm1.
-            final double v = nn * (1d - Math.pow(a, f));
-            // Cap at fact-row-count, because numerical artifacts can cause it
-            // to go a few percent over.
-            return Math.min(v, f);
+            return cardinality(n, getFactRowCount());
           }
+
 
           @Override
           public double getSpace(List<Attribute> attributes) {
@@ -380,6 +376,108 @@ public class AlgorithmImplTest extends TestCase {
         + "13110 rows, 65550 bytes, 65550 load cost, 164481 query rows saved, used by 16% of queries\n"
         + "AggregateTable: a2, a3, a5, a17, a19; \n"
         + "9690 rows, 48450 bytes, 48450 load cost, 165051 query rows saved, used by 16% of queries\n"));
+  }
+
+  /** Tests a lattice with zipcode (43k), state (50), gender (2), year (5),
+   * month (12), and 1 million rows. State depends on zipcode: (zipcode, state)
+   * have only 44k values. */
+  public void testZipcodeStateGenderYearMonth() {
+    final int M = 2;
+    final int F = 1000000;
+
+    final SchemaStub schema = new SchemaStub() {
+      final TableStub table = new TableStub("t", null);
+      private MyAttribute zipcode;
+      private MyAttribute state;
+      private MyAttribute gender;
+      private MyAttribute year;
+      private MyAttribute month;
+
+      @Override protected StatisticsProvider init(List<Attribute> attributes,
+          List<Measure> measures, List<Dimension> dimensions) {
+        zipcode = new MyAttribute("zipcode", table, 43000);
+        state = new MyAttribute("state", table, 50);
+        gender = new MyAttribute("gender", table, 2);
+        year = new MyAttribute("year", table, 5);
+        month = new MyAttribute("month", table, 12);
+        attributes.add(zipcode);
+        attributes.add(state);
+        attributes.add(gender);
+        attributes.add(year);
+        attributes.add(month);
+        for (int i = 0; i < M; i++) {
+          final String label = "m" + i;
+          measures.add(new MeasureStub(1, label, "int", label, table));
+        }
+        return new StatisticsProvider() {
+          @Override
+          public double getFactRowCount() {
+            return F;
+          }
+
+          @Override
+          public double getRowCount(List<Attribute> attributes) {
+            // Attributes are independent, except that state depends on zipcode.
+            BigInteger n = BigInteger.ONE;
+            for (Attribute attribute : attributes) {
+              if (attribute == state && attributes.contains(zipcode)) {
+                // Effective cardinality of state is 1.01 when zipcode present.
+                // Cardinality is 50 when zipcode not present.
+                // Thus zipcode has 43k values,
+                // while (zipcode, state) has 43.4k values.
+                n = n.add(n.divide(BigInteger.valueOf(100L)));
+              } else {
+                final int cardinality = ((MyAttribute) attribute).cardinality;
+                if (cardinality > 1) {
+                  n = n.multiply(BigInteger.valueOf(cardinality));
+                }
+              }
+            }
+            return cardinality(n, getFactRowCount());
+          }
+
+          @Override
+          public double getSpace(List<Attribute> attributes) {
+            return attributes.size();
+          }
+
+          @Override
+          public double getLoadTime(List<Attribute> attributes) {
+            return getSpace(attributes) * getRowCount(attributes);
+          }
+        };
+      }
+    };
+
+    ProgressStub progress = new ProgressStub();
+    Map<Parameter, Object> parameterValues = new HashMap<Parameter, Object>();
+    final Lattice lattice = new MonteCarloLatticeImpl(schema);
+    final AlgorithmImplStub algorithm = new AlgorithmImplStub(lattice);
+    algorithm.onStart(parameterValues, progress);
+    final ResultImpl result = algorithm.runAlgorithm(lattice, F, 4d, 10);
+
+    StringWriter sw = new StringWriter();
+    PrintWriter pw = new PrintWriter(sw);
+    result.describe(pw);
+    pw.flush();
+
+    assertEquals(6, result.getAggregates().size(), 0);
+    final String s = sw.toString();
+    System.out.println(s);
+    assertTrue(s, toLinux(s).startsWith("AggregateTable: state, gender, year, month; \n"
+        + "6000 rows, 24000 bytes, 24000 load cost, 497000 query rows saved, used by 50% of queries\n"
+        + "AggregateTable: zipcode, state, gender; \n"
+        + "86859 rows, 260577 bytes, 260577 load cost, 304380 query rows saved, used by 33% of queries\n"
+        + "AggregateTable: gender, year; \n"
+        + "10 rows, 20 bytes, 20 load cost, 1497 query rows saved, used by 25% of queries\n"
+        + "AggregateTable: gender, month; \n"
+        + "24 rows, 48 bytes, 48 load cost, 1494 query rows saved, used by 25% of queries\n"
+        + "AggregateTable: state, gender; \n"
+        + "100 rows, 200 bytes, 200 load cost, 1475 query rows saved, used by 25% of queries\n"
+        + "AggregateTable: year, month; \n"
+        + "60 rows, 120 bytes, 120 load cost, 1485 query rows saved, used by 25% of queries\n"
+        + "Cost limit: 1000000.0\n" + "Actual cost: 646796.9831198268\n"
+        + "Benefit: 2.188739076654499E7\n"));
   }
 
   public static String toLinux(String s) {
