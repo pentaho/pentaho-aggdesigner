@@ -101,6 +101,10 @@ public class XulDomContainerStub implements XulDomContainer {
 	public void registerClassLoader(Object loader) {
 	  // TODO Auto-generated method stub
 	}
+
+    public void deRegisterClassLoader(Object loader){
+
+    }
 	
 	public XulSettingsManager getSettingsManager() {
 		// TODO Auto-generated method stub
