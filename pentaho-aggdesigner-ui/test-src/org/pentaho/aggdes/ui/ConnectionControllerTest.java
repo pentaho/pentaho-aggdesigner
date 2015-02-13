@@ -47,13 +47,13 @@ import org.pentaho.ui.xul.impl.XulEventHandler;
 @RunWith(JMock.class)
 public class ConnectionControllerTest {
 
-	static {
+    static {
     try {
-    	KettleClientEnvironment.init();
+        KettleClientEnvironment.init();
     } catch (Exception e) {
-    	e.printStackTrace();
+        e.printStackTrace();
     }
-	}
+    }
 
   private ConnectionController controller;
 

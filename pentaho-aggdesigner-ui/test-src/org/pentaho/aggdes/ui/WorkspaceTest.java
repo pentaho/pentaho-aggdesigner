@@ -22,7 +22,7 @@ import java.io.File;
 import junit.framework.TestCase;
 
 public class WorkspaceTest extends TestCase {
-  
+
   public void testWorkspaceProperties() {
     final String CONFIG_DIR = System.getProperty("user.home") + File.separator + ".aggdesigner";
     final String CONFIG_FILE = CONFIG_DIR + File.separator + "aggdesigner.properties";
@@ -35,31 +35,31 @@ public class WorkspaceTest extends TestCase {
 
     // first try to load, file won't be there but properties object will be initialized
     Workspace workspace = new Workspace();
-    
+
     // start off without a config file
     String result = workspace.getWorkspaceProperty("test");
     assertNull(result);
-    
+
     workspace.setWorkspaceProperty("test", "value");
-    
+
     result = workspace.getWorkspaceProperty("test");
     assertEquals(result, "value");
-    
+
     // save the config file
     workspace.storeWorkspaceProperties();
-    
+
     // reload workspace
     workspace = new Workspace();
-    
+
     result = workspace.getWorkspaceProperty("test");
     assertEquals(result, "value");
-    
+
     if (file.exists()) {
       file.delete();
     }
     if (tmpFile.exists()) {
       tmpFile.renameTo(file);
     }
-    
+
   }
 }

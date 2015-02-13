@@ -56,9 +56,9 @@ public class ConnectionControllerITest extends JMock {
   public ConnectionControllerITest() throws InitializationError {
     super(ConnectionControllerITest.class);
     try {
-    	KettleClientEnvironment.init();
+        KettleClientEnvironment.init();
     } catch (Exception e) {
-    	e.printStackTrace();
+        e.printStackTrace();
     }
   }
 

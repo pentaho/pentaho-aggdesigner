@@ -101,6 +101,6 @@ public class UIAggregateTest extends TestCase {
     impl.setOutput(output);
     Output out = impl.getOutput();
     assertEquals(output, out);
-    
+
   }
 }

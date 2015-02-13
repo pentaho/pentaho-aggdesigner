@@ -45,9 +45,9 @@ import org.pentaho.aggdes.ui.form.model.ConnectionModelImpl;
 import org.pentaho.di.core.database.DatabaseMeta;
 
 /**
- * hsqldb.jar must be on classpath for test to succeed.
- * 
- * @author mlowery
+ * Tests template execution.
+ *
+ * <p>hsqldb.jar must be on classpath for test to succeed.
  */
 @RunWith(JMock.class)
 public class JdbcTemplateSqlExecutorTest extends TestCase {
@@ -55,7 +55,7 @@ public class JdbcTemplateSqlExecutorTest extends TestCase {
   private boolean executionCompleteCalled;
 
   private ConnectionModel connectionModel = new ConnectionModelImpl();
-  
+
   private static final Log logger = LogFactory.getLog(JdbcTemplateSqlExecutorTest.class);
 
   private Mockery context = new JUnit4Mockery() {
@@ -107,7 +107,7 @@ public class JdbcTemplateSqlExecutorTest extends TestCase {
     SchemaStub schemaStub = new SchemaStub();
     schemaStub.setDialect(new DialectStub());
     connectionModel.setSchema(schemaStub);
-    
+
     exec.setConnectionModel(connectionModel);
     getConnectionModel().setDatabaseMeta(dbMeta);
     executionCompleteCalled = false;
@@ -152,7 +152,7 @@ public class JdbcTemplateSqlExecutorTest extends TestCase {
 
     public void quoteIdentifier(StringBuilder buf, String... names) {
       // TODO Auto-generated method stub
-      
+
     }
 
     public String removeInvalidIdentifierCharacters(String str) {
@@ -167,12 +167,12 @@ public class JdbcTemplateSqlExecutorTest extends TestCase {
 
     public void terminateCommand(StringBuilder buf) {
       // TODO Auto-generated method stub
-      
+
     }
-    
+
   }
 
-  
+
   @Test
   public void testSqlCommentRemoval() {
     SchemaStub schemaStub = new SchemaStub();
@@ -181,25 +181,25 @@ public class JdbcTemplateSqlExecutorTest extends TestCase {
     schemaStub.getDialect().comment(sb, " my comment");
     // sb.append();
     sb.append("SELECT * FROM TBL;");
-    
+
     String sqlresults = exec.removeCommentsAndSemicolons(schemaStub, sb.toString());
-    
+
     assertEquals(sqlresults, "SELECT * FROM TBL");
-    
+
     String str[] = new String[] {sb.toString()};
-    
+
     String results[] = exec.removeCommentsAndSemicolons(schemaStub, str);
     assertEquals(results.length, 1);
     assertEquals(results[0], "SELECT * FROM TBL");
   }
 
   public ConnectionModel getConnectionModel() {
-  
+
     return connectionModel;
   }
 
   public void setConnectionModel(ConnectionModel connectionModel) {
-  
+
     this.connectionModel = connectionModel;
   }
 

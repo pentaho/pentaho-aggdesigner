@@ -45,7 +45,7 @@ public class AdaptiveMonteCarloAlgorithmUIPlugin extends AbstractUiExtension imp
 
     if (!StringUtils.isEmpty(maxAggregates)) {
       algorithmRawParams.put("aggregateLimit", maxAggregates);
-    } 
+    }
     if (!StringUtils.isEmpty(maxTime)) {
       algorithmRawParams.put("timeLimitSeconds", maxTime);
     }
@@ -57,7 +57,7 @@ public class AdaptiveMonteCarloAlgorithmUIPlugin extends AbstractUiExtension imp
     }
     return algorithmRawParams;
   }
-  
+
   /*
    * Model getters/setters
    */
@@ -96,6 +96,6 @@ public class AdaptiveMonteCarloAlgorithmUIPlugin extends AbstractUiExtension imp
 
   @Override
   public void onUnload() {
-    
+
   }
 }

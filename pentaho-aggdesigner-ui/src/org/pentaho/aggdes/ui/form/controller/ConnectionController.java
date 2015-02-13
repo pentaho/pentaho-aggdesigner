@@ -134,7 +134,7 @@ public class ConnectionController extends AbstractXulEventHandler {
       try {
         document.addOverlay(extension.getOverlayPath());
         getXulDomContainer().addEventHandler(extension);
-        
+
         ((XulEventSource) extension).addPropertyChangeListener(new PropertyChangeListener() {
 
           public void propertyChange(PropertyChangeEvent evt) {
@@ -148,7 +148,7 @@ public class ConnectionController extends AbstractXulEventHandler {
                 if(evt.getPropertyName().equals("selected") && extension != ex && evt.getNewValue() == Boolean.TRUE){
                   ex.setSelected(false);
                 }
-                
+
                 if (ex.isSchemaDefined() && ex.isSelected()) {
                   logger.debug("provider " + ex.getName() + " is applyable");
                   schemaAppliable = true;
@@ -162,10 +162,10 @@ public class ConnectionController extends AbstractXulEventHandler {
           }
 
         });
-        
+
         bf.setBindingType(Binding.Type.ONE_WAY);
         bf.createBinding(connectionModel, "schemaLocked", extension, "!enabled");
-        
+
 //        extension.onLoad();
       } catch (XulException e) {
         logger.error("Error loading Schema Provider Overlay", e);
@@ -188,7 +188,7 @@ public class ConnectionController extends AbstractXulEventHandler {
 
     bf.createBinding(connectionModel, "schemaLocked", "cubeSelector", "disabled");
     bf.createBinding(connectionModel, "schemaLocked", "applySchemaSourceButton", "disabled");
-    
+
     bf.createBinding(connectionModel, "connectEnabled", "connection_dialog_accept", "!disabled").fireSourceChanged();
 
     connectionModel.addPropertyChangeListener(new PropertyChangeListener() {
@@ -208,12 +208,12 @@ public class ConnectionController extends AbstractXulEventHandler {
         }
       }
     });
-    
+
     //call unload after the bindings since the extension's onload might trigger something
     for(SchemaProviderUiExtension extension : schemaProviders) {
       extension.onLoad();
     }
-    
+
     // auto select provider if only one is present
     if (schemaProviders.size() == 1) {
       schemaProviders.get(0).setSelected(true);

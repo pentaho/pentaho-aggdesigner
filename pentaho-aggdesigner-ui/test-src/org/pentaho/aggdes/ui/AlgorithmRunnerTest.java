@@ -37,9 +37,7 @@ import org.pentaho.aggdes.ui.AlgorithmRunner.Callback;
 import org.pentaho.aggdes.ui.form.model.ConnectionModel;
 
 /**
- * Tests <code>AlgorithmRunner</code>.
- *
- * @author mlowery
+ * Tests {@link AlgorithmRunner}.
  */
 public class AlgorithmRunnerTest extends TestCase {
 

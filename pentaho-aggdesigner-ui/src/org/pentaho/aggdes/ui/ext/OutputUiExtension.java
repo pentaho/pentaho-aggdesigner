@@ -20,18 +20,19 @@ package org.pentaho.aggdes.ui.ext;
 import org.pentaho.aggdes.output.Output;
 
 /**
- * Aggregate Output UI extensions allow plugin developers to extend the Pentaho Aggregation Designer user 
- * interface to support their custom Aggregate Output objects.  You will want to create an implementation
- * of {@link OutputUiExtension}, for instance, if you want to render data from (or edit) your custom 
- * {@link Output} in the user interface.
- * 
- * @author aphillips
+ * Aggregate Output UI extensions allow plugin developers to extend
+ * the Pentaho Aggregation Designer user interface to support their
+ * custom Aggregate Output objects.
+ *
+ * <p>You will want to create an implementation of
+ * {@link OutputUiExtension}, for instance, if you want to render data
+ * from (or edit) your custom {@link Output} in the user interface.
  */
 public interface OutputUiExtension extends UiExtension {
 
   /**
    * Returns whether your OutputUiExtension implementation can provide UI support for the given Output object
-   * 
+   *
    * @param output instance of the Output that we want to support with a UI
    * @return true if this implementation can support this particular Output
    */
@@ -46,7 +47,7 @@ public interface OutputUiExtension extends UiExtension {
   public void saveOutputChanges(Output output);
 
   /**
-   * Provides the Output object that your extension will modify.  {@link #loadOutput} is called 
+   * Provides the Output object that your extension will modify.  {@link #loadOutput} is called
    * whenever the user selected Aggregate changes.
    * @param output The aggregate output to be edited
    */

@@ -21,8 +21,6 @@ import org.springframework.dao.DataAccessException;
 
 /**
  * Executes DDL and/or DML.
- * 
- * @author mlowery
  */
 public interface SqlExecutor {
 
@@ -36,8 +34,6 @@ public interface SqlExecutor {
 
   /**
    * Signals to caller of execute that the execution is complete.
-   * 
-   * @author mlowery
    */
   public static interface ExecutorCallback {
     /**

@@ -56,15 +56,15 @@ public class AlgorithmController extends AbstractXulEventHandler {
   private OutputService outputService;
 
   private AlgorithmUiExtension algorithmUiExtension;
-  
+
   private AggregateNamingService aggNamingService;
-  
+
   private ConnectionModel connectionModel;
-  
+
   private AggList aggList;
-  
+
   private XulDialog dialog;
-  
+
   public void setAlgorithmRunner(AlgorithmRunner algorithmRunner) {
     this.algorithmRunner = algorithmRunner;
   }
@@ -76,11 +76,11 @@ public class AlgorithmController extends AbstractXulEventHandler {
   public void setAlgorithmUiExtension(AlgorithmUiExtension algorithmUiExtension) {
     this.algorithmUiExtension = algorithmUiExtension;
   }
-  
+
   public void setAggregateNamingService(AggregateNamingService aggNamingService) {
     this.aggNamingService = aggNamingService;
   }
-  
+
 
   public void onLoad() throws XulException {
     if (algorithmUiExtension != null) {
@@ -89,7 +89,7 @@ public class AlgorithmController extends AbstractXulEventHandler {
       algorithmUiExtension.onLoad();
     }
   }
-  
+
   public void openDialog(){
     dialog = (XulDialog) document.getElementById("algorithm_dialog");
     dialog.show();
@@ -114,10 +114,10 @@ public class AlgorithmController extends AbstractXulEventHandler {
         pw.flush();
       }
       dialog.show();
-      
+
       Result result = algorithmRunner.getResult();
       logger.debug("result=" + result);
-  
+
       if (result == null || result.getAggregates() == null || result.getAggregates().size() == 0) {
         XulMessageBox box = (XulMessageBox) document.createElement("messagebox");
         box.setTitle(Messages.getString("AlgorithmController.NoResultsTitle"));
@@ -125,9 +125,9 @@ public class AlgorithmController extends AbstractXulEventHandler {
         box.open();
         return;
       }
-      
+
       List<UIAggregate> algorithmAggs = new ArrayList<UIAggregate>();
-      
+
       for (Aggregate agg : result.getAggregates()) {
           UIAggregateImpl cagg = new UIAggregateImpl();
           cagg.setName(agg.getCandidateTableName());
@@ -135,24 +135,24 @@ public class AlgorithmController extends AbstractXulEventHandler {
           cagg.setDescription(agg.getDescription());
           cagg.setEstimateRowCount(agg.estimateRowCount());
           cagg.setEstimateSpace(agg.estimateSpace());
-          
+
           List<Attribute> list = new ArrayList<Attribute>(agg.getAttributes());
           cagg.setAttributes(list);
-  
+
           List<Measure> measureList = new ArrayList<Measure>(agg.getMeasures());
           cagg.setMeasures(measureList);
-  
+
           algorithmAggs.add(cagg);
       }
-      
+
       // reverse the collection, the results from the algorithm seem to
       // come back in reverse order of benefit
-      
+
       Collections.reverse(algorithmAggs);
-      
+
       // rename the aggregates appropriately
       aggNamingService.nameAggregates(algorithmAggs, getAggList(), connectionModel.getSchema());
-      
+
       // add all the uiaggs to the agg list
       for (UIAggregate agg : algorithmAggs) {
         try {
@@ -164,7 +164,7 @@ public class AlgorithmController extends AbstractXulEventHandler {
   //      getAggList().addAgg(agg);
       }
       getAggList().addAggs(algorithmAggs);
-      
+
       closeDialog();
     } catch (ValidationException validationException) {
       logger.error("error", validationException);
@@ -192,26 +192,26 @@ public class AlgorithmController extends AbstractXulEventHandler {
     logger.debug("enter algoDone");
     XulDialog dialog = (XulDialog) document.getElementById("progressDialog");
     dialog.hide();
-    
+
   }
 
   public AggList getAggList() {
-  
+
     return aggList;
   }
 
   public void setAggList(AggList aggList) {
-  
+
     this.aggList = aggList;
   }
 
   public ConnectionModel getConnectionModel() {
-  
+
     return connectionModel;
   }
 
   public void setConnectionModel(ConnectionModel connectionModel) {
-  
+
     this.connectionModel = connectionModel;
   }
 }

@@ -27,7 +27,7 @@ import org.pentaho.aggdes.output.Output;
 import org.pentaho.aggdes.ui.ext.OutputUiExtension;
 
 public class OutputUIServiceTest extends TestCase {
-  
+
   static class OutputUiExtensionStub implements OutputUiExtension {
     boolean accept = false;
     public boolean accept(Output output) { return accept; }
@@ -38,47 +38,47 @@ public class OutputUIServiceTest extends TestCase {
     public void onLoad() {}
     public void onUnload() {}
   }
-  
+
   static class OutputStub implements Output {
     public Aggregate getAggregate() { return null; }
   }
-  
+
   public void test() {
     OutputUIService uiService = new OutputUIService();
     OutputStub output = new OutputStub();
     List<OutputUiExtension> extensions = new ArrayList<OutputUiExtension>();
     OutputUiExtensionStub outputUiExtension = new OutputUiExtensionStub();
     extensions.add(outputUiExtension);
-    
+
     // test set
-    
+
     uiService.setOutputUiExtensions(extensions);
-    
+
     OutputUiExtension extension = uiService.getUiExtension(output);
-    
+
     assertNull(extension);
-    
+
     outputUiExtension.accept = true;
-    
+
     extension = uiService.getUiExtension(output);
-    
+
     assertNotNull(extension);
-    
+
     uiService = new OutputUIService();
-    
+
     // test add
-    
+
     uiService.addOutputUiExtension(outputUiExtension);
-    
+
     extension = uiService.getUiExtension(output);
-    
+
     assertNotNull(extension);
-    
+
     outputUiExtension.accept = false;
-    
+
     extension = uiService.getUiExtension(output);
-    
+
     assertNull(extension);
-    
+
   }
 }

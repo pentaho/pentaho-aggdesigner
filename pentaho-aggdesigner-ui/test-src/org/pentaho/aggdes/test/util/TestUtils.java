@@ -41,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
 public class TestUtils {
 
     public static final String nl = System.getProperty("line.separator");
-    
+
   // ~ Static fields/initializers ============================================
 
   private static final Log logger = LogFactory.getLog(TestUtils.class);
@@ -133,7 +133,7 @@ public class TestUtils {
       return null;
     }
   }
-  
+
   /**
    * Converts a string constant into locale-specific line endings.
    */

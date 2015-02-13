@@ -35,9 +35,9 @@ import org.pentaho.aggdes.ui.model.impl.UIAggregateImpl;
 import org.pentaho.aggdes.ui.util.AggregateNamingServiceImpl;
 
 public class AggregateNamingServiceTest extends TestCase {
-  
+
   protected String connectString;
-  
+
   public void setUp() throws Exception {
     // load resources/test.properties
     System.out.println("SETUP");
@@ -51,67 +51,67 @@ public class AggregateNamingServiceTest extends TestCase {
     System.out.println(connectString);
     registerDriver(getTestProperty("test.jdbc.driver.classpath"), getTestProperty("test.jdbc.driver.classname")); //$NON-NLS-1$//$NON-NLS-2$
   }
-  
+
   public void test() {
-    
+
     MondrianSchemaLoader loader = new MondrianSchemaLoader();
     Map<Parameter, Object> parameterValues = new HashMap<Parameter, Object>();
     System.out.println("CONN STR: " + connectString);
     parameterValues.put(loader.getParameters().get(0), connectString);
     parameterValues.put(loader.getParameters().get(1), "Sales");
     Schema schema = loader.createSchema(parameterValues);
-    
+
     AggregateNamingServiceImpl impl = new AggregateNamingServiceImpl();
-    
+
     UIAggregateImpl agg = new UIAggregateImpl();
     agg.setName("dummy");
-    
+
     impl.nameAggregate(agg, null, schema);
-    
+
     assertEquals("FoodMart_Sales_1", agg.getName());
-    
+
     UIAggregateImpl agg2 = new UIAggregateImpl();
-    
+
     List<UIAggregate> existing = new ArrayList<UIAggregate>();
-    
+
     agg2.setName("dummy");
-    
+
     impl.nameAggregate(agg2, existing, schema);
-    
+
     assertEquals("FoodMart_Sales_1", agg2.getName());
-    
+
     existing.add(agg);
-    
+
     impl.nameAggregate(agg2, existing, schema);
-    
+
     assertEquals("FoodMart_Sales_2", agg2.getName());
-    
+
     agg.setName("FoodMart_Sales_2x");
-    
+
     impl.nameAggregate(agg2, existing, schema);
-    
+
     assertEquals("FoodMart_Sales_1", agg2.getName());
-    
+
     agg.setName("FoodMart_Sales_209");
-    
+
     impl.nameAggregate(agg2, existing, schema);
-    
+
     assertEquals("FoodMart_Sales_210", agg2.getName());
-    
+
     UIAggregateImpl agg3 = new UIAggregateImpl();
-    
+
     agg2.setName("dummy");
     agg3.setName("dummy");
-    
+
     List<UIAggregate> newaggs = new ArrayList<UIAggregate>();
     newaggs.add(agg2);
     newaggs.add(agg3);
-    
+
     impl.nameAggregates(newaggs, existing, schema);
-    
+
     assertEquals("FoodMart_Sales_210", agg2.getName());
     assertEquals("FoodMart_Sales_211", agg3.getName());
-    
+
   }
 
 }

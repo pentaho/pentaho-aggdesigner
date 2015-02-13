@@ -47,29 +47,29 @@ public class StatusController extends AbstractXulEventHandler {
   public void setBindingFactory(BindingFactory bindingFactory) {
     this.bindingFactory = bindingFactory;
   }
-  
+
   public void onLoad() {
 
     bindingFactory.setDocument(document);
     bindingFactory.setBindingType(Binding.Type.ONE_WAY);
-    
+
     bindingFactory.createBinding(connectionModel, "cubeName", statusModel, "cubeName"); //$NON-NLS-1$ //$NON-NLS-2$
     bindingFactory.createBinding(connectionModel, "schemaName", statusModel, "schemaName"); //$NON-NLS-1$ //$NON-NLS-2$
     bindingFactory.createBinding(connectionModel, "databaseName", statusModel, "databaseName"); //$NON-NLS-1$ //$NON-NLS-2$
     bindingFactory.createBinding(statusModel, "statusMessage", document.getElementById("statusMessage"), "value"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    
-    
+
+
     bindingFactory.createBinding(connectionModel, "schema", statusModel, "connected", new BindingConvertor<Schema, Boolean>(){
         public Boolean sourceToTarget(Schema value) {
           return (value != null);
         }
-  
+
         public Schema targetToSource(Boolean value) {
           return null; //Not impl
         }
     }); //$NON-NLS-1$ //$NON-NLS-2$
-    
+
 
     bindingFactory.createBinding(statusModel, "connected", document.getElementById("connectionImage"), "image", new BindingConvertor<Boolean, String>() {
 

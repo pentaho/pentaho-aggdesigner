@@ -70,13 +70,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * AggListController manages the UI for the Aggregate Table and the Aggregate
- * Summary Screen, including the Cost / Benefit chart. 
+ * Summary Screen, including the Cost / Benefit chart.
  */
 @Controller
 public class AggListController extends AbstractXulEventHandler {
-  
+
   private final DecimalFormat format = new DecimalFormat("#0");
-  
+
   private static final Log logger = LogFactory.getLog(AggListController.class);
 
   @Deprecated
@@ -90,17 +90,17 @@ public class AggListController extends AbstractXulEventHandler {
   private AggModel aggModel;
 
   private AggregateNamingService aggNamingService;
-  
+
   private AggregateSummaryModel aggregateSummaryModel;
-  
+
   private Algorithm algorithm;
-  
+
   private AlgorithmUiExtension algorithmUiExtension;
-  
+
   private AggList aggList;
-  
+
   private Workspace workspace;
-  
+
   private ConnectionModel connectionModel;
 
   private BindingFactory bindingFactory;
@@ -110,13 +110,13 @@ public class AggListController extends AbstractXulEventHandler {
     this.bindingFactory = bindingFactory;
   }
 
-  
+
   public AggList getAggList() {
     return aggList;
   }
 
   public void setAggList(AggList aggList) {
-  
+
     this.aggList = aggList;
   }
 
@@ -127,7 +127,7 @@ public class AggListController extends AbstractXulEventHandler {
   public void setWorkspace(Workspace workspace) {
     this.workspace = workspace;
   }
-  
+
   public void setOutputService(OutputService outputService) {
     this.outputService = outputService;
   }
@@ -135,32 +135,32 @@ public class AggListController extends AbstractXulEventHandler {
   public void setAggregateNamingService(AggregateNamingService aggNamingService) {
     this.aggNamingService = aggNamingService;
   }
-  
+
   public void setAggregateSummaryModel(AggregateSummaryModel aggregateSummaryModel) {
     this.aggregateSummaryModel = aggregateSummaryModel;
   }
-  
+
   public void setAlgorithm(Algorithm algorithm) {
     this.algorithm = algorithm;
   }
-  
+
   public void setAlgorithmUiExtension(AlgorithmUiExtension algorithmUiExtension) {
     this.algorithmUiExtension = algorithmUiExtension;
   }
-  
+
   public void changeInAggregates() {
-    
+
     // set dirty bit for workspace
     workspace.setWorkspaceUpToDate(false);
-    
+
     // set the dirty bit for the schema publishing functionality
-    
+
    if(getConnectionModel().getSchema() != null){
       getConnectionModel().setSchemaUpToDate(false);
     }
-    
+
     // configure summary model and chart values
-    
+
     int totalAggregatesSelected = 0;
     double totalRows = 0;
     double totalSpace = 0;
@@ -168,7 +168,7 @@ public class AggListController extends AbstractXulEventHandler {
 
     //Fire event
     AggListController.this.firePropertyChange("aggList", null, aggList);
-    
+
     List<Aggregate> algoAggregates = new ArrayList<Aggregate>();
     for (UIAggregate aggregate : getAggList()) {
       if (aggregate.getEnabled()) {
@@ -182,7 +182,7 @@ public class AggListController extends AbstractXulEventHandler {
     double[] xs = new double[algoAggregates.size()];
     double[] startx = new double[algoAggregates.size()];
     double[] endx = new double[algoAggregates.size()];
-    
+
     double[] ys = new double[algoAggregates.size()];
     double[] starty = new double[algoAggregates.size()];
     double[] endy = new double[algoAggregates.size()];
@@ -191,9 +191,9 @@ public class AggListController extends AbstractXulEventHandler {
     XYSeriesCollection dataset = new XYSeriesCollection();
     dataset.addSeries(series1);
     DefaultIntervalXYDataset datasetxy = new DefaultIntervalXYDataset();
-    
+
     if (connectionModel.getSchema() != null) {
-    
+
       Map<Parameter, Object> algorithmParams = ArgumentUtils.validateParameters(algorithm, algorithmUiExtension.getAlgorithmParameters());
       List<Algorithm.CostBenefit> costBenefit = algorithm.computeAggregateCosts(connectionModel.getSchema(), algorithmParams, algoAggregates);
 
@@ -207,21 +207,21 @@ public class AggListController extends AbstractXulEventHandler {
         totalLoadTime += cb.getLoadTime();
         totalbenefit += cb.getSavedQueryRowCount();
         series1.add(x + hx, totalbenefit);
-        
+
         xs[count] = x + hx;
         startx[count] = x;
         x += estimateSpace;
         endx[count] = x;
-  
+
         ys[count] = totalbenefit;
         starty[count] = 0;
         endy[count] = 0;
-  
+
         count++;
       }
-  
+
       // update summary table
-      
+
       aggregateSummaryModel.setSelectedAggregateCount(format.format(totalAggregatesSelected));
       aggregateSummaryModel.setSelectedAggregateRows(format.format(totalRows));
       aggregateSummaryModel.setSelectedAggregateSpace(format.format(totalSpace) + " bytes");
@@ -231,13 +231,13 @@ public class AggListController extends AbstractXulEventHandler {
       aggregateSummaryModel.setSelectedAggregateRows("");
       aggregateSummaryModel.setSelectedAggregateSpace("");
       aggregateSummaryModel.setSelectedAggregateLoadTime("");
-      
+
     }
     // render cost benefit chart
-    
+
     double[][] data = new double[][] {xs, startx, endx, ys, starty, endy};
     datasetxy.addSeries("", data);
-    
+
     JFreeChart chart = ChartFactory.createXYBarChart(
         "", // chart title
         "Cost", // x axis label
@@ -249,7 +249,7 @@ public class AggListController extends AbstractXulEventHandler {
         false, // tooltips?
         false // URLs?
         );
-    
+
     ((XYPlot)chart.getPlot()).getDomainAxis().setTickLabelsVisible(false);
     ((XYPlot)chart.getPlot()).getRangeAxis().setTickLabelsVisible(false);
     ((XYPlot)chart.getPlot()).setDataset(1, dataset);
@@ -258,20 +258,20 @@ public class AggListController extends AbstractXulEventHandler {
     chart.setBackgroundPaint(
         new Color(Integer.parseInt(Messages.getString("chart_background_color").toUpperCase(), 16)));
 
-    renderer.setSeriesPaint(0, 
+    renderer.setSeriesPaint(0,
         new Color(Integer.parseInt(Messages.getString("chart_line_color").toUpperCase(), 16)));
-    
-    ((XYPlot)chart.getPlot()).getRenderer(0).setSeriesPaint(0, 
+
+    ((XYPlot)chart.getPlot()).getRenderer(0).setSeriesPaint(0,
         new Color(Integer.parseInt(Messages.getString("chart_bar_color").toUpperCase(), 16)));
-    
-    
-    
+
+
+
     ((XYPlot)chart.getPlot()).setRenderer(1, renderer);
     ((XYPlot)chart.getPlot()).setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
     XulImage image = (XulImage)document.getElementById("chart");
     image.setSrc(chart.createBufferedImage(309, 168));
   }
-  
+
   public void onLoad() {
     bindingFactory.setDocument(document);
     bindingFactory.setBindingType(Binding.Type.BI_DIRECTIONAL);
@@ -280,8 +280,8 @@ public class AggListController extends AbstractXulEventHandler {
     bindingFactory.createBinding(aggregateSummaryModel, "selectedAggregateCount", "num_aggs", "value");
     bindingFactory.createBinding(aggregateSummaryModel, "selectedAggregateRows", "num_rows", "value");
     bindingFactory.createBinding(aggregateSummaryModel, "selectedAggregateSpace", "disk_space", "value");
-    
-    
+
+
     //Bind check-all, un-check-all buttons to model
     BindingConvertor<AggList, Boolean> convertor = new BindingConvertor<AggList, Boolean>() {
       public Boolean sourceToTarget(AggList list) {
@@ -295,11 +295,11 @@ public class AggListController extends AbstractXulEventHandler {
     };
 
     bindingFactory.setBindingType(Binding.Type.ONE_WAY);
-    
+
     bindingFactory.createBinding(this, "aggList", "agg_checkall", "disabled", convertor);
-    
+
     bindingFactory.createBinding(this, "aggList", "agg_uncheckall", "disabled", convertor);
-    
+
 
     convertor = new BindingConvertor<AggList, Boolean>() {
       public Boolean sourceToTarget(AggList list) {
@@ -311,14 +311,14 @@ public class AggListController extends AbstractXulEventHandler {
         return null;
       }
     };
-    
+
     bindingFactory.createBinding(this, "aggList", connectionModel, "schemaLocked", convertor);
-    
-    
+
+
     // not displayed at this time, no unit of measure
     // bind(aggregateSummaryModel, "selectedAggregateLoadTime", "load_time", "value");
 
-    
+
     aggLevelTable = (XulTree) document.getElementById("dimtable");
     aggTable = (XulTree) document.getElementById("definedAggTable");
 
@@ -333,21 +333,21 @@ public class AggListController extends AbstractXulEventHandler {
           try {
             for (int i = e.getIndex(); i < list.getSize(); i++) {
               UIAggregate newAgg = list.getAgg(i);
-  
+
               XulTreeRow newRow = (XulTreeRow) document.createElement("treerow");
-  
+
               XulTreeCell newCell = (XulTreeCell) document.createElement("treecell");
               newCell.setValue(newAgg.getEnabled());
               newRow.addCell(newCell);
-  
+
               newCell = (XulTreeCell) document.createElement("treecell");
               newCell.setLabel(newAgg.isAlgoAgg() ? Messages.getString("agg_type_advisor") : Messages.getString("agg_type_custom"));
               newRow.addCell(newCell);
-  
+
               newCell = (XulTreeCell) document.createElement("treecell");
               newCell.setLabel(newAgg.getName());
               newRow.addCell(newCell);
-  
+
               newCell = (XulTreeCell) document.createElement("treecell");
               double rowCount = newAgg.estimateRowCount();
               if (rowCount == 0) {
@@ -356,7 +356,7 @@ public class AggListController extends AbstractXulEventHandler {
                 newCell.setLabel(format.format(rowCount));
               }
               newRow.addCell(newCell);
-  
+
               newCell = (XulTreeCell) document.createElement("treecell");
               double space = newAgg.estimateSpace();
               if (space == 0) {
@@ -365,16 +365,16 @@ public class AggListController extends AbstractXulEventHandler {
                 newCell.setLabel(format.format(space));
               }
               newRow.addCell(newCell);
-  
+
               aggTable.addTreeRow(newRow);
             }
             changeInAggregates();
-            
+
           } catch (XulException xe) {
             logger.error("Error adding new row to Agg table", xe);
           }
           break;
-        
+
           case AGG_ADDED:
             try {
               UIAggregate newAgg = list.getAgg(e.getIndex());
@@ -414,7 +414,7 @@ public class AggListController extends AbstractXulEventHandler {
               aggTable.addTreeRow(newRow);
 
               changeInAggregates();
-              
+
             } catch (XulException xe) {
               logger.error("Error adding new row to Agg table", xe);
             }
@@ -434,14 +434,14 @@ public class AggListController extends AbstractXulEventHandler {
             }
             //There's aready a selection listener on the table firing the same.
             UIAggregate tempAgg = list.getSelectedValue();
-            
+
             aggModel.setThinAgg(list.getSelectedValue());
-            
+
             changeInAggregates();
-                        
+
             break;
           case SELECTION_CHANGED:
-            
+
             if (aggTable.getSelectedRows().length > 0) {
               logger.info("Event index: " + e.getIndex() + " aggTable.selectedRow0: " + aggTable.getSelectedRows()[0]);
             }
@@ -465,8 +465,8 @@ public class AggListController extends AbstractXulEventHandler {
             UIAggregate agg = list.getAgg(idx);
             aggTable.getRootChildren().getItem(idx).getRow().getCell(0).setValue(agg.getEnabled());
             aggTable.getRootChildren().getItem(idx).getRow().getCell(1).setLabel(
-                agg.isAlgoAgg() 
-                ? Messages.getString("agg_type_advisor") 
+                agg.isAlgoAgg()
+                ? Messages.getString("agg_type_advisor")
                 : Messages.getString("agg_type_custom")
             );
             aggTable.getRootChildren().getItem(idx).getRow().getCell(2).setLabel(agg.getName());
@@ -484,16 +484,16 @@ public class AggListController extends AbstractXulEventHandler {
             } else {
               aggTable.getRootChildren().getItem(idx).getRow().getCell(4).setLabel(format.format(space));
             }
-            
+
             // wrap the update in an invokeLater to avoid null pointer exceptions occurring deep in Swing code,
             // even though this method will normally be called within the event thread.
             document.invokeLater(new Runnable() {
-            	public void run() {
-            		aggTable.update();
-            	}
+                    public void run() {
+                        aggTable.update();
+                    }
             });
             changeInAggregates();
-            
+
             break;
         }
 
@@ -501,7 +501,7 @@ public class AggListController extends AbstractXulEventHandler {
 
     };
     getAggList().addAggListListener(aggListListener);
-    
+
     // what happens?
     changeInAggregates();
   }
@@ -510,9 +510,9 @@ public class AggListController extends AbstractXulEventHandler {
     try {
       UIAggregate newAgg = new UIAggregateImpl();
       aggNamingService.nameAggregate(newAgg, getAggList(), connectionModel.getSchema());
-      
+
       newAgg.setOutput(outputService.generateDefaultOutput(newAgg));
-      
+
       getAggList().addAgg(newAgg);
       getAggList().setSelectedIndex(getAggList().getSize() - 1);
     } catch (OutputValidationException e) {
@@ -543,7 +543,7 @@ public class AggListController extends AbstractXulEventHandler {
     agg.setEstimateSpace(algoAggregate.estimateSpace());
     getAggList().aggChanged(agg);
     System.out.println("Saving agg, enabled? " + row.getCell(0).getValue());
-    
+
   }
 
   public void displayNewOrExistingAgg() {
@@ -567,12 +567,12 @@ public class AggListController extends AbstractXulEventHandler {
       //the user has chosen to delete this agg, so do not prompt to save any changes
       //just reset the form.
       aggModel.reset();
-    	
+
       getAggList().removeAgg(pos);
     }
 
   }
-  
+
   public void moveAggUp(){
     getAggList().moveAggUp(getAggList().getSelectedValue());
   }
@@ -590,12 +590,12 @@ public class AggListController extends AbstractXulEventHandler {
   }
 
   public ConnectionModel getConnectionModel() {
-  
+
     return connectionModel;
   }
 
   public void setConnectionModel(ConnectionModel connectionModel) {
-  
+
     this.connectionModel = connectionModel;
   }
 }

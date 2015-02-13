@@ -26,7 +26,7 @@ public class BindingTestBean extends XulEventSourceAdapter {
   private String property1, property2;
 
   private List<String> listProperty;
-  
+
   private List<BindingTestBean> bindingBeans;
 
   public List<BindingTestBean> getBindingBeans() {

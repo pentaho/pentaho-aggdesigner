@@ -42,32 +42,32 @@ public class ConnectionModelImpl extends XulEventSourceAdapter implements Connec
   private DatabaseMeta databaseMeta;
 
   private List<String> cubeNames;
-  
+
   private String schemaName;
 
   private boolean connectEnabled = false;
 
   private boolean schemaSourceSelectionEnabled = false;
-  
+
   private boolean schemaUpToDate = false;
-  
+
   private String databaseName;
-  
+
   private String cubeName;
-  
+
   private Schema schema;
 
   private SchemaModel schemaModel;
-  
+
   private boolean applySchemaSourceEnabled = false;
 
   private boolean schemaLocked = false;
-  
+
   public void setSchema(Schema schema) {
     this.schema = schema;
     this.firePropertyChange("schema", null, schema);
   }
-  
+
   public Schema getSchema() {
     return schema;
   }
@@ -80,7 +80,7 @@ public class ConnectionModelImpl extends XulEventSourceAdapter implements Connec
     this.databaseMeta = databaseMeta;
     setSchemaSourceSelectionEnabled(databaseMeta != null);
     setDatabaseName((databaseMeta != null)? databaseMeta.getName() : "");
-    
+
     // write out last database info to disk, if not null
     if (databaseMeta != null) {
       try {
@@ -94,7 +94,7 @@ public class ConnectionModelImpl extends XulEventSourceAdapter implements Connec
       }
     }
   }
-  
+
   public DatabaseMeta getDatabaseMeta() {
     if (this.databaseMeta == null) {
       File file = new File(".databaseMetaInfo");
@@ -110,7 +110,7 @@ public class ConnectionModelImpl extends XulEventSourceAdapter implements Connec
   }
 
   // TODO: Once moving to a wizard, the UIExtension should handle the selecting of the cube
-  
+
   public String getCubeName() {
     if (schemaModel == null) {
       return null;
@@ -141,7 +141,7 @@ public class ConnectionModelImpl extends XulEventSourceAdapter implements Connec
   public List<String> getCubeNames() {
     return cubeNames;
   }
-  
+
   public boolean isCubeSelectionEnabled(){
     return (cubeNames != null && cubeNames.size() > 0);
   }
@@ -151,7 +151,7 @@ public class ConnectionModelImpl extends XulEventSourceAdapter implements Connec
     boolean prevEnabled = isCubeSelectionEnabled();
     this.cubeNames = cubeNames;
     firePropertyChange("cubeSelectionEnabled", prevEnabled, isCubeSelectionEnabled());
-    
+
     // Binding Hack
     if (cubeNames == null) {
       cubeNames = new ArrayList<String>();
@@ -236,7 +236,7 @@ public class ConnectionModelImpl extends XulEventSourceAdapter implements Connec
     setSchemaSourceSelectionEnabled(false);
     setSchemaUpToDate(false);
   }
-  
+
   private String getFileContents(File file) {
     try {
       BufferedReader br = new BufferedReader(new FileReader(file));
@@ -259,7 +259,7 @@ public class ConnectionModelImpl extends XulEventSourceAdapter implements Connec
   public void setSchemaLocked(boolean locked) {
     boolean oldVal = this.schemaLocked;
     this.schemaLocked = locked;
-    
+
     this.firePropertyChange("schemaLocked", oldVal, this.schemaLocked);
   }
 

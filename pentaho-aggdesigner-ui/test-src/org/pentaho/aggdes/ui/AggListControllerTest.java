@@ -71,9 +71,9 @@ public class AggListControllerTest {
   private Schema schema;
 
   private AlgorithmUiExtension uiExt;
-  
+
   private Algorithm algo;
-  
+
   private AggregateSummaryModel aggregateSummaryModel;
 
   @Before
@@ -114,7 +114,7 @@ public class AggListControllerTest {
     controller.setWorkspace(workspace);
     controller.setConnectionModel(connModel);
     controller.setAggregateSummaryModel(aggregateSummaryModel);
-    
+
   }
 
   @After
@@ -131,11 +131,11 @@ public class AggListControllerTest {
     agg2.setEnabled(true);
     agg2.setEstimateRowCount(4000);
     agg2.setEstimateSpace(22000);
-    
+
 
     final XulImage img = context.mock(XulImage.class);
-    
-    
+
+
     aggList.addAgg(agg1);
     aggList.addAgg(agg2);
     context.checking(new Expectations() {

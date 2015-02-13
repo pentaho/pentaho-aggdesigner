@@ -42,7 +42,7 @@ public class DatabaseMetaConverter implements Converter {
   }
 
   public boolean canConvert(Class arg0) {
-    return (arg0.equals(DatabaseMeta.class)); 
+    return (arg0.equals(DatabaseMeta.class));
   }
 
 }

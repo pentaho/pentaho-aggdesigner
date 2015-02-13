@@ -56,9 +56,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 public abstract class AbstractMondrianSchemaProvider extends AbstractUiExtension implements SchemaProviderUiExtension {
-  
+
   private static final Log logger = LogFactory.getLog(AbstractMondrianSchemaProvider.class);
-  
+
   protected List<String> validatorList;
   protected ConnectionModel connectionModel;
   protected MondrianSchemaLoader mondrianSchemaLoader;
@@ -67,7 +67,7 @@ public abstract class AbstractMondrianSchemaProvider extends AbstractUiExtension
   protected boolean enabled = false;
   protected boolean schemaDefined = false;
   protected boolean selectedEnabled = false;
-  
+
   protected BindingFactory bindingFactory;
 
   public void onLoad(){
@@ -82,23 +82,23 @@ public abstract class AbstractMondrianSchemaProvider extends AbstractUiExtension
     bindingFactory.setDocument(document);
     this.bindingFactory = bindingFactory;
   }
-  
+
   public void setConnectionModel(ConnectionModel connectionModel) {
     this.connectionModel = connectionModel;
   }
-  
+
   public void setValidatorList(List<String> validatorList) {
     this.validatorList = validatorList;
   }
-  
+
   public void setMondrianSchemaLoader(MondrianSchemaLoader mondrianSchemaLoader) {
     this.mondrianSchemaLoader = mondrianSchemaLoader;
   }
-  
+
   public void setContinueOnValidationErrors(boolean continueOnValidationErrors) {
     this.continueOnValidationErrors = continueOnValidationErrors;
   }
-  
+
   public boolean isSchemaDefined() {
     return schemaDefined;
   }
@@ -108,12 +108,12 @@ public abstract class AbstractMondrianSchemaProvider extends AbstractUiExtension
     this.schemaDefined = schemaDefined;
     logger.debug(getName()+".setSchemaDefined("+this.schemaDefined+"): oldVal="+prev);
     // force a fire by setting previous value to null;
-    // force since schemaDefined can go from true to true in the case of a non-null filename to another non-null valid filename 
+    // force since schemaDefined can go from true to true in the case of a non-null filename to another non-null valid filename
     firePropertyChange("schemaDefined", null, schemaDefined);
   }
-  
+
   public abstract String getMondrianSchemaFilename() throws AggDesignerException;
-  
+
   public boolean doValidation(final String cubeName) {
     final XulDialog dialog = (XulDialog) document.getElementById("validationProgressDialog");
     Assert.notNull(dialog, "could not find element with id '" + "validationProgressDialog" + "'");
@@ -126,17 +126,17 @@ public abstract class AbstractMondrianSchemaProvider extends AbstractUiExtension
           while (dialog.isHidden()) {
             sleep(500);
           }
-          
+
           DatabaseMeta dbMeta = connectionModel.getDatabaseMeta();
           final String mondrianConnectionUrl = MessageFormat.format(
               "Provider={0};Jdbc={1};JdbcUser={2};JdbcPassword={3};Catalog={4};JdbcDrivers={5}", "Mondrian", dbMeta.getURL(), dbMeta
-                  .getUsername(), dbMeta.getPassword(), "file:" + getMondrianSchemaFilename(), 
+                  .getUsername(), dbMeta.getPassword(), "file:" + getMondrianSchemaFilename(),
                   dbMeta.getDriverClass());
           Map<Parameter, Object> parameterValues = new HashMap<Parameter, Object>();
 
           parameterValues.put(mondrianSchemaLoader.getParameters().get(0), mondrianConnectionUrl);
           parameterValues.put(mondrianSchemaLoader.getParameters().get(1), cubeName);
-          
+
           StringBuilder validatorClassString = new StringBuilder();
           for (String validatorClass : validatorList) {
             if (validatorClassString.length() > 0) {
@@ -144,14 +144,14 @@ public abstract class AbstractMondrianSchemaProvider extends AbstractUiExtension
             }
             validatorClassString.append(validatorClass);
           }
-          
+
           parameterValues.put(mondrianSchemaLoader.getParameters().get(2), validatorClassString.toString());
           List<ValidationMessage> messages = mondrianSchemaLoader.validateSchema(parameterValues);
           XulDialog dialog = (XulDialog) document.getElementById("validationProgressDialog");
           Assert.notNull(dialog, "could not find element with id '" + "validationProgressDialog" + "'");
           validationMessages.addAll(messages);
           dialog.hide();
-          
+
         } catch (Exception e) {
           if (logger.isErrorEnabled()) {
             logger.error("an exception occurred", e);
@@ -165,30 +165,30 @@ public abstract class AbstractMondrianSchemaProvider extends AbstractUiExtension
     dialog.show();
 
     // dialog.hide() in validationDone unblocks the above hide
-    
+
     final XulDialog validationDialog1 = (XulDialog) document.getElementById("validationDialog1");
     final XulTextbox textbox = (XulTextbox) document.getElementById("validationMessages");
-    textbox.setValue(ValidationHelper.messagesToString(validationMessages)); 
+    textbox.setValue(ValidationHelper.messagesToString(validationMessages));
     validationDialog1.show();
     // reset
     boolean hasErrors = ValidationHelper.hasErrors(validationMessages);
     return hasErrors;
   }
 
-  
+
   public Schema loadSchema(String cubeName) throws AggDesignerException{
     boolean validationHasErrors = doValidation(cubeName);
     if (validationHasErrors && !continueOnValidationErrors) {
       return null;
     }
-    
+
     try {
       DatabaseMeta dbMeta = connectionModel.getDatabaseMeta();
       final String mondrianConnectionUrl = MessageFormat.format(
           "Provider={0};Jdbc={1};JdbcUser={2};JdbcPassword={3};Catalog={4};JdbcDrivers={5}", "Mondrian", dbMeta.getURL(), dbMeta
-              .getUsername(), dbMeta.getPassword(), "file:" + getMondrianSchemaFilename(), 
+              .getUsername(), dbMeta.getPassword(), "file:" + getMondrianSchemaFilename(),
               dbMeta.getDriverClass());
-      
+
       Map<Parameter, Object> parameterValues = new HashMap<Parameter, Object>();
 
       parameterValues.put(mondrianSchemaLoader.getParameters().get(0), mondrianConnectionUrl);
@@ -200,19 +200,19 @@ public abstract class AbstractMondrianSchemaProvider extends AbstractUiExtension
       throw new AggDesignerException("Error loading Schema from Mondrian file",e);
     }
   }
-  
+
   public List<String> getCubeNames() throws AggDesignerException{
     List<String> cubeNames;
     try {
       final Parser xmlParser = XOMUtil.createDefaultParser();
       cubeNames = new ArrayList<String>();
       cubeNames.add(Messages.getString("select_cube"));
-      
+
       String fileName = getMondrianSchemaFilename();
       if(StringUtils.isEmpty(fileName)){
         throw new AggDesignerException(Messages.getString("mondrian_file_null"));
       }
-      
+
       File mondrianSchema = new File(getMondrianSchemaFilename());
       if (mondrianSchema != null && mondrianSchema.exists() && mondrianSchema.isFile()) {
         FileReader schemaReader = new FileReader(mondrianSchema);
@@ -242,7 +242,7 @@ public abstract class AbstractMondrianSchemaProvider extends AbstractUiExtension
   public void setEnabled(boolean enabled) {
     boolean prev = this.enabled;
     this.enabled = enabled;
-    
+
     //making these always fire. Catching the cycle by making the binding's one-way
     firePropertyChange("enabled", null, enabled);
 
@@ -252,17 +252,17 @@ public abstract class AbstractMondrianSchemaProvider extends AbstractUiExtension
   public boolean isSelected() {
     return selected;
   }
-  
+
   public void setSelected(boolean selected) {
     boolean prev = this.selected;
-    this.selected = selected;   
+    this.selected = selected;
     logger.debug(getName()+".setSelected("+selected+")");
     firePropertyChange("selected", prev, selected);
 
     setSelectedEnabled(this.enabled && this.selected);
-    
+
   }
-  
+
   //Composite property of "selected" and "enabled"
   public boolean isSelectedEnabled() {
     return selectedEnabled;

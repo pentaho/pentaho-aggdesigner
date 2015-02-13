@@ -36,9 +36,9 @@ public class XulFileDialogStub implements XulFileDialog {
   public static List<XulFileDialog> openedFileDialogs = new ArrayList<XulFileDialog>();
   public static RETURN_CODE returnCode = RETURN_CODE.OK;
   public static File returnFile = null;
-  
+
   String dialogType;
-  
+
   public File getFile() { return returnFile; }
   public File[] getFiles() { return null; }
   public SEL_TYPE getSelectionMode() { return null; }
@@ -55,7 +55,7 @@ public class XulFileDialogStub implements XulFileDialog {
     openedFileDialogs.add(this);
     return returnCode;
   }
-  public RETURN_CODE showSaveDialog() { 
+  public RETURN_CODE showSaveDialog() {
     dialogType="save";
     openedFileDialogs.add(this);
     return returnCode;
@@ -115,7 +115,7 @@ public class XulFileDialogStub implements XulFileDialog {
     dialogType="open";
     openedFileDialogs.add(this);
     return RETURN_CODE.OK;
-      
+
   }
   public RETURN_CODE showSaveDialog(Object f) {
     dialogType="save";
@@ -123,15 +123,15 @@ public class XulFileDialogStub implements XulFileDialog {
     return RETURN_CODE.OK;
   }
   public void adoptAttributes(XulComponent component) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
   public String getInsertafter() {
-    return null;  
+    return null;
   }
   public String getInsertbefore() {
-    return null;  
+    return null;
   }
   public int getPosition() {
     return 0;
@@ -140,36 +140,36 @@ public class XulFileDialogStub implements XulFileDialog {
     return false;
   }
   public boolean isVisible() {
-    return true;  
+    return true;
   }
   public void setInsertafter(String id) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
   public void setInsertbefore(String id) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
   public void setPosition(int pos) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
   public void setRemoveelement(boolean flag) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
   public void setVisible(boolean visible) {
-    
-        // TODO Auto-generated method stub 
-      
+
+        // TODO Auto-generated method stub
+
   }
   public void onDomReady() {
     // TODO Auto-generated method stub
-    
+
   }
 
   public String getAlign() {
@@ -177,71 +177,71 @@ public class XulFileDialogStub implements XulFileDialog {
   }
 
   public void setAlign(String align) {
-    
+
   }
-	public String getContext() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getDrageffect() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getMenu() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getOndrag() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getOndrop() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getPopup() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public int getSpacing() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public void setContext(String id) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setDrageffect(String drageffect) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setMenu(String id) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setOndrag(String ondrag) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setOndrop(String ondrop) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setPopup(String id) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setSpacing(int spacing) {
-		// TODO Auto-generated method stub
-		
-	}
+    public String getContext() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    public String getDrageffect() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    public String getMenu() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    public String getOndrag() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    public String getOndrop() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    public String getPopup() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    public int getSpacing() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+    public void setContext(String id) {
+        // TODO Auto-generated method stub
+
+    }
+    public void setDrageffect(String drageffect) {
+        // TODO Auto-generated method stub
+
+    }
+    public void setMenu(String id) {
+        // TODO Auto-generated method stub
+
+    }
+    public void setOndrag(String ondrag) {
+        // TODO Auto-generated method stub
+
+    }
+    public void setOndrop(String ondrop) {
+        // TODO Auto-generated method stub
+
+    }
+    public void setPopup(String id) {
+        // TODO Auto-generated method stub
+
+    }
+    public void setSpacing(int spacing) {
+        // TODO Auto-generated method stub
+
+    }
 
   public void setBindingProvider(BindingProvider bindingProvider) {
-    
+
   }
-	public String getDropvetoer() {
-		return null;
-	}
-	public void setDropvetoer(String dropVetoMethod) {
-	}
+    public String getDropvetoer() {
+        return null;
+    }
+    public void setDropvetoer(String dropVetoMethod) {
+    }
 }
