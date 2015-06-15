@@ -71,7 +71,7 @@
     <dependency org="org.jmock"           name="jmock"                     rev="2.4.0"   conf="test->default"/>
     <dependency org="org.jmock"           name="jmock-junit4"              rev="2.4.0"   conf="test->default"/>
     <dependency org="org.jmock"           name="jmock-legacy"              rev="2.4.0"   conf="test->default"/>
-    <dependency org="hsqldb"              name="hsqldb"                    rev="1.8.0.7" conf="test->default"/>
+    <dependency org="org.hsqldb"          name="hsqldb"                    rev="2.3.2"   conf="test->default"/>
     <dependency org="mysql"               name="mysql-connector-java"      rev="5.1.25"   conf="test->default"/>
     <dependency org="org.springframework" name="spring-test"               rev="2.5.6"   conf="test->default"/>
     <dependency org="org.springmodules"   name="spring-modules-validation" rev="0.8"     conf="test->default">
