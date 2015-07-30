@@ -97,11 +97,9 @@ public class JdbcTemplateSqlExecutor implements SqlExecutor {
         private static final long serialVersionUID = -3457360074729938909L;
       };
     }
-    // create the datasource 
-    SingleConnectionDataSource scds = new SingleConnectionDataSource( url, dbMeta.getUsername(), dbMeta
+    // create the datasource
+    DataSource ds = new SingleConnectionDataSource(dbMeta.getDriverClass(), url, dbMeta.getUsername(), dbMeta
         .getPassword(), false);
-    scds.setDriverClassName( dbMeta.getDriverClass() );
-    DataSource ds = scds;
 
     // create the jdbc template
     final JdbcTemplate jt = new JdbcTemplate(ds);
