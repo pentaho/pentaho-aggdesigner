@@ -54,6 +54,8 @@
 	  		<filter token="dependency.pentaho-launcher.revision" value="${dependency.pentaho-launcher.revision}"/>
 	  	</filterset>
       </copy>
+      <chmod file="${approot.stage.dir}/Aggregation Designer.app/Contents/MacOS/JavaApplicationStub" perm="ugo+rx"/>
+      <chmod file="${approot.stage.dir}/Aggregation Designer.app/Contents/MacOS/universalJavaApplicationStub" perm="ugo+rx"/>
 	  <unzip src="${bin.dir}/oss-licenses.zip" dest="${approot.stage.dir}/doc">
 	    <patternset>
 	      <include name="PentahoAggDesigner_OSS_Licenses.html"/>
@@ -74,5 +76,22 @@
 	    <ivy:retrieve conf="oss-licenses" pattern="${bin.dir}/[module].[ext]" />
 	</target>
 		
-	
+
+	<!-- Replica of parent's 'package' target, to include 
+	universalJavaApplicationStub in the file permission mode r-x -->
+	<target name="package-zip">
+	    <zip destfile="${dist.dir}/${package.basename}.zip">
+	      <zipfileset dir="${stage.dir}" filemode="755">
+	        <include name="**/*.sh" />
+	        <include name="**/**JavaApplicationStub" />
+	        <include name="**/*.command" />
+	      </zipfileset>
+	      <zipfileset dir="${stage.dir}">
+	        <exclude name="**/*.sh" />
+	        <exclude name="**/**JavaApplicationStub" />
+	        <exclude name="**/*.command" />
+	      </zipfileset>
+	    </zip>
+	</target>
+
 </project>

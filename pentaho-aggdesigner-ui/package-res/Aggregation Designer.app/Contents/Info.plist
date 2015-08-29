@@ -29,7 +29,7 @@
 			<string>./lib/pentaho-application-launcher-@dependency.pentaho-launcher.revision@.jar</string>
 		</array>
 		<key>JVMVersion</key>
-		<string>1.5*</string>
+		<string>1.7+</string>
 		<key>MainClass</key>
 		<string>org.pentaho.commons.launcher.Launcher</string>
 	        <key>Properties</key>
@@ -40,7 +40,7 @@
 			<string>true</string>
 		</dict>
 		<key>VMOptions</key>
-		<string> -Xms256mm -Xmx512mm</string>
+		<string> -Xms256m -Xmx512m</string>
 	</dict>
 </dict>
 </plist>
