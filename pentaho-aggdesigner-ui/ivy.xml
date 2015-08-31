@@ -3,7 +3,6 @@
   <info organisation="${ivy.artifact.group}" module="${ivy.artifact.id}" revision="${project.revision}" />
   <configurations>
     <conf name="default" />
-    <conf name="pdf-docs" />
     <conf name="oss-licenses" />
     <conf name="test" visibility="private" />
   </configurations>
@@ -56,13 +55,6 @@
     <!--  internal runtime dependencies -->
     
     <dependency org="pentaho" name="pentaho-application-launcher" rev="${dependency.pentaho-launcher.revision}" />
-    
-    
-	<!-- PDF Documentation for bundling -->
-	<dependency org="pentaho-doc" name="aggregation_designer_guide" rev="${dependency.documentation.revision}" conf="pdf-docs->default">
-		<artifact name="aggregation_designer_guide" type="pdf" />
-	</dependency>
-
 
 	<!--  OSS Licenses file -->
 	<dependency org="pentaho" name="oss-licenses" rev="${dependency.oss-licenses.revision}" conf="oss-licenses->default">

@@ -388,29 +388,11 @@ public class MainController extends AbstractXulEventHandler {
 
       public void run() {
         try {
-          File docDir = new File("doc");
-          File userGuideFile = null;
-          if (docDir.exists()) {
-            for (File file : docDir.listFiles()) {
-              if (file.getName().endsWith(".pdf")) {
-                userGuideFile = file;
-              }
-            }
-          }
-          if (userGuideFile != null) {
-            edu.stanford.ejalbert.BrowserLauncher launcher = new edu.stanford.ejalbert.BrowserLauncher(null);
-            
-            launcher.openURLinBrowser("file:" + userGuideFile.getAbsolutePath()); //$NON-NLS-1$\
-          } else {
-            XulMessageBox msgBox = (XulMessageBox) document.createElement("messagebox");
-            msgBox.setMessage(Messages.getString("MainController.UserGuideMissing"));
-            msgBox.open();
-          }
+          edu.stanford.ejalbert.BrowserLauncher launcher = new edu.stanford.ejalbert.BrowserLauncher(null);
+          launcher.openURLinBrowser( Messages.getString("MainController.UserGuideURL") ); //$NON-NLS-1$\
         } catch (BrowserLaunchingInitializingException ex) {
           logger.error("an exception occurred", ex);
         } catch (UnsupportedOperatingSystemException ex) {
-          logger.error("an exception occurred", ex);
-        } catch (XulException ex) {
           logger.error("an exception occurred", ex);
         }
       }
