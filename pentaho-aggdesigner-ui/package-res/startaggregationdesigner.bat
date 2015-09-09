@@ -9,4 +9,4 @@ cd /D %~dp0
 set PENTAHO_JAVA=java
 call "%~dp0set-pentaho-env.bat"
 
-"%_PENTAHO_JAVA%" -jar "%~dp0lib\pentaho-application-launcher-@dependency.pentaho-launcher.revision@.jar"
+"%_PENTAHO_JAVA%" -Xms1024m -Xmx2048m -jar "%~dp0lib\pentaho-application-launcher-@dependency.pentaho-launcher.revision@.jar"
