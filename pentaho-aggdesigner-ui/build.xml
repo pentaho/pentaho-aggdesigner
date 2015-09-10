@@ -53,7 +53,6 @@
 	  	</filterset>
       </copy>
       <chmod file="${approot.stage.dir}/Aggregation Designer.app/Contents/MacOS/JavaApplicationStub" perm="ugo+rx"/>
-      <chmod file="${approot.stage.dir}/Aggregation Designer.app/Contents/MacOS/universalJavaApplicationStub" perm="ugo+rx"/>
 	  <unzip src="${bin.dir}/oss-licenses.zip" dest="${approot.stage.dir}/doc">
 	    <patternset>
 	      <include name="PentahoAggDesigner_OSS_Licenses.html"/>
