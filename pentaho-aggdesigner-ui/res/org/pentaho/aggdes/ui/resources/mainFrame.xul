@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<?xml-stylesheet href="file://E:/workspaces/sprint_workspace/pentaho-xul/test/resource/documents/xul.css" type="text/css"?>
 <window id="agg_des_window" title="${title}" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   height="800" width="1024"
   onload="mainController.onLoad(), aggController.onLoad(), aggListController.onLoad(), algorithmController.onLoad(), statusController.onLoad(), exportHandler.onLoad(), connectionController.onLoad()"
