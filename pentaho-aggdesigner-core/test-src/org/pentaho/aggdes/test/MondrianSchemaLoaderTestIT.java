@@ -38,7 +38,7 @@ import org.pentaho.aggdes.model.mondrian.MondrianSchema;
 import org.pentaho.aggdes.model.mondrian.MondrianSchemaLoader;
 import org.pentaho.aggdes.model.mondrian.MondrianTable;
 
-public class MondrianSchemaLoaderTest extends TestCase {
+public class MondrianSchemaLoaderTestIT extends TestCase {
 
   protected String connectString;
 

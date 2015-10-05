@@ -41,7 +41,7 @@ import org.pentaho.aggdes.test.util.TestAggregate;
 import org.pentaho.aggdes.test.util.TestResult;
 import org.pentaho.aggdes.test.util.TestUtils;
 
-public class MondrianSchemaOutputTest extends TestCase {
+public class MondrianSchemaOutputTestIT extends TestCase {
     
     protected String connectString;
 
