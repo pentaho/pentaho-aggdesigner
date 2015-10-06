@@ -47,7 +47,7 @@ import org.pentaho.aggdes.test.util.TestAggregate;
 import org.pentaho.aggdes.test.util.TestResult;
 import org.pentaho.aggdes.test.util.TestUtils;
 
-public class TableGeneratorTest extends TestCase {
+public class TableGeneratorTestIT extends TestCase {
     
     protected String connectString;
 

@@ -26,14 +26,14 @@ public class AllTests {
   public static Test suite() {
     TestSuite suite = new TestSuite("Test for org.pentaho.aggdes.test");
     //$JUnit-BEGIN$
-    suite.addTestSuite(MondrianSchemaLoaderTest.class);
+    suite.addTestSuite(MondrianSchemaLoaderTestIT.class);
     suite.addTestSuite(AlgorithmImplTest.class);
     suite.addTestSuite(LatticeImplTest.class);
     suite.addTestSuite(OutputServiceImplTest.class);
     suite.addTestSuite(MonteCarloLatticeImplTest.class);
     suite.addTestSuite(AggDesignerMainTest.class);
-    suite.addTestSuite(MondrianSchemaOutputTest.class);
-    suite.addTestSuite(TableGeneratorTest.class);
+    suite.addTestSuite(MondrianSchemaOutputTestIT.class);
+    suite.addTestSuite(TableGeneratorTestIT.class);
     suite.addTestSuite(SsasToMondrianTest.class);
     suite.addTestSuite(ValidationMondrianSchemaLoaderTest.class);
     //$JUnit-END$
