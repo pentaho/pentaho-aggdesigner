@@ -35,7 +35,7 @@ import org.pentaho.aggdes.ui.model.UIAggregate;
 import org.pentaho.aggdes.ui.model.impl.UIAggregateImpl;
 import org.pentaho.aggdes.ui.util.AggregateNamingServiceImpl;
 
-public class AggregateNamingServiceTest extends TestCase {
+public class AggregateNamingServiceIT extends TestCase {
   
   protected String connectString;
   

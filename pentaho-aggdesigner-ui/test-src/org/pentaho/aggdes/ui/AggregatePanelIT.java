@@ -36,7 +36,7 @@ import org.pentaho.ui.xul.XulRunner;
 import org.pentaho.ui.xul.swing.SwingXulLoader;
 import org.pentaho.ui.xul.swing.SwingXulRunner;
 
-public class AggregatePanelTest extends TestCase {
+public class AggregatePanelIT extends TestCase {
     protected String connectString;
 
     public void setUp() throws Exception {
@@ -54,7 +54,7 @@ public class AggregatePanelTest extends TestCase {
     }
 
     public static void main(String args[]) throws Exception {
-        AggregatePanelTest test = new AggregatePanelTest();
+        AggregatePanelIT test = new AggregatePanelIT();
         test.setUp();
         test.testAggPanel();
     }
