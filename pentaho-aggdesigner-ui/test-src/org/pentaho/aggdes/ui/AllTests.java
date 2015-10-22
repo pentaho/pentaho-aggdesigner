@@ -32,8 +32,8 @@ public class AllTests {
     suite.addTestSuite(AggListImplTest.class);
     suite.addTestSuite(UIAggregateTest.class);
     suite.addTestSuite(MainControllerTest.class);
-    suite.addTestSuite(AggregateNamingServiceTest.class);
-    suite.addTestSuite(AggregatePanelTest.class);
+    suite.addTestSuite(AggregateNamingServiceIT.class);
+    suite.addTestSuite(AggregatePanelIT.class);
     suite.addTestSuite(JdbcTemplateSqlExecutorTest.class);
     suite.addTestSuite(AlgorithmRunnerTest.class);
     suite.addTestSuite(SerializationServiceTest.class);
