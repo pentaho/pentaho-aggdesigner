@@ -83,6 +83,7 @@ public class AggControllerTest extends TestCase {
     outputService.setOutputFactories(outputFactories);
 
     aggModel.setConnectionModel(connectionModel);
+    assertNotNull( aggModel.getConnectionModel() );
 
     // setup controller
     controller.setAggModel(aggModel);
@@ -92,6 +93,7 @@ public class AggControllerTest extends TestCase {
     XulDomContainerStub xulDomContainer = new XulDomContainerStub();
     controller.setXulDomContainer(xulDomContainer);
     aggModel.getThinAgg().setName("temp_name");
+    aggModel.setCurrentUiExtension( null );
 
     // test onLoad
     //FIXME: fix this test

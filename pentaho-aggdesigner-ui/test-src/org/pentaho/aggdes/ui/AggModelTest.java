@@ -20,6 +20,7 @@ package org.pentaho.aggdes.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import org.pentaho.aggdes.ui.form.model.AggModel;
 import org.pentaho.aggdes.ui.form.model.DimensionRowModel;
@@ -64,6 +65,10 @@ public class AggModelTest extends TestCase {
     assertEquals(dimensionRowModels, model.getDimensionRowModels());
 
     // todo: test syncToAgg()
-
+    
+    model.setName( "agg-test" );
+    assertEquals( model.getThinAgg().getName(), "" );
+    model.synchToAgg();
+    assertEquals( model.getThinAgg().getName(), "agg-test" );
   }
 }

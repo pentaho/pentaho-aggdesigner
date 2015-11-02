@@ -49,6 +49,11 @@ public class AggListImplTest extends TestCase {
   };
   
   public void test() {
+    
+    
+    assertTrue( AggListEvent.Type.values() != null );
+    assertTrue( AggListEvent.Type.valueOf( "AGG_ADDED" ).toString().equals( "AGG_ADDED" ) );
+    
     List<UIAggregate> newAggList = new ArrayList<UIAggregate>();
     UIAggregateImpl agg1 = new UIAggregateImpl();
     newAggList.add(agg1);

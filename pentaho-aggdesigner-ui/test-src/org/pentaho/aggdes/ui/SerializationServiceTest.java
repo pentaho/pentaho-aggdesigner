@@ -36,6 +36,7 @@ import org.pentaho.aggdes.ui.form.model.ConnectionModelImpl;
 import org.pentaho.aggdes.ui.model.AggList;
 import org.pentaho.aggdes.ui.model.impl.AggListImpl;
 import org.pentaho.aggdes.ui.model.impl.UIAggregateImpl;
+import org.pentaho.aggdes.ui.util.Messages;
 import org.pentaho.aggdes.ui.util.SerializationService;
 import org.pentaho.di.core.KettleClientEnvironment;
 import org.pentaho.di.core.database.DatabaseMeta;
@@ -149,6 +150,9 @@ public class SerializationServiceTest extends TestCase {
     assertEquals(aggList.getAgg(3).getAttributes().get(1),
         schemaStub.getAttributes().get(1)
     );
+    
+    connectionModel.setCubeName( Messages.getString("select_cube") );
+    assertNull( connectionModel.getCubeName() );
   }
 
 }
