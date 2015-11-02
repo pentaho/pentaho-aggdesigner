@@ -198,9 +198,9 @@ public class AggModel extends XulEventSourceAdapter {
 
     for (DimensionRowModel row : dimensionRowModels) {
       Level level = row.getSelectedItem();
-      logger.debug("selected item is " + level.getName());
       int insertPoint = attributes.size();
       while (level != null) {
+        logger.debug("selected item is " + level.getName());
         Attribute attrib = level.getAttribute();
         if (attrib != null) {
           logger.debug("adding level " + level.getName() + " to UIAggregate: " + thinAgg);
@@ -215,14 +215,18 @@ public class AggModel extends XulEventSourceAdapter {
 
     // for now, hard code all measures as selected
     List<Measure> measures = new ArrayList<Measure>();
-    measures.addAll(connectionModel.getSchema().getMeasures());
+    if ( connectionModel != null ) {
+      measures.addAll(connectionModel.getSchema().getMeasures());
+    }
     thinAgg.setMeasures(measures);
     setModified(false);
 
     // resync algorithm calculations
-    Aggregate algoAggregate = algorithm.createAggregate(connectionModel.getSchema(), thinAgg.getAttributes());
-    thinAgg.setEstimateRowCount(algoAggregate.estimateRowCount());
-    thinAgg.setEstimateSpace(algoAggregate.estimateSpace());
+    if ( connectionModel != null ) {
+      Aggregate algoAggregate = algorithm.createAggregate(connectionModel.getSchema(), thinAgg.getAttributes());
+      thinAgg.setEstimateRowCount(algoAggregate.estimateRowCount());
+      thinAgg.setEstimateSpace(algoAggregate.estimateSpace());
+    }
 
   }
 

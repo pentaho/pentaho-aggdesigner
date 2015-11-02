@@ -72,7 +72,14 @@ public class ConnectionModelTest {
   @Test
   public void testCubeSelectionEnablement() {
     assertFalse(connectionModel.isCubeSelectionEnabled());
-
+    
+    List<String> names = new ArrayList<String>();
+    connectionModel.setCubeNames( names );
+    assertFalse(connectionModel.isCubeSelectionEnabled());
+    
+    names.add( "test" );
+    connectionModel.setCubeNames( names );
+    assertTrue(connectionModel.isCubeSelectionEnabled());
   }
 
   @Test

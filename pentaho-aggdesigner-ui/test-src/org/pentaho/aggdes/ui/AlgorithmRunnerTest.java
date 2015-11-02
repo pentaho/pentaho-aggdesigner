@@ -32,6 +32,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.pentaho.aggdes.algorithm.Result;
 import org.pentaho.aggdes.test.algorithm.impl.AlgorithmStub;
 import org.pentaho.aggdes.test.algorithm.impl.SchemaStub;
 import org.pentaho.aggdes.ui.AlgorithmRunner.Callback;
@@ -88,5 +89,8 @@ public class AlgorithmRunnerTest extends TestCase {
     Thread.sleep(5000); // wait for algorithm thread to complete...
 
     assertTrue("Algorithm done not called.", algorithmDoneCalled);
+    
+    algoRunner.stop();
+    assertNotNull( algoRunner.getResult() );
   }
 }

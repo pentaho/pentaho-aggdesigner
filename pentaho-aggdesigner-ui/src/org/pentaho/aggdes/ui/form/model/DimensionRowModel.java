@@ -72,6 +72,9 @@ public class DimensionRowModel extends XulEventSourceAdapter {
   }
   
   public Level getSelectedItem() {
+    if ( allLevels.isEmpty()) {
+      return null;
+    }
     return allLevels.get(selectedIndex);
   }
 
