@@ -67,7 +67,7 @@
     
     <!-- test dependencies -->
     
-    <dependency org="junit"               name="junit"                     rev="4.5"     conf="test->default"/>
+    <dependency org="junit"               name="junit"                     rev="${dependency.junit.revision}"     conf="test->default"/>
     <dependency org="org.jmock"           name="jmock"                     rev="2.4.0"   conf="test->default"/>
     <dependency org="org.jmock"           name="jmock-junit4"              rev="2.4.0"   conf="test->default"/>
     <dependency org="org.jmock"           name="jmock-legacy"              rev="2.4.0"   conf="test->default"/>
