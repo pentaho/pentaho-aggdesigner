@@ -13,12 +13,11 @@
 * See the GNU General Public License for more details.
 *
 *
-* Copyright 2006 - 2013 Pentaho Corporation.  All rights reserved.
+* Copyright 2006 - 2016 Pentaho Corporation.  All rights reserved.
 */
 
 package org.pentaho.aggdes.ui.exec.impl;
 
-import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -38,95 +37,97 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 public class JdbcTemplateSqlExecutor implements SqlExecutor {
 
-  private static final Log logger = LogFactory.getLog(JdbcTemplateSqlExecutor.class);
-  private static final String NL = System.getProperty("line.separator");
-  
+  private static final Log logger = LogFactory.getLog( JdbcTemplateSqlExecutor.class );
+  private static final String NL = System.getProperty( "line.separator" );
   private ConnectionModel connectionModel;
 
-  public void setConnectionModel(ConnectionModel connectionModel) {
+  public void setConnectionModel( ConnectionModel connectionModel ) {
     this.connectionModel = connectionModel;
   }
-  
-  public String[] removeCommentsAndSemicolons(Schema schema, String[] sql) {
+
+  public String[] removeCommentsAndSemicolons( Schema schema, String[] sql ) {
     String[] newsql = new String[sql.length];
-    for (int i = 0; i < sql.length; i++) {
-      newsql[i] = removeCommentsAndSemicolons(schema, sql[i]);
+    for ( int i = 0; i < sql.length; i++ ) {
+      newsql[i] = removeCommentsAndSemicolons( schema, sql[i] );
     }
     return newsql;
   }
-  
-  public String removeCommentsAndSemicolons(Schema schema, String sql) {
-    if (sql == null) return null;
-    String trimmed = sql.trim();
-    String commentStart = null;
-    StringBuilder sb = new StringBuilder();
-    schema.getDialect().comment(sb, "");
-    commentStart = sb.toString();
-    // remove NL if necessary
-    if (commentStart.indexOf(NL) >= 0) {
-      commentStart = commentStart.substring(0, commentStart.indexOf(NL));
+
+  public String removeCommentsAndSemicolons( Schema schema, String sql ) {
+    if ( sql == null ) {
+      return null;
     }
-    String lines[] = trimmed.split(NL);
-    StringBuilder newSql = new StringBuilder();
+    String trimmed = sql.trim(  );
+    String commentStart = null;
+    StringBuilder sb = new StringBuilder(  );
+    schema.getDialect(  ).comment( sb, "" );
+    commentStart = sb.toString(  );
+    // remove NL if necessary
+    if ( commentStart.indexOf( NL ) >= 0 ) {
+      commentStart = commentStart.substring( 0, commentStart.indexOf( NL ) );
+    }
+    String[ ] lines  = trimmed.split( NL );
+    StringBuilder newSql = new StringBuilder(  );
     boolean newLineNeeded = false;
-    for (int i = 0; i < lines.length; i++) {
-      if (!lines[i].startsWith(commentStart)) {
-        if (newLineNeeded) {
-          newSql.append(NL);  
+    for ( int i = 0; i < lines.length; i++ ) {
+      if ( !lines[i].startsWith( commentStart ) ) {
+        if ( newLineNeeded ) {
+          newSql.append( NL );
         }
-        newSql.append(lines[i]);
+        newSql.append( lines[i] );
         newLineNeeded = true;
       }
     }
-    String noCommentSql = newSql.toString();
-    if (noCommentSql.endsWith(";")) {
-      noCommentSql = noCommentSql.substring(0, noCommentSql.length() - 1);
+    String noCommentSql = newSql.toString(  );
+    if ( noCommentSql.endsWith( ";" ) ) {
+      noCommentSql = noCommentSql.substring( 0, noCommentSql.length(  ) - 1 );
     }
-    logger.debug("clean sql: --[" + noCommentSql + "]--");
+    logger.debug( "clean sql: --[" + noCommentSql + "]--" );
     return noCommentSql;
   }
-  
-  public void execute(final String[] sql, final ExecutorCallback callback) throws DataAccessException {
+
+  public void execute( final String[] sql, final ExecutorCallback callback ) throws DataAccessException {
     Exception exceptionDuringExecute = null;
-    DatabaseMeta dbMeta = connectionModel.getDatabaseMeta();
+    DatabaseMeta dbMeta = connectionModel.getDatabaseMeta(  );
     String url = null;
     try {
-      url = dbMeta.getURL();
-    } catch (KettleDatabaseException e) {
-      throw new DataAccessException("DatabaseMeta problem", e) {
+      url = dbMeta.getURL(  );
+    } catch ( KettleDatabaseException e ) {
+      throw new DataAccessException( "DatabaseMeta problem", e ) {
         private static final long serialVersionUID = -3457360074729938909L;
       };
     }
     // create the datasource
-    DataSource ds = new SingleConnectionDataSource(dbMeta.getDriverClass(), url, dbMeta.getUsername(), dbMeta
-        .getPassword(), false);
+    SingleConnectionDataSource ds = new SingleConnectionDataSource(  url, dbMeta.getUsername(  ), dbMeta
+        .getPassword(  ), false );
+    ds.setDriverClassName( dbMeta.getDriverClass(  ) );
 
     // create the jdbc template
-    final JdbcTemplate jt = new JdbcTemplate(ds);
+    final JdbcTemplate jt = new JdbcTemplate( ds );
 
     // create the transaction manager
-    DataSourceTransactionManager tsMan = new DataSourceTransactionManager(ds);
+    DataSourceTransactionManager tsMan = new DataSourceTransactionManager( ds );
 
     // create the transaction template
-    TransactionTemplate txTemplate = new TransactionTemplate(tsMan);
+    TransactionTemplate txTemplate = new TransactionTemplate( tsMan );
 
     // set behavior
-    txTemplate.setPropagationBehavior(DefaultTransactionDefinition.PROPAGATION_REQUIRES_NEW);
-    final String noCommentSql[] = removeCommentsAndSemicolons(connectionModel.getSchema(), sql);
+    txTemplate.setPropagationBehavior( DefaultTransactionDefinition.PROPAGATION_REQUIRES_NEW );
+    final String[ ] noCommentSql = removeCommentsAndSemicolons( connectionModel.getSchema(  ), sql );
     try {
       // run the code in a transaction
-      txTemplate.execute(new TransactionCallbackWithoutResult() {
-        public void doInTransactionWithoutResult(TransactionStatus status) {
-          jt.batchUpdate(noCommentSql);
+      txTemplate.execute( new TransactionCallbackWithoutResult(  ) {
+        public void doInTransactionWithoutResult( TransactionStatus status ) {
+          jt.batchUpdate( noCommentSql );
         }
-      });
-    } catch (DataAccessException e) {
-      if (logger.isErrorEnabled()) {
-        logger.error("data access exception", e);
+      } );
+    } catch ( DataAccessException e ) {
+      if ( logger.isErrorEnabled(  ) ) {
+        logger.error( "data access exception", e );
       }
       exceptionDuringExecute = e;
     }
-    callback.executionComplete(exceptionDuringExecute);
+    callback.executionComplete( exceptionDuringExecute );
 
   }
 
