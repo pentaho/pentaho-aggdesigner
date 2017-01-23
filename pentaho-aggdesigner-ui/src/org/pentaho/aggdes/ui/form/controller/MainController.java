@@ -13,7 +13,7 @@
 * See the GNU General Public License for more details.
 *
 *
-* Copyright 2006 - 2013 Pentaho Corporation.  All rights reserved.
+* Copyright 2006 - 2017 Pentaho Corporation.  All rights reserved.
 */
 
 package org.pentaho.aggdes.ui.form.controller;
@@ -23,6 +23,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
@@ -71,29 +72,29 @@ public class MainController extends AbstractXulEventHandler {
   private AggListController aggListController;
 
   private AggList aggList;
-  
+
   private SerializationService serializationService;
-  
+
   private ConnectionModel connectionModel;
-  
+
   private ConnectionController connectionController;
-  
+
 
   private BindingFactory bindingFactory;
-  
+
   @Autowired
   public void setBindingFactory(BindingFactory bindingFactory) {
     this.bindingFactory = bindingFactory;
   }
-  
+
   public void setAggListController(AggListController aggListController) {
     this.aggListController = aggListController;
   }
-  
+
   public void setConnectionController(ConnectionController connectionController) {
     this.connectionController = connectionController;
   }
-  
+
   public void setSerializationService(SerializationService serializationService) {
     this.serializationService = serializationService;
   }
@@ -106,14 +107,14 @@ public class MainController extends AbstractXulEventHandler {
 
     bindingFactory.setDocument(document);
     bindingFactory.setBindingType(Binding.Type.ONE_WAY);
-    
+
     bindingFactory.createBinding(workspace, "saveEnabled", "save_button", "!disabled"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     bindingFactory.createBinding(workspace, "saveEnabled", "save_menuitem", "!disabled"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     bindingFactory.createBinding(workspace, "applicationUnlocked", "save_as_button", "!disabled"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     bindingFactory.createBinding(workspace, "applicationUnlocked", "save_as_menuitem", "!disabled"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-     
+
   }
-  
+
 
   public void show(int idx) {
     if (rightDeck == null) {
@@ -125,39 +126,39 @@ public class MainController extends AbstractXulEventHandler {
       aggListController.displayNewOrExistingAgg();
     }
   }
-  
+
   public void openWorkspace() throws XulException {
-    
+
     if (!promptIfSaveRequired()) {
       return;
     }
 
     File selectedFile = workspace.getWorkspaceLocation();
-    
+
     XulFileDialog fc = (XulFileDialog) document.createElement("filedialog");
-    
+
     RETURN_CODE retVal = fc.showOpenDialog(selectedFile);
-    
+
     if (retVal == RETURN_CODE.OK) {
       selectedFile = (File) fc.getFile();
       try {
         String xml = FileUtils.readFileToString(selectedFile);
         String connAndAgg[] = serializationService.getConnectionAndAggListElements(xml);
-        
+
         serializationService.deserializeConnection(connectionModel.getSchema(), connAndAgg[0], connAndAgg[1]);
-        
+
         // first, verify the file exists
         // make sure this is generic enough for SSAS support
-        
+
         if (!connectionModel.getSelectedSchemaModel().schemaExists()) {
           XulMessageBox msgBox = (XulMessageBox) document.createElement("messagebox");
           msgBox.setMessage(connectionModel.getSelectedSchemaModel().getSchemaDoesNotExistErrorMessage());
           msgBox.open();
           return;
         }
-        
+
         // second, verify the checksum
-        
+
         long checksum = connectionModel.getSelectedSchemaModel().recalculateSchemaChecksum();
         if (checksum != connectionModel.getSelectedSchemaModel().getSchemaChecksum()) {
           // display warning message
@@ -165,7 +166,7 @@ public class MainController extends AbstractXulEventHandler {
           msgBox.setMessage(Messages.getString("MainController.WarningSchemaChanged"));
           msgBox.open();
         }
-        
+
         // reset state of app into connected mode
         String cubeName = connectionModel.getCubeName();
         if(StringUtils.isEmpty(cubeName)) {
@@ -174,15 +175,15 @@ public class MainController extends AbstractXulEventHandler {
 
         // Note: apply sets the cube name to null, so we need to reset it.
         connectionController.apply();
-        
+
         // resync the cube name
         connectionModel.setCubeName(cubeName);
-        
+
         // TODO: should connect throw a reasonable error message if db info is invalid?
         connectionController.connect();
 
         // if application is not unlocked, then we failed to connect to the app.
-        
+
         if (!workspace.isApplicationUnlocked()) {
           XulMessageBox msgBox = (XulMessageBox) document.createElement("messagebox");
           msgBox.setMessage(Messages.getString("MainController.ErrorFailedToConnect"));
@@ -191,19 +192,19 @@ public class MainController extends AbstractXulEventHandler {
         }
 
         // populate aggregates
-                
+
         serializationService.deserializeAggList(connectionModel.getSchema(), connAndAgg[2]);
 
         // update state flag
-        
+
         workspace.setWorkspaceUpToDate(true);
-        
+
       } catch (AggDesignerException e) {
         XulMessageBox msgBox = (XulMessageBox) document.createElement("messagebox");
         msgBox.setMessage(e.getMessage());
         msgBox.open();
         e.printStackTrace();
-        
+
       } catch (Exception e) {
         XulMessageBox msgBox = (XulMessageBox) document.createElement("messagebox");
         msgBox.setMessage(Messages.getString("MainController.OpenExceptionMessage"));
@@ -214,9 +215,9 @@ public class MainController extends AbstractXulEventHandler {
   }
 
   public boolean saveWorkspace(boolean saveAs) throws XulException {
-    
+
     Schema schema = workspace.getSchema();
-    
+
     // only allow saving if the app is unlocked
     if (!workspace.isApplicationUnlocked()) {
       // display warning
@@ -225,7 +226,7 @@ public class MainController extends AbstractXulEventHandler {
       msgBox.open();
       return false;
     }
-    
+
     File selectedFile = workspace.getWorkspaceLocation();
     if (saveAs || selectedFile == null) {
       // display file dialog
@@ -242,22 +243,22 @@ public class MainController extends AbstractXulEventHandler {
       PrintWriter pw = new PrintWriter(new FileWriter(selectedFile));
       pw.println(serializationService.serializeWorkspace(schema));
       pw.close();
-      
+
       workspace.setWorkspaceLocation(selectedFile);
       workspace.setWorkspaceUpToDate(true);
-      
+
       return true;
-      
+
     } catch (Exception e) {
       XulMessageBox msgBox = (XulMessageBox) document.createElement("messagebox");
       msgBox.setMessage(Messages.getString("MainController.SaveExceptionMessage"));
       msgBox.open();
       e.printStackTrace();
     }
-    
+
     return false;
   }
-  
+
   public boolean promptIfSaveRequired() throws XulException {
     // prompt to save if the app is in a non-saved state
     if (workspace.isApplicationUnlocked() && !workspace.getWorkspaceUpToDate()) {
@@ -281,11 +282,11 @@ public class MainController extends AbstractXulEventHandler {
   }
 
   public void newWorkspace() throws Exception {
-    
+
     if (!promptIfSaveRequired()) {
       return;
     }
-    
+
     // clear out connection settings and aggregates
     aggList.clearAggs();
     workspace.setApplicationUnlocked(false);
@@ -295,13 +296,13 @@ public class MainController extends AbstractXulEventHandler {
         connectionController.showConnectionDialog();
       }
     });
-    
+
   }
-  
+
   public boolean onClose() throws XulException {
     return promptIfSaveRequired();
   }
-  
+
   public void close() throws XulException {
     this.getXulDomContainer().close();
   }
@@ -345,7 +346,7 @@ public class MainController extends AbstractXulEventHandler {
     final XulDialog validationDialog2 = (XulDialog) document.getElementById("validationDialog2");
     validationDialog2.hide();
   }
-  
+
   public void helpAboutOpen() {
     XulDialog helpAboutDialog = (XulDialog) document.getElementById("helpAboutDialog");
     helpAboutDialog.show();
@@ -355,12 +356,12 @@ public class MainController extends AbstractXulEventHandler {
     XulDialog helpAboutDialog = (XulDialog) document.getElementById("helpAboutDialog");
     helpAboutDialog.hide();
   }
-  
+
   public void helpAboutLoad() {
-  	
+
 	  // TODO - Use VersionHelper to get version information from the MANIFEST.MF file
 	  //        and display the proper version and copyright information
-  	
+
     XulLabel helpAboutVersionLabel = (XulLabel) document.getElementById("aboutVersion");
     Properties versionProps = new Properties();
     try {
@@ -377,12 +378,15 @@ public class MainController extends AbstractXulEventHandler {
       return;
     }
     helpAboutVersionLabel.setValue(versionProps.getProperty("version"));
+    XulLabel helpAboutCopyrightLabel = (XulLabel) document.getElementById( "aboutCopyright" );
+    helpAboutCopyrightLabel.setValue( Messages.getString( "about_copyright", ""
+      + ( (new Date() ).getYear()+1900 ) ) );
   }
 
-  public void setWorkspace(Workspace workspace) {  
+  public void setWorkspace(Workspace workspace) {
     this.workspace = workspace;
   }
-  
+
   public void showUserGuide(){
     Runnable runnable = new Runnable() {
 
@@ -403,12 +407,12 @@ public class MainController extends AbstractXulEventHandler {
   }
 
   public ConnectionModel getConnectionModel() {
-  
+
     return connectionModel;
   }
 
   public void setConnectionModel(ConnectionModel connectionModel) {
-  
+
     this.connectionModel = connectionModel;
   }
 
