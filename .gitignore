@@ -1,7 +1,6 @@
 bin/
 dist/
 js-lib/
-lib/
 test-lib/
 eclipse-bin/
 override.properties
@@ -12,7 +11,6 @@ testdata.script
 .project
 .DS_Store
 projects/
-plugins/
 build-res/dojo-*
 build-res/module-scripts/
 *.class
@@ -20,3 +18,5 @@ build-res/module-scripts/
 *.war
 *.ear
 *.iml
+.idea
+.settings
