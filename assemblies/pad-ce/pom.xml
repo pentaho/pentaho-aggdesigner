@@ -70,8 +70,10 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
+                          <descriptors>
                             <descriptor>assembly/assembly.xml</descriptor>
-                            <appendAssemblyId>false</appendAssemblyId>
+                          </descriptors>
+                          <appendAssemblyId>false</appendAssemblyId>
                         </configuration>
                     </execution>
                 </executions>
