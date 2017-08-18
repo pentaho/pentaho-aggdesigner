@@ -22,7 +22,7 @@
     <developerConnection>scm:git:git@github.com:pentaho/pentaho-aggdesigner.git</developerConnection>
   </scm>
   <properties>
-    <dependency.mondrian.revision>3.15-SNAPSHOT</dependency.mondrian.revision>
+    <dependency.mondrian.revision>8.0-SNAPSHOT</dependency.mondrian.revision>
   </properties>
   <dependencies>
     <dependency>
