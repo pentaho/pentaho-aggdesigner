@@ -26,7 +26,7 @@
     <project.revision>8.0-SNAPSHOT</project.revision>
     <dependency.mondrian.revision>8.0-SNAPSHOT</dependency.mondrian.revision>
     <dependency.pentaho-xul.revision>8.0-SNAPSHOT</dependency.pentaho-xul.revision>
-    <dependency.pentaho-mondrianschemaworkbench-plugins.revision>3.15-SNAPSHOT</dependency.pentaho-mondrianschemaworkbench-plugins.revision>
+    <dependency.pentaho-mondrianschemaworkbench-plugins.revision>8.0-SNAPSHOT</dependency.pentaho-mondrianschemaworkbench-plugins.revision>
     <dependency.junit.revision>4.12</dependency.junit.revision>
     <dependency.pentaho-launcher.revision>8.0-SNAPSHOT</dependency.pentaho-launcher.revision>
     <dependency.javassist.revision>3.20.0-GA</dependency.javassist.revision>
