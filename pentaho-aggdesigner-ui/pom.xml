@@ -24,7 +24,7 @@
   <properties>
     <dependency.spring.modules.revision>0.8</dependency.spring.modules.revision>
     <project.revision>8.0-SNAPSHOT</project.revision>
-    <dependency.mondrian.revision>3.15-SNAPSHOT</dependency.mondrian.revision>
+    <dependency.mondrian.revision>8.0-SNAPSHOT</dependency.mondrian.revision>
     <dependency.pentaho-xul.revision>8.0-SNAPSHOT</dependency.pentaho-xul.revision>
     <dependency.pentaho-mondrianschemaworkbench-plugins.revision>3.15-SNAPSHOT</dependency.pentaho-mondrianschemaworkbench-plugins.revision>
     <dependency.junit.revision>4.12</dependency.junit.revision>
