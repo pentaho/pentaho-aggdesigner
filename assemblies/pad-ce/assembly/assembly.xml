@@ -11,6 +11,16 @@
             <directory>${project.basedir}/assembly/resources</directory>
             <outputDirectory>aggregation-designer</outputDirectory>
             <filtered>true</filtered>
+            <excludes>
+                <exclude>**/pad.icns</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/assembly/resources</directory>
+            <outputDirectory>aggregation-designer</outputDirectory>
+            <includes>
+                <include>**/pad.icns</include>
+            </includes>
         </fileSet>
         <fileSet>
             <directory>${project.build.directory}</directory>
