@@ -263,9 +263,21 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
+         <groupId>pentaho-kettle</groupId>       
+          <artifactId>kettle-core</artifactId>
+        </exclusion>     
+        <exclusion>
+          <groupId>pentaho-kettle</groupId>
+          <artifactId>kettle-engine</artifactId>
+        </exclusion>     
+        <exclusion>
+          <groupId>pentaho</groupId>
+          <artifactId>pentaho-xul-swt</artifactId>
+        </exclusion>             
+        <exclusion>
           <artifactId>*</artifactId>
           <groupId>*</groupId>
-        </exclusion>
+        </exclusion> 
       </exclusions>
     </dependency>
     <dependency>
