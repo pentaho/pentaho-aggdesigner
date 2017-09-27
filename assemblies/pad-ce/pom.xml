@@ -18,62 +18,60 @@
     </scm>
 
     <properties>
-        <project.revision>7.1-SNAPSHOT</project.revision>
+        <assembly.dir>${project.build.directory}/assembly</assembly.dir>
         <dependency.pentaho-launcher.revision>7.1-SNAPSHOT</dependency.pentaho-launcher.revision>
+        <dependency.oss-licenses.revision>7.1-SNAPSHOT</dependency.oss-licenses.revision>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>pentaho</groupId>
             <artifactId>pentaho-aggdesigner-ui</artifactId>
-            <version>${project.revision}</version>
+            <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
-
         <dependency>
             <groupId>pentaho</groupId>
             <artifactId>pentaho-application-launcher</artifactId>
             <version>${dependency.pentaho-launcher.revision}</version>
-            <scope>compile</scope>
+            <scope>runtime</scope>
         </dependency>
-
+        <dependency>
+            <groupId>pentaho</groupId>
+            <artifactId>oss-licenses</artifactId>
+            <version>${dependency.oss-licenses.revision}</version>
+            <type>zip</type>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>unpack-dependencies</id>
+                        <id>unpack-oss</id>
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
                             <includes>PentahoAggDesigner_OSS_Licenses.html</includes>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <outputDirectory>${assembly.dir}/oss-licenses</outputDirectory>
                             <includeArtifactIds>oss-licenses</includeArtifactIds>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
                     <execution>
-                        <id>create-archive</id>
-                        <phase>package</phase>
+                        <id>add-libs</id>
+                        <phase>prepare-package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                          <descriptors>
-                            <descriptor>assembly/assembly.xml</descriptor>
-                          </descriptors>
-                          <appendAssemblyId>false</appendAssemblyId>
+                          <outputDirectory>${assembly.dir}/lib</outputDirectory>
+                          <includeScope>runtime</includeScope>
+                          <excludeArtifactIds>oss-licenses</excludeArtifactIds>
                         </configuration>
                     </execution>
                 </executions>
