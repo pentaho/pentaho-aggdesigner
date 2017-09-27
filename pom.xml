@@ -11,7 +11,7 @@
   <artifactId>pentaho-aggdesigner-parent-pom</artifactId>
   <version>8.0-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>Pentaho Aggregation Designer Parent POM</name>
+  <name>Pentaho Aggregation Designer Parent</name>
   <description>Container pom for pentaho-aggdesigner-core and pentaho-aggdesigner-ui</description>
   <url>http://www.pentaho.com</url>
   <modules>
@@ -22,4 +22,7 @@
   <scm>
     <developerConnection>scm:git:git@github.com:pentaho/pentaho-aggdesigner.git</developerConnection>
   </scm>
+  <properties>
+    <license.licenseName>gpl_v2</license.licenseName>
+  </properties>
 </project>
