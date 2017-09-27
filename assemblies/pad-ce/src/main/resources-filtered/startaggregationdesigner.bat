@@ -16,9 +16,9 @@ REM
 REM
 REM Copyright 2008 - 2017 Pentaho Corporation.  All rights reserved.
 
-REM @project.name@
-REM @project.version@.@build.number@
-REM Copyright © 2013 @project.organization.name@
+REM ${project.name}
+REM ${project.version}
+REM Copyright © 2013 ${project.organization.name}
 REM Classpath is built by launcher. See ..\lib\launcher.properties.
 
 setlocal
