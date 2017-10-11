@@ -13,7 +13,7 @@
 * See the GNU General Public License for more details.
 *
 *
-* Copyright 2006 - 2016 Pentaho Corporation.  All rights reserved.
+* Copyright 2006 - 2017 Hitachi Vantara.  All rights reserved.
 */
 
 package org.pentaho.aggdes.model.mondrian.validate;
@@ -54,7 +54,7 @@ import org.pentaho.aggdes.model.mondrian.validate.MondrianSchemaValidator;
  * See the GNU General Public License for more details.
  *
  *
- * Copyright 2008 Pentaho Corporation.  All rights reserved. 
+ * Copyright 2008 - 2017 Hitachi Vantara.  All rights reserved. 
 */
 public abstract class AbstractMondrianSchemaValidatorTestBase {
 

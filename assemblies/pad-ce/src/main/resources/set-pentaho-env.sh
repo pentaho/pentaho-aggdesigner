@@ -14,7 +14,7 @@
 # See the GNU General Public License for more details.
 #
 #
-# Copyright 2010 - 2017 Pentaho Corporation.  All rights reserved.
+# Copyright 2010 - 2017 Hitachi Vantara.  All rights reserved.
 
 # -----------------------------------------------------------------------------
 # Finds a suitable Java
