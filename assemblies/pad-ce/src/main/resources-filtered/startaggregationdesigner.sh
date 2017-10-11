@@ -14,7 +14,7 @@
 # See the GNU General Public License for more details.
 #
 #
-# Copyright 2008 - 2017 Pentaho Corporation.  All rights reserved.
+# Copyright 2008 - 2017 Hitachi Vantara.  All rights reserved.
 
 # ${project.name}
 # ${project.version}
