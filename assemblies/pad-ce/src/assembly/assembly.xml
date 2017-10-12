@@ -5,11 +5,11 @@
   <formats>
     <format>zip</format>
   </formats>
-  <includeBaseDirectory>false</includeBaseDirectory>
+  <baseDirectory>aggregation-designer</baseDirectory>
   <fileSets>
     <fileSet>
       <directory>${project.basedir}/src/main/resources-filtered</directory>
-      <outputDirectory>aggregation-designer</outputDirectory>
+      <outputDirectory>.</outputDirectory>
       <filtered>true</filtered>
       <includes>
         <include>**/*.sh</include>
@@ -18,7 +18,7 @@
     </fileSet>
     <fileSet>
       <directory>${project.basedir}/src/main/resources-filtered</directory>
-      <outputDirectory>aggregation-designer</outputDirectory>
+      <outputDirectory>.</outputDirectory>
       <filtered>true</filtered>
       <excludes>
         <exclude>**/*.sh</exclude>
@@ -26,15 +26,26 @@
     </fileSet>
     <fileSet>
       <directory>${project.basedir}/src/main/resources</directory>
-      <outputDirectory>aggregation-designer</outputDirectory>
+      <outputDirectory>.</outputDirectory>
+      <includes>
+        <include>**/*.sh</include>
+      </includes>
+      <fileMode>0755</fileMode>
+    </fileSet>
+    <fileSet>
+      <directory>${project.basedir}/src/main/resources</directory>
+      <outputDirectory>.</outputDirectory>
+      <excludes>
+        <exclude>**/*.sh</exclude>
+      </excludes>
     </fileSet>
     <fileSet>
       <directory>${assembly.dir}/oss-licenses</directory>
-      <outputDirectory>aggregation-designer/doc</outputDirectory>
+      <outputDirectory>doc</outputDirectory>
     </fileSet>
     <fileSet>
       <directory>${assembly.dir}/lib</directory>
-      <outputDirectory>aggregation-designer/lib</outputDirectory>
+      <outputDirectory>lib</outputDirectory>
     </fileSet>
   </fileSets>
 </assembly>
