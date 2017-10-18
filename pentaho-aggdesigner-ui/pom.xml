@@ -35,6 +35,7 @@
     <dependency.spring.framework.revision>4.3.2.RELEASE</dependency.spring.framework.revision>
     <dependency.xstream.revision>1.4.9</dependency.xstream.revision>
   </properties>
+
   <dependencies>
     <dependency>
       <groupId>commons-lang</groupId>
