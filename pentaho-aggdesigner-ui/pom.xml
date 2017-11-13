@@ -33,7 +33,7 @@
     <dependency.javassist.revision>3.20.0-GA</dependency.javassist.revision>
     <dependency.kettle.revision>8.0-SNAPSHOT</dependency.kettle.revision>
     <dependency.spring.framework.revision>4.3.2.RELEASE</dependency.spring.framework.revision>
-    <dependency.xstream.revision>1.4.9</dependency.xstream.revision>
+    <dependency.xstream.revision>1.4.10</dependency.xstream.revision>
   </properties>
 
   <dependencies>
