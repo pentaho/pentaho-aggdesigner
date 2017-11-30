@@ -17,8 +17,8 @@
   </scm>
   <properties>
     <assembly.dir>${project.build.directory}/assembly</assembly.dir>
-    <dependency.pentaho-launcher.revision>8.1-SNAPSHOT</dependency.pentaho-launcher.revision>
-    <dependency.oss-licenses.revision>8.1-SNAPSHOT</dependency.oss-licenses.revision>
+    <pentaho-launcher.version>8.1-SNAPSHOT</pentaho-launcher.version>
+    <oss-licenses.version>8.1-SNAPSHOT</oss-licenses.version>
   </properties>
   <dependencies>
     <dependency>
@@ -30,13 +30,13 @@
     <dependency>
       <groupId>pentaho</groupId>
       <artifactId>pentaho-application-launcher</artifactId>
-      <version>${dependency.pentaho-launcher.revision}</version>
+      <version>${pentaho-launcher.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>pentaho</groupId>
       <artifactId>oss-licenses</artifactId>
-      <version>${dependency.oss-licenses.revision}</version>
+      <version>${oss-licenses.version}</version>
       <type>zip</type>
       <scope>runtime</scope>
     </dependency>
