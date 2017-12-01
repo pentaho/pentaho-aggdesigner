@@ -29,4 +29,4 @@ cd -
 . "$DIR/set-pentaho-env.sh"
 setPentahoEnv
 
-"$_PENTAHO_JAVA" -jar "$DIR/lib/pentaho-application-launcher-${dependency.pentaho-launcher.revision}.jar"
+"$_PENTAHO_JAVA" -jar "$DIR/lib/pentaho-application-launcher-${pentaho-launcher.version}.jar"
