@@ -26,7 +26,7 @@
   
   <properties>
     <dependency.spring.framework.revision>4.3.2.RELEASE</dependency.spring.framework.revision>
-    <dependency.xstream.revision>1.4.9</dependency.xstream.revision>
+    <dependency.xstream.revision>1.4.10</dependency.xstream.revision>
     <dependency.mondrian.revision>3.14-SNAPSHOT</dependency.mondrian.revision>
     <project.revision>7.1-SNAPSHOT</project.revision>
     <dependency.pentaho-xul.revision>7.1-SNAPSHOT</dependency.pentaho-xul.revision>
