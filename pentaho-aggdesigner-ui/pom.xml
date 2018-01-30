@@ -296,10 +296,6 @@
           <groupId>org.apache.karaf</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>slf4j-api</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>icu4j</artifactId>
           <groupId>com.ibm.icu</groupId>
         </exclusion>
