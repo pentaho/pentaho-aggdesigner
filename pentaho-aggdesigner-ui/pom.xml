@@ -204,12 +204,6 @@
       <artifactId>pentaho-aggdesigner-core</artifactId>
       <version>${project.revision}</version>
       <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>jaxen</artifactId>
-          <groupId>jaxen</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.pentaho</groupId>
