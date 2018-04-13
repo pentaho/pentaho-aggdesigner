@@ -14,7 +14,7 @@
 # See the GNU General Public License for more details.
 #
 #
-# Copyright 2008 - 2017 Hitachi Vantara.  All rights reserved.
+# Copyright 2008 - 2018 Hitachi Vantara.  All rights reserved.
 
 # Creates Pentaho Aggregation Designer distribution
 # Add -Dmaven.test.skip=true to skip unit tests
