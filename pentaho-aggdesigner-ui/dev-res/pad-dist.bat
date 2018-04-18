@@ -15,7 +15,7 @@ REM Add -Dmaven.test.skip=true to skip unit tests
 @REM See the GNU General Public License for more details.
 @REM
 @REM
-@REM Copyright 2008 - 2017 Hitachi Vantara.  All rights reserved.
+@REM Copyright 2008 - 2018 Hitachi Vantara.  All rights reserved.
 
 cd ..
 mvn clean package javadoc:javadoc assembly:assembly -Dmaven.test.skip=true
