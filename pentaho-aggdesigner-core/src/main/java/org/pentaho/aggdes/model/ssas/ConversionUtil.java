@@ -13,7 +13,7 @@
 * See the GNU General Public License for more details.
 *
 *
-* Copyright 2006 - 2016 Pentaho Corporation.  All rights reserved.
+* Copyright 2006 - 2018 Hitachi Vantara.  All rights reserved.
 */
 
 package org.pentaho.aggdes.model.ssas;
@@ -450,14 +450,13 @@ public class ConversionUtil {
       String dbname = table.attributeValue( "DbTableName" );
       String dbSchemaName = table.attributeValue( "DbSchemaName" );
       String queryDefinition = table.attributeValue( "QueryDefinition" );
-      List<Element> uniqueKeys =
-        (List<Element>) ssasDataSourceView.selectNodes( "xs:unique[xs:selector/@xpath='.//" + name + "']" );
+      List<Node> uniqueKeys = ssasDataSourceView.selectNodes( "xs:unique[xs:selector/@xpath='.//" + name + "']" );
       List<Key> uniqueKeyObjects = new ArrayList<Key>();
-      for ( Element uniqueKey : uniqueKeys ) {
-        List<Element> columns = (List<Element>) uniqueKey.selectNodes( "xs:field" );
+      for ( Node uniqueKey : uniqueKeys ) {
+        List<Node> columns = uniqueKey.selectNodes( "xs:field" );
         Key key = new Key();
-        for ( Element column : columns ) {
-          key.columns.add( column.attributeValue( "xpath" ) );
+        for ( Node column : columns ) {
+          key.columns.add( ( (Element) column ).attributeValue( "xpath" ) );
         }
         if ( key.columns.size() > 1 ) {
           logger.debug( "Compound Key for Table '" + name + "': " + key );
@@ -492,18 +491,18 @@ public class ConversionUtil {
         ( (Element) keyref.selectSingleNode( "xs:selector" ) ).attributeValue( "xpath" ).substring( 3 );
 
       Key parentKeyObject = new Key();
-      List<Element> parentKeys = (List<Element>) keyref.selectNodes( "xs:field" );
-      for ( Element parentKey : parentKeys ) {
-        parentKeyObject.columns.add( parentKey.attributeValue( "xpath" ) );
+      List<Node> parentKeys = keyref.selectNodes( "xs:field" );
+      for ( Node parentKey : parentKeys ) {
+        parentKeyObject.columns.add( ( (Element) parentKey ).attributeValue( "xpath" ) );
       }
 
-      Element unique = (Element) ssasDataSourceView.selectSingleNode( "xs:unique[@name='" + refer + "']" );
+      Node unique = ssasDataSourceView.selectSingleNode( "xs:unique[@name='" + refer + "']" );
       String childTable =
-        ( (Element) unique.selectSingleNode( "xs:selector" ) ).attributeValue( "xpath" ).substring( 3 );
+        (  (Element) unique.selectSingleNode( "xs:selector" ) ).attributeValue( "xpath" ).substring( 3 );
       Key childKeyObject = new Key();
-      List<Element> childKeys = (List<Element>) keyref.selectNodes( "xs:field" );
-      for ( Element childKey : childKeys ) {
-        childKeyObject.columns.add( childKey.attributeValue( "xpath" ) );
+      List<Node> childKeys = keyref.selectNodes( "xs:field" );
+      for ( Node childKey : childKeys ) {
+        childKeyObject.columns.add( ( (Element) childKey ).attributeValue( "xpath" ) );
       }
 
       // keyref contains parent table
@@ -1012,10 +1011,9 @@ public class ConversionUtil {
         mondrianLevel.addAttribute( "table", levelTable.dbName ); // tableName);
       }
       // don't assume single column for keys
-      List<Element> nodes =
-        (List<Element>) sourceAttribute.selectNodes( "assl:KeyColumns/assl:KeyColumn/assl:Source/assl:ColumnID" );
+      List<Node> nodes = sourceAttribute.selectNodes( "assl:KeyColumns/assl:KeyColumn/assl:Source/assl:ColumnID" );
       // get the last key column in the list.
-      String keyColumn = nodes.get( nodes.size() - 1 ).getTextTrim();
+      String keyColumn = ( (Element) nodes.get( nodes.size() - 1 ) ).getTextTrim();
       // String keyColumn = getXPathNodeText(sourceAttribute,
       // "assl:KeyColumns/assl:KeyColumn/assl:Source/assl:ColumnID");
       String nameColumn = getXPathNodeText( sourceAttribute, "assl:NameColumn/assl:Source/assl:ColumnID" );
@@ -1159,8 +1157,7 @@ public class ConversionUtil {
           getXPathNodeText( ssasDimensionKeyAttribute, "assl:KeyColumns/assl:KeyColumn/assl:Source/assl:ColumnID" );
 
         Column primaryKeyColumn = table.findColumn( primaryKey );
-        List<Element> nodes = (List<Element>) ssasDimensionKeyAttribute
-          .selectNodes( "assl:KeyColumns/assl:KeyColumn/assl:Source/assl:ColumnID" );
+        List<Node> nodes = ssasDimensionKeyAttribute.selectNodes( "assl:KeyColumns/assl:KeyColumn/assl:Source/assl:ColumnID" );
         if ( nodes.size() > 1 ) {
           logger.warn( "SKIPPING ATTRIBUTE HIERARCHY " + attribName + ", MORE THAN ONE FOREIGN KEY" );
           continue;
@@ -1205,9 +1202,8 @@ public class ConversionUtil {
           mondrianLevel.addAttribute( "table", table.dbName ); // tableName);
         }
 
-        nodes =
-          (List<Element>) databaseAttribute.selectNodes( "assl:KeyColumns/assl:KeyColumn/assl:Source/assl:ColumnID" );
-        String keyColumn = nodes.get( nodes.size() - 1 ).getTextTrim();
+        nodes = databaseAttribute.selectNodes( "assl:KeyColumns/assl:KeyColumn/assl:Source/assl:ColumnID" );
+        String keyColumn = ( (Element) nodes.get( nodes.size() - 1 ) ).getTextTrim();
 
         String nameColumn = getXPathNodeText( databaseAttribute, "assl:NameColumn/assl:Source/assl:ColumnID" );
 
