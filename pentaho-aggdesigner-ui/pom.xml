@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>pentaho</groupId>
     <artifactId>pentaho-aggdesigner-parent-pom</artifactId>
-    <version>7.1-SNAPSHOT</version>
+    <version>7.1.0.21-185</version>
   </parent>
   <groupId>pentaho</groupId>
   <artifactId>pentaho-aggdesigner-ui</artifactId>
-  <version>7.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
-  <scm>
-    <developerConnection>scm:git:git@github.com:pentaho/pentaho-aggdesigner.git</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
-  
+  <version>7.1.0.21-185</version>
   <licenses>
     <license>
       <name>GNU Lesser General Public License, Version 2.1</name>
@@ -22,202 +17,186 @@
       <distribution>repo</distribution>
       <comments></comments>
     </license>
-  </licenses>  
-  
+  </licenses>
+  <scm>
+    <developerConnection>scm:git:git@github.com:pentaho/pentaho-aggdesigner.git</developerConnection>
+  </scm>
   <properties>
+    <dependency.spring.modules.revision>0.8</dependency.spring.modules.revision>
+    <project.revision>7.1.0.21-185</project.revision>
+    <dependency.mondrian.revision>3.14.0.21-185</dependency.mondrian.revision>
+    <dependency.pentaho-xul.revision>7.1.0.21-185</dependency.pentaho-xul.revision>
+    <dependency.pentaho-mondrianschemaworkbench-plugins.revision>3.14.0.21-185</dependency.pentaho-mondrianschemaworkbench-plugins.revision>
+    <dependency.junit.revision>4.12</dependency.junit.revision>
+    <dependency.pentaho-launcher.revision>7.1.0.21-185</dependency.pentaho-launcher.revision>
+    <dependency.javassist.revision>3.20.0-GA</dependency.javassist.revision>
+    <dependency.kettle.revision>7.1.0.21-185</dependency.kettle.revision>
     <dependency.spring.framework.revision>4.3.2.RELEASE</dependency.spring.framework.revision>
     <dependency.xstream.revision>1.4.10</dependency.xstream.revision>
-    <dependency.mondrian.revision>3.14-SNAPSHOT</dependency.mondrian.revision>
-    <project.revision>7.1-SNAPSHOT</project.revision>
-    <dependency.pentaho-xul.revision>7.1-SNAPSHOT</dependency.pentaho-xul.revision>
-    <dependency.kettle.revision>7.1-SNAPSHOT</dependency.kettle.revision>
-    <dependency.javassist.revision>3.20.0-GA</dependency.javassist.revision>
-    <dependency.pentaho-mondrianschemaworkbench-plugins.revision>3.14-SNAPSHOT</dependency.pentaho-mondrianschemaworkbench-plugins.revision>
-    <dependency.pentaho-launcher.revision>7.1-SNAPSHOT</dependency.pentaho-launcher.revision>
-    <dependency.junit.revision>4.12</dependency.junit.revision>
-    <dependency.spring.modules.revision>0.8</dependency.spring.modules.revision>
   </properties>
-
   <dependencies>
-  
-    <!-- ######################### COMPILE ######################### -->
-    <!-- compile dependencies go here -->  
-  
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.6</version>
       <scope>compile</scope>
     </dependency>
-   
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
       <version>1.2</version>
       <scope>compile</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>logkit</groupId>
           <artifactId>logkit</artifactId>
+          <groupId>logkit</groupId>
         </exclusion>
         <exclusion>
-          <groupId>avalon-framework</groupId>
           <artifactId>avalon-framework</artifactId>
+          <groupId>avalon-framework</groupId>
         </exclusion>
         <exclusion>
-          <groupId>javax.servlet</groupId>
           <artifactId>servlet-api</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>xml-apis</groupId>
+          <artifactId>servlet-api</artifactId>
+          <groupId>javax.servlet</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
         </exclusion>
         <exclusion>
-          <groupId>log4j</groupId>
           <artifactId>log4j</artifactId>
+          <groupId>log4j</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-   
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.1</version>
       <scope>compile</scope>
     </dependency>
-    
     <dependency>
       <groupId>commons-httpclient</groupId>
       <artifactId>commons-httpclient</artifactId>
       <version>3.1</version>
       <scope>compile</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>commons-codec</groupId>
           <artifactId>commons-codec</artifactId>
+          <groupId>commons-codec</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
       <version>${dependency.spring.framework.revision}</version>
       <scope>compile</scope>
     </dependency>
-    
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
       <version>${dependency.spring.framework.revision}</version>
       <scope>compile</scope>
     </dependency>
-    
- 	<dependency>
+    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
       <version>${dependency.spring.framework.revision}</version>
       <scope>compile</scope>
-    </dependency>    
-    
- 	<dependency>
+    </dependency>
+    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
       <version>${dependency.spring.framework.revision}</version>
       <scope>compile</scope>
-    </dependency>    
-    
- 	<dependency>
+    </dependency>
+    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-tx</artifactId>
       <version>${dependency.spring.framework.revision}</version>
       <scope>compile</scope>
-    </dependency>    
-    
+    </dependency>
     <dependency>
       <groupId>xmlpull</groupId>
       <artifactId>xmlpull</artifactId>
       <version>1.1.3.1</version>
       <scope>compile</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>*</groupId>
           <artifactId>*</artifactId>
+          <groupId>*</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>xpp3</groupId>
       <artifactId>xpp3_min</artifactId>
       <version>1.1.4c</version>
       <scope>compile</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>*</groupId>
           <artifactId>*</artifactId>
+          <groupId>*</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>com.thoughtworks.xstream</groupId>
       <artifactId>xstream</artifactId>
       <version>${dependency.xstream.revision}</version>
       <scope>compile</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>*</groupId>
           <artifactId>*</artifactId>
+          <groupId>*</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>pentaho</groupId>
       <artifactId>mondrian</artifactId>
       <version>${dependency.mondrian.revision}</version>
       <scope>compile</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>commons-lang</groupId>
           <artifactId>commons-lang</artifactId>
+          <groupId>commons-lang</groupId>
         </exclusion>
         <exclusion>
-          <groupId>xml-apis</groupId>
           <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
         </exclusion>
         <exclusion>
-          <groupId>javax.servlet</groupId>
           <artifactId>jsp-api</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
         </exclusion>
         <exclusion>
+          <artifactId>servlet-api</artifactId>
           <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>jdom</groupId>
+          <artifactId>servlet-api</artifactId>
+          <groupId>javax.servlet</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>jdom</artifactId>
+          <groupId>jdom</groupId>
         </exclusion>
         <exclusion>
-          <groupId>commons-dbcp</groupId>
           <artifactId>commons-dbcp</artifactId>
+          <groupId>commons-dbcp</groupId>
         </exclusion>
         <exclusion>
-          <groupId>commons-pool</groupId>
           <artifactId>commons-pool</artifactId>
+          <groupId>commons-pool</groupId>
         </exclusion>
-      </exclusions> 
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>pentaho</groupId>
       <artifactId>pentaho-aggdesigner-core</artifactId>
@@ -225,246 +204,237 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <groupId>jaxen</groupId>
           <artifactId>jaxen</artifactId>
+          <groupId>jaxen</groupId>
         </exclusion>
       </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>pentaho</groupId>
       <artifactId>pentaho-xul-core</artifactId>
       <version>${dependency.pentaho-xul.revision}</version>
       <scope>compile</scope>
       <exclusions>
-		<exclusion>	
-          <groupId>jdom</groupId>
+        <exclusion>
           <artifactId>jdom</artifactId>
+          <groupId>jdom</groupId>
         </exclusion>
         <exclusion>
-          <groupId>xom</groupId>
           <artifactId>xom</artifactId>
+          <groupId>xom</groupId>
         </exclusion>
         <exclusion>
-          <groupId>xerces</groupId>
           <artifactId>xmlParserAPIs</artifactId>
+          <groupId>xerces</groupId>
         </exclusion>
         <exclusion>
-          <groupId>xalan</groupId>
           <artifactId>xalan</artifactId>
+          <groupId>xalan</groupId>
         </exclusion>
         <exclusion>
-          <groupId>xml-apis</groupId>
           <artifactId>xml-apis</artifactId>
-        </exclusion>      
+          <groupId>xml-apis</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
-
     <dependency>
       <groupId>pentaho</groupId>
       <artifactId>pentaho-xul-swing</artifactId>
       <version>${dependency.pentaho-xul.revision}</version>
       <scope>compile</scope>
     </dependency>
-    
     <dependency>
       <groupId>org.owasp.encoder</groupId>
       <artifactId>encoder</artifactId>
       <version>1.2</version>
       <scope>compile</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>*</groupId>
           <artifactId>*</artifactId>
+          <groupId>*</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>pentaho-kettle</groupId>
       <artifactId>kettle-dbdialog</artifactId>
       <version>${dependency.kettle.revision}</version>
       <scope>compile</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>*</groupId>
           <artifactId>*</artifactId>
+          <groupId>*</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>pentaho-kettle</groupId>
       <artifactId>kettle-core</artifactId>
       <version>${dependency.pentaho-xul.revision}</version>
       <scope>compile</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>org.tukaani</groupId>
           <artifactId>xz</artifactId>
+          <groupId>org.tukaani</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.apache.xmlgraphics</groupId>
           <artifactId>batik-svggen</artifactId>
+          <groupId>org.apache.xmlgraphics</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.apache.felix</groupId>
           <artifactId>org.apache.felix.utils</artifactId>
+          <groupId>org.apache.felix</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.apache.karaf</groupId>
           <artifactId>org.apache.karaf.util</artifactId>
+          <groupId>org.apache.karaf</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
+          <groupId>org.slf4j</groupId>
         </exclusion>
         <exclusion>
-          <groupId>com.ibm.icu</groupId>
           <artifactId>icu4j</artifactId>
+          <groupId>com.ibm.icu</groupId>
         </exclusion>
         <exclusion>
-          <groupId>xalan</groupId>
           <artifactId>xalan</artifactId>
+          <groupId>xalan</groupId>
         </exclusion>
         <exclusion>
-          <groupId>javassist</groupId>
           <artifactId>javassist</artifactId>
+          <groupId>javassist</groupId>
         </exclusion>
         <exclusion>
-          <groupId>xml-apis</groupId>
           <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>org.scannotation</groupId>
       <artifactId>scannotation</artifactId>
       <version>1.0.2</version>
       <scope>compile</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>javassist</groupId>
           <artifactId>javassist</artifactId>
+          <groupId>javassist</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>org.javassist</groupId>
       <artifactId>javassist</artifactId>
       <version>${dependency.javassist.revision}</version>
       <scope>compile</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>*</groupId>
           <artifactId>*</artifactId>
+          <groupId>*</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>pentaho</groupId>
       <artifactId>pentaho-mondrianschemaworkbench-plugins</artifactId>
       <version>${dependency.pentaho-mondrianschemaworkbench-plugins.revision}</version>
       <scope>compile</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>org.springframework</groupId>
           <artifactId>spring-aop</artifactId>
+          <groupId>org.springframework</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.springframework</groupId>
           <artifactId>spring-beans</artifactId>
+          <groupId>org.springframework</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.springframework</groupId>
           <artifactId>spring-context</artifactId>
+          <groupId>org.springframework</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.springframework</groupId>
           <artifactId>spring-core</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>org.springframework</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>spring-web</artifactId>
+          <groupId>org.springframework</groupId>
         </exclusion>
         <exclusion>
-          <groupId>com.ibm.icu</groupId>
           <artifactId>icu4j</artifactId>
+          <groupId>com.ibm.icu</groupId>
         </exclusion>
         <exclusion>
-          <groupId>javax.activation</groupId>
           <artifactId>activation</artifactId>
+          <groupId>javax.activation</groupId>
         </exclusion>
         <exclusion>
-          <groupId>commons-vfs</groupId>
           <artifactId>commons-vfs</artifactId>
+          <groupId>commons-vfs</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.codehaus.jackson</groupId>
           <artifactId>jackson-core-asl</artifactId>
+          <groupId>org.codehaus.jackson</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.codehaus.jackson</groupId>
           <artifactId>jackson-mapper-asl</artifactId>
+          <groupId>org.codehaus.jackson</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.codehaus.jackson</groupId>
           <artifactId>jackson-jaxrs</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>org.codehaus.jackson</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>jackson-xc</artifactId>
+          <groupId>org.codehaus.jackson</groupId>
         </exclusion>
         <exclusion>
-          <groupId>com.sun.xml.bind</groupId>
           <artifactId>jaxb-impl</artifactId>
+          <groupId>com.sun.xml.bind</groupId>
         </exclusion>
         <exclusion>
-          <groupId>javax.xml.bind</groupId>
           <artifactId>jaxb-api</artifactId>
+          <groupId>javax.xml.bind</groupId>
         </exclusion>
         <exclusion>
-          <groupId>com.sun.jersey</groupId>
           <artifactId>jersey-bundle</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.codehaus.jettison</groupId>
-          <artifactId>jettison</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>sun</groupId>
-          <artifactId>jlfgr</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.jvnet.mimepull</groupId>
-          <artifactId>mimepull</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>postgresql</groupId>
-          <artifactId>postgresql</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.xml.stream</groupId>
-          <artifactId>stax-api</artifactId>
-        </exclusion>
-		<exclusion>
-          <groupId>pentaho</groupId>
-          <artifactId>workbench</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>mysql</groupId>
-          <artifactId>mysql-connector-java</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>com.sun.jersey</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jettison</artifactId>
+          <groupId>org.codehaus.jettison</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jlfgr</artifactId>
+          <groupId>sun</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>mimepull</artifactId>
+          <groupId>org.jvnet.mimepull</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>postgresql</artifactId>
+          <groupId>postgresql</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>stax-api</artifactId>
+          <groupId>javax.xml.stream</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>workbench</artifactId>
+          <groupId>pentaho</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>mysql-connector-java</artifactId>
+          <groupId>mysql</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>jersey-servlet</artifactId>
+          <groupId>com.sun.jersey</groupId>
         </exclusion>
       </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>xerces</groupId>
       <artifactId>xercesImpl</artifactId>
@@ -472,217 +442,182 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <groupId>xml-apis</groupId>
           <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
         </exclusion>
       </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>jfree</groupId>
       <artifactId>jcommon</artifactId>
       <version>1.0.12</version>
       <scope>compile</scope>
     </dependency>
-    
     <dependency>
       <groupId>jfree</groupId>
       <artifactId>jfreechart</artifactId>
       <version>1.0.9</version>
       <scope>compile</scope>
     </dependency>
-    
     <dependency>
       <groupId>browserlauncher2</groupId>
       <artifactId>browserlauncher2</artifactId>
       <version>1.3</version>
       <scope>compile</scope>
     </dependency>
-    
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-server</artifactId>
       <version>1.19.1</version>
       <scope>compile</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>*</groupId>
           <artifactId>*</artifactId>
+          <groupId>*</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
-    <!-- ######################### TEST ######################### -->
-    <!-- test dependencies go here -->
-
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${dependency.junit.revision}</version>
       <scope>test</scope>
     </dependency>
-    
     <dependency>
       <groupId>org.jmock</groupId>
       <artifactId>jmock</artifactId>
       <version>2.4.0</version>
       <scope>test</scope>
     </dependency>
-    
     <dependency>
       <groupId>org.jmock</groupId>
       <artifactId>jmock-junit4</artifactId>
       <version>2.4.0</version>
       <scope>test</scope>
     </dependency>
-    
     <dependency>
       <groupId>org.jmock</groupId>
       <artifactId>jmock-legacy</artifactId>
       <version>2.4.0</version>
       <scope>test</scope>
     </dependency>
-    
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
       <version>2.3.2</version>
       <scope>test</scope>
     </dependency>
-    
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>5.1.25</version>
       <scope>test</scope>
     </dependency>
-    
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
       <version>${dependency.spring.framework.revision}</version>
       <scope>test</scope>
     </dependency>
-    
     <dependency>
       <groupId>org.springmodules</groupId>
       <artifactId>spring-modules-validation</artifactId>
       <version>${dependency.spring.modules.revision}</version>
       <scope>test</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>org.springframework</groupId>
           <artifactId>spring</artifactId>
+          <groupId>org.springframework</groupId>
         </exclusion>
         <exclusion>
-          <groupId>xml-apis</groupId>
           <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>com.sun.jersey.contribs</groupId>
       <artifactId>jersey-multipart</artifactId>
       <version>1.19.1</version>
       <scope>test</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>*</groupId>
           <artifactId>*</artifactId>
+          <groupId>*</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>com.sun.jersey.contribs</groupId>
       <artifactId>jersey-apache-client</artifactId>
       <version>1.19.1</version>
       <scope>test</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>*</groupId>
           <artifactId>*</artifactId>
+          <groupId>*</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-core</artifactId>
       <version>1.19.1</version>
       <scope>test</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>*</groupId>
           <artifactId>*</artifactId>
+          <groupId>*</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-json</artifactId>
       <version>1.19.1</version>
       <scope>test</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>*</groupId>
           <artifactId>*</artifactId>
+          <groupId>*</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>com.sun.jersey.contribs</groupId>
       <artifactId>jersey-spring</artifactId>
       <version>1.19.1</version>
       <scope>test</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>*</groupId>
           <artifactId>*</artifactId>
+          <groupId>*</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-client</artifactId>
       <version>1.19.1</version>
       <scope>test</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>*</groupId>
           <artifactId>*</artifactId>
+          <groupId>*</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-    
-    <!-- dependency>
-      <groupId>com.sun.jersey</groupId>
-      <artifactId>jersey-server</artifactId>
-      <version>1.19.1</version>
-      <scope>test</scope>
-	  <exclusions>
-        <exclusion>
-          <groupId>*</groupId>
-          <artifactId>*</artifactId>
-        </exclusion>
-      </exclusions>      
-    </dependency-->
-    
     <dependency>
       <groupId>javax.ws.rs</groupId>
       <artifactId>jsr311-api</artifactId>
       <version>1.1.1</version>
       <scope>test</scope>
-	  <exclusions>
+      <exclusions>
         <exclusion>
-          <groupId>*</groupId>
           <artifactId>*</artifactId>
+          <groupId>*</groupId>
         </exclusion>
-      </exclusions>      
+      </exclusions>
     </dependency>
-  </dependencies>  
+  </dependencies>
 </project>
