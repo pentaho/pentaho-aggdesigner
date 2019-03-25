@@ -40,7 +40,14 @@
       <type>zip</type>
       <scope>runtime</scope>
     </dependency>
+    <!-- Use log4j implementation with SLF4J -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <scope>runtime</scope>
+    </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
