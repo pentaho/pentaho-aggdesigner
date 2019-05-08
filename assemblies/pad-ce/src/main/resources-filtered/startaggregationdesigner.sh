@@ -14,11 +14,11 @@
 # See the GNU General Public License for more details.
 #
 #
-# Copyright 2008 - 2018 Hitachi Vantara.  All rights reserved.
+# Copyright 2008 - ${copyright.year} Hitachi Vantara. All rights reserved.
 
 # ${project.name}
 # ${project.version}
-# Copyright © 2013 ${project.organization.name}
+# Copyright © 2008 - ${copyright.year} ${project.organization.name}
 # Classpath is built by launcher. See ../lib/launcher.properties.
 
 DIR_REL=`dirname $0`
