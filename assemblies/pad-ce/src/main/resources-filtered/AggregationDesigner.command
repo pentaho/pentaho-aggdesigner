@@ -12,7 +12,7 @@
 # See the GNU General Public License for more details.
 #
 #
-# Copyright 2013 - 2018 Hitachi Vantara.  All rights reserved.
+# Copyright 2013 - ${copyright.year} Hitachi Vantara. All rights reserved.
 
 cd `dirname $0`
 

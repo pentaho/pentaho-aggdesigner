@@ -14,11 +14,11 @@ REM without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTIC
 REM See the GNU General Public License for more details.
 REM
 REM
-REM Copyright 2008 - 2018 Hitachi Vantara.  All rights reserved.
+REM Copyright 2008 - ${copyright.year} Hitachi Vantara. All rights reserved.
 
 REM ${project.name}
 REM ${project.version}
-REM Copyright © 2013 ${project.organization.name}
+REM Copyright © 2008 - ${copyright.year} ${project.organization.name}
 REM Classpath is built by launcher. See ..\lib\launcher.properties.
 
 setlocal

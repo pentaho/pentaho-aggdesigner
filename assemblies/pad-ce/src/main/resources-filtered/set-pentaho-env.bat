@@ -13,7 +13,7 @@
 @REM See the GNU General Public License for more details.
 @REM
 @REM
-@REM Copyright 2010 - 2018 Hitachi Vantara.  All rights reserved.
+@REM Copyright 2010 - ${copyright.year} Hitachi Vantara. All rights reserved.
 
 rem ---------------------------------------------------------------------------
 rem Finds a suitable Java
