@@ -13,10 +13,10 @@
 * See the GNU General Public License for more details.
 *
 *
-* Copyright 2006 - 2017 Hitachi Vantara.  All rights reserved.
+* Copyright 2006 - 2019 Hitachi Vantara.  All rights reserved.
 */
 
-package org.pentaho.aggdes.test;
+package org.pentaho.aggdes.model.mondrian;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,6 +31,7 @@ import junit.framework.TestCase;
 import mondrian.olap.MondrianDef.Cube;
 import mondrian.olap.MondrianDef.Schema;
 
+import mondrian.olap.Util;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,7 +40,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.pentaho.aggdes.model.Parameter;
 import org.pentaho.aggdes.model.ValidationMessage;
-import org.pentaho.aggdes.model.mondrian.MondrianSchemaLoader;
 import org.pentaho.aggdes.model.mondrian.MondrianSchemaLoader.MondrianSchemaLoaderParameter;
 import org.pentaho.aggdes.model.mondrian.validate.MondrianSchemaValidator;
 
@@ -98,9 +98,35 @@ public class ValidationMondrianSchemaLoaderTest extends TestCase {
   }
 
   @Test
+  public void testValidateConnectionWithIntegratedSecurity() {
+
+    parameterValues.put(MondrianSchemaLoaderParameter.connectString,
+      "Provider=Mondrian;JdbcDrivers=org.hsqldb.jdbcDriver;Jdbc=jdbc:hsqldb:mem:test;"
+        + "databaseName=jackrabbit;integratedSecurity=true;JdbcUser=;JdbcPassword=;Catalog=file:"
+        + tmpFile.getAbsolutePath());
+
+    String connectionString = bean.getJdbcConnectionString( Util.parseConnectString(
+      (String) parameterValues.get( MondrianSchemaLoaderParameter.connectString ) ), true);
+    assertTrue(connectionString.contains( "integratedSecurity=true" ));
+  }
+
+  @Test
+  public void testValidateConnectionWithoutIntegratedSecurity() {
+
+    parameterValues.put(MondrianSchemaLoaderParameter.connectString,
+      "Provider=Mondrian;JdbcDrivers=org.hsqldb.jdbcDriver;Jdbc=jdbc:hsqldb:mem:test;"
+        + "databaseName=jackrabbit;JdbcUser=user;JdbcPassword=password;Catalog=file:"
+        + tmpFile.getAbsolutePath());
+
+    String connectionString = bean.getJdbcConnectionString( Util.parseConnectString(
+      (String) parameterValues.get( MondrianSchemaLoaderParameter.connectString ) ), false);
+    assertFalse(connectionString.contains( "integratedSecurity=true" ));
+  }
+
+  @Test
   public void testValidateSchemaOneValidator() {
     parameterValues.put(MondrianSchemaLoaderParameter.validators,
-        "org.pentaho.aggdes.test.ValidationMondrianSchemaLoaderTest$MyValidator");
+        "org.pentaho.aggdes.model.mondrian.ValidationMondrianSchemaLoaderTest$MyValidator");
 
     List<ValidationMessage> messages = bean.validateSchema(parameterValues);
     logger.debug("got messages: " + messages);
@@ -109,7 +135,7 @@ public class ValidationMondrianSchemaLoaderTest extends TestCase {
 
   @Test
   public void testValidateSchemaTwoValidators() {
-    parameterValues.put(MondrianSchemaLoaderParameter.validators, "org.pentaho.aggdes.test.ValidationMondrianSchemaLoaderTest$MyValidator,org.pentaho.aggdes.test.ValidationMondrianSchemaLoaderTest$MyValidator2");
+    parameterValues.put(MondrianSchemaLoaderParameter.validators, "org.pentaho.aggdes.model.mondrian.ValidationMondrianSchemaLoaderTest$MyValidator,org.pentaho.aggdes.model.mondrian.ValidationMondrianSchemaLoaderTest$MyValidator2");
     
     List<ValidationMessage> messages = bean.validateSchema(parameterValues);
     logger.debug("got messages: " + messages);
