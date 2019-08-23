@@ -13,11 +13,12 @@
  * See the GNU General Public License for more details.
  *
  *
- * Copyright 2006 - 2016 Pentaho Corporation.  All rights reserved.
+ * Copyright 2006 - 2019 Hitachi Vantara.  All rights reserved.
  */
 
 package org.pentaho.aggdes.model.mondrian;
 
+import com.google.common.annotations.VisibleForTesting;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -83,7 +84,9 @@ public class MondrianSchemaLoader implements SchemaLoader {
       throw new RuntimeException( "missing 'JdbcDrivers' in connect string" );
     }
 
-    String jdbc = propertyList.get( "Jdbc" );
+    Boolean integratedSecurity = Boolean.parseBoolean( propertyList.get( "integratedSecurity" ) );
+
+    String jdbc = getJdbcConnectionString( propertyList, integratedSecurity );
     if ( StringUtils.isBlank( jdbcDrivers ) ) {
       throw new RuntimeException( "missing 'Jdbc' in connect string" );
     }
@@ -104,8 +107,13 @@ public class MondrianSchemaLoader implements SchemaLoader {
 
       Class.forName( jdbcDrivers ); //$NON-NLS-1$
 
-      java.sql.Connection conn = java.sql.DriverManager.getConnection( jdbc,  //$NON-NLS-1$
-        jdbcUser, jdbcPassword ); //$NON-NLS-1$ //$NON-NLS-2$
+      java.sql.Connection conn;
+
+      if ( integratedSecurity ) {
+        conn = java.sql.DriverManager.getConnection( jdbc );
+      } else {
+        conn = java.sql.DriverManager.getConnection( jdbc, jdbcUser, jdbcPassword );
+      }
 
       messages = ValidationHelper.validateCube( catalog, cubeName, conn, validators ); //$NON-NLS-1$
 
@@ -271,6 +279,23 @@ public class MondrianSchemaLoader implements SchemaLoader {
       default:
         throw Util.unexpected( column.getDatatype() );
     }
+  }
+
+  @VisibleForTesting
+  String getJdbcConnectionString( PropertyList propertyList, Boolean integratedSecurity ) {
+
+    String jdbc = propertyList.get( "Jdbc" );
+
+    if ( StringUtils.isBlank( jdbc ) ) {
+      return null;
+    }
+
+    String database = StringUtils.isBlank( propertyList.get( "databaseName" ) )
+      ? "" : ";databaseName=" + propertyList.get( "databaseName" );
+
+    String sIntegratedSecurity = integratedSecurity ? ";integratedSecurity=true" : "";
+
+    return jdbc + database + sIntegratedSecurity;
   }
 }
 
