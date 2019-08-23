@@ -13,7 +13,7 @@
  * See the GNU General Public License for more details.
  *
  *
- * Copyright 2006 - 2016 Pentaho Corporation.  All rights reserved.
+ * Copyright 2006 - 2019 Hitachi Vantara.  All rights reserved.
  */
 
 package org.pentaho.aggdes.model.mondrian;
@@ -51,6 +51,8 @@ public class MondrianDialect implements Dialect {
       return "NUMBER";
     } else if ( dialect.getDatabaseProduct() == DatabaseProduct.POSTGRESQL ) {
       return "FLOAT8";
+    } else if ( dialect.getDatabaseProduct() == DatabaseProduct.MSSQL ) {
+      return "FLOAT";
     } else {
       return "DOUBLE";
     }
@@ -85,6 +87,7 @@ public class MondrianDialect implements Dialect {
   public boolean supportsPrecision( DatabaseMetaData meta, String type ) throws SQLException {
     // return false if hypersonic
     // return false if postgres and not varchar or char
+    // return false if MSSQL and not any type that contains "int"
     // return true otherwise
 
     // hsqldb v1.8 returns 'HSQL Database Engine'
@@ -92,7 +95,8 @@ public class MondrianDialect implements Dialect {
       ( meta.getDatabaseProductName().toUpperCase().indexOf( "HSQL" ) < 0 )
         && ( ( !( dialect.getDatabaseProduct() == DatabaseProduct.POSTGRESQL )
         && !( dialect.getDatabaseProduct() == DatabaseProduct.LUCIDDB ) )
-        || ( type.toUpperCase().indexOf( "CHAR" ) >= 0 ) );
+        || ( type.toUpperCase().indexOf( "CHAR" ) >= 0 ) )
+        && ( ( dialect.getDatabaseProduct() == DatabaseProduct.MSSQL ) && ( type.toUpperCase().indexOf( "INT" ) < 0 ) );
 
   }
 }
