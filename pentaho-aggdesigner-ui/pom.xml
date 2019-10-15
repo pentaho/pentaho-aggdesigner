@@ -32,7 +32,6 @@
     <pentaho-launcher.version>9.0.0.0-SNAPSHOT</pentaho-launcher.version>
     <dependency.javassist.revision>3.20.0-GA</dependency.javassist.revision>
     <pdi.version>9.0.0.0-SNAPSHOT</pdi.version>
-    <dependency.xstream.revision>1.4.10</dependency.xstream.revision>
   </properties>
 
   <dependencies>
@@ -104,14 +103,7 @@
     <dependency>
       <groupId>com.thoughtworks.xstream</groupId>
       <artifactId>xstream</artifactId>
-      <version>${dependency.xstream.revision}</version>
       <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>*</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>pentaho</groupId>
