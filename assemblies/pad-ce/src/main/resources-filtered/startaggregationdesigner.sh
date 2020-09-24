@@ -21,9 +21,7 @@
 # Copyright © 2008 - ${copyright.year} ${project.organization.name}
 # Classpath is built by launcher. See ../lib/launcher.properties.
 
-DIR_REL=`dirname "$0"`
-cd "$DIR_REL"
-DIR=`pwd`
+DIR=$( cd "$( dirname "$0" )" && pwd )
 
 . "$DIR/set-pentaho-env.sh"
 setPentahoEnv
