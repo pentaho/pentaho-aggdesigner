@@ -20,8 +20,10 @@ cd `dirname $0`
 if [ -n "$1" ] && [ -d "$1" ] && [ -x "$1" ]; then
     echo "DEBUG: Using value ($1) from calling script"
     cd "$1"
+    pwd
+    ./startaggregationdesigner.sh
+else
+    DIR=$( cd "$( dirname "$0" )"; pwd )
+    . "$DIR/startaggregationdesigner.sh"
 fi
-
-pwd
-./startaggregationdesigner.sh
 exit
