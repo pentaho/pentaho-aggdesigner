@@ -19,7 +19,7 @@
         <!-- ================================= -->
 
         <!-- A time/date based rolling appender -->
-        <RollingFile name="FILE" fileName="aggdesigner.log" filePattern="aggdesigner.log.%d{yyyy-MM-dd}" append="false" bufferedIO="true" immediateFlush="true">
+        <RollingFile name="FILE" fileName="aggdesigner.log" filePattern="aggdesigner.log.%i" append="false" bufferedIO="true" immediateFlush="true">
             <PatternLayout>
                 <Pattern>%d %-5p [%c] %m%n</Pattern>
             </PatternLayout>
@@ -28,7 +28,7 @@
                 <SizeBasedTriggeringPolicy size="500KB" />
                 <TimeBasedTriggeringPolicy />
             </Policies>
-            <DefaultRolloverStrategy/>
+            <DefaultRolloverStrategy max="1"/>
         </RollingFile>
 
 
