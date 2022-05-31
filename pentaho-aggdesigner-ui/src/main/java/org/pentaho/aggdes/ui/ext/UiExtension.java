@@ -24,9 +24,9 @@ package org.pentaho.aggdes.ui.ext;
  * The XUL framework merges the form elements you have defined in your overlay file into the application.
  * 
  * @author APhillips
- * @see <a href="http://wiki.pentaho.com/display/PLATFORM/07.+Includes+and+Overlays">XUL Overlays</a>
- * @see <a href="http://wiki.pentaho.com/display/PLATFORM/The+Pentaho+XUL+Framework+Developer%27s+Guide">Pentaho XUL Framework</a>
- * @see <a href="http://wiki.pentaho.com/display/Surfboard/03.+Aggregation+Designer+Plugin+Development">Aggregation Designer Plugin Development</a>
+ * @see <a href="https://pentaho-community.atlassian.net/wiki/spaces/ServerDoc2x/pages/1506181986/07.+Includes+and+Overlays">XUL Overlays</a>
+ * @see <a href="https://pentaho-community.atlassian.net/wiki/spaces/ServerDoc2x/pages/1504674127/03.+XUL+1.0+Extensions+and+the+Pentaho+XUL+Namespace">Pentaho XUL Framework</a>
+ * @see <a href="https://pentaho-community.atlassian.net/wiki/">Aggregation Designer Plugin Development</a>
  */
 public interface UiExtension {
 

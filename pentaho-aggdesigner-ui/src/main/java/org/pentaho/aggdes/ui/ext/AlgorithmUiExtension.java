@@ -26,7 +26,7 @@ import java.util.Map;
  * Designer will extract these parameters via the {@link #getAlgorithmParameters()} method.
  * 
  * @author APhillips
- * @see <a href="http://wiki.pentaho.com/display/Surfboard/03.+Aggregation+Designer+Plugin+Development">Aggregation Designer Plugin Development</a>
+ * @see <a href="https://pentaho-community.atlassian.net/wiki/>Aggregation Designer Plugin Development</a>
  */
 public interface AlgorithmUiExtension extends UiExtension {
   /**
