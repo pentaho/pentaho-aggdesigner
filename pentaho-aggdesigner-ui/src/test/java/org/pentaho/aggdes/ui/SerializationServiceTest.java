@@ -23,6 +23,7 @@ import static org.pentaho.aggdes.test.util.TestUtils.getTestProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.thoughtworks.xstream.XStream;
 import junit.framework.TestCase;
 
 import org.junit.Test;
@@ -133,8 +134,9 @@ public class SerializationServiceTest extends TestCase {
         ((MondrianFileSchemaModel)connectionModel.getSelectedSchemaModel()).getMondrianSchemaFilename(),
         getTestProperty("test.mondrian.foodmart.connectString.catalog")
     );
-
-    service.deserializeAggList(schemaStub, items[2]);
+    XStream xstream = service.getXStream(schemaStub);
+    xstream.allowTypes( new String[]{"org.pentaho.aggdes.test.algorithm.impl.SchemaStub$AttributeStub" } );
+    service.deserializeAggList(schemaStub, items[2], xstream);
 
     assertEquals(4, aggList.getSize());
 
