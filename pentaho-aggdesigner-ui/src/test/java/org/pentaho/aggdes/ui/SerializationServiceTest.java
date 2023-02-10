@@ -18,7 +18,7 @@
 
 package org.pentaho.aggdes.ui;
 
-import static org.pentaho.aggdes.test.util.TestUtils.getTestProperty;
+import static org.pentaho.aggdes.util.TestUtils.getTestProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 import org.pentaho.aggdes.AggDesignerException;
-import org.pentaho.aggdes.test.algorithm.impl.SchemaStub;
+import org.pentaho.aggdes.algorithm.impl.SchemaStub;
 import org.pentaho.aggdes.ui.ext.SchemaProviderUiExtension;
 import org.pentaho.aggdes.ui.ext.impl.MondrianFileSchemaModel;
 import org.pentaho.aggdes.ui.ext.impl.MondrianFileSchemaProvider;
@@ -44,7 +44,7 @@ import org.pentaho.di.core.database.DatabaseMeta;
 
 public class SerializationServiceTest extends TestCase {
 
-  public static AggList getAggList(SchemaStub schemaStub) {
+  public static AggList getAggList( SchemaStub schemaStub) {
     AggList aggList = new AggListImpl();
 
     UIAggregateImpl aggImpl1 = new UIAggregateImpl();

@@ -38,7 +38,7 @@ import org.pentaho.aggdes.model.Aggregate;
 import org.pentaho.aggdes.model.Attribute;
 import org.pentaho.aggdes.model.Parameter;
 import org.pentaho.aggdes.model.Schema;
-import org.pentaho.aggdes.test.algorithm.impl.SchemaStub;
+import org.pentaho.aggdes.algorithm.impl.SchemaStub;
 import org.pentaho.aggdes.util.BitSetPlus;
 
 import junit.framework.TestCase;

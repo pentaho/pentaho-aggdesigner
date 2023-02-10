@@ -28,7 +28,7 @@ import org.pentaho.aggdes.output.OutputFactory;
 import org.pentaho.aggdes.output.OutputValidationException;
 import org.pentaho.aggdes.output.impl.AggregateTableOutputFactory;
 import org.pentaho.aggdes.output.impl.OutputServiceImpl;
-import org.pentaho.aggdes.test.algorithm.impl.SchemaStub;
+import org.pentaho.aggdes.algorithm.impl.SchemaStub;
 import org.pentaho.aggdes.ui.form.controller.AggController;
 import org.pentaho.aggdes.ui.form.model.AggModel;
 import org.pentaho.aggdes.ui.form.model.ConnectionModelImpl;
