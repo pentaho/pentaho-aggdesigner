@@ -28,7 +28,7 @@
     <mondrian.version>9.5.0.0-SNAPSHOT</mondrian.version>
     <commons-xul.version>9.5.0.0-SNAPSHOT</commons-xul.version>
     <mondrian-schemaworkbench-plugins.version>9.5.0.0-SNAPSHOT</mondrian-schemaworkbench-plugins.version>
-    <dependency.junit.revision>4.12</dependency.junit.revision>
+    <dependency.junit.revision>4.13.1</dependency.junit.revision>
     <pentaho-launcher.version>9.5.0.0-SNAPSHOT</pentaho-launcher.version>
     <dependency.javassist.revision>3.20.0-GA</dependency.javassist.revision>
     <pdi.version>9.5.0.0-SNAPSHOT</pdi.version>
