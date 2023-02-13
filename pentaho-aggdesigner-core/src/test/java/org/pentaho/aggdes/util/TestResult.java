@@ -16,44 +16,35 @@
 * Copyright 2006 - 2017 Hitachi Vantara.  All rights reserved.
 */
 
-package org.pentaho.aggdes.test.algorithm.impl;
+package org.pentaho.aggdes.util;
 
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.pentaho.aggdes.algorithm.Result;
+import org.pentaho.aggdes.algorithm.Algorithm;
 import org.pentaho.aggdes.model.Aggregate;
-import org.pentaho.aggdes.model.Attribute;
-import org.pentaho.aggdes.model.Measure;
 
-public class AggregateStub implements Aggregate {
-
-    public double estimateRowCount() {
+public class TestResult implements Result {
+    List<Aggregate> agglist = new ArrayList<Aggregate>();
+    
+    public TestResult() {
+    }
+    
+    public void addAggregate(Aggregate aggregate) {
+        agglist.add(aggregate);
+    }
+    
+    public void describe(PrintWriter pw) {
         // TODO Auto-generated method stub
-        return 0;
     }
 
-    public double estimateSpace() {
-        // TODO Auto-generated method stub
-        return 0;
+    public List<Aggregate> getAggregates() {
+        return agglist;
     }
 
-    public List<Attribute> getAttributes() {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Algorithm.CostBenefit> getCostBenefits() {
+        throw new UnsupportedOperationException();
     }
-
-    public String getCandidateTableName() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public String getDescription() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public List<Measure> getMeasures() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

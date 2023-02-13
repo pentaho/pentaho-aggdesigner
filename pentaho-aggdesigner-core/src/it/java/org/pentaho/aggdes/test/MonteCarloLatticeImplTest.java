@@ -27,7 +27,7 @@ import org.pentaho.aggdes.algorithm.Algorithm;
 import org.pentaho.aggdes.algorithm.impl.AggregateImpl;
 import org.pentaho.aggdes.algorithm.impl.Cost;
 import org.pentaho.aggdes.algorithm.impl.MonteCarloLatticeImpl;
-import org.pentaho.aggdes.test.algorithm.impl.SchemaStub;
+import org.pentaho.aggdes.algorithm.impl.SchemaStub;
 import org.pentaho.aggdes.util.BitSetPlus;
 
 public class MonteCarloLatticeImplTest extends TestCase {

@@ -30,9 +30,9 @@ import org.pentaho.aggdes.output.OutputFactory;
 import org.pentaho.aggdes.output.OutputValidationException;
 import org.pentaho.aggdes.output.PopulateScriptGenerator;
 import org.pentaho.aggdes.output.impl.OutputServiceImpl;
-import org.pentaho.aggdes.test.algorithm.impl.AggregateStub;
-import org.pentaho.aggdes.test.algorithm.impl.SchemaLoaderStub;
-import org.pentaho.aggdes.test.algorithm.impl.SchemaStub;
+import org.pentaho.aggdes.algorithm.impl.AggregateStub;
+import org.pentaho.aggdes.algorithm.impl.SchemaLoaderStub;
+import org.pentaho.aggdes.algorithm.impl.SchemaStub;
 
 import junit.framework.TestCase;
 

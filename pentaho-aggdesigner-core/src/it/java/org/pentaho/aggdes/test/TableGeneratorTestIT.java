@@ -43,9 +43,9 @@ import org.pentaho.aggdes.output.impl.AggregateTableOutput;
 import org.pentaho.aggdes.output.impl.CreateTableGenerator;
 import org.pentaho.aggdes.output.impl.PopulateTableGenerator;
 import org.pentaho.aggdes.output.impl.ResultHandlerImpl;
-import org.pentaho.aggdes.test.util.TestAggregate;
-import org.pentaho.aggdes.test.util.TestResult;
-import org.pentaho.aggdes.test.util.TestUtils;
+import org.pentaho.aggdes.util.TestAggregate;
+import org.pentaho.aggdes.util.TestResult;
+import org.pentaho.aggdes.util.TestUtils;
 
 public class TableGeneratorTestIT extends TestCase {
 

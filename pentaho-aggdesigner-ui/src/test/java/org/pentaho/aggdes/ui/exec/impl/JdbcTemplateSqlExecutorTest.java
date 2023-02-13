@@ -39,7 +39,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.pentaho.aggdes.model.Dialect;
-import org.pentaho.aggdes.test.algorithm.impl.SchemaStub;
+import org.pentaho.aggdes.algorithm.impl.SchemaStub;
 import org.pentaho.aggdes.ui.exec.SqlExecutor.ExecutorCallback;
 import org.pentaho.aggdes.ui.form.model.ConnectionModel;
 import org.pentaho.aggdes.ui.form.model.ConnectionModelImpl;

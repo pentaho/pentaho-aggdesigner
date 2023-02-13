@@ -25,7 +25,7 @@ import java.util.Vector;
 import junit.framework.TestCase;
 
 import org.pentaho.aggdes.model.Attribute;
-import org.pentaho.aggdes.test.algorithm.impl.SchemaStub;
+import org.pentaho.aggdes.algorithm.impl.SchemaStub;
 import org.pentaho.aggdes.ui.form.model.DimensionRowModel;
 
 public class DimensionRowModelTest extends TestCase {

@@ -16,17 +16,17 @@
 * Copyright 2006 - 2017 Hitachi Vantara.  All rights reserved.
 */
 
-package org.pentaho.aggdes.test.algorithm.impl;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+package org.pentaho.aggdes.algorithm.impl;
 
 import org.pentaho.aggdes.model.Parameter;
 import org.pentaho.aggdes.model.Schema;
 import org.pentaho.aggdes.model.SchemaLoader;
 import org.pentaho.aggdes.model.ValidationMessage;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Stub implementation for <code>SchemaLoader</code>. Provides canned answers and some methods are not implemented.
