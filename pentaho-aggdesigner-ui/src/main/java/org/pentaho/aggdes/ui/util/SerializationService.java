@@ -33,11 +33,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.thoughtworks.xstream.io.xml.AbstractXmlDriver;
 import org.pentaho.aggdes.AggDesignerException;
 import org.pentaho.aggdes.model.Schema;
+import org.pentaho.aggdes.ui.ext.impl.MondrianFileSchemaModel;
 import org.pentaho.aggdes.ui.form.model.ConnectionModel;
 import org.pentaho.aggdes.ui.model.AggList;
 import org.pentaho.aggdes.ui.model.SchemaModel;
+import org.pentaho.aggdes.ui.model.impl.AggListImpl;
 import org.pentaho.di.core.database.DatabaseMeta;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -108,8 +111,9 @@ public class SerializationService {
     }
   }
   
-  private XStream getXStream(Schema schema) {
-    XStream xstream = new XStream(new DomDriver());
+    public XStream getXStream(Schema schema) {
+    XStream xstream = createXStreamWithAllowedTypes( new DomDriver(), DatabaseMeta.class, MondrianFileSchemaModel.class, AggListImpl.class, Schema.class );
+
     xstream.registerConverter(new DatabaseMetaConverter());
     xstream.registerConverter(new AggListConverter(aggList));
     xstream.registerConverter(new AttributeConverter(schema));
@@ -146,9 +150,12 @@ public class SerializationService {
     connectionModel.setCubeName(cubeName);
   }
   
-  public void deserializeAggList(Schema schema, String xml) {
-    XStream xstream = getXStream(schema);
+  public void deserializeAggList(Schema schema, String xml, XStream xstream) {
     xstream.fromXML(xml);
+  }
+  public void deserializeAggList(Schema schema, String xml) {
+    XStream xstream = getXStream( schema );
+    deserializeAggList( schema, xml, xstream );
   }
 
   public void setConnectionModel(ConnectionModel connectionModel) {
@@ -164,5 +171,13 @@ public class SerializationService {
   public void setAggList(AggList aggList) {
   
     this.aggList = aggList;
+  }
+
+  public static XStream createXStreamWithAllowedTypes( AbstractXmlDriver driver, Class ... classes ) {
+    XStream xstream = driver == null ? new XStream() : new XStream( driver );
+    if( classes != null ) {
+      xstream.allowTypes( classes );
+    }
+    return xstream;
   }
 }

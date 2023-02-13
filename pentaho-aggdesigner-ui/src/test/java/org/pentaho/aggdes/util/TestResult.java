@@ -16,34 +16,35 @@
 * Copyright 2006 - 2017 Hitachi Vantara.  All rights reserved.
 */
 
-package org.pentaho.aggdes.test.output.impl;
+package org.pentaho.aggdes.util;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
+import org.pentaho.aggdes.algorithm.Algorithm;
 import org.pentaho.aggdes.algorithm.Result;
-import org.pentaho.aggdes.model.Parameter;
-import org.pentaho.aggdes.model.Schema;
-import org.pentaho.aggdes.output.ResultHandler;
+import org.pentaho.aggdes.model.Aggregate;
 
-/**
- * Stub implementation for <code>ResultHandler</code>. Provides canned answers and some methods are not implemented.
- * 
- * @author mlowery
- */
-public class ResultHandlerStub implements ResultHandler {
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
-  public void handle(Map<Parameter, Object> parameterValues, Schema schema, Result result) {
+public class TestResult implements Result {
+    List<Aggregate> agglist = new ArrayList<Aggregate>();
+    
+    public TestResult() {
+    }
+    
+    public void addAggregate(Aggregate aggregate) {
+        agglist.add(aggregate);
+    }
+    
+    public void describe(PrintWriter pw) {
+        // TODO Auto-generated method stub
+    }
 
-  }
+    public List<Aggregate> getAggregates() {
+        return agglist;
+    }
 
-  public String getName() {
-    return getClass().getSimpleName();
-  }
-
-  public List<Parameter> getParameters() {
-    return Collections.emptyList();
-  }
-
+    public List<Algorithm.CostBenefit> getCostBenefits() {
+        throw new UnsupportedOperationException();
+    }
 }

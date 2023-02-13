@@ -18,7 +18,7 @@
 
 package org.pentaho.aggdes.ui;
 
-import static org.pentaho.aggdes.test.util.TestUtils.getTestProperty;
+import static org.pentaho.aggdes.util.TestUtils.getTestProperty;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import org.pentaho.aggdes.test.algorithm.impl.SchemaStub;
+import org.pentaho.aggdes.algorithm.impl.SchemaStub;
 import org.pentaho.aggdes.ui.ext.impl.MondrianFileSchemaModel;
 import org.pentaho.aggdes.ui.form.controller.ConnectionController;
 import org.pentaho.aggdes.ui.form.controller.MainController;
