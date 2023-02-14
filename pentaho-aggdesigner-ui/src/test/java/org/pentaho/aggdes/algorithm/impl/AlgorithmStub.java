@@ -16,12 +16,7 @@
 * Copyright 2006 - 2017 Hitachi Vantara.  All rights reserved.
 */
 
-package org.pentaho.aggdes.test.algorithm.impl;
-
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+package org.pentaho.aggdes.algorithm.impl;
 
 import org.pentaho.aggdes.algorithm.Algorithm;
 import org.pentaho.aggdes.algorithm.Progress;
@@ -33,6 +28,11 @@ import org.pentaho.aggdes.model.Measure;
 import org.pentaho.aggdes.model.Parameter;
 import org.pentaho.aggdes.model.Schema;
 import org.pentaho.aggdes.model.Table;
+
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Stub implementation for <code>Algorithm</code>. Provides canned answers and some methods are not implemented.
