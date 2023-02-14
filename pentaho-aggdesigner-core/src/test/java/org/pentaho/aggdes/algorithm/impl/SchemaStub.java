@@ -16,7 +16,7 @@
 * Copyright 2006 - 2017 Hitachi Vantara.  All rights reserved.
 */
 
-package org.pentaho.aggdes.test.algorithm.impl;
+package org.pentaho.aggdes.algorithm.impl;
 
 import java.util.ArrayList;
 import java.util.List;

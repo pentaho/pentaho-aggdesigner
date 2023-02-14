@@ -32,9 +32,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.pentaho.aggdes.algorithm.Result;
-import org.pentaho.aggdes.test.algorithm.impl.AlgorithmStub;
-import org.pentaho.aggdes.test.algorithm.impl.SchemaStub;
+import org.pentaho.aggdes.algorithm.impl.AlgorithmStub;
+import org.pentaho.aggdes.algorithm.impl.SchemaStub;
 import org.pentaho.aggdes.ui.AlgorithmRunner.Callback;
 import org.pentaho.aggdes.ui.form.model.ConnectionModel;
 
