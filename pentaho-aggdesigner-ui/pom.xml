@@ -137,12 +137,12 @@
           <groupId>jdom</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>commons-dbcp</artifactId>
-          <groupId>commons-dbcp</groupId>
+          <artifactId>commons-dbcp2</artifactId>
+          <groupId>org.apache.commons</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>commons-pool</artifactId>
-          <groupId>commons-pool</groupId>
+          <artifactId>commons-pool2</artifactId>
+          <groupId>org.apache.commons</groupId>
         </exclusion>
       </exclusions>
     </dependency>
