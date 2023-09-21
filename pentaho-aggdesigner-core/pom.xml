@@ -40,8 +40,6 @@
     <sql-maven-plugin.version>1.5</sql-maven-plugin.version>
     <foodmart.schema.name>Foodmart</foodmart.schema.name>
     <mondrian.version>10.1.0.0-SNAPSHOT</mondrian.version>
-
-
   </properties>
 
   <dependencies>
@@ -99,19 +97,19 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.4</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.jmock</groupId>
       <artifactId>jmock-junit4</artifactId>
-      <version>2.4.0</version>
+      <version>${jmock.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.jmock</groupId>
       <artifactId>jmock-legacy</artifactId>
-      <version>2.4.0</version>
+      <version>${jmock.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>

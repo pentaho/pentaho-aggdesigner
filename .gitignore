@@ -20,3 +20,4 @@ build-res/module-scripts/
 *.iml
 .idea
 .settings
+target

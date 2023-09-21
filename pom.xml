@@ -24,6 +24,8 @@
   </scm>
   <properties>
     <license.licenseName>gpl_v2</license.licenseName>
+    <junit.version>4.13.2</junit.version>
+    <jmock.version>2.4.0</jmock.version>
   </properties>
 
 

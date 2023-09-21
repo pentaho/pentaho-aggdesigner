@@ -16,7 +16,7 @@
  * Copyright 2006 - 2023 Hitachi Vantara.  All rights reserved.
  */
 
-package org.pentaho.aggdes.util;
+package org.pentaho.aggdes.test.util;
 
 import org.pentaho.aggdes.algorithm.Algorithm;
 import org.pentaho.aggdes.algorithm.Result;
