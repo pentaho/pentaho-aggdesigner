@@ -13,7 +13,7 @@
 * See the GNU General Public License for more details.
 *
 *
-* Copyright 2006 - 2017 Hitachi Vantara.  All rights reserved.
+* Copyright 2006 - 2023 Hitachi Vantara.  All rights reserved.
 */
 
 package org.pentaho.aggdes.ui;
@@ -91,7 +91,7 @@ public class MainControllerTest extends TestCase {
 
     controller.saveWorkspace(false);
 
-    assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 1);
+    assertEquals(1, XulMessageBoxStub.openedMessageBoxes.size());
 
     assertTrue(XulMessageBoxStub.openedMessageBoxes.get(0).getMessage().indexOf("Cannot save") >= 0);
 
@@ -107,8 +107,8 @@ public class MainControllerTest extends TestCase {
 
     controller.saveWorkspace(false);
 
-    assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 0);
-    assertEquals(XulFileDialogStub.openedFileDialogs.size(), 1);
+    assertEquals(0, XulMessageBoxStub.openedMessageBoxes.size());
+    assertEquals(1, XulFileDialogStub.openedFileDialogs.size());
     assertFalse(workspace.getWorkspaceUpToDate());
 
     // TEST 3 - Save Design
@@ -123,9 +123,9 @@ public class MainControllerTest extends TestCase {
 
     controller.saveWorkspace(false);
 
-    assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 0);
-    assertEquals(XulFileDialogStub.openedFileDialogs.size(), 1);
-    assertEquals(workspace.getWorkspaceLocation(), XulFileDialogStub.returnFile);
+    assertEquals(0, XulMessageBoxStub.openedMessageBoxes.size());
+    assertEquals(1, XulFileDialogStub.openedFileDialogs.size());
+    assertEquals(XulFileDialogStub.returnFile, workspace.getWorkspaceLocation());
     assertTrue(workspace.getWorkspaceUpToDate());
     assertTrue(XulFileDialogStub.returnFile.exists());
 
@@ -139,9 +139,9 @@ public class MainControllerTest extends TestCase {
 
     controller.saveWorkspace(false);
 
-    assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 0);
-    assertEquals(XulFileDialogStub.openedFileDialogs.size(), 0);
-    assertEquals(workspace.getWorkspaceLocation(), XulFileDialogStub.returnFile);
+    assertEquals(0, XulMessageBoxStub.openedMessageBoxes.size());
+    assertEquals(0, XulFileDialogStub.openedFileDialogs.size());
+    assertEquals(XulFileDialogStub.returnFile, workspace.getWorkspaceLocation());
     assertTrue(workspace.getWorkspaceUpToDate());
     assertTrue(XulFileDialogStub.returnFile.exists());
 
@@ -157,9 +157,9 @@ public class MainControllerTest extends TestCase {
 
     controller.saveWorkspace(true);
 
-    assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 0);
-    assertEquals(XulFileDialogStub.openedFileDialogs.size(), 1);
-    assertEquals(workspace.getWorkspaceLocation(), XulFileDialogStub.returnFile);
+    assertEquals(0, XulMessageBoxStub.openedMessageBoxes.size());
+    assertEquals(1, XulFileDialogStub.openedFileDialogs.size());
+    assertEquals(XulFileDialogStub.returnFile, workspace.getWorkspaceLocation());
     assertTrue(workspace.getWorkspaceUpToDate());
     assertTrue(XulFileDialogStub.returnFile.exists());
 
@@ -174,9 +174,9 @@ public class MainControllerTest extends TestCase {
 
     controller.saveWorkspace(false);
 
-    assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 1);
+    assertEquals(1, XulMessageBoxStub.openedMessageBoxes.size());
     assertTrue(XulMessageBoxStub.openedMessageBoxes.get(0).getMessage().indexOf("Failed") >= 0);
-    assertEquals(XulFileDialogStub.openedFileDialogs.size(), 1);
+    assertEquals(1, XulFileDialogStub.openedFileDialogs.size());
     assertNull(workspace.getWorkspaceLocation());
     assertFalse(workspace.getWorkspaceUpToDate());
   }
@@ -219,9 +219,9 @@ public class MainControllerTest extends TestCase {
 
     boolean rtnValue = controller.promptIfSaveRequired();
 
-    assertEquals(rtnValue, true);
-    assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 0);
-    assertEquals(XulFileDialogStub.openedFileDialogs.size(), 0);
+    assertTrue( rtnValue );
+    assertEquals(0, XulMessageBoxStub.openedMessageBoxes.size());
+    assertEquals(0, XulFileDialogStub.openedFileDialogs.size());
 
     // Test 2 - Still No Prompt Necessary
 
@@ -230,9 +230,9 @@ public class MainControllerTest extends TestCase {
 
     rtnValue = controller.promptIfSaveRequired();
 
-    assertEquals(rtnValue, true);
-    assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 0);
-    assertEquals(XulFileDialogStub.openedFileDialogs.size(), 0);
+    assertTrue( rtnValue );
+    assertEquals(0, XulMessageBoxStub.openedMessageBoxes.size());
+    assertEquals(0, XulFileDialogStub.openedFileDialogs.size());
 
     // Test 3 - Still No Prompt Necessary
 
@@ -241,9 +241,9 @@ public class MainControllerTest extends TestCase {
 
     rtnValue = controller.promptIfSaveRequired();
 
-    assertEquals(rtnValue, true);
-    assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 0);
-    assertEquals(XulFileDialogStub.openedFileDialogs.size(), 0);
+    assertTrue( rtnValue );
+    assertEquals(0, XulMessageBoxStub.openedMessageBoxes.size());
+    assertEquals(0, XulFileDialogStub.openedFileDialogs.size());
 
     // Test 4 - Prompt Necessary, Cancel
 
@@ -253,9 +253,9 @@ public class MainControllerTest extends TestCase {
 
     rtnValue = controller.promptIfSaveRequired();
 
-    assertEquals(rtnValue, false);
-    assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 1);
-    assertEquals(XulFileDialogStub.openedFileDialogs.size(), 0);
+    assertFalse( rtnValue );
+    assertEquals(1, XulMessageBoxStub.openedMessageBoxes.size());
+    assertEquals(0, XulFileDialogStub.openedFileDialogs.size());
 
     // Test 4 - Prompt Necessary, Don't Save
 
@@ -266,9 +266,9 @@ public class MainControllerTest extends TestCase {
 
     rtnValue = controller.promptIfSaveRequired();
 
-    assertEquals(rtnValue, true);
-    assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 1);
-    assertEquals(XulFileDialogStub.openedFileDialogs.size(), 0);
+    assertTrue( rtnValue );
+    assertEquals(1, XulMessageBoxStub.openedMessageBoxes.size());
+    assertEquals(0, XulFileDialogStub.openedFileDialogs.size());
 
     // Test 5 - Prompt Necessary, Save (Cancel)
 
@@ -280,9 +280,9 @@ public class MainControllerTest extends TestCase {
 
     rtnValue = controller.promptIfSaveRequired();
 
-    assertEquals(rtnValue, false);
-    assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 2);
-    assertEquals(XulFileDialogStub.openedFileDialogs.size(), 1);
+    assertFalse( rtnValue );
+    assertEquals(2, XulMessageBoxStub.openedMessageBoxes.size());
+    assertEquals(1, XulFileDialogStub.openedFileDialogs.size());
   }
 
   public void testOpenWorkspace() throws XulException {
@@ -315,8 +315,8 @@ public class MainControllerTest extends TestCase {
     controller.setConnectionModel(connectionModel);
     controller.setSerializationService(serializationService);
 
-    final List<Integer> connected = new ArrayList<Integer>();
-    final List<Integer> applied = new ArrayList<Integer>();
+    final List<Integer> connected = new ArrayList<>();
+    final List<Integer> applied = new ArrayList<>();
 
     ConnectionController connectionController = new ConnectionController() {
       public void connect() {
@@ -355,8 +355,8 @@ public class MainControllerTest extends TestCase {
 
     controller.openWorkspace();
 
-    assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 0);
-    assertEquals(XulFileDialogStub.openedFileDialogs.size(), 1);
+    assertEquals(0, XulMessageBoxStub.openedMessageBoxes.size());
+    assertEquals(1, XulFileDialogStub.openedFileDialogs.size());
 
     // Test 2 - Happy Path
 
@@ -368,14 +368,13 @@ public class MainControllerTest extends TestCase {
     applied.clear();
     controller.openWorkspace();
 
-    assertEquals(XulMessageBoxStub.openedMessageBoxes.size(), 0);
-    assertEquals(XulFileDialogStub.openedFileDialogs.size(), 1);
-    assertEquals(connected.size(), 1);
-    assertEquals(applied.size(), 1);
-    assertEquals(aggList.getSize(), 4);
-    assertEquals(workspace.isApplicationUnlocked(), true);
-    assertEquals(workspace.getWorkspaceUpToDate(), true);
-
+    assertEquals(0, XulMessageBoxStub.openedMessageBoxes.size());
+    assertEquals(1, XulFileDialogStub.openedFileDialogs.size());
+    assertEquals(1, connected.size());
+    assertEquals(1, applied.size());
+    assertEquals(4, aggList.getSize());
+    assertTrue( workspace.isApplicationUnlocked() );
+    assertTrue( workspace.getWorkspaceUpToDate() );
   }
 
   public void testNewWorkspace() throws Exception {
@@ -407,7 +406,7 @@ public class MainControllerTest extends TestCase {
     workspace.setSchema(schemaStub);
     XulDomContainer xulDomContainer = new XulDomContainerStub();
     MainController controller = new MainController();
-    final List<Integer> showDialog = new ArrayList<Integer>();
+    final List<Integer> showDialog = new ArrayList<>();
     ConnectionController connectionController = new ConnectionController() {
       public void showConnectionDialog(){
         showDialog.add(1);
@@ -425,7 +424,7 @@ public class MainControllerTest extends TestCase {
 
     controller.newWorkspace();
 
-    assertEquals(aggList.getSize(), 0);
-    assertEquals(showDialog.size(), 1);
+    assertEquals(0, aggList.getSize());
+    assertEquals(1, showDialog.size());
   }
 }

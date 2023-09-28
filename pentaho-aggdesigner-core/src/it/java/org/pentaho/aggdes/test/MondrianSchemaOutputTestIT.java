@@ -37,9 +37,9 @@ import org.pentaho.aggdes.output.Output;
 import org.pentaho.aggdes.output.impl.AggregateTableOutput;
 import org.pentaho.aggdes.output.impl.AggregateTableOutputFactory;
 import org.pentaho.aggdes.output.impl.MondrianSchemaGenerator;
-import org.pentaho.aggdes.util.TestAggregate;
-import org.pentaho.aggdes.util.TestResult;
-import org.pentaho.aggdes.util.TestUtils;
+import org.pentaho.aggdes.test.util.TestAggregate;
+import org.pentaho.aggdes.test.util.TestResult;
+import org.pentaho.aggdes.test.util.TestUtils;
 
 @SuppressWarnings( "squid:S1192" )
 public class MondrianSchemaOutputTestIT extends TestCase {
