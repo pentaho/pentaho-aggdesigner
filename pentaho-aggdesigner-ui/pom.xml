@@ -23,6 +23,7 @@
     <developerConnection>scm:git:git@github.com:pentaho/pentaho-aggdesigner.git</developerConnection>
   </scm>
   <properties>
+    <maven-surefire-plugin.argLine> --add-opens=java.base/java.lang=ALL-UNNAMED </maven-surefire-plugin.argLine>
     <dependency.spring.modules.revision>0.8</dependency.spring.modules.revision>
     <project.revision>10.2.0.0-SNAPSHOT</project.revision>
     <mondrian.version>10.2.0.0-SNAPSHOT</mondrian.version>
@@ -31,7 +32,7 @@
     <pentaho-launcher.version>10.2.0.0-SNAPSHOT</pentaho-launcher.version>
     <dependency.javassist.revision>3.20.0-GA</dependency.javassist.revision>
     <pdi.version>10.2.0.0-SNAPSHOT</pdi.version>
-    <mockito-all.version>1.9.5</mockito-all.version>
+    <jmock.version>2.4.0</jmock.version>
   </properties>
 
   <dependencies>
@@ -437,8 +438,8 @@
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>${mockito-all.version}</version>
+      <artifactId>mockito-core</artifactId>
+      <version>${mockito-core.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>

@@ -75,7 +75,7 @@ public class ConnectionController extends AbstractXulEventHandler {
 
   private Schema schema = null;
 
-  private BindingFactory bindingFactory;
+  public BindingFactory bindingFactory;
 
   @Autowired
   public void setBindingFactory(BindingFactory bindingFactory) {
