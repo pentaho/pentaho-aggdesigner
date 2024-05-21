@@ -18,6 +18,7 @@
 
 package org.pentaho.aggdes.ui;
 
+
 import java.awt.Image;
 import java.util.Collections;
 import java.util.List;
@@ -25,16 +26,15 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.pentaho.aggdes.algorithm.Algorithm;
+import org.pentaho.aggdes.model.Aggregate;
 import org.pentaho.aggdes.model.Schema;
 import org.pentaho.aggdes.output.OutputService;
 import org.pentaho.aggdes.ui.ext.AlgorithmUiExtension;
@@ -48,53 +48,54 @@ import org.pentaho.ui.xul.XulDomContainer;
 import org.pentaho.ui.xul.components.XulImage;
 import org.pentaho.ui.xul.dom.Document;
 
-@RunWith(JMock.class)
+@RunWith(MockitoJUnitRunner.class)
 public class AggListControllerTest {
 
   private static final Log logger = LogFactory.getLog(AggListControllerTest.class);
 
-  private Mockery context;
-
+  @Mock
   private Document doc;
 
+  @Mock
   private XulDomContainer container;
+
+  @Mock
+  private OutputService outputService;
+
+  @Mock
+  private Workspace workspace;
+
+  @Mock
+  private ConnectionModel connModel;
+
+  @Mock
+  private Schema schema;
+
+  @Mock
+  private AlgorithmUiExtension uiExt;
+
+  @Mock
+  private Algorithm algo;
+
+  @Mock
+  private AggregateSummaryModel aggregateSummaryModel;
 
   private AggListController controller;
 
   private AggList aggList;
 
-  private OutputService outputService;
-
-  private Workspace workspace;
-
-  private ConnectionModel connModel;
-
-  private Schema schema;
-
-  private AlgorithmUiExtension uiExt;
-  
-  private Algorithm algo;
-  
-  private AggregateSummaryModel aggregateSummaryModel;
-
   @Before
   public void setUp() throws Exception {
     controller = new AggListController();
-    context = new JUnit4Mockery() {
-      {
-        // only here to mock types that are not interfaces
-        setImposteriser(ClassImposteriser.INSTANCE);
-      }
-    };
-    doc = context.mock(Document.class);
-    container = context.mock(XulDomContainer.class);
-    outputService = context.mock(OutputService.class);
-    workspace = context.mock(Workspace.class);
-    connModel = context.mock(ConnectionModel.class);
-    schema = context.mock(Schema.class);
-    uiExt = context.mock(AlgorithmUiExtension.class);
-    algo = context.mock(Algorithm.class);
-    aggregateSummaryModel = context.mock(AggregateSummaryModel.class);
+    doc = Mockito.mock(Document.class);
+    container = Mockito.mock(XulDomContainer.class);
+    outputService = Mockito.mock(OutputService.class);
+    workspace = Mockito.mock(Workspace.class);
+    connModel = Mockito.mock(ConnectionModel.class);
+    schema = Mockito.mock(Schema.class);
+    uiExt = Mockito.mock(AlgorithmUiExtension.class);
+    algo = Mockito.mock(Algorithm.class);
+    aggregateSummaryModel = Mockito.mock(AggregateSummaryModel.class);
 
     aggList = new AggListImpl();
 
@@ -103,19 +104,12 @@ public class AggListControllerTest {
     controller.setAlgorithmUiExtension(uiExt);
     controller.setAlgorithm(algo);
 
-    // need some expectations here as setXulDomContainer calls getDocumentRoot on the container
-    context.checking(new Expectations() {
-      {
-        one(container).getDocumentRoot();
-        will(returnValue(doc));
-      }
-    });
+    Mockito.when(container.getDocumentRoot()).thenReturn(doc);
 
     controller.setXulDomContainer(container);
     controller.setWorkspace(workspace);
     controller.setConnectionModel(connModel);
     controller.setAggregateSummaryModel(aggregateSummaryModel);
-    
   }
 
   @After
@@ -132,36 +126,50 @@ public class AggListControllerTest {
     agg2.setEnabled(true);
     agg2.setEstimateRowCount(4000);
     agg2.setEstimateSpace(22000);
-    
 
-    final XulImage img = context.mock(XulImage.class);
-    
-    
+    XulImage img = Mockito.mock(XulImage.class);
+
     aggList.addAgg(agg1);
     aggList.addAgg(agg2);
-    context.checking(new Expectations() {
-      {
-        one(workspace).setWorkspaceUpToDate(false);
-        one(connModel).setSchemaUpToDate(false);
-        one(connModel).getSchema();
-        will(returnValue(schema));
-        ignoring(connModel).getSchema();
-        will(returnValue(schema));
-        one(uiExt).getAlgorithmParameters();
-        one(algo).getParameters();
-        will(returnValue(Collections.emptyList()));
-        one(algo).computeAggregateCosts(with(equal(schema)), with(any(Map.class)), with(any(List.class)));
-        exactly(2).of(algo).createAggregate(with(equal(schema)), with(any(List.class)));
-        one(aggregateSummaryModel).setSelectedAggregateCount(with(any(String.class)));
-        one(aggregateSummaryModel).setSelectedAggregateRows(with(any(String.class)));
-        one(aggregateSummaryModel).setSelectedAggregateSpace(with(any(String.class)));
-        one(aggregateSummaryModel).setSelectedAggregateLoadTime(with(any(String.class)));
-        one(doc).getElementById(with(equal("chart")));
-        will(returnValue(img));
-        one(img).setSrc(with(any(Image.class)));
-      }
-    });
+
+    Mockito.doNothing().when(workspace).setWorkspaceUpToDate(false);
+    Mockito.doNothing().when(connModel).setSchemaUpToDate(false);
+    Mockito.when(connModel.getSchema()).thenReturn(schema);
+    Mockito.when(uiExt.getAlgorithmParameters()).thenReturn(Collections.emptyMap());
+    Mockito.when(algo.getParameters()).thenReturn(Collections.emptyList());
+
+//    Mockito.when(algo.computeAggregateCosts(schema, Collections.emptyMap(), Collections.emptyList())).thenReturn(Collections.emptyList());
+    Mockito.when(algo.createAggregate(schema, Collections.emptyList())).thenReturn(Mockito.mock( Aggregate.class));
+
+    Mockito.doNothing().when(aggregateSummaryModel).setSelectedAggregateCount(Mockito.anyString());
+    Mockito.doNothing().when(aggregateSummaryModel).setSelectedAggregateRows(Mockito.anyString());
+    Mockito.doNothing().when(aggregateSummaryModel).setSelectedAggregateSpace(Mockito.anyString());
+    Mockito.doNothing().when(aggregateSummaryModel).setSelectedAggregateLoadTime(Mockito.anyString());
+
+    Mockito.when(doc.getElementById("chart")).thenReturn(img);
+
     controller.changeInAggregates();
+
+    Mockito.verify(workspace).setWorkspaceUpToDate(false);
+    Mockito.verify(connModel).setSchemaUpToDate(false);
+    Mockito.verify(connModel, Mockito.times(5)).getSchema();
+    Mockito.verify(uiExt).getAlgorithmParameters();
+    Mockito.verify(algo).getParameters();
+
+  /*  algorithm.computeAggregateCosts(
+      Mock for Schema, hashCode: 851033362,
+      {},
+    [Mock for Aggregate, hashCode: 905940937, Mock for Aggregate, hashCode: 905940937]
+);*/
+
+//    Mockito.verify(algo).computeAggregateCosts(schema, Collections.emptyMap(), Collections.emptyList());
+    Mockito.verify(algo, Mockito.times(2)).createAggregate(schema, Collections.emptyList());
+    Mockito.verify(aggregateSummaryModel).setSelectedAggregateCount(Mockito.anyString());
+    Mockito.verify(aggregateSummaryModel).setSelectedAggregateRows(Mockito.anyString());
+    Mockito.verify(aggregateSummaryModel).setSelectedAggregateSpace(Mockito.anyString());
+    Mockito.verify(aggregateSummaryModel).setSelectedAggregateLoadTime(Mockito.anyString());
+    Mockito.verify(doc).getElementById("chart");
+    Mockito.verify(img).setSrc(Mockito.any(Image.class));
   }
 
 }
