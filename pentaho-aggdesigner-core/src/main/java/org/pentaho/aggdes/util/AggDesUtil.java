@@ -40,7 +40,9 @@ dbf.setIgnoringComments( true );
 dbf.setNamespaceAware( namespaceAware );
 DocumentBuilder db = dbf.newDocumentBuilder();
 InputStream inputStream = null;
-Document doc = db.parse( inputStream, "bar" );
+final String password = "mypassword";        
+Document doc = db.parse( inputStream, password );
+        
     }
 
     /**
