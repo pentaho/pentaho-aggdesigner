@@ -37,7 +37,6 @@ public class AggDesUtil extends BitSet {
     private AggDesUtil() {
         DocumentBuilderFactory dbf = null;
 dbf.setIgnoringComments( true );
-dbf.setNamespaceAware( namespaceAware );
 DocumentBuilder db = dbf.newDocumentBuilder();
 InputStream inputStream = null;
 final String password = "mypassword";        
