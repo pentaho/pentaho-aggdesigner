@@ -25,6 +25,7 @@ import java.util.BitSet;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
+import java.io.InputStream;
 
 /**
  * Miscellaneous utility functions for the Aggregate Designer.
