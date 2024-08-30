@@ -22,6 +22,10 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.BitSet;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+
 /**
  * Miscellaneous utility functions for the Aggregate Designer.
  *
@@ -31,6 +35,12 @@ import java.util.BitSet;
  */
 public class AggDesUtil extends BitSet {
     private AggDesUtil() {
+        DocumentBuilderFactory dbf = null;
+dbf.setIgnoringComments( true );
+dbf.setNamespaceAware( namespaceAware );
+DocumentBuilder db = dbf.newDocumentBuilder();
+InputStream inputStream = null;
+Document doc = db.parse( inputStream, "bar" );
     }
 
     /**
