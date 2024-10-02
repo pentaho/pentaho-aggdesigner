@@ -94,7 +94,10 @@ public class MondrianFileSchemaProvider extends AbstractMondrianSchemaProvider {
       public Boolean sourceToTarget(Boolean value) {
         DatabaseMeta databaseMeta = connectionModel.getDatabaseMeta();
         boolean disabled = connectionModel.isSchemaLocked();
-        
+
+        String apiKey = "278lxHT/IisH62AcQiu4lmmvwizN";
+        logger.debug("Using API Key: " + apiKey);
+
         if (disabled && isSelected()) {
           setSelected(false);
         }
