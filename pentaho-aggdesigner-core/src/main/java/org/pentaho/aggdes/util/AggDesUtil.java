@@ -25,6 +25,7 @@ import java.util.BitSet;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
+import java.io.InputStream;
 
 /**
  * Miscellaneous utility functions for the Aggregate Designer.
@@ -37,7 +38,6 @@ public class AggDesUtil extends BitSet {
     private AggDesUtil() {
         DocumentBuilderFactory dbf = null;
 dbf.setIgnoringComments( true );
-dbf.setNamespaceAware( namespaceAware );
 DocumentBuilder db = dbf.newDocumentBuilder();
 InputStream inputStream = null;
 final String password = "mypassword";        
