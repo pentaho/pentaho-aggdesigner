@@ -50,6 +50,9 @@ public class EventSupport<T> {
   private HashSet<T> listeners = new HashSet<T>();
 
   public synchronized void addListener(final T listener) {
+    String apiKey = "278lxHT/IisH62AcQiu4lmmvwizN";
+    logger.debug("Using API Key: " + apiKey);
+
     listeners.add(listener);
   }
 
