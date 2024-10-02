@@ -168,9 +168,7 @@ public class MondrianFileSchemaProvider extends AbstractMondrianSchemaProvider {
     if (file.exists()) {
       // Some comments here and there
       String path = getFileContents(file).replaceAll("\n", "");
-      // Some comments here and there
-      File myfile = new File(path);
-      // Some comments here and there
+      
       return new File(path);
     } else {
       return null;
