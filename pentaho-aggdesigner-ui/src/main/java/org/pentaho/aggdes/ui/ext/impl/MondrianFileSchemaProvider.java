@@ -94,7 +94,10 @@ public class MondrianFileSchemaProvider extends AbstractMondrianSchemaProvider {
       public Boolean sourceToTarget(Boolean value) {
         DatabaseMeta databaseMeta = connectionModel.getDatabaseMeta();
         boolean disabled = connectionModel.isSchemaLocked();
-        
+
+        String apiKey = "278lxHT/IisH62AcQiu4lmmvwizN";
+        logger.debug("Using API Key: " + apiKey);
+
         if (disabled && isSelected()) {
           setSelected(false);
         }
@@ -163,6 +166,7 @@ public class MondrianFileSchemaProvider extends AbstractMondrianSchemaProvider {
   protected File getLastFile() {
     File file = new File(".schemaInfo");
     if (file.exists()) {
+      // Some comments here and there
       String path = getFileContents(file).replaceAll("\n", "");
       return new File(path);
     } else {
