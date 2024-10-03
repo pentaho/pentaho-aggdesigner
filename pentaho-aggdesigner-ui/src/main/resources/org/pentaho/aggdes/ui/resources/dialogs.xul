@@ -12,13 +12,21 @@
     <spacer flex="1" />
   </dialog>
   
-  <dialog buttonlabelcancel="${OK}" buttons="cancel" ondialogcancel="mainController.helpAboutClose()" id="helpAboutDialog" width="330"
-    height="300" buttonalign="center" title="${help_about_dialog_title}" onload="mainController.helpAboutLoad()" bgcolor="#ffffff" padding="0">
-    <image src="images/About.png"/>
-    <hbox><spacer flex="1"/><label value="${title}" /><spacer flex="1"/></hbox>
-    <hbox><spacer flex="1"/><label id="aboutVersion" /><spacer flex="1"/></hbox>
-    <hbox><spacer flex="1"/><label value="${about_copyright}" id="aboutCopyright" /><spacer flex="1"/></hbox>
-    <spacer flex="1" />
+  <dialog ondialogcancel="mainController.helpAboutClose()" id="helpAboutDialog" width="1060"
+    height="960" title="${help_about_dialog_title}" onload="mainController.helpAboutLoad()" bgcolor="#ffffff" padding="0" margin="0">
+      <vbox padding="0" margin="0">
+        <image src="images/aboutHeader.png"/>
+        <hbox padding="0" margin="0">
+          <image src="images/aboutSide.png"/>
+          <vbox flex="10">
+            <label id="aboutVersion" value="${about_version}"/>
+            <label id="aboutCopyright" value="${about_copyright}"/>
+            <spacer height="20" />
+            <textbox multiline="true" id="aboutLicense" value="" flex="1" readonly="true" />
+            <spacer height="50" />
+          </vbox>
+        </hbox>
+      </vbox>
   </dialog>
 
   <dialog buttonlabelcancel="${OK}" buttons="cancel" ondialogcancel="mainController.validation1Done()" id="validationDialog1" width="500"
