@@ -33,13 +33,6 @@
       <version>${pentaho-launcher.version}</version>
       <scope>runtime</scope>
     </dependency>
-    <dependency>
-      <groupId>pentaho</groupId>
-      <artifactId>oss-licenses</artifactId>
-      <version>${oss-licenses.version}</version>
-      <type>zip</type>
-      <scope>runtime</scope>
-    </dependency>
     <!-- Use log4j implementation with SLF4J -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -59,18 +52,6 @@
         <artifactId>maven-dependency-plugin</artifactId>
         <executions>
           <execution>
-            <id>unpack-oss</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>unpack-dependencies</goal>
-            </goals>
-            <configuration>
-              <includes>PentahoAggDesigner_OSS_Licenses.html</includes>
-              <outputDirectory>${assembly.dir}/oss-licenses</outputDirectory>
-              <includeArtifactIds>oss-licenses</includeArtifactIds>
-            </configuration>
-          </execution>
-          <execution>
             <id>add-libs</id>
             <phase>prepare-package</phase>
             <goals>
@@ -79,7 +60,6 @@
             <configuration>
               <outputDirectory>${assembly.dir}/lib</outputDirectory>
               <includeScope>runtime</includeScope>
-              <excludeArtifactIds>oss-licenses</excludeArtifactIds>
             </configuration>
           </execution>
         </executions>
