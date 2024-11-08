@@ -13,7 +13,7 @@
 * See the GNU General Public License for more details.
 *
 *
-* Copyright 2006 - 2017 Hitachi Vantara.  All rights reserved.
+* Copyright 2006 - 2024 Hitachi Vantara.  All rights reserved.
 */
 
 package org.pentaho.aggdes.ui.form.controller;
@@ -59,7 +59,6 @@ import org.pentaho.ui.xul.containers.XulWindow;
 import org.pentaho.ui.xul.impl.AbstractXulEventHandler;
 import org.pentaho.ui.xul.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.Assert;
 
 //FIXME: Use XUL data binding to remove all references to XulComponents, then rename this class to ExportController
@@ -108,17 +107,17 @@ public class ExportHandler extends AbstractXulEventHandler {
     this.bindingFactory = bindingFactory;
   }
 
-  @Required
+  @Autowired
   public void setOutputService(OutputService outputService) {
     this.outputService = outputService;
   }
 
-  @Required
+  @Autowired
   public void setDdlDmlExecutor(SqlExecutor ddlDmlExecutor) {
     this.ddlDmlExecutor = ddlDmlExecutor;
   }
-  
-  @Required
+
+  @Autowired
   public void setDdlExecCallbackService(DDLExecutionCallbackService ddlExecCallbackService) {
       this.ddlExecCallbackService = ddlExecCallbackService;
   }
@@ -555,7 +554,7 @@ public class ExportHandler extends AbstractXulEventHandler {
     return null;
   }
 
-  @Required
+  @Autowired
   public void setConnectionModel(ConnectionModel connectionModel) {
     this.connectionModel = connectionModel;
   }
@@ -582,7 +581,7 @@ public class ExportHandler extends AbstractXulEventHandler {
     this.aggList = aggList;
   }
   
-  @Required
+  @Autowired
   public void setAggController(AggController aggController) {
       this.aggController = aggController;
     }

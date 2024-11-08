@@ -13,7 +13,7 @@
 * See the GNU General Public License for more details.
 *
 *
-* Copyright 2006 - 2017 Hitachi Vantara.  All rights reserved.
+* Copyright 2006 - 2024 Hitachi Vantara.  All rights reserved.
 */
 
 package org.pentaho.aggdes.ui.form.controller;
@@ -44,8 +44,6 @@ import org.pentaho.ui.xul.impl.AbstractXulEventHandler;
 import org.pentaho.ui.xul.stereotype.Controller;
 import org.pentaho.ui.xul.stereotype.RequestHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
-
 @Controller
 public class AggController extends AbstractXulEventHandler {
 
@@ -70,22 +68,22 @@ public class AggController extends AbstractXulEventHandler {
 
   private static final Log logger = LogFactory.getLog(AggController.class);
 
-  @Required
+  @Autowired
   public void setAggModel(AggModel aggModel) {
     this.aggModel = aggModel;
   }
 
-  @Required
+  @Autowired
   public void setOutputUIService(OutputUIService outputUIService) {
     this.outputUIService = outputUIService;
   }
 
-  @Required
+  @Autowired
   public void setOutputService(OutputService outputService) {
     this.outputService = outputService;
   }
 
-  @Required
+  @Autowired
   public void setAggList(AggList aggList) {
     this.aggList = aggList;
   }
