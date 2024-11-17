@@ -43,5 +43,12 @@
       <directory>${assembly.dir}/lib</directory>
       <outputDirectory>lib</outputDirectory>
     </fileSet>
+    <fileSet>
+      <directory>${project.basedir}/../..</directory>
+      <includes>
+        <include>LICENSE.TXT</include>
+      </includes>
+      <outputDirectory>.</outputDirectory>
+    </fileSet>
   </fileSets>
 </assembly>
