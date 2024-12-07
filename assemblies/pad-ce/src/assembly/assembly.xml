@@ -40,12 +40,15 @@
       </excludes>
     </fileSet>
     <fileSet>
-      <directory>${assembly.dir}/oss-licenses</directory>
-      <outputDirectory>doc</outputDirectory>
-    </fileSet>
-    <fileSet>
       <directory>${assembly.dir}/lib</directory>
       <outputDirectory>lib</outputDirectory>
+    </fileSet>
+    <fileSet>
+      <directory>${project.basedir}/../..</directory>
+      <includes>
+        <include>LICENSE.TXT</include>
+      </includes>
+      <outputDirectory>.</outputDirectory>
     </fileSet>
   </fileSets>
 </assembly>

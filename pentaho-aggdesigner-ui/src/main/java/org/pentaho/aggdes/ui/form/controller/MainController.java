@@ -13,13 +13,17 @@
 
 package org.pentaho.aggdes.ui.form.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.Date;
-import java.util.Properties;
+import java.util.jar.Attributes;
+import java.util.jar.Manifest;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -41,6 +45,7 @@ import org.pentaho.ui.xul.components.XulLabel;
 import org.pentaho.ui.xul.components.XulMenuitem;
 import org.pentaho.ui.xul.components.XulMessageBox;
 import org.pentaho.ui.xul.components.XulFileDialog.RETURN_CODE;
+import org.pentaho.ui.xul.components.XulTextbox;
 import org.pentaho.ui.xul.containers.XulDeck;
 import org.pentaho.ui.xul.containers.XulDialog;
 import org.pentaho.ui.xul.containers.XulWindow;
@@ -74,8 +79,9 @@ public class MainController extends AbstractXulEventHandler {
 
   private ConnectionController connectionController;
 
-
   private BindingFactory bindingFactory;
+
+  private static final String LICENSE_FILE_PATH = "./LICENSE.TXT";
 
   @Autowired
   public void setBindingFactory(BindingFactory bindingFactory) {
@@ -354,28 +360,41 @@ public class MainController extends AbstractXulEventHandler {
 
   public void helpAboutLoad() {
 
-    // TODO - Use VersionHelper to get version information from the MANIFEST.MF file
-    //        and display the proper version and copyright information
-
-    XulLabel helpAboutVersionLabel = (XulLabel) document.getElementById("aboutVersion");
-    Properties versionProps = new Properties();
+    String version = "";
     try {
-      InputStream is = getClass().getResourceAsStream("/version.properties");
-      if (is == null) {
-        logger.error("Failed to locate version.properties on classpath");
+      URL manifestUrl = getClass().getResource("/META-INF/MANIFEST.MF");
+      if (manifestUrl != null) {
+        Manifest manifest = new Manifest(manifestUrl.openStream());
+        Attributes attributes = manifest.getMainAttributes();
+        version = attributes.getValue("Implementation-Version");
       } else {
-        versionProps.load(is);
+        logger.error("MANIFEST.MF not found.");
       }
     } catch (IOException e) {
-      if (logger.isErrorEnabled()) {
-        logger.error("an exception occurred", e);
-      }
-      return;
+      logger.error( "", e);
     }
-    helpAboutVersionLabel.setValue(versionProps.getProperty("version"));
+    XulLabel helpAboutVersionLabel = (XulLabel) document.getElementById("aboutVersion");
+    helpAboutVersionLabel.setValue( Messages.getString( "about_version", version ) );
+
     XulLabel helpAboutCopyrightLabel = (XulLabel) document.getElementById( "aboutCopyright" );
     helpAboutCopyrightLabel.setValue( Messages.getString( "about_copyright", ""
       + ( (new Date() ).getYear()+1900 ) ) );
+
+    StringBuilder license = new StringBuilder();
+    String line;
+    try {
+      BufferedReader reader =
+        new BufferedReader( new FileReader( LICENSE_FILE_PATH ));
+      while ( ( line = reader.readLine() ) != null ) {
+        license.append( line + System.getProperty( "line.separator" ) );
+      }
+    } catch ( Exception ex ) {
+      license.append( String.format( "Error reading license file from product directory: \"%s\"", LICENSE_FILE_PATH ) );
+      logger.error( "Failed to load the license text", ex );
+    }
+    XulTextbox helpAboutLicenseTextbox = (XulTextbox) document.getElementById( "aboutLicense" );
+    helpAboutLicenseTextbox.setValue( license.toString() );
+
   }
 
   public void setWorkspace(Workspace workspace) {
