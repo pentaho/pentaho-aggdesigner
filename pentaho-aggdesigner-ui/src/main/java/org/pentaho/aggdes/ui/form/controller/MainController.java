@@ -376,10 +376,6 @@ public class MainController extends AbstractXulEventHandler {
     XulLabel helpAboutVersionLabel = (XulLabel) document.getElementById("aboutVersion");
     helpAboutVersionLabel.setValue( Messages.getString( "about_version", version ) );
 
-    XulLabel helpAboutCopyrightLabel = (XulLabel) document.getElementById( "aboutCopyright" );
-    helpAboutCopyrightLabel.setValue( Messages.getString( "about_copyright", ""
-      + ( (new Date() ).getYear()+1900 ) ) );
-
     StringBuilder license = new StringBuilder();
     String line;
     try {
