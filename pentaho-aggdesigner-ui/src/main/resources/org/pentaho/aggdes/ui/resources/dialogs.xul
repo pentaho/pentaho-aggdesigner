@@ -20,7 +20,6 @@
           <image src="images/aboutSide.png"/>
           <vbox flex="10">
             <label id="aboutVersion" value="${about_version}"/>
-            <label id="aboutCopyright" value="${about_copyright}"/>
             <spacer height="20" />
             <textbox multiline="true" id="aboutLicense" value="" flex="1" readonly="true" />
             <spacer height="50" />
