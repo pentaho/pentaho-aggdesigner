@@ -32,9 +32,6 @@ import org.dom4j.Element;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.pentaho.aggdes.AggDesignerException;
-import org.xml.sax.SAXException;
-
-import javax.xml.XMLConstants;
 
 /**
  * Converts SQL Server Analysis Services (SSAS) dump to model expected by Pentaho Aggregation Designer.
@@ -592,7 +589,7 @@ public class ConversionUtil {
   }
 
   public static List<Document> generateMondrianDocsFromSSASSchema( final InputStream input )
-    throws DocumentException, IOException, AggDesignerException, SAXException {
+    throws DocumentException, IOException, AggDesignerException {
 
     Document ssasDocument = parseAssl( input );
 
@@ -1283,11 +1280,11 @@ public class ConversionUtil {
    * @return document
    * @throws DocumentException problem parsing document
    */
-  public static Document parseAssl( final URL url ) throws DocumentException, IOException, SAXException {
+  public static Document parseAssl( final URL url ) throws DocumentException, IOException {
     return parseAssl( url.openStream() );
   }
 
-  public static Document parseAssl( final InputStream input ) throws DocumentException, IOException, SAXException {
+  public static Document parseAssl( final InputStream input ) throws DocumentException, IOException {
     Map<String, String> uris = new HashMap<String, String>();
     uris.put( "assl", "http://schemas.microsoft.com/analysisservices/2003/engine" );
     uris.put( "xsi", "http://www.w3.org/2001/XMLSchema-instance" );
@@ -1297,11 +1294,6 @@ public class ConversionUtil {
     DocumentFactory factory = new DocumentFactory();
     factory.setXPathNamespaceURIs( uris );
     SAXReader reader = new SAXReader();
-    reader.setFeature( "http://apache.org/xml/features/disallow-doctype-decl", true );
-    reader.setFeature( XMLConstants.FEATURE_SECURE_PROCESSING, true );
-    reader.setFeature( "http://xml.org/sax/features/external-general-entities", false );
-    reader.setFeature( "http://xml.org/sax/features/external-parameter-entities", false );
-    reader.setFeature( "http://apache.org/xml/features/nonvalidating/load-external-dtd", false );
     reader.setDocumentFactory( factory );
 
     // get bytes from InputStream and cache them so they can be read multiple times
