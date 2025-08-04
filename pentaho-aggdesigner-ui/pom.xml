@@ -5,11 +5,11 @@
   <parent>
     <groupId>pentaho</groupId>
     <artifactId>pentaho-aggdesigner-parent-pom</artifactId>
-    <version>10.2.0.0-SNAPSHOT</version>
+    <version>10.2.0.5-355</version>
   </parent>
   <groupId>pentaho</groupId>
   <artifactId>pentaho-aggdesigner-ui</artifactId>
-  <version>10.2.0.0-SNAPSHOT</version>
+  <version>10.2.0.5-355</version>
   <name>Pentaho Aggregation Designer UI</name>
   <licenses>
     <license>
@@ -25,13 +25,13 @@
   <properties>
     <maven-surefire-plugin.argLine> --add-opens=java.base/java.lang=ALL-UNNAMED </maven-surefire-plugin.argLine>
     <dependency.spring.modules.revision>0.8</dependency.spring.modules.revision>
-    <project.revision>10.2.0.0-SNAPSHOT</project.revision>
-    <mondrian.version>10.2.0.0-SNAPSHOT</mondrian.version>
-    <commons-xul.version>10.2.0.0-SNAPSHOT</commons-xul.version>
-    <mondrian-schemaworkbench-plugins.version>10.2.0.0-SNAPSHOT</mondrian-schemaworkbench-plugins.version>
-    <pentaho-launcher.version>10.2.0.0-SNAPSHOT</pentaho-launcher.version>
+    <project.revision>10.2.0.5-355</project.revision>
+    <mondrian.version>10.2.0.5-355</mondrian.version>
+    <commons-xul.version>10.2.0.5-355</commons-xul.version>
+    <mondrian-schemaworkbench-plugins.version>10.2.0.5-355</mondrian-schemaworkbench-plugins.version>
+    <pentaho-launcher.version>10.2.0.5-355</pentaho-launcher.version>
     <dependency.javassist.revision>3.20.0-GA</dependency.javassist.revision>
-    <pdi.version>10.2.0.0-SNAPSHOT</pdi.version>
+    <pdi.version>10.2.0.5-355</pdi.version>
     <jmock.version>2.4.0</jmock.version>
   </properties>
 
