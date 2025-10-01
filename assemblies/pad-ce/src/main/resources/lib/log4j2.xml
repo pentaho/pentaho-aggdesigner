@@ -10,7 +10,7 @@
    | website: https://logging.apache.org/log4j/2.x/manual/configuration.html
  -->
 
-<Configuration name="AggDesigner" status="INFO" dest="out">
+<Configuration name="AggDesigner" status="INFO" dest="out" monitorInterval="30">
 
     <Appenders>
 
