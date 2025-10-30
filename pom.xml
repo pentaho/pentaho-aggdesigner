@@ -9,7 +9,7 @@
   </parent>
   <groupId>pentaho</groupId>
   <artifactId>pentaho-aggdesigner-parent-pom</artifactId>
-  <version>11.0.0.0-latest</version>
+  <version>11.0.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Pentaho Aggregation Designer Parent</name>
   <description>Container pom for pentaho-aggdesigner-core and pentaho-aggdesigner-ui</description>
