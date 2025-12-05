@@ -19,6 +19,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Result;
@@ -63,6 +64,8 @@ public class SerializationService {
     try {
       String xmlElements[] = new String[3];
       DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+      dbf.setFeature( XMLConstants.FEATURE_SECURE_PROCESSING, true );
+      dbf.setFeature( "http://apache.org/xml/features/disallow-doctype-decl", true );
       DocumentBuilder db = dbf.newDocumentBuilder();
       Document doc = db.parse(new ByteArrayInputStream(xml.getBytes()));
       int c = -1;
@@ -75,7 +78,11 @@ public class SerializationService {
           Source source = new DOMSource(node);
           StringWriter writer = new StringWriter();
           Result result = new StreamResult(writer);
-          Transformer xformer = TransformerFactory.newInstance().newTransformer();
+          TransformerFactory transformerFactory = TransformerFactory.newInstance();
+          transformerFactory.setFeature( XMLConstants.FEATURE_SECURE_PROCESSING, true );
+          transformerFactory.setAttribute( XMLConstants.ACCESS_EXTERNAL_DTD, "" );
+          transformerFactory.setAttribute( XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "" );
+          Transformer xformer = transformerFactory.newTransformer();
           xformer.transform(source, result);
           if (c == -1) {
             String versionInfo = writer.toString();
