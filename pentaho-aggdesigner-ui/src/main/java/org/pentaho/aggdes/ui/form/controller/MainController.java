@@ -403,7 +403,7 @@ public class MainController extends AbstractXulEventHandler {
       public void run() {
         try {
           edu.stanford.ejalbert.BrowserLauncher launcher = new edu.stanford.ejalbert.BrowserLauncher(null);
-          launcher.openURLinBrowser( Messages.getString("MainController.UserGuideURL") ); //$NON-NLS-1$\
+          launcher.openURLinBrowser( "https://docs.pentaho.com/pba-aggregation-designer/11.0-aggregation-designer" ); //$NON-NLS-1$\
         } catch (BrowserLaunchingInitializingException ex) {
           logger.error("an exception occurred", ex);
         } catch (UnsupportedOperatingSystemException ex) {
