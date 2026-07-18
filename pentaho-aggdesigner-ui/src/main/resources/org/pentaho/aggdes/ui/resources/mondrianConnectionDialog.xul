@@ -1,3 +1,14 @@
+<!-- ******************************************************************************
+ *
+ * Pentaho
+ *
+ * Copyright (C) 2026 by Pentaho Canada Inc. : http://www.pentaho.com
+ *
+ * Use of this software is governed by the Business Source License included
+ * in the LICENSE.TXT file.
+ *
+ * Change Date: 2030-06-15
+ ******************************************************************************* -->
 <dialog id="connection_dialog" onload="" buttonlabelcancel="${close}" buttonlabelaccept="${connect}" buttons="accept,cancel"
   ondialogcancel="connectionController.hideConnectionDialog()" ondialogaccept="connectionController.connect()"  width="400"
   height="570" buttonalign="right" title="${connection_dialog_title}" xmlns:pen="http://www.pentaho.org/2008/xul">

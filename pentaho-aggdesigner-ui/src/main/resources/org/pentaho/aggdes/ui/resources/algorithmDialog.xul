@@ -1,3 +1,14 @@
+<!-- ******************************************************************************
+ *
+ * Pentaho
+ *
+ * Copyright (C) 2026 by Pentaho Canada Inc. : http://www.pentaho.com
+ *
+ * Use of this software is governed by the Business Source License included
+ * in the LICENSE.TXT file.
+ *
+ * Change Date: 2030-06-15
+ ******************************************************************************* -->
 <dialog id="algorithm_dialog" onload="" buttonlabelcancel="${cancel}" buttonlabelaccept="${recommend}" buttons="accept,cancel"
   ondialogcancel="algorithmController.closeDialog()" ondialogaccept="algorithmController.startAlgo()"  width="300"
   height="275" buttonalign="right" title="${advisor_dialog_title}">

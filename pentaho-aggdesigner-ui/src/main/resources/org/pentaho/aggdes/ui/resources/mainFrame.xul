@@ -1,4 +1,15 @@
 <?xml version="1.0"?>
+<!-- ******************************************************************************
+ *
+ * Pentaho
+ *
+ * Copyright (C) 2026 by Pentaho Canada Inc. : http://www.pentaho.com
+ *
+ * Use of this software is governed by the Business Source License included
+ * in the LICENSE.TXT file.
+ *
+ * Change Date: 2030-06-15
+ ******************************************************************************* -->
 <window id="agg_des_window" title="${title}" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   height="800" width="1024"
   onload="mainController.onLoad(), aggController.onLoad(), aggListController.onLoad(), algorithmController.onLoad(), statusController.onLoad(), exportHandler.onLoad(), connectionController.onLoad()"
