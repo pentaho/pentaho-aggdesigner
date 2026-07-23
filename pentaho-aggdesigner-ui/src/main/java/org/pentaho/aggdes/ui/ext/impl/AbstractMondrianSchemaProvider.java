@@ -26,7 +26,7 @@ import java.util.Vector;
 
 import mondrian.olap.MondrianDef;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eigenbase.xom.DOMWrapper;

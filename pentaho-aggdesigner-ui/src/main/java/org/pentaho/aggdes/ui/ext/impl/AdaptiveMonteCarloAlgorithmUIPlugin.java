@@ -17,7 +17,7 @@ package org.pentaho.aggdes.ui.ext.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.pentaho.aggdes.ui.ext.AbstractUiExtension;
 import org.pentaho.aggdes.ui.ext.AlgorithmUiExtension;
 

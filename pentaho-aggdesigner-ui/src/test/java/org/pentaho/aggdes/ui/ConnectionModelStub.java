@@ -24,11 +24,9 @@ import org.pentaho.aggdes.ui.form.model.ConnectionModel;
 import org.pentaho.aggdes.ui.model.SchemaModel;
 import org.pentaho.di.core.database.DatabaseMeta;
 import org.pentaho.ui.xul.XulEventSourceAdapter;
-import org.springmodules.validation.bean.BeanValidator;
 
 public class ConnectionModelStub extends XulEventSourceAdapter implements ConnectionModel{
 
-  private BeanValidator beanValidator;
   private String cubeName;
   private List<String> cubeNames = new ArrayList<String>();
   private DatabaseMeta databaseMeta;
@@ -36,10 +34,6 @@ public class ConnectionModelStub extends XulEventSourceAdapter implements Connec
   
   public ConnectionModelStub(Schema schema){
     this.schema = schema;
-  }
-  
-  public BeanValidator getBeanValidator() {
-    return beanValidator;
   }
 
   public String getCubeName() {
@@ -83,12 +77,6 @@ public class ConnectionModelStub extends XulEventSourceAdapter implements Connec
   }
 
   public void loadSchema() throws AggDesignerException {
-      
-  }
-
-  public void setBeanValidator(BeanValidator beanValidator) {
-    
-        // TODO Auto-generated method stub 
       
   }
 
