@@ -24,7 +24,6 @@
   </scm>
   <properties>
     <maven-surefire-plugin.argLine> --add-opens=java.base/java.lang=ALL-UNNAMED </maven-surefire-plugin.argLine>
-    <dependency.spring.modules.revision>0.8</dependency.spring.modules.revision>
     <project.revision>11.1.0.0-SNAPSHOT</project.revision>
     <mondrian.version>11.1.0.0-SNAPSHOT</mondrian.version>
     <commons-xul.version>11.1.0.0-SNAPSHOT</commons-xul.version>
@@ -38,9 +37,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>2.6</version>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commons-lang3.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -113,10 +112,6 @@
       <version>${mondrian.version}</version>
       <scope>compile</scope>
       <exclusions>
-        <exclusion>
-          <artifactId>commons-lang</artifactId>
-          <groupId>commons-lang</groupId>
-        </exclusion>
         <exclusion>
           <artifactId>xml-apis</artifactId>
           <groupId>xml-apis</groupId>
@@ -452,22 +447,6 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springmodules</groupId>
-      <artifactId>spring-modules-validation</artifactId>
-      <version>${dependency.spring.modules.revision}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>spring</artifactId>
-          <groupId>org.springframework</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>xml-apis</artifactId>
-          <groupId>xml-apis</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jersey.media</groupId>

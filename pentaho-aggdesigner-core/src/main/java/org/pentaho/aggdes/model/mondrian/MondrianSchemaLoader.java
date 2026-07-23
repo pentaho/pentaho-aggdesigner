@@ -28,7 +28,7 @@ import mondrian.rolap.RolapConnection;
 import mondrian.rolap.RolapCube;
 import mondrian.rolap.RolapStar;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.pentaho.aggdes.algorithm.impl.AlgorithmImpl;
